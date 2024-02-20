@@ -1,0 +1,51 @@
+/* Base colors */
+:root {
+  --hero-color: #10461B;
+  --body-text-color: #000000;
+  --background-color: #FDFFEE;
+  --green-base: #10461B;
+  --blue-base: #283696;
+  --red-base: #BA1B21;
+  --yellow-base: #F6AE00;
+}
+
+/* Typography */
+body {
+  font-family: 'Lato', sans-serif;
+  color: var(--body-text-color);
+  background-color: var(--background-color);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Inter Tight', sans-serif;
+}
+
+/* Specific to subheadings */
+h2 {
+  font-family: 'Inter', sans-serif;
+}
+
+/* Color scheme for elements */
+a {
+  color: var(--blue-base);
+}
+
+a:hover {
+  color: var(--green-base);
+}
+
+/* Button styling */
+.button {
+  background-color: var(--hero-color);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  text-align: center;
+  display: inline-block;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: var(--yellow-base);
+}
