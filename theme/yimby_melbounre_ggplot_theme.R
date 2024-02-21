@@ -30,8 +30,8 @@ font_add("Lato", "theme/atlas/fonts/Lato/Lato-Regular.ttf")
 showtext_auto()
 
 yimby_colours$complementary <- c(yimby_colours$green_palette[1],
-                             yimby_colours$blue_palette[1],
                              yimby_colours$red_palette[1],
+                             yimby_colours$blue_palette[1],
                              yimby_colours$yellow_palette[1])
 
 yimby_colours$light_dark <- c(yimby_colours$green_palette[1],
