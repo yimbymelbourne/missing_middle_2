@@ -53,174 +53,21 @@ mcg_size <- 20000
 
 ```
 
-## How much land is in `r params$area`? 
 
-There are `r parcels` parcels of land in `r params$area`. But not every piece of land can have housing on it. Of these parcels, `r fois` are on civic land like schools, hospitals, or train stations where development is challenging. Another `r bad_zoning` are in zones that do not development. Finally `r already_developed` properties have already been developed with more than 1 unit, making re-development difficult. 
+## Our missing middle plan for `r area_name` {.tabset}
 
-That leaves `r useful_lots_num` that are available for development. The size of these lots is `r prettyNum(sum(useful_lots$lot_size),big.mark = ",")` square meters, or `r round(as.numeric(sum(useful_lots$lot_size))/mcg_size)` MCGs worth of space to build housing. 
+Summary of our missing middle plan - x storeys near PT etc. 
 
+### Missing middle map
 
+TODO: insert map that is our missing middle plan for this area. 
 
-## Land in Yarra {.tabset}
-### By number of lots
+Includes 6 storeys near train stations and GRZ everywhere else as per the missing middle report. 
 
-```{r}
-
-dwellings_by_type <- dwelling_data %>%
-  group_by(type_short,heritage) %>% 
-  summarise(n = n(),
-            lot_size = sum(lot_size),
-            .groups = "drop") %>% 
-  group_by(type_short) %>% 
-  mutate(n_total = sum(n),
-         lot_size_total = sum(lot_size))  %>% 
-  ungroup() %>% 
-  mutate(heritage = if_else(heritage,
-                            "Subject to heritage controls",
-                            "Free from heritage controls")) 
-
-dwellings_by_type %>% 
-  mutate(type_short = fct_reorder(type_short,n_total)) %>% 
-  ggplot(aes(x = type_short, 
-             y = n,
-             fill = heritage))+
-  coord_flip()+ 
-  geom_bar(stat = "identity")+
-  theme_yimby_mel_caption(text_size = "small",plot_type = "bar",colour_scale = "light_dark") +
-  labs(x = element_blank(),
-       title = paste0("Land in ",params$area," by type"),
-       y = "Number of properties",
-       fill = "Heritage status")
-
-```
-
-### By total area
-
-```{r by total area}
-dwellings_by_type %>% 
-    mutate(type_short = fct_reorder(type_short,lot_size_total)) %>%
-  ggplot(aes(x = type_short, 
-             y = lot_size_total,
-             fill = heritage))+
-  coord_flip()+ 
-  geom_bar(stat = "identity")+
-  theme_yimby_mel_caption(text_size = "small",plot_type = "bar",colour_scale = "light_dark") +
-  labs(x = element_blank(),
-       title = paste0("Land in ",params$area," by type"),
-       y = "Area (sqm)",
-       fill = "Heritage status")+
-  scale_y_continuous(labels = scales::number_format(big.mark = ","))
-
-```
-
-### Table
+Tab that compare
 
 
-```{r}
-library(kableExtra)
-library(gt)
-
-types_zonning <- dwellings_by_type %>% 
-  group_by(heritage) %>% 
-  summarise(n = sum(n),
-            lot_size = sum(lot_size)) %>% 
-  mutate(type_short = "Total")
-
-
-
-
-types_total_new <- dwelling_data %>%
-  filter(!feature_preventing_development,
-         zoning_permits_housing == "Housing permitted",
-         dwellings_est < 2) %>% 
-  group_by(heritage) %>% 
-  summarise(n = n(),
-            lot_size = sum(lot_size),
-            .groups = "drop") %>% 
-  mutate(heritage = if_else(heritage,
-                            "Subject to heritage controls",
-                            "Free from heritage"),
-         type_short = "Total where new housing can be built") 
-
-
-dwellings_by_type %>% 
-  bind_rows(types_zonning) %>% 
-  bind_rows(types_total_new) %>% 
-  group_by(type_short) %>% 
-  mutate(`Share of properties that are heritage` = paste0(round(100*n/sum(n)),"%"),
-         `Share of land that is heritage` =  paste0(round(100*lot_size/sum(lot_size)),"%")
-         ) %>% 
-  rename(`Number of properties` = n,
-         `Area (sqm)` = lot_size,
-         ` ` = heritage) %>% 
-  select(-n_total,-lot_size_total) %>% 
-    gt()  %>% 
-  fmt_number(decimals = 0)
-
-  
-
-```
-
-
-
-## Lot sizes in Yarra {.tabset}
-
-Larger lots can be easier to develop, but Melbourne has been sucssessful in developing even on small lots
-
-### By number of lots
-
-```{r cars}
-library(ggridges)
-
-
-
-
-dwelling_data %>%
-  ggplot() + 
-  geom_density_ridges(aes(x = lot_size, 
-                     fill = heritage_nice,
-                     group = paste0(type_short,heritage),
-                     y = type_short,
-                     weight = lot_size
-                     ),
-                     alpha = .8) +
-  xlim(0,2000)+
-  theme_yimby_mel_caption(text_size = "small",plot_type = "bar",colour_scale = "light_dark") +
-  labs(title = paste0("Land in ",params$area," by size of each lot"),
-       subtitle = "Height represents the number of lots of each size",
-       fill = "Heritage",
-      x = "Size of individual lots",
-      y = element_blank())
-
-```
-
-### By area
-
-```{r }
-
- dwelling_data[rep(seq_along(round(as.numeric(dwelling_data$lot_size/50))), round(as.numeric(dwelling_data$lot_size/50))), ] %>%
-  mutate(group_name = paste0(type_short,heritage)) %>%
-  ggplot() + 
-  geom_density_ridges(aes(x = lot_size, 
-                     fill = heritage_nice,
-                     group = group_name,
-                     y = type_short,
-                     ),
-                     alpha = .8) +
-  xlim(0,2000) +
-  theme_yimby_mel_caption(text_size = "small",
-                          plot_type = "bar",
-                          colour_scale = "light_dark") +
-  labs(title = paste0("Land in ",params$area," by size of each lot"),
-      subtitle = "Height represents the total area taken up by lots of a given lot size",
-       fill = "Heritage",
-      x = "Size of individual lots",
-      y = element_blank())
-
-
-```
-
-## Map
+### Current map
 
 ```{r }
 
@@ -307,18 +154,256 @@ addProviderTiles(providers$CartoDB.Positron)%>%
 ```
 
 
-## Other ideas
 
-### Change in density
-Most LGAs have lower than the average change in density
+## Our plan will 4/5/6/7x `r params$area`'s zoned capacity to deliver more housing 
 
-### Current v YIMBY Melbourne zoned capacity
+Todo - figure out current zoned capacity and then figure out how much we are icnreasing it. 
 
-We could figure out what current zoned capacity is and then figure out what it would be 
+## Housing targets for `r params$area` 
 
-### Proximity to Public transport
+should have x% of Melbourne's housing as a target. 
 
-Most inner LGAs have much better public transport and we could show that 
+With current state target that means xyz homes per year over the next 10 years. 
 
-### Recent development in Yarra
-Show how nothing gets built in GRZ. 
+
+## Without missing middle `r params$area` is falling behind
+
+
+
+
+```{r}
+
+source("R/import_lga_pop_data.R")
+
+lga_pop_change <- lga_pop_change_importer(area_name)
+
+
+lga_pop_change_no <- lga_pop_change %>% 
+  filter(year == 2022,
+         lga_name_2021 == area_name) %>%
+  pull(population_change)
+
+mel_population_change <- lga_pop_change %>% 
+  filter(year == 2022,
+         lga_name_2021 == "All of Melbourne") %>%
+  pull(population_change)
+
+
+  
+pop_change_ratio <- lga_pop_change_no/mel_population_change
+
+## TODO - get PT stops per LGA. 
+
+text_on_growth <- case_when(pop_change_ratio >.9 ~ paste0(params$area, " has been building housing, but cannot rest on its laurels"),
+                            pop_change_ratio >.7 ~ paste0(params$area, " has been building some housing, but it is still barely keeping up with the average for Melbourne."),
+                            T ~ paste0(params$area, " is falling well behind the average for new housing in Melbourne.")
+)
+
+```
+
+
+`r text_on_growth` params$area has amazing public transport, and it needs to do more to ensure that housing is abundant. 
+
+```{r}
+lga_pop_change %>%
+  ggplot(aes( x= year, y = population_change,
+              colour = lga_name_2021))+
+  geom_line(stat = "identity",linewidth = 1)+
+  theme_yimby_mel_caption(caption = "source: ABS. There was a small dip in the<br>2022 population numbers due to COVID which has likely recovered in 2023. ",
+                          text_size = "small",
+                          plot_type = "line",
+                          colour_scale = "c")+
+  labs(title = "Population growth for Melbourne Local Government Areas",
+       subtitle = "Growth since 2014 compared to Melbourne Average",
+       labs = element_blank(),
+       colour = "Area",
+       x = element_blank())+
+  scale_y_continuous(labels = scales::percent_format())
+
+
+```
+
+
+
+## `r area_name` is falling behind because not enough of the area is zoned for more housing. {.tabset}
+
+Not enough housing is being built in `r area_name` because it has not been zoned for housing. 
+
+### By number of lots
+
+```{r}
+
+dwellings_by_type <- dwelling_data %>%
+  group_by(type_short,heritage) %>% 
+  summarise(n = n(),
+            lot_size = sum(lot_size),
+            .groups = "drop") %>% 
+  group_by(type_short) %>% 
+  mutate(n_total = sum(n),
+         lot_size_total = sum(lot_size))  %>% 
+  ungroup() %>% 
+  mutate(heritage = if_else(heritage,
+                            "Subject to heritage controls",
+                            "Free from heritage controls")) 
+
+dwellings_by_type %>% 
+  mutate(type_short = fct_reorder(type_short,n_total)) %>% 
+  ggplot(aes(x = type_short, 
+             y = n,
+             fill = heritage))+
+  coord_flip()+ 
+  geom_bar(stat = "identity")+
+  theme_yimby_mel_caption(text_size = "small",plot_type = "bar",colour_scale = "light_dark") +
+  labs(x = element_blank(),
+       title = paste0("Land in ",area_name," by type"),
+       y = "Number of properties",
+       fill = "Heritage status")
+
+```
+
+### By total area
+
+```{r by total area}
+dwellings_by_type %>% 
+    mutate(type_short = fct_reorder(type_short,lot_size_total)) %>%
+  ggplot(aes(x = type_short, 
+             y = lot_size_total,
+             fill = heritage))+
+  coord_flip()+ 
+  geom_bar(stat = "identity")+
+  theme_yimby_mel_caption(text_size = "small",plot_type = "bar",colour_scale = "light_dark") +
+  labs(x = element_blank(),
+       title = paste0("Land in ",area_name," by type"),
+       y = "Area (sqm)",
+       fill = "Heritage status")+
+  scale_y_continuous(labels = scales::number_format(big.mark = ","))
+
+```
+
+### Table
+
+
+```{r}
+library(kableExtra)
+library(gt)
+
+types_zonning <- dwellings_by_type %>% 
+  group_by(heritage) %>% 
+  summarise(n = sum(n),
+            lot_size = sum(lot_size)) %>% 
+  mutate(type_short = "Total")
+
+
+
+
+types_total_new <- dwelling_data %>%
+  filter(!feature_preventing_development,
+         zoning_permits_housing == "Housing permitted",
+         dwellings_est < 2) %>% 
+  group_by(heritage) %>% 
+  summarise(n = n(),
+            lot_size = sum(lot_size),
+            .groups = "drop") %>% 
+  mutate(heritage = if_else(heritage,
+                            "Subject to heritage controls",
+                            "Free from heritage"),
+         type_short = "Total where new housing can be built") 
+
+
+dwellings_by_type %>% 
+  bind_rows(types_zonning) %>% 
+  bind_rows(types_total_new) %>% 
+  group_by(type_short) %>% 
+  mutate(`Share of properties that are heritage` = paste0(round(100*n/sum(n)),"%"),
+         `Share of land that is heritage` =  paste0(round(100*lot_size/sum(lot_size)),"%")
+         ) %>% 
+  rename(`Number of properties` = n,
+         `Area (sqm)` = lot_size,
+         ` ` = heritage) %>% 
+  select(-n_total,-lot_size_total) %>% 
+    gt()  %>% 
+  fmt_number(decimals = 0)
+
+  
+
+```
+
+
+
+
+Housing is falling behind because nothing gets built in NRZ/GRZ. 
+
+insert building approval data for this LGA by zone category
+
+
+## Heritage should not be a barrier to housing abudance 
+Housing targets should not include heritage. If `r params$area` wants heritage then it might need taller building elsewhere. 
+
+## Lot sizes are no barrier to growth
+
+This LGA has big lots, but we can build on small lots anyway. 
+
+## Lot sizes in Yarra {.tabset}
+
+Larger lots can be easier to develop, but Melbourne has been sucssessful in developing even on small lots
+
+### By number of lots
+
+```{r cars}
+library(ggridges)
+
+
+dwelling_data %>%
+  ggplot() + 
+  geom_density_ridges(aes(x = lot_size, 
+                     fill = heritage_nice,
+                     group = paste0(type_short,heritage),
+                     y = type_short,
+                     weight = lot_size
+                     ),
+                     alpha = .8) +
+  xlim(0,2000)+
+  theme_yimby_mel_caption(text_size = "small",plot_type = "bar",colour_scale = "light_dark") +
+  labs(title = paste0("Land in ",params$area," by size of each lot"),
+       subtitle = "Height represents the number of lots of each size",
+       fill = "Heritage",
+      x = "Size of individual lots",
+      y = element_blank())
+
+```
+
+### By area
+
+```{r }
+
+ dwelling_data[rep(seq_along(round(as.numeric(dwelling_data$lot_size/50))), round(as.numeric(dwelling_data$lot_size/50))), ] %>%
+  mutate(group_name = paste0(type_short,heritage)) %>%
+  ggplot() + 
+  geom_density_ridges(aes(x = lot_size, 
+                     fill = heritage_nice,
+                     group = group_name,
+                     y = type_short,
+                     ),
+                     alpha = .8) +
+  xlim(0,2000) +
+  theme_yimby_mel_caption(text_size = "small",
+                          plot_type = "bar",
+                          colour_scale = "light_dark") +
+  labs(title = paste0("Land in ",params$area," by size of each lot"),
+      subtitle = "Height represents the total area taken up by lots of a given lot size",
+       fill = "Heritage",
+      x = "Size of individual lots",
+      y = element_blank())
+
+
+```
+
+## Why missing middle will make housing better in Melbourne
+
+Recycle text from missing middle report. 
+
+## Appendix A: `r params$area` land profile in ? 
+
+There are `r parcels` parcels of land in `r params$area`. But not every piece of land can have housing on it. Of these parcels, `r fois` are on civic land like schools, hospitals, or train stations where development is challenging. Another `r bad_zoning` are in zones that do not development. Finally `r already_developed` properties have already been developed with more than 1 unit, making re-development difficult. 
+
+That leaves `r useful_lots_num` that are available for development. The size of these lots is `r prettyNum(sum(useful_lots$lot_size),big.mark = ",")` square meters, or `r round(as.numeric(sum(useful_lots$lot_size))/mcg_size)` MCGs worth of space to build housing. 
