@@ -2,6 +2,7 @@ source("R/00renv.R")
 
 
 run_for_area <- function(area_name) {
+  
 dwelling_data_sf <- dwelling_data_raw %>% 
   filter(lga_name_2022 == area_name) %>% 
   mutate(type_short = case_when(feature_preventing_development ~"Civic land",
@@ -32,7 +33,7 @@ lgas <- dwelling_data_raw %>%
   filter(n > 10000) %>% 
   pull(lga_name_2022)
 
-run_for_area("Bayside (Vic.)")
+run_for_area("Melbourne")
 
 walk(lgas,run_for_area)
 

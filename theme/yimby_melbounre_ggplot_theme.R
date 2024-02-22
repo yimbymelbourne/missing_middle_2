@@ -57,7 +57,7 @@ theme_yimby_mel_caption <- function(caption_text = " ",
   #Pull in fill types
   fill_colours <- function(){
     if(substr(tolower(colour_scale),1,1) == "c")  {   op <-   scale_fill_manual(values = yimby_colours$complementary)
-    } else if(substr(tolower(colour_scale),1,4) == "gree") {   op <-   scale_fill_manual(values = yimby_colours$green_base)
+    } else if(substr(tolower(colour_scale),1,4) == "gree") {   op <-   scale_fill_manual(values = yimby_colours$green_palette)
     } else if(substr(tolower(colour_scale),1,4) == "ligh") {   op <-   scale_fill_manual(values = yimby_colours$light_dark)
     } else if(substr(tolower(colour_scale),1,4) == "blue") {   op <-   scale_fill_manual(values = yimby_colours$blue_palette)
     } else if(substr(tolower(colour_scale),1,3) == "red") {   op <-   scale_fill_manual(values = yimby_colours$red_palette)

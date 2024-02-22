@@ -18,26 +18,26 @@ library(strayr)
 library(showtext)
 library(ggtext)
 
-if(Sys.info()[7] == "jonathannolan") {
-# create connection to postgres 
-con <- dbConnect(RPostgres::Postgres(),
-                 host = 'localhost', # host name, can be website/server
-                 port = 5433, # default port of postgres
-                 dbname = 'postgres', # name of database in postgres
-                 user = 'postgres', # the default user
-                 password = rstudioapi::askForPassword(), # password of user
-                 options="-c search_path=public" # specify what schema to connect to
-) 
-
-
-dwelling_data_raw <- read_sf(con,
-                             "dwelling_data_clean")  
-
-} else{ print("Make sure you have the dwelling map file inside your data folder', you can download it here https://github.com/jonathananolan/Melbourne-dwelling-map ")
+# if(Sys.info()[7] == "jonathannolan") {
+# # create connection to postgres 
+# con <- dbConnect(RPostgres::Postgres(),
+#                  host = 'localhost', # host name, can be website/server
+#                  port = 5433, # default port of postgres
+#                  dbname = 'postgres', # name of database in postgres
+#                  user = 'postgres', # the default user
+#                  password = rstudioapi::askForPassword(), # password of user
+#                  options="-c search_path=public" # specify what schema to connect to
+# ) 
+# 
+# 
+# dwelling_data_raw <- read_sf(con,
+#                              "dwelling_data_clean")  
+# 
+# } else{ print("Make sure you have the dwelling map file inside your data folder', you can download it here https://github.com/jonathananolan/Melbourne-dwelling-map ")
 
 dwelling_data_raw <-read_sf("data/Melbourne dwelling data.gpkg")
 
-}
+# }
 
 options(digits=6)
 
