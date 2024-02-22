@@ -32,7 +32,7 @@ lgas <- dwelling_data_raw %>%
   filter(n > 10000) %>% 
   pull(lga_name_2022)
 
-run_for_area("Yarra")
+run_for_area("Bayside (Vic.)")
 
 walk(lgas,run_for_area)
 
