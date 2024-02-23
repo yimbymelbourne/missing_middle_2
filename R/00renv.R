@@ -6,7 +6,7 @@
 #load package from save file
 renv::restore()
 
-library(DBI)
+#YTYYlibrary(DBI)
 library(RPostgres)
 library(sf)
 library(tidyverse)
@@ -17,6 +17,7 @@ library(furrr)
 library(strayr)
 library(showtext)
 library(ggtext)
+library(data.table)
 
 if(Sys.info()[7] == "jonathannolan") {
 # create connection to postgres 
@@ -35,7 +36,7 @@ dwelling_data_raw <- read_sf(con,
 
 } else{ print("Make sure you have the dwelling map file inside your data folder', you can download it here https://github.com/jonathananolan/Melbourne-dwelling-map ")
 
-dwelling_data_raw <-read_sf("data/Melbourne dwelling data.gpkg")
+dwelling_data_raw <-read_sf("data/dwelling_data.gpkg")
 
 }
 
@@ -56,3 +57,5 @@ meters_to_numeric <- function(distances) {
 
 
 source("theme/yimby_melbounre_ggplot_theme.R")
+
+source("data/import_lga_pop_data.R")

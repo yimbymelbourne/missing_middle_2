@@ -12,7 +12,7 @@ params:
 
 ```{r setup, include=FALSE}
 
-knitr::opts_chunk$set(message = FALSE, warning = FALSE, error = FALSE, echo = FALSE, dpi = 300,fig.width = 7, fig.height = 4)
+knitr::opts_chunk$set(message = FALSE, warning = FALSE, error = FALSE, echo = FALSE, fig.width = 7, fig.height = 4)
 
 parcels <- prettyNum(nrow(dwelling_data),big.mark = ",")
 
@@ -37,7 +37,6 @@ already_developed <- dwelling_data %>%
   prettyNum(big.mark = ",")
 
 
-
 useful_lots_sf <- dwelling_data_sf %>% 
     filter(zoning_permits_housing == "Housing permitted",
          dwellings_est<2,
@@ -46,6 +45,10 @@ useful_lots_sf <- dwelling_data_sf %>%
 
 useful_lots <- useful_lots_sf %>% 
   st_drop_geometry()
+
+n_heritage <- useful_lots %>% filter(heritage == TRUE) %>% nrow
+percent_heritage <- (useful_lots %>% filter(heritage == TRUE) %>% nrow / useful_lots %>% nrow) * 100
+averages <- params$melbourne_averages
 
 useful_lots_num <-  prettyNum(nrow(useful_lots),big.mark = ",")
 
@@ -59,9 +62,11 @@ There are `r parcels` parcels of land in `r params$area`. But not every piece of
 
 That leaves `r useful_lots_num` that are available for development. The size of these lots is `r prettyNum(sum(useful_lots$lot_size),big.mark = ",")` square meters, or `r round(as.numeric(sum(useful_lots$lot_size))/mcg_size)` MCGs worth of space to build housing. 
 
+### Heritage Coverage
 
+Out of the `r useful_lots_num` lots available for development, `r n_heritage` are covered under a heritage overlay, restricting the ability to build new housing. In total, heritage covers `r percent_heritage` of the usable lots in `r params$area`. This is `r ifelse(percent_heritage > melbourne_averages$useful_lots_heritage_pc, "above", "below")` the Melbourne average  of `r melbourne_averages$useful_lots_heritage_pc `.
 
-## Land in Yarra {.tabset}
+## Land in `r params$area`` {.tabset}
 ### By number of lots
 
 ```{r}
@@ -234,7 +239,7 @@ lot_by_type <- dwelling_data_sf %>%
          zoning_permits_housing != "Housing permitted" ~ "Housing not permitted",
          T ~ zone_short)) %>%
     st_buffer(0) %>%
-  mutate(geometry = lwgeom::lwgeom_make_valid(geometry)) %>%
+  mutate(geometry = lwgeom::lwgeom_make_valid(geom)) %>%
   mutate(category = as.factor(category)) %>%
   group_by(category) %>% 
   summarise(geometry = st_union(st_combine(geometry))) %>% 
@@ -306,11 +311,25 @@ addProviderTiles(providers$CartoDB.Positron)%>%
 
 ```
 
+### Population and Density
+``` {r }
+
+density = mel_lga_populations %>% filter(lga_name_2021 == params$area) %>% select(final_density)
+change_population = mel_lga_populations %>% filter(lga_name_2021 == params$area) %>% select(population_growth)
+
+```
+
+`r params$area` population has grown with a percentage change of `r change_population` from `r start_year` until `r end_year`, where all of Melbourne has grown by `r melbourne_averages$melbourne_population_change_pc`
+
+
+`r params$area` has a density of `r density` (pop/sqkm), which is `r ifelse(density > melbourne_averages$melbourne_average_density_raw, "above", "below" )` the Melbourne average of `r melbourne_averages$melbourne_average_density_raw`.
+
+
 
 ## Other ideas
 
-### Change in density
-Most LGAs have lower than the average change in density
+
+### Eligibility for Future Homes
 
 ### Current v YIMBY Melbourne zoned capacity
 

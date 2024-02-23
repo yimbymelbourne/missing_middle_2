@@ -1,0 +1,567 @@
+LGA_CODE21,LGA_NAME21,STE_CODE21,STE_NAME21,AUS_CODE21,AUS_NAME21,AREASQKM21,LOCI_URI21,SHAPE_Leng,SHAPE_Area
+"10050",Albury,"1",New South Wales,AUS,Australia,305.63860000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/10050,1.32176769636,0.03056041434
+"10180",Armidale Regional,"1",New South Wales,AUS,Australia,7809.44060000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/10180,6.03458311048,0.73282482165
+"10250",Ballina,"1",New South Wales,AUS,Australia,484.96920000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/10250,1.51112132288,0.04484344174
+"10300",Balranald,"1",New South Wales,AUS,Australia,21690.74930000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/10300,11.48991287470,2.11552838978
+"10470",Bathurst Regional,"1",New South Wales,AUS,Australia,3817.86450000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/10470,5.39511438318,0.37014882814
+"10500",Bayside (NSW),"1",New South Wales,AUS,Australia,50.62040000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/10500,0.57641488598,0.00493714012
+"10550",Bega Valley,"1",New South Wales,AUS,Australia,6278.50130000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/10550,6.14082122474,0.63417042352
+"10600",Bellingen,"1",New South Wales,AUS,Australia,1600.43380000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/10600,2.31147800277,0.15023502001
+"10650",Berrigan,"1",New South Wales,AUS,Australia,2065.88780000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/10650,2.91770021088,0.20581792190
+"10750",Blacktown,"1",New South Wales,AUS,Australia,238.84710000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/10750,0.74129059668,0.02323853699
+"10800",Bland,"1",New South Wales,AUS,Australia,8557.65360000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/10800,5.65858842552,0.83408208829
+"10850",Blayney,"1",New South Wales,AUS,Australia,1524.64700000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/10850,2.28606638915,0.14809143916
+"10900",Blue Mountains,"1",New South Wales,AUS,Australia,1431.14420000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/10900,3.09787964351,0.13917299058
+"10950",Bogan,"1",New South Wales,AUS,Australia,14599.89960000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/10950,7.41067791672,1.38661479243
+"11150",Bourke,"1",New South Wales,AUS,Australia,41598.37220000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/11150,10.61903568840,3.88597337009
+"11200",Brewarrina,"1",New South Wales,AUS,Australia,19162.02960000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/11200,9.88993612572,1.78796400005
+"11250",Broken Hill,"1",New South Wales,AUS,Australia,170.11530000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/11250,0.61020821230,0.01622582106
+"11300",Burwood,"1",New South Wales,AUS,Australia,7.12820000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/11300,0.11916528627,0.00069472363
+"11350",Byron,"1",New South Wales,AUS,Australia,565.80270000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/11350,1.55929849247,0.05219598273
+"11400",Cabonne,"1",New South Wales,AUS,Australia,6022.34960000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/11400,6.71622660322,0.58206002794
+"11450",Camden,"1",New South Wales,AUS,Australia,201.52780000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/11450,0.78193909989,0.01966790489
+"11500",Campbelltown (NSW),"1",New South Wales,AUS,Australia,311.41170000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/11500,0.99264177591,0.03041834721
+"11520",Canada Bay,"1",New South Wales,AUS,Australia,19.92390000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/11520,0.43823207679,0.00194089507
+"11570",Canterbury-Bankstown,"1",New South Wales,AUS,Australia,110.23740000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/11570,0.71077806935,0.01074767189
+"11600",Carrathool,"1",New South Wales,AUS,Australia,18934.48530000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/11600,11.01039972110,1.83949564038
+"11650",Central Coast (NSW),"1",New South Wales,AUS,Australia,1681.00590000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/11650,5.26114695710,0.16275112434
+"11700",Central Darling,"1",New South Wales,AUS,Australia,53492.19300000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/11700,16.19896091020,5.09757814012
+"11720",Cessnock,"1",New South Wales,AUS,Australia,1965.15930000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/11720,2.98220615314,0.18944971289
+"11730",Clarence Valley,"1",New South Wales,AUS,Australia,10428.68040000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/11730,7.20568487649,0.97200588963
+"11750",Cobar,"1",New South Wales,AUS,Australia,45575.35120000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/11750,13.68513699460,4.34373632044
+"11800",Coffs Harbour,"1",New South Wales,AUS,Australia,1173.74350000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/11800,2.55729275069,0.10994545238
+"12000",Coolamon,"1",New South Wales,AUS,Australia,2430.90370000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/12000,2.75871243459,0.23898055218
+"12150",Coonamble,"1",New South Wales,AUS,Australia,9916.05350000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/12150,5.70290550304,0.93525859504
+"12160",Cootamundra-Gundagai Regional,"1",New South Wales,AUS,Australia,3981.41720000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/12160,5.27439470445,0.39243918718
+"12350",Cowra,"1",New South Wales,AUS,Australia,2808.78210000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/12350,4.30511555252,0.27345223710
+"12380",Cumberland,"1",New South Wales,AUS,Australia,72.74960000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/12380,0.51618202716,0.00708653372
+"12390",Dubbo Regional,"1",New South Wales,AUS,Australia,7534.52510000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/12390,5.62963673400,0.72238737694
+"12700",Dungog,"1",New South Wales,AUS,Australia,2249.99830000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/12700,2.62782989105,0.21554517773
+"12730",Edward River,"1",New South Wales,AUS,Australia,8883.44630000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/12730,5.92887468222,0.87898666811
+"12750",Eurobodalla,"1",New South Wales,AUS,Australia,3428.16950000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/12750,4.59512229493,0.34243127941
+"12850",Fairfield,"1",New South Wales,AUS,Australia,101.50720000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/12850,0.65256207889,0.00989007408
+"12870",Federation,"1",New South Wales,AUS,Australia,5684.92530000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/12870,6.27295667310,0.56473184976
+"12900",Forbes,"1",New South Wales,AUS,Australia,4710.12800000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/12900,5.12684133317,0.45660866319
+"12930",Georges River,"1",New South Wales,AUS,Australia,38.33750000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/12930,0.56667827010,0.00373993175
+"12950",Gilgandra,"1",New South Wales,AUS,Australia,4831.50570000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/12950,3.87805230882,0.45924862258
+"13010",Glen Innes Severn,"1",New South Wales,AUS,Australia,5479.97700000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/13010,4.83865458865,0.51057489515
+"13310",Goulburn Mulwaree,"1",New South Wales,AUS,Australia,3220.07960000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/13310,4.79309041626,0.31748197908
+"13340",Greater Hume Shire,"1",New South Wales,AUS,Australia,5749.38750000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/13340,5.60911484144,0.57290664971
+"13450",Griffith,"1",New South Wales,AUS,Australia,1639.17320000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/13450,2.32908649918,0.16051747881
+"13550",Gunnedah,"1",New South Wales,AUS,Australia,4987.02950000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/13550,5.25284716748,0.47121335036
+"13660",Gwydir,"1",New South Wales,AUS,Australia,9259.65440000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/13660,6.72311979641,0.86231874770
+"13800",Hawkesbury,"1",New South Wales,AUS,Australia,2775.13780000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/13800,3.91064553713,0.26876362988
+"13850",Hay,"1",New South Wales,AUS,Australia,11325.93240000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/13850,7.53504375942,1.10932073871
+"13910",Hilltops,"1",New South Wales,AUS,Australia,7140.88650000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/13910,6.64865182694,0.69970313983
+"14000",Hornsby,"1",New South Wales,AUS,Australia,455.03740000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/14000,2.47648865916,0.04419329904
+"14100",Hunters Hill,"1",New South Wales,AUS,Australia,5.71690000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/14100,0.21815804123,0.00055682615
+"14170",Inner West,"1",New South Wales,AUS,Australia,35.21150000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/14170,0.42788816758,0.00343160167
+"14220",Inverell,"1",New South Wales,AUS,Australia,9404.75640000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/14220,6.93110426756,0.87434734801
+"14300",Junee,"1",New South Wales,AUS,Australia,2030.02220000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/14300,2.62956194402,0.20000809972
+"14350",Kempsey,"1",New South Wales,AUS,Australia,3375.67040000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/14350,3.91700056698,0.31864783244
+"14400",Kiama,"1",New South Wales,AUS,Australia,257.66380000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/14400,1.04249400102,0.02534457389
+"14500",Ku-ring-gai,"1",New South Wales,AUS,Australia,85.40930000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/14500,0.50352933164,0.00830912547
+"14550",Kyogle,"1",New South Wales,AUS,Australia,3584.18290000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/14550,4.01329597426,0.33068854541
+"14600",Lachlan,"1",New South Wales,AUS,Australia,14968.25390000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/14600,8.79108137839,1.44295958018
+"14650",Lake Macquarie,"1",New South Wales,AUS,Australia,648.63930000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/14650,3.05071017725,0.06261092839
+"14700",Lane Cove,"1",New South Wales,AUS,Australia,10.47890000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/14700,0.24966107521,0.00102051485
+"14750",Leeton,"1",New South Wales,AUS,Australia,1167.18760000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/14750,2.02801213239,0.11460956946
+"14850",Lismore,"1",New South Wales,AUS,Australia,1287.70420000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/14850,2.50860334770,0.11896163297
+"14870",Lithgow,"1",New South Wales,AUS,Australia,4512.25610000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/14870,5.07060650750,0.43671850243
+"14900",Liverpool,"1",New South Wales,AUS,Australia,305.74010000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/14900,1.34684379065,0.02981333945
+"14920",Liverpool Plains,"1",New South Wales,AUS,Australia,5082.23980000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/14920,4.91981440231,0.48273384976
+"14950",Lockhart,"1",New South Wales,AUS,Australia,2895.80490000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/14950,2.77637908497,0.28707981467
+"15050",Maitland,"1",New South Wales,AUS,Australia,391.50890000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/15050,1.21058727426,0.03765381637
+"15240",Mid-Coast,"1",New South Wales,AUS,Australia,10053.86330000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/15240,6.89603555712,0.95968714998
+"15270",Mid-Western Regional,"1",New South Wales,AUS,Australia,8752.25890000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/15270,7.04078837116,0.84068822444
+"15300",Moree Plains,"1",New South Wales,AUS,Australia,17902.70330000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/15300,9.26140524463,1.66173402989
+"15350",Mosman,"1",New South Wales,AUS,Australia,8.65030000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/15350,0.21607849514,0.00084254019
+"15520",Murray River,"1",New South Wales,AUS,Australia,11863.01620000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/15520,11.69456456060,1.17599152261
+"15560",Murrumbidgee,"1",New South Wales,AUS,Australia,6880.79020000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/15560,5.74745559580,0.67901279423
+"15650",Muswellbrook,"1",New South Wales,AUS,Australia,3404.88410000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/15650,3.99222903474,0.32650104586
+"15700",Nambucca Valley,"1",New South Wales,AUS,Australia,1491.34310000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/15700,2.06651619731,0.14039769834
+"15750",Narrabri,"1",New South Wales,AUS,Australia,13014.99370000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/15750,6.25964823129,1.22117447118
+"15800",Narrandera,"1",New South Wales,AUS,Australia,4116.34580000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/15800,3.96593290901,0.40457558819
+"15850",Narromine,"1",New South Wales,AUS,Australia,5261.51650000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/15850,4.15463684671,0.50337165455
+"15900",Newcastle,"1",New South Wales,AUS,Australia,186.72550000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/15900,1.26906959334,0.01799202367
+"15950",North Sydney,"1",New South Wales,AUS,Australia,10.49100000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/15950,0.26536680820,0.00102175830
+"15990",Northern Beaches,"1",New South Wales,AUS,Australia,254.20720000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/15990,1.96465102505,0.02471853353
+"16100",Oberon,"1",New South Wales,AUS,Australia,3625.04700000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/16100,4.84099813832,0.35327376694
+"16150",Orange,"1",New South Wales,AUS,Australia,284.21590000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/16150,0.96225631842,0.02752217867
+"16200",Parkes,"1",New South Wales,AUS,Australia,5957.61370000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/16200,4.30285664205,0.57406225869
+"16260",Parramatta,"1",New South Wales,AUS,Australia,83.83030000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/16260,0.56911133832,0.00816172619
+"16350",Penrith,"1",New South Wales,AUS,Australia,404.70210000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/16350,1.06886942984,0.03938613349
+"16380",Port Macquarie-Hastings,"1",New South Wales,AUS,Australia,3682.39150000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/16380,3.90729861501,0.34925404413
+"16400",Port Stephens,"1",New South Wales,AUS,Australia,858.43570000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/16400,2.96504100763,0.08257115120
+"16490",Queanbeyan-Palerang Regional,"1",New South Wales,AUS,Australia,5319.00750000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/16490,6.09416487375,0.52789782513
+"16550",Randwick,"1",New South Wales,AUS,Australia,36.33100000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/16550,0.47223515614,0.00354329476
+"16610",Richmond Valley,"1",New South Wales,AUS,Australia,3047.37480000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/16610,3.43195873571,0.28233213098
+"16700",Ryde,"1",New South Wales,AUS,Australia,40.47460000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/16700,0.38406676009,0.00394040475
+"16900",Shellharbour,"1",New South Wales,AUS,Australia,147.42080000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/16900,0.99882742410,0.01448428860
+"16950",Shoalhaven,"1",New South Wales,AUS,Australia,4567.20110000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/16950,5.47172240479,0.45148400291
+"17000",Singleton,"1",New South Wales,AUS,Australia,4892.71680000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/17000,4.66073019851,0.47030592354
+"17040",Snowy Monaro Regional,"1",New South Wales,AUS,Australia,15164.79040000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/17040,7.74920359741,1.52339257038
+"17080",Snowy Valleys,"1",New South Wales,AUS,Australia,8958.92150000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/17080,8.20235213646,0.89256017809
+"17100",Strathfield,"1",New South Wales,AUS,Australia,14.00080000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/17100,0.20718724684,0.00136437884
+"17150",Sutherland Shire,"1",New South Wales,AUS,Australia,333.58060000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/17150,2.46696304039,0.03258040930
+"17200",Sydney,"1",New South Wales,AUS,Australia,26.67620000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/17200,0.41679091853,0.00259985134
+"17310",Tamworth Regional,"1",New South Wales,AUS,Australia,9884.35050000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/17310,7.72529099470,0.93248901015
+"17350",Temora,"1",New South Wales,AUS,Australia,2802.01590000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/17350,3.03741768895,0.27467117642
+"17400",Tenterfield,"1",New South Wales,AUS,Australia,7324.30720000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/17400,6.59346613069,0.67784186918
+"17420",The Hills Shire,"1",New South Wales,AUS,Australia,386.15830000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/17420,1.43997388691,0.03750580008
+"17550",Tweed,"1",New South Wales,AUS,Australia,1307.78530000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/17550,2.45937106647,0.12037185359
+"17620",Upper Hunter Shire,"1",New South Wales,AUS,Australia,8096.08890000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/17620,7.33841632578,0.77242153331
+"17640",Upper Lachlan Shire,"1",New South Wales,AUS,Australia,7127.39570000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/17640,7.51696429136,0.69892075315
+"17650",Uralla,"1",New South Wales,AUS,Australia,3226.53270000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/17650,4.08540483699,0.30319867277
+"17750",Wagga Wagga,"1",New South Wales,AUS,Australia,4824.48880000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/17750,4.61422533477,0.47750435906
+"17850",Walcha,"1",New South Wales,AUS,Australia,6261.02430000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/17850,5.18755391410,0.59230764945
+"17900",Walgett,"1",New South Wales,AUS,Australia,22308.25280000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/17900,9.79976737144,2.08200914711
+"17950",Warren,"1",New South Wales,AUS,Australia,10753.76720000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/17950,7.78689336065,1.01906500879
+"18020",Warrumbungle Shire,"1",New South Wales,AUS,Australia,12372.12000000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/18020,8.24068289774,1.17410419565
+"18050",Waverley,"1",New South Wales,AUS,Australia,9.35060000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/18050,0.19917961693,0.00091131992
+"18100",Weddin,"1",New South Wales,AUS,Australia,3414.85660000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/18100,4.17107669456,0.33274579126
+"18200",Wentworth,"1",New South Wales,AUS,Australia,26255.93380000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/18200,11.27207509250,2.54964703685
+"18250",Willoughby,"1",New South Wales,AUS,Australia,22.42570000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/18250,0.35135836572,0.00218348464
+"18350",Wingecarribee,"1",New South Wales,AUS,Australia,2689.34150000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/18350,3.36732560251,0.26390290621
+"18400",Wollondilly,"1",New South Wales,AUS,Australia,2555.43410000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/18400,3.85033246323,0.24966456187
+"18450",Wollongong,"1",New South Wales,AUS,Australia,684.30760000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/18450,2.15330921089,0.06706519860
+"18500",Woollahra,"1",New South Wales,AUS,Australia,12.25840000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/18500,0.29972115944,0.00119428766
+"18710",Yass Valley,"1",New South Wales,AUS,Australia,3995.01700000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/18710,3.98512918743,0.39425442879
+"19399",Unincorporated NSW,"1",New South Wales,AUS,Australia,93208.91940000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/19399,19.36896068570,8.77370709859
+"19499",No usual address (NSW),"1",New South Wales,AUS,Australia,0.00000000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/19499,0.00000000000,0.00000000000
+"19799",Migratory - Offshore - Shipping (NSW),"1",New South Wales,AUS,Australia,0.00000000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/19799,0.00000000000,0.00000000000
+"20110",Alpine,"2",Victoria,AUS,Australia,4788.15700000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/20110,4.53221079016,0.48380086802
+"20260",Ararat,"2",Victoria,AUS,Australia,4211.11720000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/20260,3.97775736953,0.42893753480
+"20570",Ballarat,"2",Victoria,AUS,Australia,739.03210000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/20570,1.65178108419,0.07529638994
+"20660",Banyule,"2",Victoria,AUS,Australia,62.54020000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/20660,0.58285180312,0.00639217059
+"20740",Bass Coast,"2",Victoria,AUS,Australia,865.80940000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/20740,2.90808010011,0.08942091065
+"20830",Baw Baw,"2",Victoria,AUS,Australia,4027.62870000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/20830,4.35965671453,0.41304161552
+"20910",Bayside (Vic.),"2",Victoria,AUS,Australia,37.21110000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/20910,0.32905228717,0.00381385590
+"21010",Benalla,"2",Victoria,AUS,Australia,2352.63980000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/21010,2.81937627789,0.23690505852
+"21110",Boroondara,"2",Victoria,AUS,Australia,60.17760000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/21110,0.48124993142,0.00615776668
+"21180",Brimbank,"2",Victoria,AUS,Australia,123.39910000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/21180,0.69548649367,0.01261480509
+"21270",Buloke,"2",Victoria,AUS,Australia,7998.24700000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/21270,5.49130464559,0.79861044662
+"21370",Campaspe,"2",Victoria,AUS,Australia,4519.07300000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/21370,5.40826824468,0.45366687002
+"21450",Cardinia,"2",Victoria,AUS,Australia,1282.56710000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/21450,2.12660587422,0.13170443427
+"21610",Casey,"2",Victoria,AUS,Australia,409.42870000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/21610,1.21242626361,0.04205566354
+"21670",Central Goldfields,"2",Victoria,AUS,Australia,1532.78430000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/21670,2.52517219602,0.15518160032
+"21750",Colac Otway,"2",Victoria,AUS,Australia,3437.47000000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/21750,3.99196374491,0.35475736402
+"21830",Corangamite,"2",Victoria,AUS,Australia,4407.49200000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/21830,5.72787431254,0.45334199756
+"21890",Darebin,"2",Victoria,AUS,Australia,53.47120000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/21890,0.46381300138,0.00546522609
+"22110",East Gippsland,"2",Victoria,AUS,Australia,20939.50160000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/22110,9.19356286382,2.13024980339
+"22170",Frankston,"2",Victoria,AUS,Australia,129.59810000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/22170,0.50534036626,0.01331747770
+"22250",Gannawarra,"2",Victoria,AUS,Australia,3737.59790000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/22250,4.28281946434,0.37244411922
+"22310",Glen Eira,"2",Victoria,AUS,Australia,38.69080000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/22310,0.29267766228,0.00396346991
+"22410",Glenelg,"2",Victoria,AUS,Australia,6218.78840000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/22410,4.79503798734,0.63678624523
+"22490",Golden Plains,"2",Victoria,AUS,Australia,2703.38990000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/22490,3.60041075832,0.27686007402
+"22620",Greater Bendigo,"2",Victoria,AUS,Australia,2999.97170000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/22620,3.70065842174,0.30265866045
+"22670",Greater Dandenong,"2",Victoria,AUS,Australia,129.54660000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/22670,0.52348712830,0.01328916168
+"22750",Greater Geelong,"2",Victoria,AUS,Australia,1247.98720000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/22750,3.15253066640,0.12812959595
+"22830",Greater Shepparton,"2",Victoria,AUS,Australia,2421.90920000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/22830,3.10054920218,0.24329213901
+"22910",Hepburn,"2",Victoria,AUS,Australia,1472.98430000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/22910,2.80118051218,0.14972892918
+"22980",Hindmarsh,"2",Victoria,AUS,Australia,7524.18230000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/22980,4.32909356067,0.75258621393
+"23110",Hobsons Bay,"2",Victoria,AUS,Australia,64.24050000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/23110,0.55951986097,0.00657662175
+"23190",Horsham,"2",Victoria,AUS,Australia,4266.76900000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/23190,4.56881174537,0.43096744623
+"23270",Hume,"2",Victoria,AUS,Australia,503.84880000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/23270,1.32007646784,0.05140004851
+"23350",Indigo,"2",Victoria,AUS,Australia,2040.47100000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/23350,4.29751390737,0.20453248633
+"23430",Kingston (Vic.),"2",Victoria,AUS,Australia,91.36760000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/23430,0.53764370667,0.00937048416
+"23670",Knox,"2",Victoria,AUS,Australia,113.91140000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/23670,0.75704310743,0.01166701464
+"23810",Latrobe (Vic.),"2",Victoria,AUS,Australia,1425.61300000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/23810,3.02988297488,0.14677266904
+"23940",Loddon,"2",Victoria,AUS,Australia,6696.44470000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/23940,4.80748171514,0.67241362642
+"24130",Macedon Ranges,"2",Victoria,AUS,Australia,1748.28400000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/24130,2.72075950039,0.17775671196
+"24210",Manningham,"2",Victoria,AUS,Australia,113.34790000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/24210,0.89869513006,0.01158960720
+"24250",Mansfield,"2",Victoria,AUS,Australia,3843.85350000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/24250,4.42842830312,0.39013970040
+"24330",Maribyrnong,"2",Victoria,AUS,Australia,31.22580000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/24330,0.29103177988,0.00319429905
+"24410",Maroondah,"2",Victoria,AUS,Australia,61.40970000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/24410,0.39070137573,0.00628276858
+"24600",Melbourne,"2",Victoria,AUS,Australia,37.54520000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/24600,0.41439190391,0.00384126373
+"24650",Melton,"2",Victoria,AUS,Australia,527.53740000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/24650,1.08654633409,0.05389042935
+"24780",Mildura,"2",Victoria,AUS,Australia,22081.92060000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/24780,9.06001893238,2.17698706685
+"24850",Mitchell,"2",Victoria,AUS,Australia,2862.08370000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/24850,4.26685916158,0.29025223008
+"24900",Moira,"2",Victoria,AUS,Australia,4045.92010000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/24900,5.85381273512,0.40472417472
+"24970",Monash,"2",Victoria,AUS,Australia,81.48290000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/24970,0.52107729022,0.00834638860
+"25060",Moonee Valley,"2",Victoria,AUS,Australia,43.13840000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/25060,0.39538593761,0.00441030012
+"25150",Moorabool,"2",Victoria,AUS,Australia,2110.55040000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/25150,2.88892033286,0.21543116301
+"25250",Moreland,"2",Victoria,AUS,Australia,50.95220000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/25250,0.42965032104,0.00520744717
+"25340",Mornington Peninsula,"2",Victoria,AUS,Australia,723.99200000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/25340,2.19914611569,0.07460591105
+"25430",Mount Alexander,"2",Victoria,AUS,Australia,1529.61830000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/25430,2.67114128668,0.15494818417
+"25490",Moyne,"2",Victoria,AUS,Australia,5481.68600000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/25490,5.29869718718,0.56320507149
+"25620",Murrindindi,"2",Victoria,AUS,Australia,3879.75050000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/25620,4.34035669819,0.39434416245
+"25710",Nillumbik,"2",Victoria,AUS,Australia,432.33730000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/25710,1.53492766613,0.04412430077
+"25810",Northern Grampians,"2",Victoria,AUS,Australia,5729.87650000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/25810,5.87624154878,0.57888977369
+"25900",Port Phillip,"2",Victoria,AUS,Australia,20.61410000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/25900,0.31731912514,0.00211036784
+"25990",Pyrenees,"2",Victoria,AUS,Australia,3434.56870000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/25990,3.99740292359,0.34912475297
+"26080",Queenscliffe,"2",Victoria,AUS,Australia,8.61660000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/26080,0.38177752113,0.00088701257
+"26170",South Gippsland,"2",Victoria,AUS,Australia,3296.33070000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/26170,6.07073797851,0.34098028585
+"26260",Southern Grampians,"2",Victoria,AUS,Australia,6654.01860000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/26260,5.28969140657,0.67833875716
+"26350",Stonnington,"2",Victoria,AUS,Australia,25.65100000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/26350,0.30739097869,0.00262620718
+"26430",Strathbogie,"2",Victoria,AUS,Australia,3303.25680000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/26430,3.95388912939,0.33336615480
+"26490",Surf Coast,"2",Victoria,AUS,Australia,1552.94400000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/26490,2.31778919420,0.15996354644
+"26610",Swan Hill,"2",Victoria,AUS,Australia,6115.53730000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/26610,6.64671500260,0.60473082729
+"26670",Towong,"2",Victoria,AUS,Australia,6675.17250000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/26670,5.51298703554,0.67019088928
+"26700",Wangaratta,"2",Victoria,AUS,Australia,3645.10960000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/26700,4.08117057035,0.36705668322
+"26730",Warrnambool,"2",Victoria,AUS,Australia,120.94870000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/26730,0.71580085695,0.01246852882
+"26810",Wellington,"2",Victoria,AUS,Australia,10817.42310000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/26810,12.10594729190,1.10804760066
+"26890",West Wimmera,"2",Victoria,AUS,Australia,9108.67940000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/26890,6.07784943350,0.91830640015
+"26980",Whitehorse,"2",Victoria,AUS,Australia,64.28010000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/26980,0.40170437327,0.00657837531
+"27070",Whittlesea,"2",Victoria,AUS,Australia,489.69380000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/27070,1.41731045650,0.04992813824
+"27170",Wodonga,"2",Victoria,AUS,Australia,433.00210000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/27170,1.54857478726,0.04336224099
+"27260",Wyndham,"2",Victoria,AUS,Australia,542.09430000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/27260,1.29398612035,0.05552034598
+"27350",Yarra,"2",Victoria,AUS,Australia,19.54210000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/27350,0.41987492162,0.00199917047
+"27450",Yarra Ranges,"2",Victoria,AUS,Australia,2468.20520000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/27450,3.66857721208,0.25221352049
+"27630",Yarriambiack,"2",Victoria,AUS,Australia,7325.79700000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/27630,5.44392088766,0.73217942061
+"29399",Unincorporated Vic,"2",Victoria,AUS,Australia,283.19030000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/29399,3.01730555183,0.02901052883
+"29499",No usual address (Vic.),"2",Victoria,AUS,Australia,0.00000000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/29499,0.00000000000,0.00000000000
+"29799",Migratory - Offshore - Shipping (Vic.),"2",Victoria,AUS,Australia,0.00000000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/29799,0.00000000000,0.00000000000
+"30250",Aurukun,"3",Queensland,AUS,Australia,7423.98910000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/30250,5.30375433962,0.62010698045
+"30300",Balonne,"3",Queensland,AUS,Australia,31104.08510000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/30300,8.83468725940,2.86180426257
+"30370",Banana,"3",Queensland,AUS,Australia,28550.16260000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/30370,12.10093571620,2.55191687701
+"30410",Barcaldine,"3",Queensland,AUS,Australia,53382.65400000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/30410,14.94914178540,4.70594247349
+"30450",Barcoo,"3",Queensland,AUS,Australia,61830.16790000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/30450,16.74324879340,5.53537551420
+"30760",Blackall Tambo,"3",Queensland,AUS,Australia,30537.24800000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/30760,10.88870600980,2.72623896648
+"30900",Boulia,"3",Queensland,AUS,Australia,60906.46950000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/30900,14.33728713450,5.34486138528
+"31000",Brisbane,"3",Queensland,AUS,Australia,1342.71730000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/31000,5.16421925645,0.12256084191
+"31750",Bulloo,"3",Queensland,AUS,Australia,73722.01010000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/31750,12.23927058340,6.76494234572
+"31820",Bundaberg,"3",Queensland,AUS,Australia,6431.08890000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/31820,6.13416613764,0.57495733530
+"31900",Burdekin,"3",Queensland,AUS,Australia,5043.93180000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/31900,4.56183517757,0.43491814170
+"31950",Burke,"3",Queensland,AUS,Australia,39681.22340000001,http://linked.data.gov.au/dataset/asgsed3/LGA2021/31950,12.94820872060,3.38610223596
+"32080",Cairns,"3",Queensland,AUS,Australia,1689.32270000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/32080,3.07899022671,0.14346967218
+"32250",Carpentaria,"3",Queensland,AUS,Australia,64121.01230000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/32250,20.22820643480,5.45484900147
+"32260",Cassowary Coast,"3",Queensland,AUS,Australia,4687.82400000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/32260,7.26480853061,0.39984601717
+"32270",Central Highlands (Qld),"3",Queensland,AUS,Australia,59834.83590000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/32270,18.87524979130,5.31084323384
+"32310",Charters Towers,"3",Queensland,AUS,Australia,68382.16439999999,http://linked.data.gov.au/dataset/asgsed3/LGA2021/32310,16.85680515530,5.90883596386
+"32330",Cherbourg,"3",Queensland,AUS,Australia,31.60020000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/32330,0.37295571076,0.00285579568
+"32450",Cloncurry,"3",Queensland,AUS,Australia,47971.25950000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/32450,15.77619421040,4.16293870020
+"32500",Cook,"3",Queensland,AUS,Australia,105717.75210000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/32500,34.62113407220,8.85595045407
+"32600",Croydon,"3",Queensland,AUS,Australia,29497.90250000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/32600,10.74213484760,2.52452741620
+"32750",Diamantina,"3",Queensland,AUS,Australia,94722.42900000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/32750,15.68120569800,8.44655789958
+"32770",Doomadgee,"3",Queensland,AUS,Australia,1827.65180000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/32770,2.40087139215,0.15556983714
+"32810",Douglas,"3",Queensland,AUS,Australia,2427.86260000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/32810,3.65216328894,0.20520673783
+"33100",Etheridge,"3",Queensland,AUS,Australia,39199.29560000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/33100,9.75843658953,3.35381969796
+"33200",Flinders (Qld),"3",Queensland,AUS,Australia,41199.93750000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/33200,10.40394042420,3.57868712705
+"33220",Fraser Coast,"3",Queensland,AUS,Australia,7104.59840000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/33220,10.29440754990,0.63804338415
+"33360",Gladstone,"3",Queensland,AUS,Australia,10484.28610000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/33360,12.56808092220,0.93156024566
+"33430",Gold Coast,"3",Queensland,AUS,Australia,1333.38600000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/33430,4.21767525058,0.12230330076
+"33610",Goondiwindi,"3",Queensland,AUS,Australia,19265.70980000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/33610,10.93171798890,1.77350822636
+"33620",Gympie,"3",Queensland,AUS,Australia,6883.97810000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/33620,7.26482462448,0.62140093266
+"33800",Hinchinbrook,"3",Queensland,AUS,Australia,2807.18890000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/33800,3.26986445134,0.24038527556
+"33830",Hope Vale,"3",Queensland,AUS,Australia,1111.70990000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/33830,2.86582571822,0.09349098336
+"33960",Ipswich,"3",Queensland,AUS,Australia,1093.85620000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/33960,2.43656294323,0.10004794509
+"33980",Isaac,"3",Queensland,AUS,Australia,58707.91920000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/33980,19.63968434640,5.14306947937
+"34420",Kowanyama,"3",Queensland,AUS,Australia,2555.33250000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/34420,2.70647416129,0.21503498732
+"34530",Livingstone,"3",Queensland,AUS,Australia,11757.86860000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/34530,16.37421152710,1.03408324912
+"34570",Lockhart River,"3",Queensland,AUS,Australia,3576.68390000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/34570,4.72616610563,0.29801796511
+"34580",Lockyer Valley,"3",Queensland,AUS,Australia,2269.00540000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/34580,3.04833178039,0.20748902890
+"34590",Logan,"3",Queensland,AUS,Australia,958.13330000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/34590,2.10006691074,0.08771012531
+"34710",Longreach,"3",Queensland,AUS,Australia,40572.24420000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/34710,11.30540812490,3.59263472794
+"34770",Mackay,"3",Queensland,AUS,Australia,7613.29630000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/34770,10.61263967600,0.66198909035
+"34800",McKinlay,"3",Queensland,AUS,Australia,40736.79890000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/34800,11.69818843560,3.52848893969
+"34830",Mapoon,"3",Queensland,AUS,Australia,537.23660000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/34830,2.27095413351,0.04461827828
+"34860",Maranoa,"3",Queensland,AUS,Australia,58719.34490000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/34860,14.38413802090,5.31867529989
+"34880",Mareeba,"3",Queensland,AUS,Australia,53491.05020000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/34880,12.86660153200,4.53882559617
+"35010",Moreton Bay,"3",Queensland,AUS,Australia,2041.47370000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/35010,3.70768790161,0.18581757066
+"35250",Mornington,"3",Queensland,AUS,Australia,1247.69320000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/35250,5.08631385477,0.10567410612
+"35300",Mount Isa,"3",Queensland,AUS,Australia,43715.19750000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/35300,11.87751490460,3.77265731666
+"35600",Murweh,"3",Queensland,AUS,Australia,40699.75860000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/35600,13.47186392940,3.67537756528
+"35670",Napranum,"3",Queensland,AUS,Australia,2004.34680000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/35670,6.14758498838,0.16666285539
+"35740",Noosa,"3",Queensland,AUS,Australia,869.86570000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/35740,1.68510649556,0.07863820269
+"35760",North Burnett,"3",Queensland,AUS,Australia,19669.84890000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/35760,9.17933342784,1.76403853346
+"35780",Northern Peninsula Area,"3",Queensland,AUS,Australia,1052.06760000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/35780,2.59289547882,0.08702742323
+"35790",Palm Island,"3",Queensland,AUS,Australia,71.99280000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/35790,0.95033559969,0.00616733680
+"35800",Paroo,"3",Queensland,AUS,Australia,47614.92250000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/35800,11.01517932220,4.37126255162
+"36070",Pormpuraaw,"3",Queensland,AUS,Australia,4395.36540000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/36070,3.04300910114,0.36888595488
+"36150",Quilpie,"3",Queensland,AUS,Australia,67414.65630000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/36150,14.34591507980,6.09599878567
+"36250",Redland,"3",Queensland,AUS,Australia,537.16720000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/36250,3.33111144837,0.04908854774
+"36300",Richmond,"3",Queensland,AUS,Australia,26580.74800000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/36300,8.27803862249,2.30237532898
+"36370",Rockhampton,"3",Queensland,AUS,Australia,6570.26670000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/36370,5.45471965426,0.58056177332
+"36510",Scenic Rim,"3",Queensland,AUS,Australia,4243.00140000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/36510,3.88535404799,0.38947385581
+"36580",Somerset,"3",Queensland,AUS,Australia,5373.43350000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/36580,5.45900166150,0.48863594405
+"36630",South Burnett,"3",Queensland,AUS,Australia,8381.55800000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/36630,6.10229150268,0.75823592791
+"36660",Southern Downs,"3",Queensland,AUS,Australia,7106.43600000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/36660,5.63354873505,0.65437787662
+"36720",Sunshine Coast,"3",Queensland,AUS,Australia,2253.85220000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/36720,3.41018317762,0.20439967122
+"36820",Tablelands,"3",Queensland,AUS,Australia,11292.86950000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/36820,7.14020992683,0.96307253489
+"36910",Toowoomba,"3",Queensland,AUS,Australia,12957.21030000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/36910,8.18088062472,1.18424333606
+"36950",Torres,"3",Queensland,AUS,Australia,883.74020000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/36950,7.55309498128,0.07304007573
+"36960",Torres Strait Island,"3",Queensland,AUS,Australia,490.04530000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/36960,2.78274639534,0.04039362298
+"37010",Townsville,"3",Queensland,AUS,Australia,3730.81990000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/37010,4.91912946405,0.32084567428
+"37300",Weipa,"3",Queensland,AUS,Australia,10.46430000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/37300,0.31902841466,0.00087067820
+"37310",Western Downs,"3",Queensland,AUS,Australia,37922.50070000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/37310,12.72343984040,3.44363969871
+"37340",Whitsunday,"3",Queensland,AUS,Australia,23818.97290000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/37340,15.73880024840,2.06523352432
+"37400",Winton,"3",Queensland,AUS,Australia,53813.48260000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/37400,12.73300606260,4.72431649137
+"37550",Woorabinda,"3",Queensland,AUS,Australia,390.55780000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/37550,1.73962341375,0.03464146292
+"37570",Wujal Wujal,"3",Queensland,AUS,Australia,11.84200000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/37570,0.25741041376,0.00099965006
+"37600",Yarrabah,"3",Queensland,AUS,Australia,158.83810000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/37600,0.98364526547,0.01347793262
+"39499",No usual address (Qld),"3",Queensland,AUS,Australia,0.00000000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/39499,0.00000000000,0.00000000000
+"39799",Migratory - Offshore - Shipping (Qld),"3",Queensland,AUS,Australia,0.00000000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/39799,0.00000000000,0.00000000000
+"40070",Adelaide,"4",South Australia,AUS,Australia,15.57330000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/40070,0.15765001473,0.00153618487
+"40120",Adelaide Hills,"4",South Australia,AUS,Australia,794.49570000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/40120,1.88177270292,0.07834827874
+"40150",Adelaide Plains,"4",South Australia,AUS,Australia,932.49130000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/40150,1.61025472016,0.09150821761
+"40220",Alexandrina,"4",South Australia,AUS,Australia,1826.80670000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/40220,2.18138791477,0.18114783002
+"40250",Anangu Pitjantjatjara Yunkunytjatjara,"4",South Australia,AUS,Australia,102348.11700000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/40250,15.13825561040,9.30753091932
+"40310",Barossa,"4",South Australia,AUS,Australia,893.54240000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/40310,2.06210150126,0.08783138165
+"40430",Barunga West,"4",South Australia,AUS,Australia,1590.38870000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/40430,2.48919737227,0.15483889401
+"40520",Berri Barmera,"4",South Australia,AUS,Australia,476.19620000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/40520,1.98721594909,0.04661311284
+"40700",Burnside,"4",South Australia,AUS,Australia,27.51830000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/40700,0.32682404403,0.00271523091
+"40910",Campbelltown (SA),"4",South Australia,AUS,Australia,24.34850000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/40910,0.27229981587,0.00240094836
+"41010",Ceduna,"4",South Australia,AUS,Australia,5420.34350000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/41010,5.99471743572,0.51788400872
+"41060",Charles Sturt,"4",South Australia,AUS,Australia,54.78760000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/41060,0.43796481507,0.00540284024
+"41140",Clare and Gilbert Valleys,"4",South Australia,AUS,Australia,1892.44660000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/41140,2.38458592810,0.18468243238
+"41190",Cleve,"4",South Australia,AUS,Australia,5018.84830000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/41190,2.81091294857,0.48780253193
+"41330",Coober Pedy,"4",South Australia,AUS,Australia,77.67950000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/41330,0.34515036713,0.00719376196
+"41560",Copper Coast,"4",South Australia,AUS,Australia,772.91490000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/41560,1.49367131777,0.07541005603
+"41750",Elliston,"4",South Australia,AUS,Australia,6741.93170000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/41750,5.09832965844,0.65461577019
+"41830",Flinders Ranges,"4",South Australia,AUS,Australia,4070.48270000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/41830,3.38856975719,0.38879763553
+"41960",Franklin Harbour,"4",South Australia,AUS,Australia,2755.56390000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/41960,2.36901578406,0.26747112568
+"42030",Gawler,"4",South Australia,AUS,Australia,41.13790000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/42030,0.38462480569,0.00404368182
+"42110",Goyder,"4",South Australia,AUS,Australia,6715.14180000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/42110,3.97231195945,0.65264656169
+"42250",Grant,"4",South Australia,AUS,Australia,1897.82350000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/42250,2.66425636969,0.19426695772
+"42600",Holdfast Bay,"4",South Australia,AUS,Australia,13.75200000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/42600,0.23418673427,0.00135794017
+"42750",Kangaroo Island,"4",South Australia,AUS,Australia,4400.86300000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/42750,5.73041253526,0.43895076882
+"43080",Karoonda East Murray,"4",South Australia,AUS,Australia,4415.79600000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/43080,3.10145214061,0.43576112995
+"43220",Kimba,"4",South Australia,AUS,Australia,5697.10740000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/43220,4.62536704385,0.54970712442
+"43360",Kingston (SA),"4",South Australia,AUS,Australia,3339.79520000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/43360,3.21299485921,0.33655199093
+"43650",Light,"4",South Australia,AUS,Australia,1276.84530000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/43650,2.44174623376,0.12519838791
+"43710",Lower Eyre Peninsula,"4",South Australia,AUS,Australia,4721.39220000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/43710,8.33233384009,0.46295842955
+"43790",Loxton Waikerie,"4",South Australia,AUS,Australia,7763.87140000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/43790,5.57557575603,0.76214612844
+"44000",Maralinga Tjarutja,"4",South Australia,AUS,Australia,105766.31050000001,http://linked.data.gov.au/dataset/asgsed3/LGA2021/44000,13.20852449150,9.83240597062
+"44060",Marion,"4",South Australia,AUS,Australia,55.64060000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/44060,0.41325802492,0.00549586103
+"44210",Mid Murray,"4",South Australia,AUS,Australia,6271.62550000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/44210,4.83921953635,0.61524651165
+"44340",Mitcham,"4",South Australia,AUS,Australia,75.54680000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/44340,0.44074279414,0.00745994113
+"44550",Mount Barker,"4",South Australia,AUS,Australia,594.64060000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/44550,1.61640217654,0.05877582137
+"44620",Mount Gambier,"4",South Australia,AUS,Australia,33.89380000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/44620,0.27036414512,0.00346854161
+"44830",Mount Remarkable,"4",South Australia,AUS,Australia,3422.77330000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/44830,2.76534036017,0.32936372551
+"45040",Murray Bridge,"4",South Australia,AUS,Australia,1831.75970000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/45040,2.48959903486,0.18121507034
+"45090",Naracoorte Lucindale,"4",South Australia,AUS,Australia,4519.71500000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/45090,3.09899087628,0.45740730853
+"45120",Northern Areas,"4",South Australia,AUS,Australia,2986.18180000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/45120,2.74303440663,0.28904544482
+"45290",Norwood Payneham and St Peters,"4",South Australia,AUS,Australia,15.10360000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/45290,0.20056479238,0.00148964174
+"45340",Onkaparinga,"4",South Australia,AUS,Australia,518.12550000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/45340,1.17609343333,0.05126992763
+"45400",Orroroo Carrieton,"4",South Australia,AUS,Australia,3321.82390000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/45400,2.54570723142,0.31881875708
+"45540",Peterborough,"4",South Australia,AUS,Australia,3020.14200000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/45540,2.31310619464,0.29095846594
+"45680",Playford,"4",South Australia,AUS,Australia,345.20380000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/45680,1.47775513429,0.03395927902
+"45890",Port Adelaide Enfield,"4",South Australia,AUS,Australia,91.75880000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/45890,0.88385067586,0.00904292198
+"46090",Port Augusta,"4",South Australia,AUS,Australia,1157.99050000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/46090,2.87189400696,0.11122626483
+"46300",Port Lincoln,"4",South Australia,AUS,Australia,30.36810000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/46300,0.39505054833,0.00298888669
+"46450",Port Pirie,"4",South Australia,AUS,Australia,1760.70970000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/46450,2.72866636525,0.17059994698
+"46510",Prospect,"4",South Australia,AUS,Australia,7.79150000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/46510,0.12192059248,0.00076830020
+"46670",Renmark Paringa,"4",South Australia,AUS,Australia,916.44200000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/46670,2.05257148188,0.08961948810
+"46860",Robe,"4",South Australia,AUS,Australia,1091.71620000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/46860,1.73837771280,0.11078614308
+"46970",Roxby Downs,"4",South Australia,AUS,Australia,110.47780000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/46970,0.44231003622,0.01038625093
+"47140",Salisbury,"4",South Australia,AUS,Australia,159.84320000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/47140,0.68381368907,0.01574049168
+"47290",Southern Mallee,"4",South Australia,AUS,Australia,5702.20240000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/47290,3.34558233337,0.56572625988
+"47490",Streaky Bay,"4",South Australia,AUS,Australia,6222.85910000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/47490,6.29057005302,0.59848423397
+"47630",Tatiara,"4",South Australia,AUS,Australia,6527.23420000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/47630,3.75576316790,0.65430197398
+"47700",Tea Tree Gully,"4",South Australia,AUS,Australia,95.21090000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/47700,0.60489173651,0.00937901157
+"47800",Coorong,"4",South Australia,AUS,Australia,8833.43390000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/47800,6.36370573618,0.87983518365
+"47910",Tumby Bay,"4",South Australia,AUS,Australia,2669.07940000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/47910,2.87925068877,0.26100441373
+"47980",Unley,"4",South Australia,AUS,Australia,14.27030000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/47980,0.17083928631,0.00140834116
+"48050",Victor Harbor,"4",South Australia,AUS,Australia,384.62550000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/48050,1.02421023545,0.03821476763
+"48130",Wakefield,"4",South Australia,AUS,Australia,3468.48790000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/48130,2.94946665620,0.33843905755
+"48260",Walkerville,"4",South Australia,AUS,Australia,3.53000000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/48260,0.11753813149,0.00034808800
+"48340",Wattle Range,"4",South Australia,AUS,Australia,3926.21010000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/48340,3.52979957195,0.39990468014
+"48410",West Torrens,"4",South Australia,AUS,Australia,37.08860000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/48410,0.28322688194,0.00365960032
+"48540",Whyalla,"4",South Australia,AUS,Australia,1071.33970000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/48540,2.44165363297,0.10341283965
+"48640",Wudinna,"4",South Australia,AUS,Australia,5075.27830000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/48640,3.71914516293,0.48984317966
+"48750",Yankalilla,"4",South Australia,AUS,Australia,751.25770000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/48750,1.63342280844,0.07464724453
+"48830",Yorke Peninsula,"4",South Australia,AUS,Australia,5899.63970000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/48830,5.72073882285,0.58034994694
+"49399",Unincorporated SA,"4",South Australia,AUS,Australia,619426.08580000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/49399,57.03586088030,57.71584762570
+"49499",No usual address (SA),"4",South Australia,AUS,Australia,0.00000000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/49499,0.00000000000,0.00000000000
+"49799",Migratory - Offshore - Shipping (SA),"4",South Australia,AUS,Australia,0.00000000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/49799,0.00000000000,0.00000000000
+"50080",Albany,"5",Western Australia,AUS,Australia,4308.45800000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/50080,7.55705240149,0.42409877699
+"50210",Armadale,"5",Western Australia,AUS,Australia,559.52580000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/50210,1.40374905037,0.05349485514
+"50250",Ashburton,"5",Western Australia,AUS,Australia,100817.31120000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/50250,26.08599651440,8.84791205363
+"50280",Augusta Margaret River,"5",Western Australia,AUS,Australia,2122.37500000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/50280,3.10436049113,0.20718577583
+"50350",Bassendean,"5",Western Australia,AUS,Australia,10.34490000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/50350,0.14578447845,0.00098624199
+"50420",Bayswater,"5",Western Australia,AUS,Australia,34.61690000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/50420,0.34709282141,0.00330029968
+"50490",Belmont,"5",Western Australia,AUS,Australia,39.82460000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/50490,0.30300954314,0.00379900609
+"50560",Beverley,"5",Western Australia,AUS,Australia,2370.51950000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/50560,3.01552455861,0.22666120420
+"50630",Boddington,"5",Western Australia,AUS,Australia,1904.47910000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/50630,2.17926652870,0.18337908856
+"50770",Boyup Brook,"5",Western Australia,AUS,Australia,2826.45850000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/50770,3.33530853029,0.27547553135
+"50840",Bridgetown-Greenbushes,"5",Western Australia,AUS,Australia,1337.36100000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/50840,2.20913198593,0.13051119548
+"50910",Brookton,"5",Western Australia,AUS,Australia,1601.15320000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/50910,2.65870607863,0.15340697868
+"50980",Broome,"5",Western Australia,AUS,Australia,54401.82360000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/50980,20.99967982130,4.65526642271
+"51080",Broomehill-Tambellup,"5",Western Australia,AUS,Australia,2609.66120000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/51080,2.86043919372,0.25466855728
+"51120",Bruce Rock,"5",Western Australia,AUS,Australia,2724.69440000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/51120,2.75227499751,0.25990739297
+"51190",Bunbury,"5",Western Australia,AUS,Australia,65.41630000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/51190,0.49889000169,0.00633659017
+"51260",Busselton,"5",Western Australia,AUS,Australia,1454.05090000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/51260,2.48794666713,0.14143354185
+"51310",Cambridge,"5",Western Australia,AUS,Australia,21.95550000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/51310,0.29283023785,0.00209393995
+"51330",Canning,"5",Western Australia,AUS,Australia,64.87910000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/51330,0.49212018771,0.00619432333
+"51400",Capel,"5",Western Australia,AUS,Australia,557.89830000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/51400,1.19758899267,0.05415140232
+"51470",Carnamah,"5",Western Australia,AUS,Australia,2870.93160000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/51470,3.53833837807,0.26782150151
+"51540",Carnarvon,"5",Western Australia,AUS,Australia,46574.70500000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/51540,15.03381453890,4.14415920453
+"51610",Chapman Valley,"5",Western Australia,AUS,Australia,3981.33330000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/51610,3.95016406342,0.36632777269
+"51680",Chittering,"5",Western Australia,AUS,Australia,1219.90320000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/51680,1.95067791186,0.11565814725
+"51710",Christmas Island,"9",Other Territories,AUS,Australia,136.13560000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/51710,0.68903850413,0.01124262492
+"51750",Claremont,"5",Western Australia,AUS,Australia,4.95540000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/51750,0.11816072327,0.00047285482
+"51820",Cockburn,"5",Western Australia,AUS,Australia,167.94150000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/51820,0.95097575596,0.01604743151
+"51860",Cocos Islands,"9",Other Territories,AUS,Australia,13.72580000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/51860,1.16343096861,0.00113991215
+"51890",Collie,"5",Western Australia,AUS,Australia,1709.81500000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/51890,2.64156898305,0.16549470439
+"51960",Coolgardie,"5",Western Australia,AUS,Australia,30297.69770000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/51960,7.90884697566,2.86696580371
+"52030",Coorow,"5",Western Australia,AUS,Australia,4189.87210000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/52030,4.22500578635,0.39181905458
+"52100",Corrigin,"5",Western Australia,AUS,Australia,2681.27100000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/52100,2.74680394863,0.25688432854
+"52170",Cottesloe,"5",Western Australia,AUS,Australia,3.85640000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/52170,0.09986390615,0.00036799976
+"52240",Cranbrook,"5",Western Australia,AUS,Australia,3276.04640000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/52240,4.03939016870,0.32086283080
+"52310",Cuballing,"5",Western Australia,AUS,Australia,1195.33690000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/52310,1.79173034601,0.11499428594
+"52380",Cue,"5",Western Australia,AUS,Australia,13582.19560000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/52380,6.86646336558,1.23837629965
+"52450",Cunderdin,"5",Western Australia,AUS,Australia,1862.44570000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/52450,2.29971145118,0.17699418206
+"52520",Dalwallinu,"5",Western Australia,AUS,Australia,7224.35660000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/52520,5.13960803205,0.67628687261
+"52590",Dandaragan,"5",Western Australia,AUS,Australia,6711.57210000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/52590,4.18819136734,0.63089521639
+"52660",Dardanup,"5",Western Australia,AUS,Australia,525.80170000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/52660,1.69896927328,0.05096841502
+"52730",Denmark,"5",Western Australia,AUS,Australia,1859.84870000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/52730,2.94684854259,0.18340457565
+"52800",Derby-West Kimberley,"5",Western Australia,AUS,Australia,119730.96960000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/52800,48.07541366620,10.20401768010
+"52870",Donnybrook-Balingup,"5",Western Australia,AUS,Australia,1559.85600000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/52870,2.42924493833,0.15164113063
+"52940",Dowerin,"5",Western Australia,AUS,Australia,1863.08510000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/52940,2.42573644701,0.17614953511
+"53010",Dumbleyung,"5",Western Australia,AUS,Australia,2539.22490000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/53010,3.05361939789,0.24561100938
+"53080",Dundas,"5",Western Australia,AUS,Australia,92886.36680000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/53080,21.20592548110,8.86662322393
+"53150",East Fremantle,"5",Western Australia,AUS,Australia,3.13840000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/53150,0.07690449125,0.00029965938
+"53220",East Pilbara,"5",Western Australia,AUS,Australia,372295.67210000003,http://linked.data.gov.au/dataset/asgsed3/LGA2021/53220,33.73797207180,32.52357214820
+"53290",Esperance,"5",Western Australia,AUS,Australia,44797.54560000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/53290,17.41976896800,4.33338919179
+"53360",Exmouth,"5",Western Australia,AUS,Australia,6488.20970000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/53360,7.00958520731,0.56951291088
+"53430",Fremantle,"5",Western Australia,AUS,Australia,19.28920000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/53430,0.42522911771,0.00184199689
+"53570",Gingin,"5",Western Australia,AUS,Australia,3208.35850000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/53570,2.64622784619,0.30360518012
+"53640",Gnowangerup,"5",Western Australia,AUS,Australia,4265.04230000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/53640,3.64485923369,0.41650013796
+"53710",Goomalling,"5",Western Australia,AUS,Australia,1835.42940000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/53710,2.28003613466,0.17377771554
+"53780",Gosnells,"5",Western Australia,AUS,Australia,127.29760000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/53780,0.57766283712,0.01215770527
+"53800",Greater Geraldton,"5",Western Australia,AUS,Australia,9909.00020000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/53800,8.98109932084,0.91376569381
+"53920",Halls Creek,"5",Western Australia,AUS,Australia,133045.97330000001,http://linked.data.gov.au/dataset/asgsed3/LGA2021/53920,19.14596160750,11.42583091900
+"53990",Harvey,"5",Western Australia,AUS,Australia,1727.60700000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/53990,2.34692837400,0.16687549117
+"54060",Irwin,"5",Western Australia,AUS,Australia,2369.32980000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/54060,2.26514750583,0.22007291402
+"54130",Jerramungup,"5",Western Australia,AUS,Australia,6511.18030000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/54130,5.02450584708,0.63591461027
+"54170",Joondalup,"5",Western Australia,AUS,Australia,98.94200000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/54170,0.50251298807,0.00942086527
+"54200",Kalamunda,"5",Western Australia,AUS,Australia,324.29580000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/54200,1.02474417912,0.03095355901
+"54280",Kalgoorlie-Boulder,"5",Western Australia,AUS,Australia,95500.29200000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/54280,18.86420583380,8.99927103497
+"54310",Karratha,"5",Western Australia,AUS,Australia,15238.29340000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/54310,21.54395862330,1.32420027365
+"54340",Katanning,"5",Western Australia,AUS,Australia,1518.18540000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/54340,2.07145795571,0.14755442759
+"54410",Kellerberrin,"5",Western Australia,AUS,Australia,1915.43300000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/54410,2.23096044416,0.18199687291
+"54480",Kent,"5",Western Australia,AUS,Australia,5624.58180000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/54480,4.61085168418,0.54605942821
+"54550",Kojonup,"5",Western Australia,AUS,Australia,2930.99250000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/54550,2.87759110816,0.28571544219
+"54620",Kondinin,"5",Western Australia,AUS,Australia,7440.80160000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/54620,5.31490656825,0.71343419404
+"54690",Koorda,"5",Western Australia,AUS,Australia,2832.31300000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/54690,2.65703720518,0.26637699236
+"54760",Kulin,"5",Western Australia,AUS,Australia,4718.92190000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/54760,5.14742378269,0.45388250574
+"54830",Kwinana,"5",Western Australia,AUS,Australia,120.01230000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/54830,0.49482200048,0.01148173466
+"54900",Lake Grace,"5",Western Australia,AUS,Australia,11886.31980000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/54900,6.42807518348,1.14760980754
+"54970",Laverton,"5",Western Australia,AUS,Australia,179993.97099999999,http://linked.data.gov.au/dataset/asgsed3/LGA2021/54970,21.42765110520,16.49714214000
+"55040",Leonora,"5",Western Australia,AUS,Australia,31915.05620000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/55040,11.35995720880,2.93370140596
+"55110",Mandurah,"5",Western Australia,AUS,Australia,174.89680000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/55110,1.33691648930,0.01680673332
+"55180",Manjimup,"5",Western Australia,AUS,Australia,7029.60760000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/55180,5.21954941974,0.69046374830
+"55250",Meekatharra,"5",Western Australia,AUS,Australia,100188.54780000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/55250,16.15417756910,8.97087226179
+"55320",Melville,"5",Western Australia,AUS,Australia,52.85050000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/55320,0.42488035084,0.00504649540
+"55390",Menzies,"5",Western Australia,AUS,Australia,124115.42400000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/55390,25.72997692100,11.55463461710
+"55460",Merredin,"5",Western Australia,AUS,Australia,3293.78240000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/55460,3.11859276558,0.31274211823
+"55530",Mingenew,"5",Western Australia,AUS,Australia,1934.88570000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/55530,2.08175372737,0.17943078484
+"55600",Moora,"5",Western Australia,AUS,Australia,3763.02540000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/55600,3.20250555099,0.35357854342
+"55670",Morawa,"5",Western Australia,AUS,Australia,3510.59290000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/55670,3.10379122427,0.32527164722
+"55740",Mosman Park,"5",Western Australia,AUS,Australia,4.34720000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/55740,0.09364990748,0.00041497069
+"55810",Mount Magnet,"5",Western Australia,AUS,Australia,13858.11820000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/55810,7.31270949445,1.27411924369
+"55880",Mount Marshall,"5",Western Australia,AUS,Australia,10184.59370000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/55880,5.86365912096,0.95396662819
+"55950",Mukinbudin,"5",Western Australia,AUS,Australia,3426.94400000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/55950,2.87238220497,0.32243030425
+"56090",Mundaring,"5",Western Australia,AUS,Australia,643.20120000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/56090,1.79718041544,0.06132014027
+"56160",Murchison,"5",Western Australia,AUS,Australia,45046.09220000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/56160,13.05392271620,4.08737969467
+"56230",Murray,"5",Western Australia,AUS,Australia,1703.46880000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/56230,2.38525713063,0.16367718377
+"56300",Nannup,"5",Western Australia,AUS,Australia,3053.93610000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/56300,2.78945073353,0.29846171800
+"56370",Narembeen,"5",Western Australia,AUS,Australia,3809.02850000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/56370,3.10668660754,0.36370840101
+"56460",Narrogin,"5",Western Australia,AUS,Australia,1631.30240000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/56460,2.49916819669,0.15738715391
+"56580",Nedlands,"5",Western Australia,AUS,Australia,19.64490000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/56580,0.31301348370,0.00187438311
+"56620",Ngaanyatjarraku,"5",Western Australia,AUS,Australia,159815.96320000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/56620,15.27708332770,14.30671800850
+"56730",Northam,"5",Western Australia,AUS,Australia,1431.22150000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/56730,2.43889650996,0.13613728022
+"56790",Northampton,"5",Western Australia,AUS,Australia,12543.71420000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/56790,5.76356763297,1.14821117475
+"56860",Nungarin,"5",Western Australia,AUS,Australia,1166.02450000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/56860,2.10169539779,0.11029175611
+"56930",Peppermint Grove,"5",Western Australia,AUS,Australia,1.06770000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/56930,0.04962722873,0.00010188795
+"57000",Perenjori,"5",Western Australia,AUS,Australia,8301.35510000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/57000,5.14303765422,0.77194010581
+"57080",Perth,"5",Western Australia,AUS,Australia,13.73350000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/57080,0.26278692733,0.00131016572
+"57140",Pingelly,"5",Western Australia,AUS,Australia,1294.57210000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/57140,2.32147158467,0.12424705125
+"57210",Plantagenet,"5",Western Australia,AUS,Australia,4876.68200000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/57210,4.70131500719,0.47922504461
+"57280",Port Hedland,"5",Western Australia,AUS,Australia,18417.07770000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/57280,12.83424200410,1.59923783822
+"57350",Quairading,"5",Western Australia,AUS,Australia,2016.92680000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/57350,2.55353813965,0.19250108174
+"57420",Ravensthorpe,"5",Western Australia,AUS,Australia,9841.75040000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/57420,5.49543130352,0.95619024823
+"57490",Rockingham,"5",Western Australia,AUS,Australia,257.49790000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/57490,1.18595278819,0.02466613959
+"57630",Sandstone,"5",Western Australia,AUS,Australia,32605.29120000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/57630,10.51134414400,3.00061647372
+"57700",Serpentine-Jarrahdale,"5",Western Australia,AUS,Australia,901.20540000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/57700,1.45874611727,0.08632821883
+"57770",Shark Bay,"5",Western Australia,AUS,Australia,24201.54910000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/57770,18.85340007330,2.19189049097
+"57840",South Perth,"5",Western Australia,AUS,Australia,19.81140000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/57840,0.25359392656,0.00189071608
+"57910",Stirling,"5",Western Australia,AUS,Australia,104.72730000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/57910,0.49275482625,0.00998260243
+"57980",Subiaco,"5",Western Australia,AUS,Australia,5.61820000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/57980,0.11321915301,0.00053586605
+"58050",Swan,"5",Western Australia,AUS,Australia,1042.99360000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/58050,1.79831249940,0.09926732852
+"58190",Tammin,"5",Western Australia,AUS,Australia,1101.69200000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/58190,1.73041036465,0.10470514374
+"58260",Three Springs,"5",Western Australia,AUS,Australia,2656.69280000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/58260,2.57087744495,0.24723528051
+"58330",Toodyay,"5",Western Australia,AUS,Australia,1691.64850000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/58330,2.06437851513,0.16054606510
+"58400",Trayning,"5",Western Australia,AUS,Australia,1651.20430000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/58400,2.03025447580,0.15617508892
+"58470",Upper Gascoyne,"5",Western Australia,AUS,Australia,57809.87370000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/58470,13.38694791720,5.15884700597
+"58510",Victoria Park,"5",Western Australia,AUS,Australia,17.93960000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/58510,0.24338717139,0.00171175330
+"58540",Victoria Plains,"5",Western Australia,AUS,Australia,2551.01320000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/58540,2.70857341434,0.24095908017
+"58570",Vincent,"5",Western Australia,AUS,Australia,11.37710000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/58570,0.16541458488,0.00108497105
+"58610",Wagin,"5",Western Australia,AUS,Australia,1946.17630000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/58610,2.68884927507,0.18835757436
+"58680",Wandering,"5",Western Australia,AUS,Australia,1903.86450000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/58680,2.46356596994,0.18278159671
+"58760",Wanneroo,"5",Western Australia,AUS,Australia,683.26020000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/58760,1.33948334659,0.06494083080
+"58820",Waroona,"5",Western Australia,AUS,Australia,832.22850000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/58820,1.75675638397,0.08017017295
+"58890",West Arthur,"5",Western Australia,AUS,Australia,2831.82720000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/58890,3.04897035955,0.27463308412
+"59030",Westonia,"5",Western Australia,AUS,Australia,3319.44960000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/59030,3.47017860847,0.31341378562
+"59100",Wickepin,"5",Western Australia,AUS,Australia,2040.89850000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/59100,2.47271917289,0.19649474328
+"59170",Williams,"5",Western Australia,AUS,Australia,2304.71190000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/59170,2.60692938027,0.22254574741
+"59250",Wiluna,"5",Western Australia,AUS,Australia,181297.33820000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/59250,18.10328519180,16.25564901170
+"59310",Wongan-Ballidu,"5",Western Australia,AUS,Australia,3365.06750000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/59310,2.94858549740,0.31688697906
+"59320",Woodanilling,"5",Western Australia,AUS,Australia,1128.83480000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/59320,2.19366766530,0.10956998777
+"59330",Wyalkatchem,"5",Western Australia,AUS,Australia,1594.48840000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/59330,2.20637971886,0.15087767267
+"59340",Wyndham-East Kimberley,"5",Western Australia,AUS,Australia,112066.32170000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/59340,75.26631110920,9.44226591103
+"59350",Yalgoo,"5",Western Australia,AUS,Australia,27949.46410000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/59350,13.55666874840,2.57759951932
+"59360",Yilgarn,"5",Western Australia,AUS,Australia,30428.76480000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/59360,8.23196829457,2.87269091490
+"59370",York,"5",Western Australia,AUS,Australia,2131.59160000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/59370,2.97456274998,0.20327426284
+"59499",No usual address (WA),"5",Western Australia,AUS,Australia,0.00000000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/59499,0.00000000000,0.00000000000
+"59799",Migratory - Offshore - Shipping (WA),"5",Western Australia,AUS,Australia,0.00000000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/59799,0.00000000000,0.00000000000
+"60210",Break O'Day,"6",Tasmania,AUS,Australia,3523.88580000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/60210,5.78651172357,0.37957252494
+"60410",Brighton,"6",Tasmania,AUS,Australia,171.15080000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/60410,1.15767941937,0.01880927490
+"60610",Burnie,"6",Tasmania,AUS,Australia,610.95280000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/60610,1.62575360187,0.06560000193
+"60810",Central Coast (Tas.),"6",Tasmania,AUS,Australia,933.08910000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/60810,2.40801576091,0.10028703897
+"61010",Central Highlands (Tas.),"6",Tasmania,AUS,Australia,7982.41550000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/61010,5.39457329480,0.87028565448
+"61210",Circular Head,"6",Tasmania,AUS,Australia,4897.65110000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/61210,11.09262356060,0.52478815368
+"61410",Clarence,"6",Tasmania,AUS,Australia,377.96140000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/61410,2.90263136154,0.04161535547
+"61510",Derwent Valley,"6",Tasmania,AUS,Australia,4108.11130000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/61510,4.29465361613,0.45215079192
+"61610",Devonport,"6",Tasmania,AUS,Australia,111.25900000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/61610,0.99096320626,0.01194484839
+"61810",Dorset,"6",Tasmania,AUS,Australia,3230.54560000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/61810,4.67999695181,0.34612503325
+"62010",Flinders (Tas.),"6",Tasmania,AUS,Australia,1996.62440000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/62010,9.90124668927,0.21094233649
+"62210",George Town,"6",Tasmania,AUS,Australia,653.43080000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/62210,1.87220411479,0.07004103193
+"62410",Glamorgan-Spring Bay,"6",Tasmania,AUS,Australia,2591.59100000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/62410,9.19051923545,0.28280332627
+"62610",Glenorchy,"6",Tasmania,AUS,Australia,121.16320000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/62610,0.87491536843,0.01334112207
+"62810",Hobart,"6",Tasmania,AUS,Australia,77.89650000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/62810,0.61082540984,0.00858521446
+"63010",Huon Valley,"6",Tasmania,AUS,Australia,5507.35410000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/63010,13.11913313120,0.61044436954
+"63210",Kentish,"6",Tasmania,AUS,Australia,1156.18880000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/63210,2.43102014555,0.12459089136
+"63410",King Island,"6",Tasmania,AUS,Australia,1095.74070000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/63410,2.68098250160,0.11533830879
+"63610",Kingborough,"6",Tasmania,AUS,Australia,720.10930000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/63610,5.85938506068,0.07973736319
+"63810",Latrobe (Tas.),"6",Tasmania,AUS,Australia,600.46190000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/63810,2.64919916437,0.06450074978
+"64010",Launceston,"6",Tasmania,AUS,Australia,1413.63060000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/64010,2.64398717981,0.15211853765
+"64210",Meander Valley,"6",Tasmania,AUS,Australia,3330.81460000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/64210,4.20138504815,0.35987061710
+"64610",Northern Midlands,"6",Tasmania,AUS,Australia,5135.25050000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/64610,5.25436702084,0.55665414435
+"64810",Sorell,"6",Tasmania,AUS,Australia,583.77230000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/64810,2.27510044469,0.06421674339
+"65010",Southern Midlands,"6",Tasmania,AUS,Australia,2615.49350000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/65010,3.74046617005,0.28614992779
+"65210",Tasman,"6",Tasmania,AUS,Australia,660.39470000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/65210,4.60358620407,0.07296654620
+"65410",Waratah-Wynyard,"6",Tasmania,AUS,Australia,3535.90750000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/65410,3.66508551647,0.38063056503
+"65610",West Coast,"6",Tasmania,AUS,Australia,9583.53880000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/65610,13.14141691530,1.04629151781
+"65810",West Tamar,"6",Tasmania,AUS,Australia,691.15370000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/65810,2.67401940263,0.07428454918
+"69499",No usual address (Tas.),"6",Tasmania,AUS,Australia,0.00000000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/69499,0.00000000000,0.00000000000
+"69799",Migratory - Offshore - Shipping (Tas.),"6",Tasmania,AUS,Australia,0.00000000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/69799,0.00000000000,0.00000000000
+"70200",Alice Springs,"7",Northern Territory,AUS,Australia,327.71320000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/70200,0.87981277243,0.02902066657
+"70420",Barkly,"7",Northern Territory,AUS,Australia,322710.41450000001,http://linked.data.gov.au/dataset/asgsed3/LGA2021/70420,28.00879047070,27.77019917550
+"70540",Belyuen,"7",Northern Territory,AUS,Australia,41.40540000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/70540,0.23474143207,0.00344383800
+"70620",Central Desert,"7",Northern Territory,AUS,Australia,281338.02200000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/70620,33.77774215740,24.52761575620
+"70700",Coomalie,"7",Northern Territory,AUS,Australia,2056.05470000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/70700,2.70099695228,0.17139893174
+"71000",Darwin,"7",Northern Territory,AUS,Australia,111.26140000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/71000,0.64048601158,0.00924914426
+"71150",Darwin Waterfront Precinct,"7",Northern Territory,AUS,Australia,0.74470000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/71150,0.03946371550,0.00006193129
+"71300",East Arnhem,"7",Northern Territory,AUS,Australia,33309.93340000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/71300,39.00554589250,2.77465362758
+"72200",Katherine,"7",Northern Territory,AUS,Australia,7416.64440000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/72200,3.97224313568,0.62235281850
+"72300",Litchfield,"7",Northern Territory,AUS,Australia,2903.33910000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/72300,4.42173483537,0.24148042176
+"72330",MacDonnell,"7",Northern Territory,AUS,Australia,268339.02810000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/72330,26.49258228610,23.93036366620
+"72800",Palmerston,"7",Northern Territory,AUS,Australia,52.65590000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/72800,0.32965351305,0.00437886664
+"73600",Roper Gulf,"7",Northern Territory,AUS,Australia,185213.45460000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/73600,33.27734051570,15.59901461360
+"74050",Tiwi Islands,"7",Northern Territory,AUS,Australia,7483.16610000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/74050,8.82609000936,0.62019465131
+"74550",Victoria Daly,"7",Northern Territory,AUS,Australia,153287.37220000001,http://linked.data.gov.au/dataset/asgsed3/LGA2021/74550,26.54807684540,12.96069520030
+"74560",Wagait,"7",Northern Territory,AUS,Australia,5.66280000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/74560,0.16818162807,0.00047082954
+"74660",West Arnhem,"7",Northern Territory,AUS,Australia,49675.03420000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/74660,23.23531925980,4.13057166404
+"74680",West Daly,"7",Northern Territory,AUS,Australia,14069.69800000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/74680,7.55652871891,1.17826169747
+"79399",Unincorporated NT,"7",Northern Territory,AUS,Australia,19792.88840000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/79399,19.27130711390,1.65013284800
+"79499",No usual address (NT),"7",Northern Territory,AUS,Australia,0.00000000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/79499,0.00000000000,0.00000000000
+"79799",Migratory - Offshore - Shipping (NT),"7",Northern Territory,AUS,Australia,0.00000000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/79799,0.00000000000,0.00000000000
+"89399",Unincorporated ACT,"8",Australian Capital Territory,AUS,Australia,2358.13300000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/89399,3.03213323258,0.23422723910
+"89499",No usual address (ACT),"8",Australian Capital Territory,AUS,Australia,0.00000000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/89499,0.00000000000,0.00000000000
+"89799",Migratory - Offshore - Shipping (ACT),"8",Australian Capital Territory,AUS,Australia,0.00000000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/89799,0.00000000000,0.00000000000
+"99399",Unincorp. Other Territories,"9",Other Territories,AUS,Australia,105.88060000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/99399,1.30100852916,0.01023064572
+"99499",No usual address (OT),"9",Other Territories,AUS,Australia,0.00000000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/99499,0.00000000000,0.00000000000
+"99799",Migratory - Offshore - Shipping (OT),"9",Other Territories,AUS,Australia,0.00000000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/99799,0.00000000000,0.00000000000
+ZZZZZ,Outside Australia,Z,Outside Australia,ZZZ,Outside Australia,0.00000000000,http://linked.data.gov.au/dataset/asgsed3/LGA2021/ZZZZZ,0.00000000000,0.00000000000
