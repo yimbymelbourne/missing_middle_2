@@ -56,59 +56,142 @@ mcg_size <- 20000
 
 ## Our missing middle plan for `r area_name` {.tabset}
 
-Summary of our missing middle plan - x storeys near PT etc. 
 
-### Missing middle map
+Melbourne’s middle urban areas are broadly
+underutilised, and the current Governmental
+approach of focusing on a small number of activ-
+ity centres—while a step in the right direction—
+has been slow to roll out, and ignores large
+swathes of our urban landscape that would
+strongly benefit from enabling medium density.
 
-TODO: insert map that is our missing middle plan for this area. 
+The answer to the housing supply shortage,
+therefore, will not be found in this handful of
+designated activity centres and precincts.
+Rather, it will be found through the delivery of
+permissive planning reforms across every one
+of Metropolitan Melbourne’s existing 1,992 train
+and tram stops.
 
-Includes 6 storeys near train stations and GRZ everywhere else as per the missing middle report. 
+Melbourne’s existing rail network provides fre-
+quent, high capacity transport options across
+the whole city, and by building near these sta-
+tions, we give more people access to this net-
+work, while simultaneously providing more
+destinations that are close to rail.
 
-Tab that compare
+Through broad transit-oriented upzoning and
+development, the Victorian Government can
+deliver housing abundance and provide more
+housing choices to all current and future resi-
+dents across the entirety of the city. This will
+fulfil the original goal of Plan Melbourne creat-
+ing a vast array of 20-minute neighbourhoods,
+rather than a small number of scattered activ-
+ity centres.
 
+YIMBY Melbourne's [Missing Middle](https://assets-global.website-files.com/64a530aa67ffbab04c9c39ab/652284ad6a63b8b3ab424966_Missing-Middle-Report.pdf) report recommendeds the introduction
+of a new "Missing Middle" Zone which:
 
-### Current map
+1. Implements a default maximum height of
+21 metres and 6 storeys, an increase from
+the RGZ’s current 4-storey default.
+2. Expands non-residential land uses to
+include a wider range of neighbourhood
+services & amenities.
+3. Reduces mandatory parking minimums to 0.
+4. Exempts from notice and review develop-
+ments of any total value containing at
+least 10% public or community housing
+in perpetuity.
+
 
 ```{r }
 
 
 sf::sf_use_s2(FALSE)  # Disable s2 engine
 
-lot_by_type <- dwelling_data_sf %>%
+data_w_buxton_yields <- calculate_buxton_mm_yields(area_name)
+
+lot_by_type <- data_w_buxton_yields %>%
+  rename_with(~ if_else(str_detect(.x, "geometry"), "geom", .x), .cols = contains("geometry")) %>% 
+  st_set_geometry("geom") %>% 
   mutate(category = case_when(feature_preventing_development ~ "Civic use makes development less likely",
-         heritage        ~ "Subject to heritage controls",
          dwellings_est >1 ~ "Already developed",
          zoning_permits_housing != "Housing permitted" ~ "Housing not permitted",
-         T ~ zone_short)) %>%
-    st_buffer(0) %>%
-  mutate(geom = lwgeom::lwgeom_make_valid(geom)) %>%
-  mutate(category = as.factor(category)) %>%
-  group_by(category) %>% 
-  summarise(geom = st_union(st_combine(geom))) %>% 
-  st_simplify() 
+         zone_short == "General residential" ~ "3 storeys (GRZ)", 
+         zone_short == "Neighbourhood residential" ~ "2 storeys (NRZ)",
+         zone_short == "Residential Growth" ~ "4 storeys (RGZ)",
+         zone_short == "Mixed use" ~ "4+ storeys (Mixed use zones)",
+         T ~ zone_short),
+         category_new = case_when(feature_preventing_development ~ "Civic use makes development less likely",
+         dwellings_est >1 ~ "Already developed",
+         zoning_permits_housing != "Housing permitted" ~ "Housing not permitted",
+         zone_short_mm == "General residential" ~ "3 storeys (GRZ)", 
+         zone_short_mm == "Neighbourhood residential" ~ "2 storeys (NRZ)",
+         zone_short_mm == "Residential Growth" ~ "4 storeys (RGZ)",
+         zone_short_mm == "Mixed use" ~ "4+ storeys (Mixed use zones)",
+         zone_short_mm == "Missing middle" ~ "6 storeys (Missing middle)",
+         T ~ zone_short_mm)
+         ) %>% 
+  mutate(category = as.factor(category),
+         category_new = as.factor(category_new))
 
+mm_number <- lot_by_type %>% filter(zone_short_mm == "Missing middle") %>% nrow() %>% prettyNum(big.mark = ",")
+
+```
+
+In `r area_name`, `r mm_number` properties would be up-zoned to missing middle, providing a Parisian like density near transit in `r area_name`. 
+
+While this report focuses on the provision of
+the Missing Middle Zone around existing transit
+infrastructure, the Government must in addi-
+tion to this undertake broad upzoning to enable
+more development in existing suburbs.
+While the MMZ enables a thriving Parisian-style
+density for Melbourne, broader upzoning of all
+land currently designated Neighbourhood Resi-
+dential Zone (NRZ) or equivalent will encourage
+a more diverse array of housing options across
+the city through an increase in gentle density.
+
+YIMBY Mel-bourne endorses a complete elimination of the
+current NRZ across Metropolitan Melbourne,
+and its replacement with the General Residen-
+tial Zone (GRZ). In turn, all land currently zoned
+GRZ should also be upzoned to the Residential
+Growth Zone (RGZ).
+
+### Missing middle's new zoning map
+
+
+```{r}
+make_map <- function(map_type){
 
 
 # Assume lot_by_type$category has levels A, B, C, D, E
 # And you want to specify colors for A and B
 
 # Specific colors for certain levels
-specified_colors <- c("Already developed" = "grey",
-                      "Housing not permitted" = "darkgrey",
-                      "Civic use makes development less likely" = "#c5ecd0", 
-                      "Subject to heritage controls" = yimby_colours$complementary[1],
-                      "Low density residential" =  yimby_colours$complementary[3],
-                      "Neighbourhood residential" =  yimby_colours$blue_palette[1],
-                      "General residential" =  yimby_colours$blue_palette[2],
-                      "Residenrial Growth" =  yimby_colours$yellow_palette[1],
-                      "Mixed use" =  yimby_colours$yellow_palette[2],
-                      "Commercial" = yimby_colours$blue_base[3])
+
+
+
+specified_colors <- c("Already developed" = "#989898",
+                      "Housing not permitted" = "#b1b1b1",
+                      "Civic use makes development less likely" = "#cacaca", 
+                      "Low density residential" = yimby_colours$blue_palette[5],
+                      "2 storeys (NRZ)" =  yimby_colours$blue_palette[4],
+                      "3 storeys (GRZ)" =  yimby_colours$blue_palette[3],
+                      "4 storeys (RGZ)" =  yimby_colours$blue_palette[2],
+                      "4+ storeys (Mixed use zones)" =  yimby_colours$blue_palette[1],
+                      "6 storeys (Missing middle)" = yimby_colours$green_palette[3]
+)
 
 # Fallback colors
-fallback_colors <- rev(yimby_colours$green_palette[2-4])  # Assuming this is a vector of color codes
+fallback_colors <- rev(yimby_colours$yellow_palette)  # Assuming this is a vector of color codes
 
 # All unique levels of the factor
-all_levels <- levels(lot_by_type$category)
+all_levels <- levels(lot_by_type[[map_type]])
 
 # Prepare a color vector that includes specified colors and fills the rest from fallback_colors
 colors_for_all_levels <- ifelse(all_levels %in% names(specified_colors),
@@ -126,32 +209,51 @@ if (length(colors_for_all_levels) < length(all_levels)) {
 names(colors_for_all_levels) <- all_levels
 
 # Use colors_for_all_levels in your plotting function
-palette <- colorFactor(palette = colors_for_all_levels, domain = lot_by_type$category)
+palette <- colorFactor(palette = colors_for_all_levels, domain = lot_by_type[[map_type]])
 
 
-
-lot_by_type %>%
+output <- lot_by_type %>%
+  mutate(map_var = as.factor(.data[[map_type]])) %>%
+  group_by(map_var) %>% 
+  summarise(geom = st_union(st_combine(geom))) %>% 
+  st_simplify() %>% 
   st_transform("wgs84") %>% 
   st_simplify() %>% 
-  mutate(category = fct_relevel(category,names(specified_colors))) %>%
+  mutate(map_var = fct_relevel(map_var,names(specified_colors))) %>%
   leaflet(width = "100%") %>%
 addProviderTiles(providers$CartoDB.Positron)%>%
   addPolygons(weight = .1,
               color = "black",
-              fillColor = ~palette(category),
+              fillColor = ~palette(map_var),
               fillOpacity = .8,
-  label = ~category,
+  label = ~map_var,
   labelOptions = labelOptions(
     style = list("font-weight" = "normal", padding = "3px 8px"),
     textsize = "15px",
     direction = "auto")) %>%
    addLegend(pal = palette,
-            values = ~category,
+            values = ~map_var,
             title = "Type of land",
             position = "bottomright",
             opacity = .8)
+return(output)
+
+}
+
+make_map("category_new")
 
 ```
+
+
+
+
+### Existing zoning
+```{r}
+make_map("category")
+
+```
+
+
 
 
 
@@ -175,27 +277,27 @@ With current state target that means xyz homes per year over the next 10 years.
 
 source("R/import_lga_pop_data.R")
 
-lga_pop_change <- lga_pop_change_importer(area_name)
+mel_total <- lga_pop_change_importer(area_name, type = "density")
 
 
-lga_pop_change_no <- lga_pop_change %>% 
-  filter(year == 2022,
+lga_change <- mel_total %>% 
+  filter(year == 2021,
          lga_name_2021 == area_name) %>%
-  pull(population_change)
+  pull(change)
 
-mel_population_change <- lga_pop_change %>% 
-  filter(year == 2022,
+mel_change <- mel_total %>% 
+  filter(year == 2021,
          lga_name_2021 == "All of Melbourne") %>%
-  pull(population_change)
+  pull(change)
 
 
   
-pop_change_ratio <- lga_pop_change_no/mel_population_change
+change_ratio <- lga_change/mel_change
 
 ## TODO - get PT stops per LGA. 
 
-text_on_growth <- case_when(pop_change_ratio >.9 ~ paste0(params$area, " has been building housing, but cannot rest on its laurels"),
-                            pop_change_ratio >.7 ~ paste0(params$area, " has been building some housing, but it is still barely keeping up with the average for Melbourne."),
+text_on_growth <- case_when(change_ratio >.9 ~ paste0(params$area, " has been building housing, but cannot rest on its laurels"),
+                            change_ratio >.7 ~ paste0(params$area, " has been building some housing, but it is still barely keeping up with the average for Melbourne."),
                             T ~ paste0(params$area, " is falling well behind the average for new housing in Melbourne.")
 )
 
@@ -205,19 +307,20 @@ text_on_growth <- case_when(pop_change_ratio >.9 ~ paste0(params$area, " has bee
 `r text_on_growth` params$area has amazing public transport, and it needs to do more to ensure that housing is abundant. 
 
 ```{r}
-lga_pop_change %>%
-  ggplot(aes( x= year, y = population_change,
+mel_total %>%
+  ggplot(aes( x= year, y = change,
               colour = lga_name_2021))+
   geom_line(stat = "identity",linewidth = 1)+
-  theme_yimby_mel_caption(caption = "source: ABS. There was a small dip in the<br>2022 population numbers due to COVID which has likely recovered in 2023. ",
+  theme_yimby_mel_caption(caption = "source: ABS. ",
                           text_size = "small",
                           plot_type = "line",
                           colour_scale = "c")+
-  labs(title = "Population growth for Melbourne Local Government Areas",
-       subtitle = "Growth since 2014 compared to Melbourne Average",
+  labs(title = paste("Growth in homes for",area_name,"compared to the rest of Melbourne"),
+       subtitle = "Growth in census dwellings since 2006",
        labs = element_blank(),
        colour = "Area",
-       x = element_blank())+
+       x = element_blank(),
+       y = element_blank())+
   scale_y_continuous(labels = scales::percent_format())
 
 

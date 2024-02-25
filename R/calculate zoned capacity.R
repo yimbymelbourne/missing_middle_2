@@ -234,3 +234,24 @@ dwelling_data_raw %>%
          units_if_it_were_6_storeys = units_per_lot*6/dev_height_storeys) %>%  
   view()
   
+
+
+buxton_yields_corrected %>% 
+  st_drop_geometry() %>%
+  group_by(area,zone_short_mm) %>% 
+  summarise(increase_required = sum(mm_yield_net)) %>% 
+  ungroup() %>% 
+  mutate(area = fct_reorder(area,increase_required)) %>% 
+  ggplot(aes(x = zone_short_mm, y = increase_required))+
+  geom_bar(stat = "identity") +
+  coord_flip()+
+  labs(title = "where would population go if homes were build evenly across\nYIMBY Melbourne's 'missing middle' plan")+
+  facet_wrap(.~area, scales = "free_y",ncol = 1)
+
+
+buxton_yields_corrected %>% 
+  st_drop_geometry() %>% 
+  group_by(zone_short_mm,
+           lga_name_2022,area) %>% 
+  summarise(n=n()) %>% 
+  spread(zone_short_mm,n) %>% view()
