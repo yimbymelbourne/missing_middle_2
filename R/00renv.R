@@ -17,6 +17,12 @@ library(furrr)
 library(strayr)
 library(showtext)
 library(ggtext)
+library(scales)
+library(gt)
+library(ggridges)
+library(aws.s3)
+
+
 
 # if(Sys.info()[7] == "jonathannolan") {
 # # create connection to postgres 
@@ -35,7 +41,8 @@ library(ggtext)
 # 
 # } else{ print("Make sure you have the dwelling map file inside your data folder', you can download it here https://github.com/jonathananolan/Melbourne-dwelling-map ")
 
-dwelling_data_raw <-read_sf("data/Melbourne dwelling data.gpkg")
+dwelling_data_raw <-read_sf("data/Melbourne dwelling data.gpkg") %>%
+  mutate(lga_name_2022 = str_remove_all(lga_name_2022, "\\s*\\(.*?\\)\\s*"))
 
 # }
 

@@ -1,0 +1,187 @@
+
+
+```{r}
+
+#Paul - I've put CoM specific stuff in here that we can generalise out a bit more later. 
+setwd(original_wd)
+heritage_in_mel <- df_lga_props %>% 
+  filter(!feature_preventing_development,
+         zoning_permits_housing == "Housing permitted") %>% 
+  summarise(heritage_share = round(100*mean(heritage)),
+            heritage_share_lots = round(100*weighted.mean(heritage,lot_size)))
+
+heritage_in_resi_zones <- df_lga_props %>% 
+  filter(!feature_preventing_development,
+         zoning_permits_housing == "Housing permitted",
+         zone_short %in% c("Neighbourhood residential",
+                           "General residential")) %>% 
+  summarise(heritage_share = round(100*mean(heritage)),
+            heritage_share_lots = round(100*weighted.mean(heritage,lot_size)))
+
+```
+
+City of Melbourne is using heritage to stop more people from living in the areas that should support the most housing. Heritage covers `r heritage_in_mel$heritage_share`% of lots in Melbourne that are zoned to allow housing covering `r heritage_in_mel$heritage_share_lots`% of the developable land in the LGA. There is much more heritage in the residential only zones of NRZ and GRZ, where `r heritage_in_resi_zones$heritage_share_lots`% of land is taken up by heritage. 
+```{r}
+
+
+setwd(original_wd)
+
+df_lga_props %>% 
+  filter(!feature_preventing_development,
+         zoning_permits_housing == "Housing permitted") %>% 
+  mutate(zone_short = case_when(zone_short %in% c("Neighbourhood residential",
+                           "General residential",
+                           "Residential Growth") ~ "Residential zones\n(NRZ,GRZ etc)",
+         zone_short =="Mixed use" ~  "Mixed use zones\n(C1Z,CZ,DZ etc)",
+         T ~ zone_short),
+      heritage = if_else(heritage,
+                        "Subject to heritage controls",
+                        "Free from heritage controls")) %>%
+  group_by(zone_short,heritage) %>% 
+  summarise(lots = n(),
+            area = sum(lot_size)) %>%
+   ungroup() %>%
+   ggplot(aes(x = zone_short, 
+              y= area/1e6, 
+              fill = heritage))+
+            geom_bar(stat = "identity")+
+            coord_flip()+
+   theme_yimby_mel_caption(colour_scale = "light_dark",
+                           text_size = "small")+
+   labs(title = "Almost all of the area that permit housing\nin Melbourne is subject to heritage controls",
+        x = element_blank(),
+        y = "Area (sqkm)",
+        fill = " "
+        )
+  
+
+```
+
+
+
+```{r}
+setwd(original_wd)
+
+near_pt_raw <- df_lga_props %>% 
+    filter(!feature_preventing_development,
+         zoning_permits_housing == "Housing permitted") %>% 
+  group_by(heritage_status) %>%
+  mutate(prox_dist_m_train = replace_na(prox_dist_m_train,999999),
+         prox_dist_m_tram = replace_na(prox_dist_m_tram,9999999)
+         ) %>% 
+  mutate(near_pt = if_else(pmin(prox_dist_m_train,prox_dist_m_tram)<500,1,0)) %>% 
+  mutate(zone_short = case_when(zone_short %in% c("General residential",
+                                                  "Residential Growth",
+                                                  "Neighbourhood residential") ~ "Residential",
+                                T ~ zone_short)) %>% 
+  mutate(traffic_pollution = replace_na(traffic_pollution,0)) 
+
+near_pt_summary <- near_pt_raw%>% 
+  group_by(heritage) %>% 
+  filter(n()>50) %>% 
+  summarise(share_near_pt = round(100*(weighted.mean(near_pt,lot_size))),
+            traffic_pollution = round(100*(weighted.mean(traffic_pollution,lot_size)))
+            ) 
+
+```
+Heritage areas make up some of the highest amenity locations in all of Melbourne.These areas were developed first because they are the best located. They have access to the best parks, and the best public transport, and the least traffic pollution. 
+
+The preservation areas around City of Melbourne are closest to the best park land such as the Botanic Gardens, Princess Park and Royal Park. While the city has gone to considerable effort to build more parks in brownfield zones, they cannot overcome the advantage that comes from being near these huge oasis in the middle of our city. 
+
+Heritage areas are also much better connected to public transport than the rest of the city. `r near_pt_summary %>% filter(heritage) %>% pull(share_near_pt)`% of the land subject to heritage controls in Melbourne is within 500m of a tram stop or train station, while only `r near_pt_summary %>% filter(!heritage) %>% pull(share_near_pt)`% of non-heritage properties area. 
+
+
+
+```{r}
+
+setwd(original_wd)
+
+sa1 <-read_csv("data/mel_sa2.csv") %>% filter(is.na(sa2_code_2021)) %>% select(-sa2_code_2021) %>% mutate(sa1_code_2021 = as.character(sa1_code_2021))
+sa2 <- read_csv("data/mel_sa2.csv") %>% filter(is.na(sa1_code_2021)) %>% select(-sa1_code_2021)%>% mutate(sa2_code_2021 = as.character(sa2_code_2021))
+
+city_of_mel_precints_sa1 <- near_pt_raw %>% inner_join(sa1)
+
+
+df_lga_props_precincts <- near_pt_raw %>% 
+  anti_join(city_of_mel_precints_sa1) %>% 
+  inner_join(sa2) %>% 
+  bind_rows(city_of_mel_precints_sa1) 
+
+pollution_data <- df_lga_props_precincts %>% 
+  group_by(zone_short) %>% 
+  summarise(pollution = mean(traffic_pollution),
+            n =n()) 
+
+relative_pollution_numbers <- pollution_data %>% summarise(risk = pollution[zone_short == "Mixed use"]/pollution[zone_short == "Residential"]) %>% pull(risk) %>% round(.,1)
+```
+
+
+
+'Neighbourhood' areas also suffer much less pollution, noise, and traffic risk. While Eureka tower was approved right above one of Melbourne's most polluted roads, the areas without freeways or dangerous trucks such as Carlton tend to get zoned as 'established areas' and denied more housing. Using evidence on the relationship between traffic pollution and respiratory disease, paired with traffic road data from VicRoads, YIMBY Melbourne estimates that the residential areas (zoned GRZ and NRZ) in City of Melbourne's heritage plan have `r relative_pollution_numbers` greater risk from road traffic noise and pollution than renewal precincts (zoned CZ,DZ,MUZ etz).
+
+Melbourne's current heritage plan aims to make this situation worse. Rather than situating growth in the high-amenity, low pollution suburbs the plan suggests potential new precincts right next to the dirty port as well as the new West-Gate tunnel's overpasses. YIMBY Melbourne is not against building more housing in ex-industrial areas, but that should not be at the cost of preventing new housing where people most want to live. 
+
+Heritage designation across large swathes of residential areas denies people the opportunity to live on a quiet, unpolluted street. New housing would not add much to pollution, because new apartments can limit parking and most existing traffic is through - not local. While electric cars are coming, the noise and particulate pollution they produce is unchanged and in some cases greater than for petrol engines. As a result City Road will likely always be a noisy, polluted and dangerous road. And under this heritage plan, more people will not be permitted where it is much safer and nicer to live. 
+
+
+
+```{r}
+setwd(original_wd)
+
+pollution_data%>% 
+  filter(n>100) %>% 
+  ggplot(aes(x = zone_short, 
+             y = pollution))+
+  geom_bar(stat = "identity")+
+  labs(title = "Mixed use areas slated for the most growth also have the most pollution",
+       subtitle = "Noise, tire, and tailpipe emissions from nearby roads to each piece of land in each zone (Average)",
+       y = "Relative pollution",
+       x = element_blank())+
+  coord_flip() +
+  theme_yimby_mel_caption("Pollution estimated as exponential decay of nearby roads multiplied by the number of vehicles per day",text_size = "small")
+
+```
+
+
+
+
+
+```{r maps_by_suburb}
+setwd(original_wd)
+
+precincts_all <- df_lga_props_precincts %>% 
+  group_by(precinct_name) %>% 
+  filter(n()>50) %>% 
+  distinct(precinct_name) %>% 
+  pull(precinct_name)
+
+x <- precincts_all[1]
+
+df_lga_props_precincts %>% 
+  #filter(precinct_name == x) %>% 
+  group_by(heritage,
+           precinct_name) %>% 
+  filter(n()>100) %>% 
+  summarise(lot_size = sum(lot_size)) %>%
+  group_by(precinct_name) %>% 
+  mutate(n = sum(lot_size)) %>% 
+  ungroup() %>% 
+  mutate(precinct_name = fct_reorder(precinct_name,n),
+         heritage = if_else(heritage,
+                        "Subject to heritage controls",
+                        "Free from heritage controls")) %>%
+  ggplot(aes(x = precinct_name, 
+             fill = heritage,
+             y = lot_size/1e6)
+         ) +
+  geom_bar(stat = "identity")+
+    coord_flip()+
+  labs(title = "Heritage by precinct",
+       x = element_blank(),
+       y = "Area (square km)")+
+  theme_yimby_mel_caption(caption_text = "Includes only land currently zoned residential/mixed use",
+                          colour_scale = "light",text_size = "small")
+
+  
+
+```

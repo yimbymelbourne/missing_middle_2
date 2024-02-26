@@ -1,41 +1,77 @@
-source("R/00renv.R")
+walk(list.files(path = "R/",
+                pattern = "*.R",
+                full.names = T),source)
 
 
-run_for_area <- function(area_name) {
-  
-dwelling_data_sf <- dwelling_data_raw %>% 
-  filter(lga_name_2022 == area_name) %>% 
-  mutate(type_short = case_when(feature_preventing_development ~"Civic land",
-                                dwellings_est>1 ~ "Already developed",
-                                T ~ zone_short),
-         heritage_nice = if_else(heritage,
-                                 "Subject to heritage controls",
-                                 "Free from heritage")
-         )
+sf_mel_props <- add_missing_middle_zoning_info() 
 
-dwelling_data <-  dwelling_data_sf %>% st_drop_geometry() 
+df_mel_props <- sf_mel_props %>% st_drop_geometry() 
 
-title <- paste0("Heritage and zoning in ",
-                area_name)
+sf::sf_use_s2(FALSE)  # Disable s2 engine
 
-rmarkdown::render("run_city.Rmd", 
-                  params = list(doc_title = title,
-                                area = area_name),
-                  output_file = paste0("rmd/",title,".html")
-                  )
-
-                  
-}
-lgas <- dwelling_data_raw %>% 
+lgas <- df_mel_props %>% 
   st_drop_geometry() %>% 
   group_by(lga_name_2022) %>% 
   summarise(n=n()) %>% 
   filter(n > 10000) %>% 
   pull(lga_name_2022)
 
-run_for_area("Melbourne")
 
-walk(lgas,run_for_area)
+missing_middle_lgas <- df_mel_props %>% 
+  st_drop_geometry() %>% 
+  group_by(lga_name_2022,area) %>% 
+  summarise(n=n(),
+            .groups = "drop") %>% 
+  filter(n > 10000) %>% 
+  filter(area != "greenfield") %>%
+  pull(lga_name_2022)
+
+
+run_for_area <- function(area_name) {
+  
+  sf_lga_props <- sf_mel_props %>% filter(lga_name_2022 %in% area_name)
+
+  df_lga_props <- sf_lga_props %>% st_drop_geometry()
+
+  sf_lga_useful_props <- sf_lga_props %>% 
+    filter(!feature_preventing_development,
+           dwellings_est <=1,
+           zoning_permits_housing == "Housing permitted")
+
+  df_lga_useful_props <- sf_lga_useful_props %>% st_drop_geometry()
+  
+
+  rmarkdown::render("run_city.Rmd", 
+                    params = list(area = area_name),
+                    output_file = paste0("rmd/",area_name,".html")
+                    )
+
+                  
+}
 
 
 
+
+walk(missing_middle_lgas,run_for_area)
+
+
+
+rmarkdown::render("index.Rmd", 
+                  params = list(area = area_name),
+                  output_file = paste0("rmd/index.html")
+)
+
+list_rmds_with_path <- list.files(pattern = "*.html",
+                        path = "rmd",
+                        full.names = T)
+
+list_rmds <- list.files(pattern = "*.html",
+                        path = "rmd")
+
+upload_object <- function(file_location,url){
+
+put_object(file = file_location, object = url, bucket = "yimby-mel",multipart = T,show_progress = T,
+           headers = list("Content-Type" = "text/html"))
+}
+
+walk2(list_rmds_with_path,list_rmds,upload)

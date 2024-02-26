@@ -7,7 +7,7 @@
 if(type == "population") {
 population_data <- readxl::read_excel("data/32350DS0006_2001-22.xlsx",sheet = 4,skip = 8) %>%
   select(year = Year,
-         pop = no....24,
+         count = no....24,
          lga_name_2021 =  `LGA name`,
          lga_code_2021 = `LGA code`) %>%
          filter(!is.na(lga_name_2021)) %>%
@@ -23,7 +23,8 @@ mel_total <- population_data %>%
          lga_name_2021 = "All of Melbourne")
 
 output <- mel_lga_populations%>%
-  filter(lga_name_2021 == lga) %>%
+  filter(lga_name_2021 %in% lga) %>%
+  group_by(lga_name_2021) %>% 
   mutate(change = count/count[year == 2014]) %>%
   bind_rows(mel_total)
 
@@ -60,7 +61,7 @@ return(output)
            lga_name_2021 = "All of Melbourne")
 
   output <- abs_dwelling_count%>%
-    filter(lga_name_2021 == lga) %>% 
+    filter(lga_name_2021 %in% lga) %>% 
     bind_rows(mel_total)
 
   return(output)

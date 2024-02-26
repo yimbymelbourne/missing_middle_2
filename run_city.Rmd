@@ -1,12 +1,9 @@
 ---
-title: "`r params$doc_title`"
-author: "YIMBY Melbourne"
-date: "2024-02-13"
+title: " "
 output:
   html_document:
     css: "theme/yimby_mel.css"
 params:
-  doc_title: "Heritage and Zoning for a Small Area of Melbourne" # Default value
   area: "Small area"
 ---
 
@@ -14,14 +11,14 @@ params:
 
 knitr::opts_chunk$set(message = FALSE, warning = FALSE, error = FALSE, echo = FALSE, dpi = 300,fig.width = 7, fig.height = 4)
 
-parcels <- prettyNum(nrow(dwelling_data),big.mark = ",")
+parcels <- prettyNum(nrow(df_lga_props),big.mark = ",")
 
-fois <- dwelling_data %>% 
+fois <- df_lga_props %>% 
   filter(feature_preventing_development) %>% 
   nrow()%>% 
   prettyNum(big.mark = ",")
   
-bad_zoning <- dwelling_data %>% 
+bad_zoning <- df_lga_props %>% 
     filter(!feature_preventing_development) %>% 
   group_by(zoning_permits_housing) %>% 
   summarise(n=n()) %>% 
@@ -29,7 +26,7 @@ bad_zoning <- dwelling_data %>%
   pull(n) %>% 
   prettyNum(big.mark = ",")
 
-already_developed <- dwelling_data %>% 
+already_developed <- df_lga_props %>% 
   filter(zoning_permits_housing == "Housing permitted",
          !feature_preventing_development,
          dwellings_est>1) %>%
@@ -37,24 +34,15 @@ already_developed <- dwelling_data %>%
   prettyNum(big.mark = ",")
 
 
-
-useful_lots_sf <- dwelling_data_sf %>% 
-    filter(zoning_permits_housing == "Housing permitted",
-         dwellings_est<2,
-         !(feature_preventing_development)
-         ) 
-
-useful_lots <- useful_lots_sf %>% 
-  st_drop_geometry()
-
-useful_lots_num <-  prettyNum(nrow(useful_lots),big.mark = ",")
+df_lga_useful_props_num <-  prettyNum(nrow(df_lga_useful_props),big.mark = ",")
 
 mcg_size <- 20000 
 
 ```
 
+![](atlas/mel_missing_middle.png)
 
-## Our missing middle plan for `r area_name` {.tabset}
+##  {.tabset}
 
 
 Melbourne’s middle urban areas are broadly
@@ -109,35 +97,7 @@ in perpetuity.
 ```{r }
 
 
-sf::sf_use_s2(FALSE)  # Disable s2 engine
-
-data_w_buxton_yields <- calculate_buxton_mm_yields(area_name)
-
-lot_by_type <- data_w_buxton_yields %>%
-  rename_with(~ if_else(str_detect(.x, "geometry"), "geom", .x), .cols = contains("geometry")) %>% 
-  st_set_geometry("geom") %>% 
-  mutate(category = case_when(feature_preventing_development ~ "Civic use makes development less likely",
-         dwellings_est >1 ~ "Already developed",
-         zoning_permits_housing != "Housing permitted" ~ "Housing not permitted",
-         zone_short == "General residential" ~ "3 storeys (GRZ)", 
-         zone_short == "Neighbourhood residential" ~ "2 storeys (NRZ)",
-         zone_short == "Residential Growth" ~ "4 storeys (RGZ)",
-         zone_short == "Mixed use" ~ "4+ storeys (Mixed use zones)",
-         T ~ zone_short),
-         category_new = case_when(feature_preventing_development ~ "Civic use makes development less likely",
-         dwellings_est >1 ~ "Already developed",
-         zoning_permits_housing != "Housing permitted" ~ "Housing not permitted",
-         zone_short_mm == "General residential" ~ "3 storeys (GRZ)", 
-         zone_short_mm == "Neighbourhood residential" ~ "2 storeys (NRZ)",
-         zone_short_mm == "Residential Growth" ~ "4 storeys (RGZ)",
-         zone_short_mm == "Mixed use" ~ "4+ storeys (Mixed use zones)",
-         zone_short_mm == "Missing middle" ~ "6 storeys (Missing middle)",
-         T ~ zone_short_mm)
-         ) %>% 
-  mutate(category = as.factor(category),
-         category_new = as.factor(category_new))
-
-mm_number <- lot_by_type %>% filter(zone_short_mm == "Missing middle") %>% nrow() %>% prettyNum(big.mark = ",")
+mm_number <- df_lga_useful_props %>% filter(zone_short_mm == "Missing middle") %>% nrow() %>% prettyNum(big.mark = ",")
 
 ```
 
@@ -166,81 +126,7 @@ Growth Zone (RGZ).
 
 
 ```{r}
-make_map <- function(map_type){
-
-
-# Assume lot_by_type$category has levels A, B, C, D, E
-# And you want to specify colors for A and B
-
-# Specific colors for certain levels
-
-
-
-specified_colors <- c("Already developed" = "#989898",
-                      "Housing not permitted" = "#b1b1b1",
-                      "Civic use makes development less likely" = "#cacaca", 
-                      "Low density residential" = yimby_colours$blue_palette[5],
-                      "2 storeys (NRZ)" =  yimby_colours$blue_palette[4],
-                      "3 storeys (GRZ)" =  yimby_colours$blue_palette[3],
-                      "4 storeys (RGZ)" =  yimby_colours$blue_palette[2],
-                      "4+ storeys (Mixed use zones)" =  yimby_colours$blue_palette[1],
-                      "6 storeys (Missing middle)" = yimby_colours$green_palette[3]
-)
-
-# Fallback colors
-fallback_colors <- rev(yimby_colours$yellow_palette)  # Assuming this is a vector of color codes
-
-# All unique levels of the factor
-all_levels <- levels(lot_by_type[[map_type]])
-
-# Prepare a color vector that includes specified colors and fills the rest from fallback_colors
-colors_for_all_levels <- ifelse(all_levels %in% names(specified_colors),
-                                specified_colors[all_levels],
-                                fallback_colors[1:length(all_levels)])
-
-# Ensure the length of fallback colors is sufficient
-if (length(colors_for_all_levels) < length(all_levels)) {
-  warning("Not enough fallback colors provided. Repeating fallback colors to match the number of levels.")
-  needed <- length(all_levels) - length(colors_for_all_levels)
-  colors_for_all_levels <- c(colors_for_all_levels, rep(fallback_colors, length.out = needed))
-}
-
-# Assign names to ensure the colors align with the factor levels
-names(colors_for_all_levels) <- all_levels
-
-# Use colors_for_all_levels in your plotting function
-palette <- colorFactor(palette = colors_for_all_levels, domain = lot_by_type[[map_type]])
-
-
-output <- lot_by_type %>%
-  mutate(map_var = as.factor(.data[[map_type]])) %>%
-  group_by(map_var) %>% 
-  summarise(geom = st_union(st_combine(geom))) %>% 
-  st_simplify() %>% 
-  st_transform("wgs84") %>% 
-  st_simplify() %>% 
-  mutate(map_var = fct_relevel(map_var,names(specified_colors))) %>%
-  leaflet(width = "100%") %>%
-addProviderTiles(providers$CartoDB.Positron)%>%
-  addPolygons(weight = .1,
-              color = "black",
-              fillColor = ~palette(map_var),
-              fillOpacity = .8,
-  label = ~map_var,
-  labelOptions = labelOptions(
-    style = list("font-weight" = "normal", padding = "3px 8px"),
-    textsize = "15px",
-    direction = "auto")) %>%
-   addLegend(pal = palette,
-            values = ~map_var,
-            title = "Type of land",
-            position = "bottomright",
-            opacity = .8)
-return(output)
-
-}
-
-make_map("category_new")
+make_map(sf_lga_props,"category_new")
 
 ```
 
@@ -249,7 +135,7 @@ make_map("category_new")
 
 ### Existing zoning
 ```{r}
-make_map("category")
+make_map(sf_lga_props,"category")
 
 ```
 
@@ -275,7 +161,7 @@ With current state target that means xyz homes per year over the next 10 years.
 
 ```{r}
 
-source("R/import_lga_pop_data.R")
+#source("R/import_lga_pop_data.R")
 
 mel_total <- lga_pop_change_importer(area_name, type = "density")
 
@@ -336,24 +222,20 @@ Not enough housing is being built in `r area_name` because it has not been zoned
 
 ```{r}
 
-dwellings_by_type <- dwelling_data %>%
-  group_by(type_short,heritage) %>% 
+dwellings_by_type <- df_lga_useful_props %>%
+  group_by(category) %>% 
   summarise(n = n(),
             lot_size = sum(lot_size),
             .groups = "drop") %>% 
-  group_by(type_short) %>% 
+  group_by(category) %>% 
   mutate(n_total = sum(n),
          lot_size_total = sum(lot_size))  %>% 
-  ungroup() %>% 
-  mutate(heritage = if_else(heritage,
-                            "Subject to heritage controls",
-                            "Free from heritage controls")) 
+  ungroup() 
 
 dwellings_by_type %>% 
-  mutate(type_short = fct_reorder(type_short,n_total)) %>% 
-  ggplot(aes(x = type_short, 
-             y = n,
-             fill = heritage))+
+  mutate(category = fct_reorder(category,n_total)) %>% 
+  ggplot(aes(x = category, 
+             y = n))+
   coord_flip()+ 
   geom_bar(stat = "identity")+
   theme_yimby_mel_caption(text_size = "small",plot_type = "bar",colour_scale = "light_dark") +
@@ -368,10 +250,9 @@ dwellings_by_type %>%
 
 ```{r by total area}
 dwellings_by_type %>% 
-    mutate(type_short = fct_reorder(type_short,lot_size_total)) %>%
-  ggplot(aes(x = type_short, 
-             y = lot_size_total,
-             fill = heritage))+
+    mutate(category = fct_reorder(category,lot_size_total)) %>%
+  ggplot(aes(x = category, 
+             y = lot_size_total))+
   coord_flip()+ 
   geom_bar(stat = "identity")+
   theme_yimby_mel_caption(text_size = "small",plot_type = "bar",colour_scale = "light_dark") +
@@ -390,16 +271,30 @@ dwellings_by_type %>%
 library(kableExtra)
 library(gt)
 
-types_zonning <- dwellings_by_type %>% 
+dwellings_by_type_w_heritage <- df_lga_useful_props %>%
+  group_by(category,heritage) %>% 
+  summarise(n = n(),
+            lot_size = sum(lot_size),
+            .groups = "drop") %>% 
+  group_by(category) %>% 
+  mutate(n_total = sum(n),
+         lot_size_total = sum(lot_size))  %>% 
+  ungroup() %>% 
+  mutate(heritage = if_else(heritage,
+                            "Subject to heritage controls",
+                            "Free from heritage"))
+
+types_zonning <- df_lga_useful_props %>% 
   group_by(heritage) %>% 
-  summarise(n = sum(n),
+  summarise(n = n(),
             lot_size = sum(lot_size)) %>% 
-  mutate(type_short = "Total")
+  mutate(category = "Total")%>% 
+  mutate(heritage = if_else(heritage,
+                            "Subject to heritage controls",
+                            "Free from heritage"))
 
 
-
-
-types_total_new <- dwelling_data %>%
+types_total_new <- df_lga_useful_props %>%
   filter(!feature_preventing_development,
          zoning_permits_housing == "Housing permitted",
          dwellings_est < 2) %>% 
@@ -410,13 +305,12 @@ types_total_new <- dwelling_data %>%
   mutate(heritage = if_else(heritage,
                             "Subject to heritage controls",
                             "Free from heritage"),
-         type_short = "Total where new housing can be built") 
+         category = "Total where new housing can be built") 
 
-
-dwellings_by_type %>% 
+dwellings_by_type_w_heritage %>% 
   bind_rows(types_zonning) %>% 
   bind_rows(types_total_new) %>% 
-  group_by(type_short) %>% 
+  group_by(category) %>% 
   mutate(`Share of properties that are heritage` = paste0(round(100*n/sum(n)),"%"),
          `Share of land that is heritage` =  paste0(round(100*lot_size/sum(lot_size)),"%")
          ) %>% 
@@ -442,186 +336,21 @@ insert building approval data for this LGA by zone category
 ## Heritage should not be a barrier to housing abudance 
 
 
-```{r}
 
-#Paul - I've put CoM specific stuff in here that we can generalise out a bit more later. 
+```{r conditional-include, echo=FALSE, results='asis'}
 
-heritage_in_mel <- dwelling_data %>% 
-  filter(!feature_preventing_development,
-         zoning_permits_housing == "Housing permitted") %>% 
-  summarise(heritage_share = round(100*mean(heritage)),
-            heritage_share_lots = round(100*weighted.mean(heritage,lot_size)))
-
-heritage_in_resi_zones <- dwelling_data %>% 
-  filter(!feature_preventing_development,
-         zoning_permits_housing == "Housing permitted",
-         zone_short %in% c("Neighbourhood residential",
-                           "General residential")) %>% 
-  summarise(heritage_share = round(100*mean(heritage)),
-            heritage_share_lots = round(100*weighted.mean(heritage,lot_size)))
-
-```
-
-City of Melbourne is using heritage to stop more people from living in the areas that should support the most housing. Heritage covers `r heritage_in_mel$heritage_share`% of lots in Melbourne that are zoned to allow housing covering `r heritage_in_mel$heritage_share_lots`% of the developable land in the LGA. There is much more heritage in the residential only zones of NRZ and GRZ, where `r heritage_in_resi_zones$heritage_share_lots`% of land is taken up by heritage. 
-```{r}
-
-
-
-dwelling_data %>% 
-  filter(!feature_preventing_development,
-         zoning_permits_housing == "Housing permitted") %>% 
-  mutate(zone_short = case_when(zone_short %in% c("Neighbourhood residential",
-                           "General residential",
-                           "Residential Growth") ~ "Residential zones\n(NRZ,GRZ etc)",
-         zone_short =="Mixed use" ~  "Mixed use zones\n(C1Z,CZ,DZ etc)",
-         T ~ zone_short),
-      heritage = if_else(heritage,
-                        "Subject to heritage controls",
-                        "Free from heritage controls")) %>%
-  group_by(zone_short,heritage) %>% 
-  summarise(lots = n(),
-            area = sum(lot_size)) %>%
-   ungroup() %>%
-   ggplot(aes(x = zone_short, 
-              y= area/1e6, 
-              fill = heritage))+
-            geom_bar(stat = "identity")+
-            coord_flip()+
-   theme_yimby_mel_caption(colour_scale = "light_dark",
-                           text_size = "small")+
-   labs(title = "Almost all of the area that permit housing\nin Melbourne is subject to heritage controls",
-        x = element_blank(),
-        y = "Area (sqkm)",
-        fill = " "
-        )
+# Conditionally include the R Markdown file
+if(area_name == "Melbourne") {
+  
+  original_wd <- getwd()
+  res <-knitr::knit_child('R/mel_specific_render.Rmd', quiet = TRUE,options  = c("root.dir" = original_wd))
+  cat(res)
   
 
-```
 
-
-
-```{r}
-
-near_pt_raw <- dwelling_data %>% 
-    filter(!feature_preventing_development,
-         zoning_permits_housing == "Housing permitted") %>% 
-  group_by(heritage_status) %>%
-  mutate(prox_dist_m_train = replace_na(prox_dist_m_train,999999),
-         prox_dist_m_tram = replace_na(prox_dist_m_tram,9999999)
-         ) %>% 
-  mutate(near_pt = if_else(pmin(prox_dist_m_train,prox_dist_m_tram)<500,1,0)) %>% 
-  mutate(zone_short = case_when(zone_short %in% c("General residential",
-                                                  "Residential Growth",
-                                                  "Neighbourhood residential") ~ "Residential",
-                                T ~ zone_short)) %>% 
-  mutate(traffic_pollution = replace_na(traffic_pollution,0)) 
-
-near_pt_summary <- near_pt_raw%>% 
-  group_by(heritage) %>% 
-  filter(n()>50) %>% 
-  summarise(share_near_pt = round(100*(weighted.mean(near_pt,lot_size))),
-            traffic_pollution = round(100*(weighted.mean(traffic_pollution,lot_size)))
-            ) 
+}
 
 ```
-Heritage areas make up some of the highest amenity locations in all of Melbourne.These areas were developed first because they are the best located. They have access to the best parks, and the best public transport, and the least traffic pollution. 
-
-The preservation areas around City of Melbourne are closest to the best park land such as the Botanic Gardens, Princess Park and Royal Park. While the city has gone to considerable effort to build more parks in brownfield zones, they cannot overcome the advantage that comes from being near these huge oasis in the middle of our city. 
-
-Heritage areas are also much better connected to public transport than the rest of the city. `r near_pt_summary %>% filter(heritage) %>% pull(share_near_pt)`% of the land subject to heritage controls in Melbourne is within 500m of a tram stop or train station, while only `r near_pt_summary %>% filter(!heritage) %>% pull(share_near_pt)`% of non-heritage properties area. 
-
-
-
-```{r}
-
-
-sa1 <-read_csv("data/mel_sa2.csv") %>% filter(is.na(sa2_code_2021)) %>% select(-sa2_code_2021) %>% mutate(sa1_code_2021 = as.character(sa1_code_2021))
-sa2 <- read_csv("data/mel_sa2.csv") %>% filter(is.na(sa1_code_2021)) %>% select(-sa1_code_2021)%>% mutate(sa2_code_2021 = as.character(sa2_code_2021))
-
-city_of_mel_precints_sa1 <- near_pt_raw %>% inner_join(sa1)
-
-
-dwelling_data_precincts <- near_pt_raw %>% 
-  anti_join(city_of_mel_precints_sa1) %>% 
-  inner_join(sa2) %>% 
-  bind_rows(city_of_mel_precints_sa1) 
-
-pollution_data <- dwelling_data_precincts %>% 
-  group_by(zone_short) %>% 
-  summarise(pollution = mean(traffic_pollution),
-            n =n()) 
-
-relative_pollution_numbers <- pollution_data %>% summarise(risk = pollution[zone_short == "Mixed use"]/pollution[zone_short == "Residential"]) %>% pull(risk) %>% round(.,1)
-```
-
-
-
-'Neighbourhood' areas also suffer much less pollution, noise, and traffic risk. While Eureka tower was approved right above one of Melbourne's most polluted roads, the areas without freeways or dangerous trucks such as Carlton tend to get zoned as 'established areas' and denied more housing. Using evidence on the relationship between traffic pollution and respiratory disease, paired with traffic road data from VicRoads, YIMBY Melbourne estimates that the residential areas (zoned GRZ and NRZ) in City of Melbourne's heritage plan have `r relative_pollution_numbers` greater risk from road traffic noise and pollution than renewal precincts (zoned CZ,DZ,MUZ etz).
-
-Melbourne's current heritage plan aims to make this situation worse. Rather than situating growth in the high-amenity, low pollution suburbs the plan suggests potential new precincts right next to the dirty port as well as the new West-Gate tunnel's overpasses. YIMBY Melbourne is not against building more housing in ex-industrial areas, but that should not be at the cost of preventing new housing where people most want to live. 
-
-Heritage designation across large swathes of residential areas denies people the opportunity to live on a quiet, unpolluted street. New housing would not add much to pollution, because new apartments can limit parking and most existing traffic is through - not local. While electric cars are coming, the noise and particulate pollution they produce is unchanged and in some cases greater than for petrol engines. As a result City Road will likely always be a noisy, polluted and dangerous road. And under this heritage plan, more people will not be permitted where it is much safer and nicer to live. 
-
-
-
-```{r}
-pollution_data%>% 
-  filter(n>100) %>% 
-  ggplot(aes(x = zone_short, 
-             y = pollution))+
-  geom_bar(stat = "identity")+
-  labs(title = "Mixed use areas slated for the most growth also have the most pollution",
-       subtitle = "Noise, tire, and tailpipe emissions from nearby roads to each piece of land in each zone (Average)",
-       y = "Relative pollution",
-       x = element_blank())+
-  coord_flip() +
-  theme_yimby_mel_caption("Pollution estimated as exponential decay of nearby roads multiplied by the number of vehicles per day",text_size = "small")
-
-```
-
-
-
-
-
-```{r maps_by_suburb}
-precincts_all <- dwelling_data_precincts %>% 
-  group_by(precinct_name) %>% 
-  filter(n()>50) %>% 
-  distinct(precinct_name) %>% 
-  pull(precinct_name)
-
-x <- precincts_all[1]
-
-dwelling_data_precincts %>% 
-  #filter(precinct_name == x) %>% 
-  group_by(heritage,
-           precinct_name) %>% 
-  filter(n()>100) %>% 
-  summarise(lot_size = sum(lot_size)) %>%
-  group_by(precinct_name) %>% 
-  mutate(n = sum(lot_size)) %>% 
-  ungroup() %>% 
-  mutate(precinct_name = fct_reorder(precinct_name,n),
-         heritage = if_else(heritage,
-                        "Subject to heritage controls",
-                        "Free from heritage controls")) %>%
-  ggplot(aes(x = precinct_name, 
-             fill = heritage,
-             y = lot_size/1e6)
-         ) +
-  geom_bar(stat = "identity")+
-    coord_flip()+
-  labs(title = "Heritage by precinct",
-       x = element_blank(),
-       y = "Area (square km)")+
-  theme_yimby_mel_caption(caption_text = "Includes only land currently zoned residential/mixed use",
-                          colour_scale = "light",text_size = "small")
-
-  
-
-```
-
-
 
 ## Lot sizes are no barrier to growth
 
@@ -634,10 +363,9 @@ Larger lots can be easier to develop, but Melbourne has been sucssessful in deve
 ### By number of lots
 
 ```{r cars}
-library(ggridges)
 
 
-dwelling_data %>%
+df_lga_props %>%
   ggplot() + 
   geom_density_ridges(aes(x = lot_size, 
                      fill = heritage_nice,
@@ -660,7 +388,7 @@ dwelling_data %>%
 
 ```{r }
 
- dwelling_data[rep(seq_along(round(as.numeric(dwelling_data$lot_size/50))), round(as.numeric(dwelling_data$lot_size/50))), ] %>%
+ df_lga_props[rep(seq_along(round(as.numeric(df_lga_props$lot_size/50))), round(as.numeric(df_lga_props$lot_size/50))), ] %>%
   mutate(group_name = paste0(type_short,heritage)) %>%
   ggplot() + 
   geom_density_ridges(aes(x = lot_size, 
@@ -690,4 +418,4 @@ Recycle text from missing middle report.
 
 There are `r parcels` parcels of land in `r params$area`. But not every piece of land can have housing on it. Of these parcels, `r fois` are on civic land like schools, hospitals, or train stations where development is challenging. Another `r bad_zoning` are in zones that do not development. Finally `r already_developed` properties have already been developed with more than 1 unit, making re-development difficult. 
 
-That leaves `r useful_lots_num` that are available for development. The size of these lots is `r prettyNum(sum(useful_lots$lot_size),big.mark = ",")` square meters, or `r round(as.numeric(sum(useful_lots$lot_size))/mcg_size)` MCGs worth of space to build housing. 
+That leaves `r df_lga_useful_props_num` that are available for development. The size of these lots is `r prettyNum(sum(df_lga_useful_props$lot_size),big.mark = ",")` square meters, or `r round(as.numeric(sum(df_lga_useful_props$lot_size))/mcg_size)` MCGs worth of space to build housing. 

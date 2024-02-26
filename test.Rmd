@@ -1,0 +1,103 @@
+---
+title: "Your Document Title"
+output: html_document
+---
+
+```{css, echo=FALSE}
+.sprintxp {
+    background-image: url("http://www.designshock.com/wp-content/uploads/2015/02/prisma.jpg");
+    background-attachment: fixed;
+    background-size: cover;
+    color: yellow;
+    text-shadow: 2px 1px 1px #4d4d4d;
+    padding: 40px;
+    max-width: 100%;
+}
+
+.mensxp {
+    background-image: url("http://www.designshock.com/wp-content/uploads/2015/02/prisma.jpg");
+    background-attachment: fixed;
+    background-size: cover;
+    color: white;
+    padding: 40px;
+    text-shadow: 2px 1px 1px #4d4d4d;
+}
+
+#sprintlogo, #menslogo {
+    width: 100%; /* Adjust based on your needs */
+    height: auto;
+}
+
+To integrate complex HTML elements with CSS styling into an R Markdown document and achieve the desired effect where the image stays still and the text scrolls above it, you need to ensure that your HTML and CSS are correctly formatted and included in the R Markdown file. The issue you're encountering might be due to how R Markdown processes HTML and CSS within its knitting process to an HTML document. Here’s how you can do it effectively:
+
+    Place CSS in the Header or an External Stylesheet: You can include CSS directly in the R Markdown document within a <style> tag or reference an external CSS file. For direct inclusion, place the <style> tag within an HTML block at the beginning of the document.
+
+    Ensure Correct CSS Properties: The property background-image: cover; is incorrect. To make an image cover the background, you should use background-size: cover;. The background-image property is for specifying the URL of the image.
+
+    Use Raw HTML for Complex Layouts: You can write raw HTML directly in your R Markdown file for complex layouts. Ensure your HTML structure matches your CSS classes and IDs.
+
+Here is a corrected and detailed example based on your requirements:
+
+markdown
+
+---
+title: "Your Document Title"
+output: html_document
+---
+
+```{css, echo=FALSE}
+.sprintxp {
+    background-image: url("http://www.designshock.com/wp-content/uploads/2015/02/prisma.jpg");
+    background-attachment: fixed;
+    background-size: cover;
+    color: yellow;
+    text-shadow: 2px 1px 1px #4d4d4d;
+    padding: 40px;
+    max-width: 100%;
+}
+
+.mensxp {
+    background-image: url("http://www.designshock.com/wp-content/uploads/2015/02/prisma.jpg");
+    background-attachment: fixed;
+    background-size: cover;
+    color: white;
+    padding: 40px;
+    text-shadow: 2px 1px 1px #4d4d4d;
+}
+
+#sprintlogo, #menslogo {
+    width: 100%; /* Adjust based on your needs */
+    height: auto;
+}
+
+```
+
+
+
+<div class="container">
+  <div class="top">
+    <!-- Optional top content -->
+  </div>
+  <div class="cover">
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit...</p>
+  </div>
+  <div class="xp">
+    <h1 id="work">Work Experience</h1>
+    <div class="sprintxp">
+      <img src="images/sprint.png" id="sprintlogo" alt="sprintlogo">
+      <p>Technical Consultant</p>
+      <ul>
+        <li>Performed software and hardware repairs...</li>
+        <!-- More list items here -->
+      </ul>
+    </div>
+    <div class="mensxp">
+      <img src="images/mens.png" id="menslogo" alt="menswarehouselogo">
+      <p>Sales Associate</p>
+      <ul>
+        <li>Improved store displays by implementing my personal designs...</li>
+        <!-- More list items here -->
+      </ul>
+    </div>
+  </div>
+
