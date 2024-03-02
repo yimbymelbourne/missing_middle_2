@@ -204,11 +204,15 @@ mutate(area = case_when( lga_name_2022 %in% inner_lgas ~ "inner lgas",
                             zone_short_mm == "General residential" & lot_size < 675  ~ 2,
                             zone_short_mm == "General residential" & lot_size < 1000 ~ 3,
                             zone_short_mm == "General residential" & lot_size < 2000 ~ 8,
-                            zone_short_mm %in% c("Mixed use","Commercial","General residential") & lga_name_2022 %in% inner_lgas ~ lot_size*830/10000,
-                            zone_short_mm %in% c("Mixed use","Commercial","General residential") & lga_name_2022 %in% middle_lgas ~ lot_size*346/10000,
-                            zone_short_mm %in% c("Mixed use","Commercial","General residential") & lga_name_2022 %in% outer_lgas ~ lot_size*252/10000,
-                            zone_short_mm %in% c("Mixed use","Commercial","General residential") & lga_name_2022 %in% greenfield ~ lot_size*252/10000,
-                            zone_short_mm %in% c("Residential Growth") ~ lot_size*240/10000, # What actually happens
+                            zone_short_mm == "Residential Growth"  & lot_size < 225  ~ 1,
+                            zone_short_mm == "Residential Growth"  & lot_size < 500  ~ 8,
+                            zone_short_mm == "Residential Growth"  & lot_size < 1000 ~ 18,
+                            zone_short_mm == "Residential Growth"  & lot_size < 2000 ~ 36,
+                           # zone_short_mm %in% c("Residential Growth") ~ lot_size*240/10000, # What actually happens
+                            zone_short_mm %in% c("Residential Growth","Mixed use","Commercial","General residential") & lga_name_2022 %in% inner_lgas ~ lot_size*830/10000,
+                            zone_short_mm %in% c("Residential Growth","Mixed use","Commercial","General residential") & lga_name_2022 %in% middle_lgas ~ lot_size*346/10000,
+                            zone_short_mm %in% c("Residential Growth","Mixed use","Commercial","General residential") & lga_name_2022 %in% outer_lgas ~ lot_size*252/10000,
+                            zone_short_mm %in% c("Residential Growth","Mixed use","Commercial","General residential") & lga_name_2022 %in% greenfield ~ lot_size*252/10000,
                             zone_short_mm %in% c("Missing middle") ~ lot_size*6/4*240/10000, # Missing middle will be 6 instead of 4 storeys so this is our best estimate... 
                             
                             T ~ NA_real_),

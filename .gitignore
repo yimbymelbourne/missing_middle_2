@@ -9,3 +9,16 @@ data/Melbourne dwelling data.gpkg
 data/Melbourne dwelling data.gpkg
 .DS_Store
 Screenshot 2024-02-25 at 11.38.24 am.png
+html
+000067.png
+data/all_prices.RDS
+data/apartment_model.RDS
+data/house_price_model.RDS
+data/ksou.csv
+data/ksou.csv.zip
+test.dbf
+test/test.dbf
+test/test.prj
+test/test.shp
+test/test.shx
+.DS_Store

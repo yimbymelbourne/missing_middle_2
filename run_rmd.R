@@ -1,5 +1,3 @@
-library(purrr)
-
 # Start by importing all the functions that make this project tick. 
 # The most important is 00renv.R which you'll want to look at - it points to the source file as well as 
 # loading it into memory. 
@@ -9,10 +7,11 @@ r_files <- list.files(path = "R/",
                       pattern = "*.R$",
                       full.names = T)
 
-walk(r_files,source)
+purr::walk(r_files,source)
 
 #Add beskope info on how YIMBY Melbourne wants to re-zone Melbourne
-sf_mel_props <- add_missing_middle_zoning_info() 
+sf_mel_props <- add_missing_middle_zoning_info() %>% 
+                find_profitable_apartments()
 #Create a version without geometries
 df_mel_props <- sf_mel_props %>% st_drop_geometry() 
 
@@ -67,8 +66,7 @@ walk(missing_middle_lgas,run_for_area)
 #Create the index page as well
 
 rmarkdown::render("index.Rmd", 
-                  params = list(area = area_name),
-                  output_file = paste0("rmd/index.html")
+                  output_file = paste0("html/index.html")
 )
 
 
@@ -76,18 +74,17 @@ rmarkdown::render("index.Rmd",
  if(Sys.info()[7] == "jonathannolan") {
 
 list_rmds_with_path <- list.files(pattern = "*.html",
-                        path = "rmd",
+                        path = "html",
                         full.names = T)
 
 list_rmds <- list.files(pattern = "*.html",
-                        path = "rmd")
+                        path = "html")
 
 
-aws.s3::bucketlist(add_region = T)
 Sys.setenv("AWS_DEFAULT_REGION" = "ap-southeast-2")
 
-Sys.setenv(AWS_DEFAULT_REGION = rstudioapi::askForPassword())
-Sys.setenv(AWS_ACCESS_KEY_ID = rstudioapi::askForPassword())
+#Sys.setenv(AWS_ACCESS_KEY_ID = rstudioapi::askForPassword())
+#Sys.setenv(AWS_SECRET_ACCESS_KEY = rstudioapi::askForPassword())
 
 upload_object <- function(file_location,url){
 
@@ -95,6 +92,7 @@ put_object(file = file_location, bucket = "yimby-mel",multipart = T,show_progres
            headers = list("Content-Type" = "text/html"),verbose = T)
 }
 
+aws.s3::bucketlist(add_region = T)
 walk2(list_rmds_with_path,list_rmds,upload_object)
 
 }
