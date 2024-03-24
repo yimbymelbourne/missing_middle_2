@@ -12,7 +12,13 @@ purrr::walk(r_files,source)
 #Add beskope info on how YIMBY Melbourne wants to re-zone Melbourne
 sf_mel_props <- dwelling_data_raw  %>% 
                 add_missing_middle_zoning_info() %>% 
-                find_profitable_apartments() 
+                find_profitable_apartments()  %>% 
+  #We add a baseline yield to account for the fact that the model doesn't account well for 'townhouse' style developments in RGZ GRZ zones which could increase density signifiantly. 
+  #These townhouses would likely sell more than what an apartment would sell for. 
+  mutate(baseline_demand = case_when(zone_short_mm == "Missing middle" ~ .1*missing_middle_yield,
+                                     zone_short_mm %in% c("General residential","Residential Growth") ~ .05*missing_middle_yield,
+                                     T ~ 0),
+        profitable_apartments = pmax(profitable_apartments, baseline_demand))
 
 runnable <- sf_mel_props%>% 
   filter(!is.na(profit)) %>%
@@ -47,8 +53,6 @@ runnable %>%
   facet_wrap(~storey)
 
 
-  filter(profit <50000000) %>% 
-  mutate(profit_per_apartment = profit/apartments_if_built_to_this_height) 
 
 runnable %>% 
   ggplot(aes(x = profit))+
@@ -57,8 +61,8 @@ runnable %>%
 
 
 runnable %>% 
-  mutate(profit_per_apartment = apartments_if_built_to_this_height/profit) %>% 
-  select(profitable_apartments,profit_per_apartment,zone_short_mm,mm_yield_net) %>% 
+  mutate(pp_app = profit/apartments_if_built_to_this_height) %>% 
+  select(profitable_apartments,pp_app,zone_short_mm,mm_yield_net) %>% 
   filter(!is.na(profitable_apartments)) %>% 
   write_sf("test/profit_per_apartment.shp")
   

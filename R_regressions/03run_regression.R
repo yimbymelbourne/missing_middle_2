@@ -12,7 +12,7 @@ all_prices <- dwellings_with_prices %>%
                             "Residential growth",
                             "Residential Growth",
                             "Mixed use"))) %>%
-  filter(!(pp_propertyType %in% c("Acreage","Unit"))) %>%  #Exclude units because they're the type of land we exclude from development as being already built on. 
+  filter(!(pp_propertyType %in% c("Acreage"))) %>%  #Exclude units because they're the type of land we exclude from development as being already built on. 
   mutate(prop_type_short = if_else(pp_propertyType %in% c("Apartment","Unit"),"unit","other"))  %>% 
   mutate(land_size = parse_number(pp_landSize),
          year_num = parse_number(pp_soldDate),
@@ -55,6 +55,38 @@ house_dataset <- all_prices %>% filter(prop_type_short == "other") %>%
   filter(lot_size <3000) %>% 
   filter(dwlgs_in_2016 <2) 
 
+
+full_dataset_for_prediction <- dwelling_data_raw %>% 
+  lazy_dt() %>% 
+  filter(zoning_permits_housing == "Housing permitted",
+         zone_short %in% c("Neighbourhood residential",
+                           "General residential",
+                           "Residential growth",
+                           "Residential Growth",
+                           "Mixed use")) %>%
+  mutate(year = 2018,
+         dist_rail = replace_na(pmin(prox_walk_time_s_tram,
+                                     prox_walk_time_s_train,
+                                     na.rm = T),9999),
+         dist_rail_fct = cut(dist_rail, breaks = c(0,
+                                                   100,
+                                                   200,
+                                                   300,
+                                                   400,
+                                                   500,
+                                                   800,
+                                                   1000,
+                                                   1500,
+                                                   Inf))) %>% 
+  filter(lga_name_2022 %in% c(inner_lgas,middle_lgas)) %>% 
+  as_tibble()
+
+dwelling_data_raw %>% 
+  select(lat,lon) %>% 
+  right_join(full_dataset_for_prediction %>% select(lat,lon)) %>%  write_sf("test/test_full_dataset.shp")
+
+
+
 train_split_pct = 0.8
 n_reps = 10
 n_models = 1
@@ -81,11 +113,24 @@ for (n in 1:n_reps) {
 print(colMeans(results_df)*250)
 summary(model_1)
 
-apartments <- all_prices %>% filter(prop_type_short == "unit") %>% 
-  filter(sale_price>250000,
-         sale_price<2000000)
+apartments <- all_prices %>% 
+  mutate(sa2_code_2021 = as.character(sa2_code_2021)) %>% 
+  left_join(dwelling_data_raw %>% st_drop_geometry() %>% 
+              distinct(sa2_code_2021,sa3_code_2021)) %>% 
+  filter(prop_type_short == "unit") %>% 
+  filter(sale_price>300000,
+         sale_price<2000000) %>% 
+  filter(dwellings_est>5) %>%
+  select(cbd_dist,dwellings_est,traffic_pollution,sa2_code_201,year)
 
-apartment_model <- feols(sale_price ~   log(cbd_dist) +dwellings_est  +traffic_pollution |lga_name_2022+year, data = apartments)
+strayr::read_absmap("sa22021") %>% 
+  right_join(apartments %>% distinct(sa2_code_2021)) %>% 
+  leaflet() %>% 
+  addTiles %>% 
+  addPolygons(label = ~sa2_code_2021) 
+ 
+
+apartment_model <- feols(sale_price ~   log(cbd_dist)  +traffic_pollution |sa3_code_2021 + year, data = apartments)
 
 summary(apartment_model)
 
@@ -93,7 +138,7 @@ predicted_prices <- predict(apartment_model, apartments, type='response')
 
 #train_output <- test %>% bind_cols(tibble(predicted_price = predicted_prices)) %>% 
 #   mutate(distince = abs(predicted_price-price_per_sqm))
-RMSE_1 <-  sqrt(median((apartments$sale_price - predicted_prices)^2,na.rm = TRUE))
+RMSE_1 <-  sqrt(mean((apartments$sale_price - predicted_prices)^2,na.rm = TRUE))
 
 
 house_price_inflation <- readabs::read_abs(series_id = "A83728392R",path = "data",check_local = T)%>% 
@@ -101,39 +146,33 @@ house_price_inflation <- readabs::read_abs(series_id = "A83728392R",path = "data
 
 
 
-full_dataset_for_prediction <- dwelling_data_raw %>% 
-  lazy_dt() %>% 
-  filter(zone_short %in% unique(test$zone_short)) %>% 
-  mutate(year = 2018,
-         dist_rail = replace_na(pmin(prox_walk_time_s_tram,
-                                     prox_walk_time_s_train,
-                                     na.rm = T),9999),
-         dist_rail_fct = cut(dist_rail, breaks = c(0,
-                                                   100,
-                                                   200,
-                                                   300,
-                                                   400,
-                                                   500,
-                                                   800,
-                                                   1000,
-                                                   1500,
-                                                   Inf))) %>% 
-  filter(lga_name_2022 %in% c(inner_lgas,middle_lgas)) %>% 
-  as_tibble()
 
 
-predicted_apartment_prices <- predict(apartment_model, full_dataset_for_prediction, type='response') 
+predicted_apartment_prices <- predict(apartment_model, full_dataset_for_prediction, type='response') *1.07653*1.11
+# 2018-2024 conversion is 1.07653 + 11% bonus for new dwellings being worth more particularly for apartments. 
+# This brings up the mean to 629722 which is slightly less than the average according to REIV which was 633 in q42023
+# https://reiv.com.au/market-insights/victorian-insights
+
+
+mean(predicted_apartment_prices,na.rm = TRUE) 
+
 predicted_house_prices <- predict(model_1, full_dataset_for_prediction,
-                                  type='response')* 1.285121107 #(abs property price inflation )
+                                  type='response')* 1.19 #(abs property price inflation )
+
+
 
 all_predicted_prices <- full_dataset_for_prediction %>% 
   select(lat,lon) %>% 
   bind_cols(tibble(apartment_prices = predicted_apartment_prices)) %>% 
   bind_cols(tibble(property_price_per_sqm = predicted_house_prices)) 
 
-prices_estimates <- dwelling_data_raw %>% 
+price_estimates <- dwelling_data_raw %>% 
   select(lat,lon) %>% 
   left_join(all_predicted_prices) 
 
-prices_erstimates %>% 
+
+hist(price_estimates$apartment_prices)
+
+price_estimates %>% 
   write_sf("test/predicted_prices.shp")
+

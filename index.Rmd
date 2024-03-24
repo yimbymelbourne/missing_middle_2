@@ -99,6 +99,8 @@ zoning_numbers <- df_mel_props %>%
   arrange(desc( `Share of Melbourne's existing homes`))
 
 map_data <- strayr::read_absmap("lga2022") %>% 
+  filter(state_name_2021 == "Victoria") %>% 
+    mutate(lga_name_2022 = str_remove_all(lga_name_2022, "\\s*\\(.*?\\)\\s*")) %>% 
   inner_join(zoning_numbers) 
 
 #devtools::install_github("yutannihilation/ggsflabel")
@@ -221,7 +223,7 @@ fall relative to other areas, then the housing target will auomatically fall as 
 
 ```{r}
 
-df_mel_props %>% 
+table_data <- df_mel_props %>% 
   filter(!feature_preventing_development,
          zoning_permits_housing == "Housing permitted",
          dwellings_est < 2) %>% 
@@ -235,7 +237,10 @@ summarise(buxton_yield  =sum(buxton_yield_net),
   mutate(`share of 'zoned capacity' to be built each year` = mm_profitable_yield/mm_yield_net) %>% 
   rename(`Current estimated 'zoned capacity' of land` = buxton_yield,
          `New estimated zoned capacity` = mm_yield_net,
-         `Share of new zoned capacity estimated to be viable for development` = mm_profitable_yield) %>% 
+         `Share of new zoned capacity estimated to be viable for development` = mm_profitable_yield) 
+
+
+table_data %>% 
   mutate(across(where(is.numeric), ~case_when(.x <.01 ~paste0(round(100*.x,3),"%"),
                                                .x <1 ~paste0(round(100*.x,1),"%"),
                                               T ~ prettyNum(round(.x,-1),big.mark = ",")))

@@ -2,7 +2,7 @@
 
 find_profitable_apartments <- function(data){
 base_cost = 3334*1.1*1.06*80 * 1.30 #figure here, plus 6% inflation since release, plus 30% developer profit https://content.knightfrank.com/research/911/documents/en/melbourne-new-apartments-insight-q3-2023-10663.pdf
-demolition_costs = 30000
+demolition_costs = 50000
 
 
 
@@ -34,13 +34,13 @@ house_prices <- data %>%
          dwellings_est<2) %>% 
   mutate(vacant_in_2016 = replace_na(vacant_in_2016,"No")) %>% 
   select(any_of(variables_to_include)) %>% 
-  left_join(prices_estimates) %>% 
+  left_join(price_estimates) %>% 
   mutate(missing_middle_storeys = case_when(zone_short_mm == "General residential" ~ 3,
                                             zone_short_mm == "Residential Growth" ~ 4,
                                             zone_short_mm == "Missing middle" ~ 6,
                                             zone_short_mm == "Mixed use" ~ 12),
          missing_middle_apartments_per_floor = missing_middle_yield / missing_middle_storeys,
-         parking_cost = if_else(zone_short_mm == "Residential Growth",50000,0)) %>% 
+         parking_cost = if_else(zone_short_mm == "Residential Growth",80000,0)) %>% 
   #mutate(zone_short = if_else(zone_short == "Residential Growth","General residential",zone_short)) %>%  #mixed use land is worth more because of future expectations zoning rents, we should exclude those expectations from land value calcs. 
   mutate(property_price = property_price_per_sqm * lot_size ) %>% 
   rowwise() %>% 
