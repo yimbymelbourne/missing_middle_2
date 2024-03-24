@@ -2,6 +2,7 @@
 source("R/00renv.R")
 dwellings_with_prices <- read_csv("data/dwellings_with_prices.csv")
 
+
 all_prices <- dwellings_with_prices %>% 
   mutate(lga_name_2022 = str_remove_all(lga_name_2022, "\\s*\\(.*?\\)\\s*")) %>% 
   lazy_dt() %>% 
@@ -53,47 +54,65 @@ house_dataset <- all_prices %>% filter(prop_type_short == "other") %>%
   filter(between(land_size,lot_size*.8,
                             lot_size*1.2)) %>% 
   filter(lot_size <3000) %>% 
-  filter(dwlgs_in_2016 <2) 
+  filter(dwlgs_in_2016 <2) %>%
+  mutate(ln_price_per_sqm = log(price_per_sqm))
+
 
 train_split_pct = 0.8
 n_reps = 10
-n_models = 1
+n_models = 2
 results_df = matrix(nrow = n_reps, ncol = n_models)
+
+fml2 = as.formula("price_per_sqm ~ i(lga_name_2022, lot_size) + poly(lot_size,7) + i(zone_short, ref = 'Neighbourhood residential') + i(dist_rail_fct, ref = '(0,100]') + log(cbd_dist)+vacant_in_2016+ i(heritage_status, ref= 'No heritage') + traffic_pollution | lga_name_2022 + sa2_code_2021^year")
+
 
 for (n in 1:n_reps) {
   sample_size <- floor(train_split_pct * nrow(all_prices))
   train_ind <- sample(seq_len(nrow(all_prices)), size = sample_size)
   
-  train <- house_dataset %>% filter(row_number() %in% train_ind) %>% select(zone_short,dist_rail_fct,cbd_dist,vacant_in_2016,heritage_status,traffic_pollution,sa2_code_2021,price_per_sqm,year,lot_size)
+  train <- house_dataset %>% filter(row_number() %in% train_ind) %>% select(zone_short,dist_rail_fct,cbd_dist,vacant_in_2016,heritage_status,traffic_pollution,sa2_code_2021,price_per_sqm,year,lot_size, lga_name_2022)
   test <- house_dataset %>% filter(!(row_number() %in% train_ind))
   
   #run train model 1
   model_1 <- feols(price_per_sqm ~  zone_short + dist_rail_fct+ log(cbd_dist)+vacant_in_2016+heritage_status+traffic_pollution |as.factor(sa2_code_2021)+year, data = train )
   summary(model_1)
-  predicted_prices <- predict(model_1, test, type='response') 
+  predicted_prices_1 <- predict(model_1, test, type='response') 
+  
+  model_2 = feols(fml2, data = train, combine.quick = FALSE)
+  summary(model_2)
+  predicted_prices_2 <- predict(model_2, test, type='response')
   
   #train_output <- test %>% bind_cols(tibble(predicted_price = predicted_prices)) %>% 
  #   mutate(distince = abs(predicted_price-price_per_sqm))
-  RMSE_1 <-  sqrt(median((test$price_per_sqm - predicted_prices)^2,na.rm = TRUE))
+  RMSE_1 <-  sqrt(median((test$price_per_sqm - predicted_prices_1)^2,na.rm = TRUE))
+  RMSE_2 <-  sqrt(median((test$price_per_sqm - predicted_prices_2)^2,na.rm = TRUE))
   results_df[n,1] <- RMSE_1
+  results_df[n,2] <- RMSE_2
 }
 
-print(colMeans(results_df)*250)
+print(colMeans(results_df))
 summary(model_1)
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ APARTMETNS MODELLING ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+fml2 = as.formula("price_per_sqm ~ i(lga_name_2022, lot_size) + poly(lot_size,7) + i(zone_short, ref = 'Neighbourhood residential') + i(dist_rail_fct, ref = '(0,100]') + log(cbd_dist)+vacant_in_2016+ i(heritage_status, ref= 'No heritage') + traffic_pollution | lga_name_2022 + sa2_code_2021^year")
+
 
 apartments <- all_prices %>% filter(prop_type_short == "unit") %>% 
   filter(sale_price>250000,
          sale_price<2000000)
 
-apartment_model <- feols(sale_price ~   log(cbd_dist) +dwellings_est  +traffic_pollution |lga_name_2022+year, data = apartments)
+apartment_model_1 <- feols(sale_price ~ log(cbd_dist) + dwellings_est  + traffic_pollution | lga_name_2022+year, data = apartments)
+apartment_model_2 <- feols( sale_price ~ i(lga_name_2022, lot_size) + i(zone_short, ref = 'Neighbourhood residential') + i(dist_rail_fct, ref = '(0,100]') + log(cbd_dist)+vacant_in_2016+ i(heritage_status, ref= 'No heritage') + traffic_pollution | lga_name_2022 + sa2_code_2021^year , data = apartments, combine.quick = FALSE)
 
-summary(apartment_model)
+summary(apartment_model_1)
+summary(apartment_model_2)
 
 predicted_prices <- predict(apartment_model, apartments, type='response') 
 
 #train_output <- test %>% bind_cols(tibble(predicted_price = predicted_prices)) %>% 
 #   mutate(distince = abs(predicted_price-price_per_sqm))
-RMSE_1 <-  sqrt(median((apartments$sale_price - predicted_prices)^2,na.rm = TRUE))
+RMSE_1 <-  sqrt(mean((apartments$sale_price - predicted_prices)^2,na.rm = TRUE))
 
 
 house_price_inflation <- readabs::read_abs(series_id = "A83728392R",path = "data",check_local = T)%>% 
@@ -122,8 +141,8 @@ full_dataset_for_prediction <- dwelling_data_raw %>%
   as_tibble()
 
 
-predicted_apartment_prices <- predict(apartment_model, full_dataset_for_prediction, type='response') 
-predicted_house_prices <- predict(model_1, full_dataset_for_prediction,
+predicted_apartment_prices <- predict(apartment_model_2, full_dataset_for_prediction, type='response') 
+predicted_house_prices <- predict(model_2, full_dataset_for_prediction,
                                   type='response')* 1.285121107 #(abs property price inflation )
 
 all_predicted_prices <- full_dataset_for_prediction %>% 
@@ -135,5 +154,5 @@ prices_estimates <- dwelling_data_raw %>%
   select(lat,lon) %>% 
   left_join(all_predicted_prices) 
 
-prices_erstimates %>% 
+prices_estimates %>% 
   write_sf("test/predicted_prices.shp")
