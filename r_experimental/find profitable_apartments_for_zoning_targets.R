@@ -2,7 +2,7 @@
 
 find_profitable_apartments <- function(data){
 base_cost = 3334*1.1*1.06*80 * 1.30 #figure here, plus 6% inflation since release, plus 30% developer profit https://content.knightfrank.com/research/911/documents/en/melbourne-new-apartments-insight-q3-2023-10663.pdf
-demolition_costs = 70000
+demolition_costs = 30000
 
 
 

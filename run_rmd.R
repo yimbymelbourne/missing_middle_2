@@ -21,6 +21,7 @@ runnable <- sf_mel_props%>%
   mutate(profit_per_apartment = profit/apartments_if_built_to_this_height) %>% 
   filter(profit_per_apartment>-1e6)
 
+
 hist(runnable$apartments_if_built_to_this_height)
 hist(runnable$profitable_apartments)
 hist(runnable$missing_middle_storeys)
@@ -35,21 +36,6 @@ runnable %>%
   geom_histogram()+
   facet_wrap(~zone_short_mm)
 
-runnable %>% 
-  ggplot(aes(x = profit,
-             y = lot_size,
-             colour = zone_short_mm)) +
-  geom_point(alpha = .5)+
-  theme_minimal()+
-  geom_vline(xintercept = 0)
-
-
-runnable %>% 
-  filter(profit>=0) %>% 
-  group_by(lga_name_2022) %>% 
-  st_drop_geometry() %>% 
-  summarise(n=1000*sum(profitable_apartments)/sum(lot_size)) %>%
-  view()
 
 
 runnable %>% 
@@ -78,6 +64,15 @@ runnable %>%
   
 #Create a version without geometries
 df_mel_props <- sf_mel_props %>% st_drop_geometry() 
+
+df_mel_props %>% 
+  filter(lga_name_2022 %in% c(middle_lgas,inner_lgas)) %>% 
+  group_by(lga_name_2022) %>% 
+  summarise(profitable_apartments = sum(profitable_apartments, na.rm = TRUE),
+            profitable_apartments_w_floor = max(sum(profitable_apartments),
+                                                .05 * sum(missing_middle_yield[zone_short_mm == "Missing middle"]))
+            ) %>% 
+            view()
 
 sf::sf_use_s2(FALSE)  # Disable s2 engine
 
@@ -121,7 +116,7 @@ run_for_area <- function(area_name) {
 
   rmarkdown::render("run_city.Rmd", 
                     params = list(area = area_name),
-                    output_file = paste0("rmd/",area_name,".html")
+                    output_file = paste0("html/",area_name,".html")
                     )
 
                   

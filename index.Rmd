@@ -103,7 +103,10 @@ map_data <- strayr::read_absmap("lga2022") %>%
 
 #devtools::install_github("yutannihilation/ggsflabel")
 map_data%>% 
-  mutate(target = paste0(lga_name_2022,"\n",prettyNum(round(`Yearly new home target`,-2),big.mark = ",")," homes")
+  mutate(target = paste0(lga_name_2022,"\n",
+                         prettyNum(round(`Yearly new home target`,-2),
+                                   big.mark = ","),
+                         " homes")
          ) %>% 
   ggplot()+
   geom_sf(colour = yimby_colours$green_palette[4])+
@@ -175,6 +178,7 @@ dwellings_by_mm_type <- df_mel_props %>%
   ungroup() %>%
   mutate(zone_type = "YIMBY Melbourne Zoning") %>%
   rename(category = category_new)
+
 library(scales)
 
 dwellings_by_type %>% 

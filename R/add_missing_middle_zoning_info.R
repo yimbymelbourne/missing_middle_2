@@ -177,7 +177,6 @@ mutate(area = case_when( lga_name_2022 %in% inner_lgas ~ "inner lgas",
                             zone_short_mm %in% c("Residential Growth","Mixed use","Commercial","General residential") & lga_name_2022 %in% outer_lgas ~ lot_size*252/10000,
                             zone_short_mm %in% c("Residential Growth","Mixed use","Commercial","General residential") & lga_name_2022 %in% greenfield ~ lot_size*252/10000,
                             zone_short_mm %in% c("Missing middle") ~ lot_size*6/4*240/10000, # Missing middle will be 6 instead of 4 storeys so this is our best estimate... 
-                            
                             T ~ NA_real_),
                 mm_yield_net = floor(pmax(0,missing_middle_yield - dwellings_est))
                 ) %>% 
