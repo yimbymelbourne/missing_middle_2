@@ -15,10 +15,7 @@ sf_mel_props <- dwelling_data_raw  %>%
                 find_profitable_apartments()  %>% 
   #We add a baseline yield to account for the fact that the model doesn't account well for 'townhouse' style developments in RGZ GRZ zones which could increase density signifiantly. 
   #These townhouses would likely sell more than what an apartment would sell for. 
-  mutate(baseline_demand = case_when(zone_short_mm == "Missing middle" ~ .1*missing_middle_yield,
-                                     zone_short_mm %in% c("General residential","Residential Growth") ~ .05*missing_middle_yield,
-                                     T ~ 0),
-        profitable_apartments = pmax(profitable_apartments, baseline_demand))
+  mutate(profitable_apartments = pmax(profitable_apartments, baseline_demand))
 
 runnable <- sf_mel_props%>% 
   filter(!is.na(profit)) %>%
