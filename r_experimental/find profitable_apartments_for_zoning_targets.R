@@ -1,12 +1,9 @@
 
 
 find_profitable_apartments <- function(data){
-base_cost = 420000 * 1.30
-demolition_costs = 120000
+base_cost = 3334*1.1*1.06*80 * 1.30 #figure here, plus 6% inflation since release, plus 30% developer profit https://content.knightfrank.com/research/911/documents/en/melbourne-new-apartments-insight-q3-2023-10663.pdf
+demolition_costs = 70000
 
-house_price_regression <- read_rds("data/house_price_model.RDS")
-apartment_price_regression <- read_rds("data/apartment_model.RDS")
-all_prices <- read_rds("data/all_prices.RDS")
 
 
 variables_to_include <- c("dist_rail",
@@ -24,7 +21,8 @@ variables_to_include <- c("dist_rail",
                           "zone_short",
                           "cbd_dist",
                           "vacant_in_2016",
-                          "lot_size")
+                          "lot_size",
+                          "mm_yield_net")
 
 
 
@@ -36,30 +34,15 @@ house_prices <- data %>%
          dwellings_est<2) %>% 
   mutate(vacant_in_2016 = replace_na(vacant_in_2016,"No")) %>% 
   select(any_of(variables_to_include)) %>% 
-  mutate(dist_rail = replace_na(pmin(prox_walk_time_s_tram,
-                                     prox_walk_time_s_train,na.rm = T),9999)) %>% 
-  mutate(dist_rail_fct = cut(dist_rail, breaks = c(0,
-                                                   100,
-                                                   200,
-                                                   300,
-                                                   400,
-                                                   500,
-                                                   800,
-                                                   1000,
-                                                   1500,
-                                                   Inf)),
-         year = 2018, 
-         pp_bedrooms = 2,
-         pp_bathrooms = 2) %>% 
+  left_join(prices_estimates) %>% 
   mutate(missing_middle_storeys = case_when(zone_short_mm == "General residential" ~ 3,
                                             zone_short_mm == "Residential Growth" ~ 4,
                                             zone_short_mm == "Missing middle" ~ 6,
                                             zone_short_mm == "Mixed use" ~ 12),
          missing_middle_apartments_per_floor = missing_middle_yield / missing_middle_storeys,
-         parking_cost = if_else(zone_short_mm == "Residential Growth",80000,0)) %>% 
+         parking_cost = if_else(zone_short_mm == "Residential Growth",50000,0)) %>% 
   #mutate(zone_short = if_else(zone_short == "Residential Growth","General residential",zone_short)) %>%  #mixed use land is worth more because of future expectations zoning rents, we should exclude those expectations from land value calcs. 
-  mutate(property_price_per_sqm = predict(house_price_regression,.),
-         property_price = property_price_per_sqm * lot_size ) %>% 
+  mutate(property_price = property_price_per_sqm * lot_size ) %>% 
   rowwise() %>% 
   mutate(storey = list(seq_len(missing_middle_storeys))) %>%
   unnest(storey) %>% 
@@ -67,20 +50,26 @@ house_prices <- data %>%
   group_by(lat,lon) %>%
   arrange(storey) %>% 
   mutate(apartments_if_built_to_this_height = floor(cumsum(missing_middle_apartments_per_floor)),
-         dwellings_est = apartments_if_built_to_this_height,
          cost_if_built_to_this_height = apartments_if_built_to_this_height * cummean(cost_of_building_one_apartment_on_this_floor)) %>% 
   ungroup() %>% 
-  mutate(revenue_per_apartment_if_built_to_this_height = predict(apartment_price_regression,.)) %>% 
   group_by(lat,lon) %>%
   mutate(land_cost = property_price + demolition_costs,
-         profit = revenue_per_apartment_if_built_to_this_height * apartments_if_built_to_this_height - cost_if_built_to_this_height - land_cost,
+         profit = apartment_prices * apartments_if_built_to_this_height - cost_if_built_to_this_height - land_cost,
          profit_per_apartment = profit/apartments_if_built_to_this_height) %>% 
   group_by(lat,lon) %>% 
   arrange(desc(profit)) %>% 
   filter(row_number() == 1) %>%
   mutate(profitable_apartments = if_else(profit<0,0,apartments_if_built_to_this_height),
          profit_from_buildable_apartments = if_else(profit<0,0,profit)) %>%
-  select(lat,lon,profitable_apartments,profit)
+  select(lat,lon,
+         profitable_apartments,
+         profit,
+         apartments_if_built_to_this_height,
+         profit_from_buildable_apartments,
+         storey,
+         missing_middle_apartments_per_floor,
+         missing_middle_storeys,
+         cost_of_building_one_apartment_on_this_floor)
 
   
   output <- data %>% left_join(house_prices)

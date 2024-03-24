@@ -26,50 +26,44 @@ knitr::opts_chunk$set(message = FALSE, warning = FALSE, error = FALSE, echo = FA
 
 ![](atlas/mel_missing_middle.png)
 
-Melbourne’s middle urban areas are broadly
-underutilised, and the current Government
+Melbourne is missing desperately needed homes in its middle suburbs, where 
+there people want to live near public transport, jobs, and their existing communities. 
+The current Government
 approach of focusing on a small number of activity
-centres —while a step in the right direction—
-has been slow to roll out, and ignores that the most well connected areas of Melbourne
-are where Melbournians already live.
+centres —while a step in the right direction— ignores most of the other 1,992 train stations
+and tram stops where Melbournians already want to live. 
 
-The answer to the housing supply shortage will not be found in a handful of high-rise
-activity centres and precincts.
-Rather, it will be found through the delivery of
-permissive planning reforms around every one
-of Metropolitan Melbourne’s existing 1,992 train
-and tram stops.
+Melbourne needs a gentle-density, with human scaled homes where people want to live. 
 
-Melbourne’s existing rail network provides frequent, high capacity transport options across
-the whole city, and by building near these stations, we give more people access to this net-
-work, while simultaneously providing more
-destinations that are close to rail.
+YIMBY Melbourne's [Missing Middle](https://assets-global.website-files.com/64a530aa67ffbab04c9c39ab/652284ad6a63b8b3ab424966_Missing-Middle-Report.pdf) report recommends a better Melbourne, including:
 
-Through broad transit-oriented upzoning and
-development, the Victorian Government can
-deliver housing abundance and provide more
-housing choices to all current and future residents across the entirety of the city. This will
-fulfil the original goal of Plan Melbourne creating a vast array of 20-minute neighbourhoods,
-rather than a small number of scattered activity centres.
+## Missing Middle zoning
 
-YIMBY Melbourne's [Missing Middle](https://assets-global.website-files.com/64a530aa67ffbab04c9c39ab/652284ad6a63b8b3ab424966_Missing-Middle-Report.pdf) report recommendeds the introduction
-of a new "Missing Middle" Zone which:
+![NOTE: placeholder image. We should aim for a wider image that shows a stylised 500m line around a train station. Next to the train station are parks, schools and 6 storey buildings. The buildings have no set-backs from the street, but there is lots of greenery through street trees and nature strips. The image should feel like Melbourne as much as possible - e.g. a METRO train, and with nightingale style apartments.](atlas/mm housing.jpeg)
 
-1. Implements a default maximum height of
-21 metres and 6 storeys, an increase from
-the RGZ’s current 4-storey default.
-2. Expands non-residential land uses to
-include a wider range of neighbourhood
-services & amenities.
-3. Reduces mandatory parking minimums to 0.
-4. Exempts from notice and review develop-
-ments of any total value containing at
-least 10% public or community housing
-in perpetuity.
+Melbourne's Missing Middle Zone will enable 6 storey (21 meters) buildings near every train station and tram stop in Melbourne. 
+This zone will support a European density, with beautiful street walls without setbacks activating the street below. 
+
+Buildings in Missing Middle zones can include neighbourhood services and amenities like cafes and shops. There are no parking minimums in this zone. 
+
+Developments that serve the community by providing at least 10% public and community housing in this zone are exempt from public notice requirements. 
+
+## Allowing more choice across Melbourne
 
 
-![](atlas/mel_with_love.png)
+![NOTE: placeholder image. Needs to be same style image but with buildings we would typically see in GRZ now - 3 storeys tall with lots of on-site gardens, trees etc in a way that blends in to existing deatched homes on the same street.](atlas/mm housing.jpeg)
+Not all of Melbourne's suburbs have access to rail but many still benefit from 
+nearby schools, hospitals and bus routes. Local communities and businesses that aren’t as
+closely situated to Melbourne’s vast train and
+tram networks also deserve to reap the benefits
+of urban agglomeration.
 
+Inspired by the success of Auckland’s up-zoning reforms, YIMBY Melbourne
+endorses a complete elimination of the
+current NRZ across Metropolitan Melbourne,
+and its replacement with the General Residential Zone (GRZ). In turn, all land currently zoned
+GRZ should also be upzoned to the Residential
+Growth Zone (RGZ)
 
 
 ## Fair targets for housing abundance {.tabset}
@@ -78,7 +72,7 @@ in perpetuity.
 
 With Melbourne's Missing Middle Zoning, homes can be built near public transport, where people want to live.
 
-YIMBY Melbourne has calculated where there is both demand and land available for missing middle housing, and used it to create Local Government targets for housing each year. 
+YIMBY Melbourne has calculated where there is both demand and land available for missing middle housing to create evidence based Local Government targets for housing each year. 
 
 These targets are in addition to housing built through greenfield development and rezoning such as in Fisherman's Bend or in the Suburban Rail Loop Precincts. 
 
@@ -92,6 +86,7 @@ We want to make Melbourne better. That's why Missing Middle zoning will allow mo
 state_total = 80000*.7
 
 zoning_numbers <- df_mel_props %>% 
+  filter(lga_name_2022 %in% missing_middle_lgas) %>% 
   group_by(lga_name_2022) %>% 
   summarise(profitable_apartments = sum(profitable_apartments,na.rm = TRUE),
             existing_dwellings = sum(dwellings_est,na.rm = TRUE)) %>% 
@@ -114,29 +109,29 @@ map_data%>%
   geom_sf(colour = yimby_colours$green_palette[4])+
   ggthemes::theme_map()+
   ggsflabel::geom_sf_label_repel(aes(label = target ),
-                                 size = 1,
+                                 size = 2,
                                  fill = yimby_colours$background)+
     labs(title = "Missing Middle Melbourne yearly housing targets",
          x = element_blank(),
          y = element_blank())+
   theme_yimby_mel_caption(text_size = "small",plot_type = "map")+
   theme(panel.background = element_rect(fill= yimby_colours$background))+
-    theme(plot.margin = margin(0, 0, 0, 0))
+    theme(plot.margin = margin(2, 15,2, 15))
 
 
 ```
 
 ### Detailed information for planners
 
-Beautifully planned cities like Paris have built form that 
+Beautifully planned cities like Paris have a built form that 
 is predominantly medium-rise and close to public transport,
 under a planning
 system that enables a high level of site coverage
 due to an absence of setback requirements.
-The land use patterns seen in Paris—ground
+The land use patterns seen in Paris — ground
 floor commercial and retail spaces, internal
 courtyards, and large public enclosed squares
-and parks—are largely absent from Melbourne.
+and parks — are largely absent from Melbourne.
 There are pockets of this sort of development in
 the inner-city, but they are few and far between.
 All this is to say: Melbourne’s middle is missing,
@@ -151,9 +146,9 @@ the capacity of each Local Government Area to deliver Missing Middle Housing,
 using a precise 5 stage methodology: 
 
 1) Sites that are parks, schools, hospitals or already have apartments are considered ineligible for any Missing Middle housing
-2) Any lot suitable for development within 500m of a Train station or tram stop is zoned "Missing Middle" and considered suitable for 6 storeys of housing with high lot coverage. 
+2) Any lot suitable for development within 500m of a train station or tram stop is zoned "Missing Middle" and considered suitable for 6 storeys of housing with high lot coverage. 
 3) Other lots are rezoned to Residential Growth, to allow a smaller increase in density.
-3) For each lots, the value of land as well as construction costs and demand for apartments in that area are used to calculate whether new homes are potentially viable on that site
+3) For each lot, the value of land as well as construction costs and demand for apartments in that area are used to calculate whether new homes are potentially viable on that site
 4) Each viable site contributes to that state's housing targets, with each council responsible for its share of the state's target based on how many homes are built 
 
 ```{r}
@@ -206,21 +201,19 @@ Councils that move first will have an advantage, because they'll be approving ap
 
 Heritage overlays over large swathes of our inner-suburbs should not be an excuse for councils to miss their housing targets. Councils with considerable heritage in missing middle zones will need to consider how to best achieve their targets whilst maintaining the heritage that is most important to them. 
 
-Councils should be given the ability to quickly re-evaluate overlays if they are unable to meet housing targets within current overlays. 
+Councils should be given the ability to quickly re-evaluate heritage overlays and Design and Development overlays if they are unable to meet housing targets within current overlays. 
 
 By providing more diverse and dense housing
 across Melbourne, more people will be able to
-live both near their work and within their com-
-munities. These housing options will enable
+live both near their work and within their communities. These housing options will enable
 children to remain near their parents when they
-move out, and enable international and inter-
-state migrants to  live near their existing com-
+move out, and enable international and interstate migrants to  live near their existing com-
 munity networks.
 
 The best way for a Local Government Area to reduce its target is to make housing cheaper. 
 Melbourne's Missing Middle targets should be updated by government every year, 
 and if townhouse or apartment prices
-fall relative to other areas, then the housing target will also fall. 
+fall relative to other areas, then the housing target will auomatically fall as it will become clear that development is no longer profitable in that area.  
 
 ```{r}
 
@@ -229,23 +222,24 @@ df_mel_props %>%
          zoning_permits_housing == "Housing permitted",
          dwellings_est < 2) %>% 
 filter(profit>0) %>% 
-group_by(lga_name_2022,
-         zone_short_mm) %>% 
+mutate(net_profitable_apartments = pmax(0,profitable_apartments - dwellings_est)) %>% 
+group_by(lga_name_2022) %>% 
 summarise(buxton_yield  =sum(buxton_yield_net),
           mm_yield_net = sum(mm_yield_net),
-          mm_profitable_yield = sum(pmax(0,profitable_apartments - dwellings_est)) / sum(mm_yield_net)) %>% 
+          mm_profitable_yield = sum(net_profitable_apartments) / sum(mm_yield_net)) %>% 
   left_join(zoning_numbers) %>% 
   mutate(`share of 'zoned capacity' to be built each year` = mm_profitable_yield/mm_yield_net) %>% 
   rename(`Current estimated 'zoned capacity' of land` = buxton_yield,
          `New estimated zoned capacity` = mm_yield_net,
-         `Share of total zoned capacity estimated to be profitable with current land values, apartment prices, and YIMBY Melbourne zoning` = mm_profitable_yield,
-         ` ` = zone_short_mm) %>% 
+         `Share of new zoned capacity estimated to be viable for development` = mm_profitable_yield) %>% 
   mutate(across(where(is.numeric), ~case_when(.x <.01 ~paste0(round(100*.x,3),"%"),
                                                .x <1 ~paste0(round(100*.x,1),"%"),
                                               T ~ prettyNum(round(.x,-1),big.mark = ",")))
   ) %>% 
-  relocate(`Share of Melbourne's existing homes`,.after = ` `) %>% 
+  relocate(`Share of Melbourne's existing homes`) %>% 
     relocate(`Yearly new home target (share of state total)`,.after = `Yearly new home target`) %>% 
+      relocate(lga_name_2022) %>% 
+  rename(` ` = lga_name_2022) %>% 
   gt() %>% 
 tab_options(
     table.background.color = yimby_colours$background# Change "lightblue" to any color you prefer
@@ -285,7 +279,15 @@ pop_change_by_lga %>%
   geom_hline(yintercept = 0)
 ```
 
-# YIMBY Melbourne's plan for missing middle in your area
+## Housing targets need to be real
+
+There's currently no mechanism to ensure that Local Government Area housing plans have teeth.
+The government should follow Infrastructure Victoria and Productivity Commission recommendations to
+attach carrots and sticks to housing targets. 
+
+** insert detail on carrots and sticks **
+
+## YIMBY Melbourne's plan for missing middle in your area
 
 ```{r results='asis'}
 cat('<div class="button-row">')

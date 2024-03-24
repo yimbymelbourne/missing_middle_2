@@ -1,51 +1,13 @@
-add_missing_middle_zoning_info <- function(){
+add_missing_middle_zoning_info <- function(input_data){
 
-#The buxton report assumes that zoned capacity is higher in Mixed use zones where 
-# They're inner suburbs, since they assume that zoned capacity is higher than what developers would ever build 
-#This is the way they group LGAs: 
-inner_lgas <- c("Melbourne",
-                "Yarra",
-                "Moreland",
-                "Port Phillip",
-                "Stonnington",
-                "Maribyrnong")
-
-middle_lgas <- c("Boroondara",
-                 "Darebin",
-                 "Glen Eira",
-                 "Banyule",
-                 "Bayside",
-                 "Bayside (Vic.)",
-                 "Hobsons Bay",
-                 "Kingston",
-                 "Kingston (Vic.)",
-                 "Manningham",
-                 "Monash",
-                 "Moonee Valley",
-                 "Moreland",
-                 "Whitehorse")
-
-outer_lgas <- c("Knox",
-                 "Brimbank",
-                "Maroondah",
-                "Frankston",
-                "Mornington Peninsula",
-                "Nillumbik",
-                "Greater Dandenong",
-                "Yarra Ranges")
-
-greenfield <- c("Cardinia",
-                "Casey",
-                "Hume",
-                "Melton",
-                "Whittlesea",
-                "Wyndham")
 
 mel_lgas <- c(inner_lgas,middle_lgas,outer_lgas)
 
 
 #Here are their yields: 
-buxton_yields <- dwelling_data_raw %>% 
+buxton_yields <- input_data %>% 
+  st_drop_geometry() %>% 
+  lazy_dt() %>% 
   filter(lga_name_2022 %in% mel_lgas ) %>% 
   #filter(lga_name_2022 %in% area_name) %>% 
   mutate(buxton_yield = 
@@ -65,12 +27,12 @@ buxton_yields <- dwelling_data_raw %>%
                    zone_short %in% c("Mixed use","Commercial") & lot_size <500  ~ 11, #Buxton assumes 4 resi + 2 mixed use here which is very low! 
                    zone_short %in% c("Mixed use","Commercial") & lot_size <1000 ~ 24,
                    zone_short %in% c("Mixed use","Commercial")& lot_size <2000 ~ 48,
-                   lga_name_2022 %in% inner_lgas  & lot_size >2000 ~  120*lot_size/10000, # buxton assumes all alrge lots are the same density regardless of zones
+                   lga_name_2022 %in% inner_lgas  & lot_size >2000 ~  120*lot_size/10000, 
                    lga_name_2022 %in% middle_lgas & lot_size >2000 ~ 70*lot_size/10000,
                    lga_name_2022 %in% c(outer_lgas,greenfield) & lot_size >2000 ~ 70*lot_size/10000,
          T ~ NA_real_),
          buxton_yield_net = floor(pmax(0,buxton_yield - dwellings_est))
-         ) 
+         )  %>% as_tibble()
 
 
 #We have data for developments >10 units, so we can look at where buxton predicted
@@ -135,7 +97,7 @@ buxton_yields <- dwelling_data_raw %>%
 #From this we can deduce that Buxton's yields for RGZ and GRZ are fairly good, 
 #but for Mixed use zones we should assume a much higher yield density. 
 
-# dwelling_data_raw %>% 
+# input_data %>% 
 #   st_drop_geometry() %>% 
 #   filter(zone_short == "Mixed use") %>% 
 #   filter(!is.na(dev_dwlgs_total)) %>% 
@@ -171,6 +133,7 @@ buxton_yields <- dwelling_data_raw %>%
 #We also assume GRZ becomes RGZ and NRZ becomes GRZ. 
 
 buxton_yields_corrected <- buxton_yields %>% 
+  lazy_dt() %>% 
 mutate(area = case_when( lga_name_2022 %in% inner_lgas ~ "inner lgas",
                          lga_name_2022 %in% middle_lgas ~ "middle lgas",
                          lga_name_2022 %in% outer_lgas ~  "outer lgas",
@@ -218,8 +181,6 @@ mutate(area = case_when( lga_name_2022 %in% inner_lgas ~ "inner lgas",
                             T ~ NA_real_),
                 mm_yield_net = floor(pmax(0,missing_middle_yield - dwellings_est))
                 ) %>% 
-  rename_with(~ if_else(str_detect(.x, "geometry"), "geom", .x), .cols = contains("geometry")) %>% 
-  st_set_geometry("geom") %>% 
   mutate(category = case_when(feature_preventing_development                    ~ "Civic use makes development less likely",
                               dwellings_est >1                                  ~ "Already developed",
                               zoning_permits_housing != "Housing permitted"     ~ "Housing not permitted",
@@ -245,10 +206,17 @@ mutate(area = case_when( lga_name_2022 %in% inner_lgas ~ "inner lgas",
                                  "Free from heritage")
   ) %>% 
   mutate(category    = as.factor(category),
-         category_new = as.factor(category_new))
+         category_new = as.factor(category_new)) %>% 
+  as_tibble()
 
 
-return(buxton_yields_corrected)
+output <- input_data %>% 
+  select(lat,lon) %>%  
+  left_join(buxton_yields_corrected)#%>% 
+ # rename_with(~ if_else(str_detect(.x, "geometry"), "geom", .x), .cols = contains("geometry")) %>% 
+ # st_set_geometry("geom")
+
+return(output)
 
 }
 
@@ -264,7 +232,7 @@ return(buxton_yields_corrected)
 # 
 # 
 # 
-# dwelling_data_raw %>% 
+# input_data %>% 
 #  filter(str_detect(dev_prj_name,"Nightingale")) %>% 
 #   st_drop_geometry() %>% 
 #   select(dev_height_storeys,dwellings_est,lot_size,dev_prj_name) %>% 

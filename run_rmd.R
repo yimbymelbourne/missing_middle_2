@@ -7,11 +7,75 @@ r_files <- list.files(path = "R/",
                       pattern = "*.R$",
                       full.names = T)
 
-purr::walk(r_files,source)
+purrr::walk(r_files,source)
 
 #Add beskope info on how YIMBY Melbourne wants to re-zone Melbourne
-sf_mel_props <- add_missing_middle_zoning_info() %>% 
-                find_profitable_apartments()
+sf_mel_props <- dwelling_data_raw  %>% 
+                add_missing_middle_zoning_info() %>% 
+                find_profitable_apartments() 
+
+runnable <- sf_mel_props%>% 
+  filter(!is.na(profit)) %>%
+  filter(lot_size <2000,
+         abs(profit)<5e6) %>% 
+  mutate(profit_per_apartment = profit/apartments_if_built_to_this_height) %>% 
+  filter(profit_per_apartment>-1e6)
+
+hist(runnable$apartments_if_built_to_this_height)
+hist(runnable$profitable_apartments)
+hist(runnable$missing_middle_storeys)
+hist(runnable$storey)
+hist(runnable$cost_of_building_one_apartment_on_this_floor)
+hist(runnable$profit_per_apartment)
+
+runnable %>% 
+  mutate(`profitable?` = if_else(profit>0,T,F)) %>% 
+  ggplot(aes(x = profit_per_apartment,
+             fill = `profitable?`)) +
+  geom_histogram()+
+  facet_wrap(~zone_short_mm)
+
+runnable %>% 
+  ggplot(aes(x = profit,
+             y = lot_size,
+             colour = zone_short_mm)) +
+  geom_point(alpha = .5)+
+  theme_minimal()+
+  geom_vline(xintercept = 0)
+
+
+runnable %>% 
+  filter(profit>=0) %>% 
+  group_by(lga_name_2022) %>% 
+  st_drop_geometry() %>% 
+  summarise(n=1000*sum(profitable_apartments)/sum(lot_size)) %>%
+  view()
+
+
+runnable %>% 
+  filter(zone_short_mm == "Residential Growth") %>% 
+  mutate(`profitable?` = if_else(profit>0,T,F)) %>% 
+  ggplot(aes(x = profit_per_apartment,
+             fill = `profitable?`)) +
+  geom_histogram()+
+  facet_wrap(~storey)
+
+
+  filter(profit <50000000) %>% 
+  mutate(profit_per_apartment = profit/apartments_if_built_to_this_height) 
+
+runnable %>% 
+  ggplot(aes(x = profit))+
+  geom_histogram()+
+  facet_wrap(~zone_short_mm)
+
+
+runnable %>% 
+  mutate(profit_per_apartment = apartments_if_built_to_this_height/profit) %>% 
+  select(profitable_apartments,profit_per_apartment,zone_short_mm,mm_yield_net) %>% 
+  filter(!is.na(profitable_apartments)) %>% 
+  write_sf("test/profit_per_apartment.shp")
+  
 #Create a version without geometries
 df_mel_props <- sf_mel_props %>% st_drop_geometry() 
 
@@ -22,16 +86,21 @@ lgas <- df_mel_props %>%
   group_by(lga_name_2022) %>% 
   summarise(n=n()) %>% 
   filter(n > 10000) %>% 
-  pull(lga_name_2022)
+  pull(lga_name_2022) 
 
 #We want to look at all LGAs but greenfield. We really don't have a solution for Greenfield right now. 
 missing_middle_lgas <- df_mel_props %>% 
-  st_drop_geometry() %>% 
   group_by(lga_name_2022,area) %>% 
   summarise(n=n(),
             .groups = "drop") %>% 
   filter(n > 10000) %>% 
-  filter(area != "greenfield") %>%
+  filter(area != "greenfield")  %>% 
+  filter(!(lga_name_2022 %in% 
+            c("Yarra Ranges",
+              "Mornington Peninsula",
+              "Nillumbik")
+          )
+        ) %>% #as discussed at 24/3/2 meeting - no longer 'middle'%>%
   pull(lga_name_2022)
 
 #filter the big dataset for a given LGA (area name) and then render the rmarkdown, saving it into the RMD folder.

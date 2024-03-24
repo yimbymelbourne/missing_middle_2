@@ -21,10 +21,11 @@ library(scales)
 library(gt)
 library(ggridges)
 library(aws.s3)
+library(dtplyr)
+library(fixest)
+library(readabs)
 
-
-
-if(Sys.info()[7] == "jonathannolan") {
+if(Sys.info()[7] == "jonathannolan1") {
 # create connection to postgres
 con <- dbConnect(RPostgres::Postgres(),
                  host = 'localhost', # host name, can be website/server
@@ -42,7 +43,12 @@ dwelling_data_raw <- read_sf(con,
 } else{ print("Make sure you have the dwelling map file inside your data folder', you can download it here https://github.com/jonathananolan/Melbourne-dwelling-map ")
 
 dwelling_data_raw <-read_sf("data/Melbourne dwelling data.gpkg") %>%
-  mutate(lga_name_2022 = str_remove_all(lga_name_2022, "\\s*\\(.*?\\)\\s*"))
+  mutate(lga_name_2022 = str_remove_all(lga_name_2022, "\\s*\\(.*?\\)\\s*")) %>% 
+  mutate(cbd_lon = 144.962646,
+         cbd_lat = -37.810272)%>%
+  rowwise() %>% 
+  mutate(cbd_dist = geosphere::distHaversine(c(lon, lat), 
+                                  c(cbd_lon, cbd_lat)))
 
  }
 
@@ -63,3 +69,43 @@ meters_to_numeric <- function(distances) {
 
 
 source("theme/yimby_melbounre_ggplot_theme.R")
+
+inner_lgas <- c("Melbourne",
+                "Yarra",
+                "Moreland",
+                "Port Phillip",
+                "Stonnington",
+                "Maribyrnong")
+
+middle_lgas <- c("Boroondara",
+                 "Darebin",
+                 "Glen Eira",
+                 "Banyule",
+                 "Bayside",
+                 "Bayside (Vic.)",
+                 "Hobsons Bay",
+                 "Kingston",
+                 "Kingston (Vic.)",
+                 "Manningham",
+                 "Monash",
+                 "Moonee Valley",
+                 "Moreland",
+                 "Whitehorse")
+
+outer_lgas <- c("Knox",
+                "Brimbank",
+                "Maroondah",
+                "Frankston",
+                "Mornington Peninsula",
+                "Nillumbik",
+                "Greater Dandenong",
+                "Yarra Ranges")
+
+greenfield <- c("Cardinia",
+                "Casey",
+                "Hume",
+                "Melton",
+                "Whittlesea",
+                "Wyndham")
+
+mel_lgas <- c(inner_lgas,middle_lgas,outer_lgas)
