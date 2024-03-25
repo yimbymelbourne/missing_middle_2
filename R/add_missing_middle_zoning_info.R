@@ -7,7 +7,6 @@ mel_lgas <- c(inner_lgas,middle_lgas,outer_lgas)
 #Here are their yields: 
 buxton_yields <- input_data %>% 
   st_drop_geometry() %>% 
-  lazy_dt() %>% 
   filter(lga_name_2022 %in% mel_lgas ) %>% 
   #filter(lga_name_2022 %in% area_name) %>% 
   mutate(buxton_yield = 
@@ -32,7 +31,7 @@ buxton_yields <- input_data %>%
                    lga_name_2022 %in% c(outer_lgas,greenfield) & lot_size >2000 ~ 70*lot_size/10000,
          T ~ NA_real_),
          buxton_yield_net = floor(pmax(0,buxton_yield - dwellings_est))
-         )  %>% as_tibble()
+         )  
 
 
 #We have data for developments >10 units, so we can look at where buxton predicted
@@ -133,7 +132,6 @@ buxton_yields <- input_data %>%
 #We also assume GRZ becomes RGZ and NRZ becomes GRZ. 
 
 buxton_yields_corrected <- buxton_yields %>% 
-  lazy_dt() %>% 
 mutate(area = case_when( lga_name_2022 %in% inner_lgas ~ "inner lgas",
                          lga_name_2022 %in% middle_lgas ~ "middle lgas",
                          lga_name_2022 %in% outer_lgas ~  "outer lgas",
@@ -205,8 +203,7 @@ mutate(area = case_when( lga_name_2022 %in% inner_lgas ~ "inner lgas",
                                  "Free from heritage")
   ) %>% 
   mutate(category    = as.factor(category),
-         category_new = as.factor(category_new)) %>% 
-  as_tibble()
+         category_new = as.factor(category_new)) 
 
 
 output <- input_data %>% 

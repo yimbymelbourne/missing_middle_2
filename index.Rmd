@@ -88,6 +88,7 @@ state_total = 80000*.7
 zoning_numbers <- df_mel_props %>% 
   filter(lga_name_2022 %in% missing_middle_lgas) %>% 
   group_by(lga_name_2022) %>% 
+  
   summarise(profitable_apartments = sum(profitable_apartments,na.rm = TRUE),
             existing_dwellings = sum(dwellings_est,na.rm = TRUE)) %>% 
   mutate(`Yearly new home target (share of state total)` = pmax(profitable_apartments - existing_dwellings,0)/sum(profitable_apartments),

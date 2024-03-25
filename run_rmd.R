@@ -13,6 +13,10 @@ purrr::walk(r_files,source)
 sf_mel_props <- dwelling_data_raw  %>% 
                 add_missing_middle_zoning_info() %>% 
                 find_profitable_apartments()  %>% 
+  mutate(baseline_demand = case_when(profit/missing_middle_yield > -100000 ~ sample(c(missing_middle_yield,rep(0,5)),1),
+                              zone_short_mm == "Missing middle" ~ sample(c(missing_middle_yield, rep(0,9)),1), #1/10 chance of including anyway
+                              zone_short_mm %in% c("General residential","Residential Growth") ~ sample(c(missing_middle_yield, rep(0,19)),1), #1/20 chance of including anyway
+                              T ~ 0)) %>% 
   #We add a baseline yield to account for the fact that the model doesn't account well for 'townhouse' style developments in RGZ GRZ zones which could increase density signifiantly. 
   #These townhouses would likely sell more than what an apartment would sell for. 
   mutate(profitable_apartments = pmax(profitable_apartments, baseline_demand))
