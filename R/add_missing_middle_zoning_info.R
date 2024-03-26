@@ -6,7 +6,6 @@ mel_lgas <- c(inner_lgas,middle_lgas,outer_lgas)
 
 #Here are their yields: 
 buxton_yields <- input_data %>% 
-  st_drop_geometry() %>% 
   filter(lga_name_2022 %in% mel_lgas ) %>% 
   #filter(lga_name_2022 %in% area_name) %>% 
   mutate(buxton_yield = 
@@ -206,13 +205,9 @@ mutate(area = case_when( lga_name_2022 %in% inner_lgas ~ "inner lgas",
          category_new = as.factor(category_new)) 
 
 
-output <- input_data %>% 
-  select(lat,lon) %>%  
-  left_join(buxton_yields_corrected)#%>% 
- # rename_with(~ if_else(str_detect(.x, "geometry"), "geom", .x), .cols = contains("geometry")) %>% 
- # st_set_geometry("geom")
 
-return(output)
+
+return(buxton_yields_corrected)
 
 }
 

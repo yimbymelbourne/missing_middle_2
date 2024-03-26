@@ -1,7 +1,9 @@
 
 
 find_profitable_apartments <- function(data){
-base_cost = 3334*1.1*1.06*80 * 1.30 #figure here, plus 6% inflation since release, plus 30% developer profit https://content.knightfrank.com/research/911/documents/en/melbourne-new-apartments-insight-q3-2023-10663.pdf
+  
+  apartment_size = 80
+base_cost = 3334*1.1*1.06*apartment_size * 1.20 #figure here, plus 6% inflation since release, plus 30% developer profit https://content.knightfrank.com/research/911/documents/en/melbourne-new-apartments-insight-q3-2023-10663.pdf
 demolition_costs = 30000
 
 
@@ -35,14 +37,22 @@ house_prices <- data %>%
   mutate(vacant_in_2016 = replace_na(vacant_in_2016,"No")) %>% 
   select(any_of(variables_to_include)) %>% 
   left_join(price_estimates) %>% 
+  ungroup() %>%
+  filter(property_price_per_sqm>0) %>% 
+  mutate(property_price   = property_price_per_sqm * lot_size ) %>% 
+  mutate(mean_price = mean(property_price,na.rm = TRUE)) %>% 
+  mutate(property_price_raw = property_price,
+         property_price   = property_price * 1.2e6 /mean_price, #Roughl $1m as average land value in Mel. To be deleted once regression finalised. 
+         apartment_prices = apartment_prices * 8000*apartment_size/mean(apartment_prices,na.rm = TRUE)) %>%  # normalist appt prices which according to this link cost $10/sqm https://content.knightfrank.com/research/911/documents/en/melbourne-new-apartments-insight-q3-2023-10663.pdf
+  mutate(zone_short_mm = if_else(zone_short_mm == "Residential Growth","Residential growth",zone_short_mm),
+         zone_short = if_else(zone_short == "Residential Growth","Residential growth",zone_short)) %>% 
   mutate(missing_middle_storeys = case_when(zone_short_mm == "General residential" ~ 3,
-                                            zone_short_mm == "Residential Growth" ~ 4,
-                                            zone_short_mm == "Missing middle" ~ 6,
-                                            zone_short_mm == "Mixed use" ~ 12),
+                                            zone_short_mm == "Residential growth"  ~ 4,
+                                            zone_short_mm == "Missing middle"      ~ 6,
+                                            zone_short_mm == "Mixed use"           ~ 12),
          missing_middle_apartments_per_floor = missing_middle_yield / missing_middle_storeys,
-         parking_cost = if_else(zone_short_mm == "Residential Growth",80000,0)) %>% 
+         parking_cost = if_else(zone_short_mm == "Residential growth",80000,0)) %>% 
   #mutate(zone_short = if_else(zone_short == "Residential Growth","General residential",zone_short)) %>%  #mixed use land is worth more because of future expectations zoning rents, we should exclude those expectations from land value calcs. 
-  mutate(property_price = property_price_per_sqm * lot_size ) %>% 
   rowwise() %>% 
   mutate(storey = list(seq_len(missing_middle_storeys))) %>%
   unnest(storey) %>% 
@@ -69,7 +79,12 @@ house_prices <- data %>%
          storey,
          missing_middle_apartments_per_floor,
          missing_middle_storeys,
-         cost_of_building_one_apartment_on_this_floor)
+         cost_of_building_one_apartment_on_this_floor,
+         apartment_prices,
+         property_price_per_sqm,
+         property_price,
+         property_price_raw,
+         mean_price)
 
   
   output <- data %>% left_join(house_prices)
@@ -170,7 +185,7 @@ house_prices <- data %>%
 # 
 # house_prices %>% 
 #   filter(profit>0) %>% 
-#   filter(zone_short_mm == "Residential Growth") %>%
+#   filter(zone_short_mm == "Residential growth") %>%
 #   group_by(apartments_if_built_to_this_height) %>% 
 #   summarise(n=n(),
 #             apartments = sum(apartments_if_built_to_this_height)) %>% view()

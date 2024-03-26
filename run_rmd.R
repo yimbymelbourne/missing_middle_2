@@ -10,8 +10,12 @@ r_files <- list.files(path = "R/",
 purrr::walk(r_files,source)
 
 #Add beskope info on how YIMBY Melbourne wants to re-zone Melbourne
-sf_mel_props <- dwelling_data_raw  %>% 
-                add_missing_middle_zoning_info() %>% 
+sf_with_mm <- dwelling_data_raw %>% 
+  add_missing_middle_zoning_info() 
+  
+
+
+sf_mel_props <- sf_with_mm %>% 
                 find_profitable_apartments()  %>% 
   mutate(baseline_demand = case_when(profit/missing_middle_yield > -100000 ~ sample(c(missing_middle_yield,rep(0,5)),1),
                               zone_short_mm == "Missing middle" ~ sample(c(missing_middle_yield, rep(0,9)),1), #1/10 chance of including anyway
@@ -23,10 +27,7 @@ sf_mel_props <- dwelling_data_raw  %>%
 
 runnable <- sf_mel_props%>% 
   filter(!is.na(profit)) %>%
-  filter(lot_size <2000,
-         abs(profit)<5e6) %>% 
-  mutate(profit_per_apartment = profit/apartments_if_built_to_this_height) %>% 
-  filter(profit_per_apartment>-1e6)
+  mutate(profit_per_apartment = profit/apartments_if_built_to_this_height) 
 
 
 hist(runnable$apartments_if_built_to_this_height)
@@ -37,6 +38,7 @@ hist(runnable$cost_of_building_one_apartment_on_this_floor)
 hist(runnable$profit_per_apartment)
 
 runnable %>% 
+  filter(profit_per_apartment< -1.2e6) %>% 
   mutate(`profitable?` = if_else(profit>0,T,F)) %>% 
   ggplot(aes(x = profit_per_apartment,
              fill = `profitable?`)) +
@@ -63,7 +65,7 @@ runnable %>%
 
 runnable %>% 
   mutate(pp_app = profit/apartments_if_built_to_this_height) %>% 
-  select(profitable_apartments,pp_app,zone_short_mm,mm_yield_net) %>% 
+  select(profitable_apartments,pp_app,zone_short_mm,mm_yield_net,zone_short_mm,storey,lot_size,apartments_if_built_to_this_height) %>% 
   filter(!is.na(profitable_apartments)) %>% 
   write_sf("test/profit_per_apartment.shp")
   

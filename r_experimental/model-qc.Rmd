@@ -1,0 +1,360 @@
+---
+title: "QC of the apartment and huosing price regressions."
+author: "YIMBY MEL"
+date: "2024-03-26"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE,warning = FALSE,error = F,message = F)
+
+options(scipen = 8)
+
+library(DT)
+library(tidyverse)
+library(leaflet)
+library(dtplyr)
+apartment_size = 80
+base_cost = 3334*1.1*1.06*apartment_size * 1.20 #figure here, plus 6% inflation since release, plus 30% developer profit https://content.knightfrank.com/research/911/documents/en/melbourne-new-apartments-insight-q3-2023-10663.pdf
+demolition_costs = 30000
+
+apartment_inflation = 1.07653 #https://reiv.com.au/market-insights/victorian-insights#metro
+
+price_estimates <- dwelling_data_raw %>% 
+  left_join(all_predicted_prices) %>% 
+  mutate(property_price = property_price_per_sqm * lot_size,
+         apartment_prices = apartment_inflation * apartment_prices)
+
+price_estimates_dt <- price_estimates %>% 
+                      st_drop_geometry()
+
+sa2_prices <- price_estimates_dt %>% 
+  group_by(sa2_code_2021) %>% 
+  summarise(price_mean           = mean(property_price_per_sqm, na.rm = TRUE),
+            apartment_price_mean = mean(apartment_prices, na.rm = TRUE),
+            price_median = median(property_price_per_sqm, na.rm = TRUE),
+            apartment_price_median = median(apartment_prices, na.rm = TRUE))
+
+map <- strayr::read_absmap("sa22021") %>% 
+  left_join(sa2_prices) %>% 
+  filter(gcc_name_2021 == "Greater Melbourne")
+
+```
+
+
+We currently assume that new apartments are `r apartment_size` square meters and that they cost `r prettyNum(base_cost,big.mark = ",")` to build. Demolition costs are `r prettyNum(demolition_costs,",")`
+
+## Check one - what properties have prices? 
+
+We expect that every property where housing is permitted shuld have a price estimate. If it's <100% for any of the 'housing permitted' categories we have a problem. There can be estimates for other zones - we just won't use them. 
+
+```{r initial test}
+
+price_estimates_dt %>% 
+  lazy_dt() %>% 
+  mutate(`already_multiple_units_on_site` = dwellings_est>1) %>% 
+  mutate(property_price_per_sqm           = if_else(is.na(property_price_per_sqm), 1, 0),
+         apartment_prices                 = if_else(is.na(apartment_prices), 0, 1)) %>% 
+    group_by(zone_short,
+             zoning_permits_housing,
+             `already_multiple_units_on_site`) %>%
+  summarise(`Share with a house price estimate`      = round(100*mean(property_price_per_sqm)),
+            `Share with an apartment price estimate` = round(100*mean(apartment_prices))) %>% 
+  as_tibble() %>% 
+  DT::datatable()
+  
+
+```
+
+## Land value estimates
+
+```{r}
+
+median_price = prettyNum(median(price_estimates_dt$property_price,na.rm = TRUE),big.mark = ",")
+mean_price = prettyNum(mean(price_estimates_dt$property_price,na.rm = TRUE),big.mark = ",",)
+```
+REIV [estimates](https://reiv.com.au/market-insights/victorian-insights) that the median sale price for properties in Victoria is \$909k, although it was \$1.1m not too long ago. Mean will be higher than median, and our area is inner/middle Melbourne, not **all** Melbourne. Therefore we're hoping the model predicts a mean house price somewhere in the ~$1.1-1.3m zone. Currently the median estimate is `r median_price` and the mean is `r mean_price` 
+
+```{r house prices, echo=FALSE}
+
+negative_values <- price_estimates_dt %>% 
+  filter(property_price_per_sqm<0) %>% 
+  nrow()
+price_estimates_dt %>% 
+  filter(property_price_per_sqm>=0)  %>% 
+  ggplot(aes(x = property_price_per_sqm))+
+  geom_histogram()+
+  theme_minimal()+
+  labs(title = "Property price per square meter",
+       subtitle = paste("Excluding",negative_values,"negative values")) +
+  scale_x_log10(label = label_number(scale_cut = cut_short_scale()))
+
+price_estimates_dt %>% 
+  filter(property_price>=0)  %>% 
+  ggplot(aes(x = property_price))+
+  geom_histogram()+
+  theme_minimal()+
+  labs(title = "Property price",
+       subtitle = paste("Excluding",negative_values,"negative values")) +
+  scale_x_log10(label = label_number(scale_cut = cut_short_scale()))
+
+# Calculate quantile breaks for price_mean
+breaks <- quantile(map$price_mean, probs = seq(0, 1, by = 0.2), na.rm = TRUE)
+
+# Create a color palette function with these breaks
+palette <- colorBin("YlOrRd", domain = map$price_mean, bins = breaks, na.color = "transparent")
+
+# Generate labels for the legend based on the breaks
+# Adjust the formatting as needed to suit your data
+labels <- sprintf("%s - %s", head(breaks, -1), tail(breaks, -1))
+
+map %>% 
+  leaflet() %>% 
+  addTiles() %>%
+  addPolygons(fillColor = ~palette(price_mean), 
+              color = "#BDBDC3", weight = 1, opacity = 1,
+              fillOpacity = 0.7, smoothFactor = 0.5,
+              highlightOptions = highlightOptions(weight = 2,
+                                                  color = "#666",
+                                                  fillOpacity = 0.7,
+                                                  bringToFront = TRUE),
+              label = ~paste("Price Mean:", price_mean)) %>%
+  addLegend("bottomright", pal = palette, values = ~price_mean,
+            title = "Price per square meter Mean",
+            opacity = 0.7)
+
+
+
+# Calculate quantile breaks for price_mean
+breaks <- quantile(map$price_median, probs = seq(0, 1, by = 0.2), na.rm = TRUE)
+
+# Create a color palette function with these breaks
+palette <- colorBin("YlOrRd", domain = map$price_median, bins = breaks, na.color = "transparent")
+
+# Generate labels for the legend based on the breaks
+# Adjust the formatting as needed to suit your data
+labels <- sprintf("%s - %s", head(breaks, -1), tail(breaks, -1))
+
+map %>% 
+  leaflet() %>% 
+  addTiles() %>%
+  addPolygons(fillColor = ~palette(price_median), 
+              color = "#BDBDC3", weight = 1, opacity = 1,
+              fillOpacity = 0.7, smoothFactor = 0.5,
+              highlightOptions = highlightOptions(weight = 2,
+                                                  color = "#666",
+                                                  fillOpacity = 0.7,
+                                                  bringToFront = TRUE),
+              label = ~paste("Price Mean:", price_mean)) %>%
+  addLegend("bottomright", pal = palette, values = ~price_mean,
+            title = "Price per square meter Median",
+            opacity = 0.7)
+
+
+```
+
+
+`
+
+## Apartment value estiamtes
+
+```{r}
+
+median_price = prettyNum(median(price_estimates_dt$apartment_prices,na.rm = TRUE),big.mark = ",")
+mean_price = prettyNum(mean(price_estimates_dt$apartment_prices,na.rm = TRUE),big.mark = ",",)
+```
+REIV [estimates](https://reiv.com.au/market-insights/victorian-insights) that the median sale price for aparmtents in Melbourne is \$633k. Mean will be higher than median, and also new properties are probably worth more than older ones. [One estimate](https://content.knightfrank.com/research/911/documents/en/melbourne-new-apartments-insight-q3-2023-10663.pdf) has the price for new apartments at 10k/sqm so around \$800k. The model predicts the median price is `r median_price` and the mean is `r mean_price`
+
+
+```{r apartment_prices, echo=FALSE}
+
+negative_values <- price_estimates_dt %>% 
+  filter(apartment_prices<0) %>% 
+  nrow()
+price_estimates_dt %>% 
+  filter(apartment_prices>=0)  %>% 
+  ggplot(aes(x = apartment_prices))+
+  geom_histogram()+
+  theme_minimal()+
+  labs(title = "Apartment price",
+       subtitle = paste("Excluding",negative_values,"negative values")) +
+  scale_x_continuous(label = label_number(scale_cut = cut_short_scale()))
+
+
+# Calculate quantile breaks for price_mean
+breaks <- quantile(map$apartment_price_mean, probs = seq(0, 1, by = 0.2), na.rm = TRUE)
+
+# Create a color palette function with these breaks
+palette <- colorBin("YlOrRd", domain = map$apartment_price_mean, bins = breaks, na.color = "transparent")
+
+# Generate labels for the legend based on the breaks
+# Adjust the formatting as needed to suit your data
+labels <- sprintf("%s - %s", head(breaks, -1), tail(breaks, -1))
+
+map %>% 
+  leaflet() %>% 
+  addTiles() %>%
+  addPolygons(fillColor = ~palette(apartment_price_mean), 
+              color = "#BDBDC3", weight = 1, opacity = 1,
+              fillOpacity = 0.7, smoothFactor = 0.5,
+              highlightOptions = highlightOptions(weight = 2,
+                                                  color = "#666",
+                                                  fillOpacity = 0.7,
+                                                  bringToFront = TRUE),
+              label = ~paste("Price Mean:", apartment_price_mean)) %>%
+  addLegend("bottomright", pal = palette, values = ~apartment_price_mean,
+            title = "Apartment price Mean",
+            opacity = 0.7)
+
+
+map <- map %>% 
+  filter(!is.na(apartment_price_median),
+         !is.nan(apartment_price_median))
+# Calculate quantile breaks for price_mean
+breaks <- quantile(map$apartment_price_median, probs = seq(0, 1, by = 0.2), na.rm = TRUE)
+
+# Create a color palette function with these breaks
+palette <- colorBin("YlOrRd", domain = map$apartment_price_median, bins = breaks, na.color = "transparent")
+
+# Generate labels for the legend based on the breaks
+# Adjust the formatting as needed to suit your data
+labels <- sprintf("%s - %s", head(breaks, -1), tail(breaks, -1))
+
+map %>% 
+  leaflet() %>% 
+  addTiles() %>%
+  addPolygons(fillColor = ~palette(apartment_price_median), 
+              color = "#BDBDC3", weight = 1, opacity = 1,
+              fillOpacity = 1,
+              highlightOptions = highlightOptions(weight = 2,
+                                                  color = "#666",
+                                                  fillOpacity = 0.7,
+                                                  bringToFront = TRUE),
+              label = ~paste("Price Median:", prettyNum(apartment_price_median,","))) %>%
+  addLegend("bottomright", pal = palette, values = ~apartment_price_median,
+            title = "Apartment price Median",
+            opacity = 0.7)
+
+
+```
+
+
+
+# When is it profitable to build? 
+
+In this super simplified version of the bigger model we assume construction costs are always the same at `r base_cost`, even though in the more complicated model they go up ever so slightly with each increase in number of storeys 
+
+We then look at the value of land, and the cost of apartments and see how how many apartments you'd need to build on the land in order to break even. You'd hope that as the cost of land goes up and the cost of apartments goes down that the number of apartments needed to build goes down. "missing middle" density is .036 apartments per square meter - so you hope that the majority of the dwellings are profitable at that point. 
+
+Negative values mean that the apartments are worth less than they cost to build, so even if land value is 0 it doesn't make sense to build.This could happen a bit but we wouldn't want to see that across the dataset. 
+
+```{r}
+
+
+profitability_at_mm <- price_estimates_dt %>% 
+filter(zoning_permits_housing == "Housing permitted") %>% 
+filter(property_price >0, apartment_prices >0) %>% 
+  select(lot_size,apartment_prices,property_price,zone_short,cbd_dist,prox_dist_m_tram,prox_dist_m_train) %>% 
+mutate(`6 storeys` = lot_size*6/4*240/10000,
+       `3 storeys` = `6 storeys`/2,
+       `2 storeys` = `6 storeys`/3) %>% 
+pivot_longer(cols = c(`6 storeys`,`3 storeys`,`2 storeys`),
+             values_to = "apartments",
+             names_to = "Zoning level") %>% 
+mutate(profit_per_apartment = apartments*(apartment_prices-base_cost) - property_price - demolition_costs,
+       profitable = if_else(profit_per_apartment>0,T,F)) %>% 
+    mutate(lot_size_group = cut(lot_size,
+                              breaks = c(seq(0,1600,200),Inf),
+                                 ),
+         dist_cbd_group = cut(cbd_dist,breaks = c(seq(0,30000,7500),Inf)),
+        pt_dist_group = cut(pmin(prox_dist_m_tram,prox_dist_m_train),
+                                             breaks = c(seq(0,1400,200),Inf))
+         ) 
+
+
+profitability_at_mm %>% 
+ggplot(aes(x = profit_per_apartment,
+           fill = profitable)) +
+geom_histogram(bins = 200) +
+facet_grid(`Zoning level` ~ .)+
+  labs(title = "Would it be profitable to build?",
+       subtitle = "two storeys is much more dense than GRZ\nbecause it's two storeys at the high MM density")
+
+```
+
+We'd also hope that as lot size increases it's easier to build an apartment, because on bigger lots you only have to buy out and demolish one house. 
+```{r}
+
+profitability_at_mm %>%
+  ggplot(aes(x = lot_size_group,
+             y = profit_per_apartment))+
+  labs(title = "Profitability on big v small sites in different zones",
+      subtitle = "Profitability should go up as lot size gets bigger")+
+  facet_wrap(~`Zoning level`,ncol = 1)+
+  geom_boxplot()+
+  coord_flip()
+
+
+profitability_at_mm %>%
+  filter(abs(profit_per_apartment)<1000000,) %>% 
+  ggplot(aes(x = lot_size_group,
+             y = profit_per_apartment))+
+  labs(title = "Profitability on big v small sites in different zones",
+        subtitle = "Same graph as above but with profit/loss >1m excluded")+
+  facet_wrap(~`Zoning level`,ncol = 1)+
+  geom_boxplot()+
+  coord_flip()+
+  scale_y_continuous(label = label_number(scale_cut = cut_short_scale()))
+```
+We'd also hope that profitability increases close to the city - although this may not be the case if nobody wants to buy apartments out in the outer suburbs.  
+```{r}
+
+profitability_at_mm %>%
+  ggplot(aes(x = dist_cbd_group,
+             y = profit_per_apartment))+
+  labs(title = "Profitability v distance from the CBD",
+        subtitle = "Profitability might go down as we get further from the CBD")+
+  facet_wrap(~`Zoning level`,ncol = 1)+
+  geom_boxplot()+
+  coord_flip()
+
+
+profitability_at_mm %>%
+  filter(abs(profit_per_apartment)<1000000) %>% 
+  ggplot(aes(x = dist_cbd_group,
+             y = profit_per_apartment))+
+  labs(title = "Profitability v distance from the CBD",
+        subtitle = "Same graph as above but with profit/loss >1m excluded")+
+  facet_wrap(~`Zoning level`,ncol = 1)+
+  geom_boxplot()+
+  coord_flip()+
+  scale_y_continuous(label = label_number(scale_cut = cut_short_scale()))
+```
+
+
+
+
+
+```{r}
+
+profitability_at_mm %>%
+  ggplot(aes(x = pt_dist_group,
+             y = profit_per_apartment))+
+  labs(title = "Profitability v distance from fixed rail",
+        subtitle = "Profitability might go down as we get further from PT")+
+  facet_wrap(~`Zoning level`,ncol = 1)+
+  geom_boxplot()+
+  coord_flip()
+
+
+profitability_at_mm %>%
+  filter(abs(profit_per_apartment)<1000000) %>% 
+  ggplot(aes(x = pt_dist_group,
+             y = profit_per_apartment))+
+  labs(title = "Profitability v distance from fixed rail",
+        subtitle = "Same graph as above but with profit/loss >1m excluded")+
+  facet_wrap(~`Zoning level`,ncol = 1)+
+  geom_boxplot()+
+  coord_flip()+
+  scale_y_continuous(label = label_number(scale_cut = cut_short_scale()))
+```
