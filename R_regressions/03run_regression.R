@@ -1,10 +1,11 @@
 
-source("R/00renv.R")
-
 library(data.table)
 library(arrow)
 library(janitor)
+library(datawizard)
 library(multidplyr)
+source("R/00renv.R")
+
 
 dwellings_with_prices <- read_csv("data/dwellings_with_prices.csv")
 
@@ -53,79 +54,20 @@ all_prices <- dwellings_with_prices %>%
 
 
 osm_linkage = fread('data/osm_linkage_to_property_db.csv')
-osm_parquet = read_parquet('data/walkability_by_node.parquet')
+osm_parquet = read_parquet('data/walkability_by_node.parquet')%>% 
+  janitor::clean_names() %>% 
+  select(c(osmid,contains("closest")))
+
+walkability_metrics <- names(osm_parquet)[-1]
 
 all_prices = all_prices %>%
   left_join(osm_linkage, by = c('lat', 'lon')) %>%
   left_join(osm_parquet, by = 'osmid')
 
-all_prices = all_prices %>% 
-  rename(coffee_closest = `coffee_available - closest`,
-         restaurant_closest = `restaurant - closest`,
-         grocery_closest = `grocery or supermarket - closest`,
-         cafe_closest = `cafe - closest`,
-         bar_closest = `bar or pub - closest`,
-         worship_closest = `place of worship - closest`,
-         tourist_closest = `tourist attraction - closest`,
-         community_area_closest = `community area - closest`,
-         aged_care_closest = `aged care - closest`,
-         park_closest = `park area - closest`,
-         school_closest = `school - closest`,
-         child_care_closest = `child care - closest`,
-         library_closest = `library - closest`,
-         emergency_closest = `emergency services - closest`,
-         medical_closest = `medical facility - closest`,
-         entertainment_closest = `entertainment centre - closest`,
-         pool_closest = `swimming pool - closest`,
-         tertiary_closest = `tertiary institution - closest`,
-         art_closest = `art gallery - closest`,
-         museum_closest = `museum - closest`
-         )
+all_prices = all_prices %>% mutate(across(all_of(walkability_metrics), ~ ifelse(is.na(.x), 5500, .x ) ))
 
 
-all_prices = all_prices %>% mutate(across(all_of(c('coffee_closest',
-                                                   'restaurant_closest',
-                                                   'grocery_closest',
-                                                   'cafe_closest',
-                                                   'bar_closest',
-                                                   'worship_closest',
-                                                   'tourist_closest',
-                                                   'community_area_closest',
-                                                   'aged_care_closest',
-                                                   'park_closest',
-                                                   'school_closest',
-                                                   'child_care_closest',
-                                                   'library_closest',
-                                                   'emergency_closest',
-                                                   'medical_closest',
-                                                   'entertainment_closest',
-                                                   'pool_closest',
-                                                   'tertiary_closest',
-                                                   'art_closest',
-                                                   'museum_closest')), ~ ifelse(is.na(.x), 5500, .x ) ))
-
-
-all_prices = all_prices %>% mutate(across(all_of(c('coffee_closest',
-                                           'restaurant_closest',
-                                           'grocery_closest',
-                                           'cafe_closest',
-                                           'bar_closest',
-                                           'worship_closest',
-                                           'tourist_closest',
-                                           'community_area_closest',
-                                           'aged_care_closest',
-                                           'park_closest',
-                                           'school_closest',
-                                           'child_care_closest',
-                                           'library_closest',
-                                           'emergency_closest',
-                                           'medical_closest',
-                                           'entertainment_closest',
-                                           'pool_closest',
-                                           'tertiary_closest',
-                                           'art_closest',
-                                           'museum_closest')), ~ cut(.x, breaks = c(0,500,1000, 2000,3000,4000,5000 ,Inf))))
-
+all_prices = all_prices %>% mutate(across(all_of(walkability_metrics), ~ cut(.x, breaks = c(0,500,1000, 2000,3000,4000,5000 ,Inf))))
 
 
 house_dataset <- all_prices %>% filter(prop_type_short == "other") %>% 
@@ -156,26 +98,48 @@ fml1 = as.formula("(price_per_sqm) ~ 1/lot_size  + i(zone_short, ref = 'Neighbou
 
 fml2 = as.formula("(price_per_sqm) ~ lot_size_fct  + i(zone_short, ref = 'Neighbourhood residential') + i(dist_rail_fct, ref = '(0,100]') + log(cbd_dist)+vacant_in_2016+ i(heritage_status, ref= 'No heritage') | lga_name_2022 + year")
 
-fml3 = as.formula("(price_per_sqm) ~ i(lga_name_2022, (lot_size)) + i(lga_name_2022, lot_size_fct)  + i(zone_short, ref = 'Neighbourhood residential') + i(dist_rail_fct, ref = '(0,100]') + log(cbd_dist)+vacant_in_2016+ i(heritage_status, ref= 'No heritage') + traffic_pollution + coffee_closest +
+# fml3 = as.formula("(price_per_sqm) ~ i(lga_name_2022, (lot_size)) + i(lga_name_2022, lot_size_fct)  + i(zone_short, ref = 'Neighbourhood residential') + i(dist_rail_fct, ref = '(0,100]') + log(cbd_dist)+vacant_in_2016+ i(heritage_status, ref= 'No heritage') + traffic_pollution + coffee_closest +
+#                                            restaurant_closest+
+#                                            grocery_closest+
+#                                            cafe_closest+
+#                                            bar_closest+
+#                                            worship_closest+
+#                                            tourist_closest+
+#                                            community_area_closest+
+#                                            aged_care_closest+
+#                                            park_closest+
+#                                            school_closest+
+#                                            child_care_closest+
+#                                            library_closest+
+#                                            emergency_closest+
+#                                            medical_closest+
+#                                            entertainment_closest+
+#                                            pool_closest+
+#                                            tertiary_closest+
+#                                            art_closest+
+#                                            museum_closest | sa2_code_2021 + lga_name_2022^year")
+
+fml3 = as.formula("(price_per_sqm) ~ i(lga_name_2022, lot_size_fct)  + i(zone_short, ref = 'Neighbourhood residential') + i(dist_rail_fct, ref = '(0,100]')  + vacant_in_2016+ i(heritage_status, ref= 'No heritage') + traffic_pollution + coffee_available_closest +
                                            restaurant_closest+
-                                           grocery_closest+
+                                           grocery_or_supermarket_closest+
                                            cafe_closest+
-                                           bar_closest+
-                                           worship_closest+
-                                           tourist_closest+
+                                           bar_or_pub_closest+
+                                           place_of_worship_closest+
+                                           tourist_attraction_closest+
                                            community_area_closest+
                                            aged_care_closest+
-                                           park_closest+
+                                           park_area_closest+
                                            school_closest+
                                            child_care_closest+
                                            library_closest+
-                                           emergency_closest+
-                                           medical_closest+
-                                           entertainment_closest+
-                                           pool_closest+
-                                           tertiary_closest+
-                                           art_closest+
-                                           museum_closest | lga_name_2022 + sa2_code_2021^year")
+                                           emergency_services_closest+
+                                           medical_facility_closest+
+                                           entertainment_centre_closest+
+                                           swimming_pool_closest+
+                                           tertiary_institution_closest+
+                                           art_gallery_closest+
+                                           museum_closest |  lga_name_2022^year ")
+
 #fml3 = as.formula("log(price_per_sqm) ~ i(lga_name_2022, lot_size) + poly(lot_size,7) + i(zone_short, ref = 'Neighbourhood residential') + i(dist_rail_fct, ref = '(0,100]') + log(cbd_dist)+vacant_in_2016+ i(heritage_status, ref= 'No heritage') + traffic_pollution | lga_name_2022 + sa2_code_2021^year")
 
 
@@ -211,55 +175,58 @@ for (n in 1:n_reps) {
   results_df[n,3] <- RMSE_3
 }
 
+model_3 = feols(fml3, data = house_dataset, combine.quick = FALSE)
+summary(model_3)
+
 print(colMeans(results_df))
-rasummary(model_1)
+summary(model_1)
 summary(model_2)
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ APARTMETNS MODELLING ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 apartment_fml_1 = as.formula("log(sale_price) ~ log(cbd_dist) + dwellings_est  + traffic_pollution | lga_name_2022+year")
 apartment_fml_2 = as.formula("log(sale_price) ~ i(lga_name_2022, lot_size) + poly(lot_size,7) + i(zone_short, ref = 'Neighbourhood residential') + i(dist_rail_fct, ref = '(0,100]') + log(cbd_dist)+vacant_in_2016+ i(heritage_status, ref= 'No heritage') + traffic_pollution | lga_name_2022 + sa2_code_2021^year")
 apartment_fml_3 = as.formula("log(sale_price) ~ i(lga_name_2022, lot_size) + poly(lot_size,7) + i(zone_short, ref = 'Neighbourhood residential') + dist_rail_fct + cbd_dist + heritage_status + traffic_pollution +
-                              coffee_closest +
-                                           restaurant_closest+
-                                           grocery_closest+
+                              restaurant_closest+
+                                           grocery_or_supermarket_closest+
                                            cafe_closest+
-                                           bar_closest+
-                                           worship_closest+
-                                           tourist_closest+
+                                           bar_or_pub_closest+
+                                           place_of_worship_closest+
+                                           tourist_attraction_closest+
                                            community_area_closest+
                                            aged_care_closest+
-                                           park_closest+
+                                           park_area_closest+
                                            school_closest+
                                            child_care_closest+
                                            library_closest+
-                                           emergency_closest+
-                                           medical_closest+
-                                           entertainment_closest+
-                                           pool_closest+
-                                           tertiary_closest+
-                                           art_closest+
-                                           museum_closest |  lga_name_2022^year")
+                                           emergency_services_closest+
+                                           medical_facility_closest+
+                                           entertainment_centre_closest+
+                                           swimming_pool_closest+
+                                           tertiary_institution_closest+
+                                           art_gallery_closest+
+                                           museum_closest +
+                                           coffee_available_closest|  lga_name_2022^year")
 
 apartment_fml_4 = as.formula("log(sale_price) ~ i(lga_name_2022, lot_size) + poly(lot_size,7) + i(zone_short, ref = 'Neighbourhood residential') + dist_rail_fct + cbd_dist + heritage_status + traffic_pollution +
-                              coffee_closest +
+                              coffee_available_closest +
                                            restaurant_closest+
-                                           grocery_closest+
+                                           grocery_or_supermarket_closest+
                                            cafe_closest+
-                                           bar_closest+
-                                           worship_closest+
-                                           tourist_closest+
+                                           bar_or_pub_closest+
+                                           place_of_worship_closest+
+                                           tourist_attraction_closest+
                                            community_area_closest+
                                            aged_care_closest+
-                                           park_closest+
+                                           park_area_closest+
                                            school_closest+
                                            child_care_closest+
                                            library_closest+
-                                           emergency_closest+
-                                           medical_closest+
-                                           entertainment_closest+
-                                           pool_closest+
-                                           tertiary_closest+
-                                           art_closest+
+                                           emergency_services_closest+
+                                           medical_facility_closest+
+                                           entertainment_centre_closest+
+                                           swimming_pool_closest+
+                                           tertiary_institution_closest+
+                                           art_gallery_closest+
                                            museum_closest + pp_bathrooms + pp_bedrooms|  lga_name_2022^year")
 
 apartments <- all_prices %>% filter(prop_type_short == "unit") %>% 
@@ -410,12 +377,8 @@ for(n in 1:n_reps_apt) {
   # RMSE_4 <-  sqrt( mean(( y_test_matrix - predicted_prices_4)^2, na.rm = TRUE))
   # results_df_apt[n,4] <- RMSE_4
 }
-
-adf = data.frame( apartments[unlist(apartment_model_2$obs_selection),] %>% 
-                    mutate(ln_price = log(sale_price)) %>%
-                    select(zone_short, heritage_status, lga_name_2022, ln_price)
-                  , apartment_model_2$residuals, apartment_model_2$fitted.values)
 #tibble(adf)
+apartment_model_4 <- feols( apartment_fml_4 , data = apartments, combine.quick = FALSE) = 
 print(colMeans(results_df_apt))
 
 #predicted_prices <- predict(apartment_model, apartments, type='response') 
@@ -427,76 +390,55 @@ full_dataset_for_prediction = dwelling_data_raw %>%
   left_join(osm_linkage, by = c('lat', 'lon')) %>%
   left_join(osm_parquet, by = 'osmid')
 
-full_dataset_for_prediction = full_dataset_for_prediction %>% 
-  rename(coffee_closest = `coffee_available - closest`,
-         restaurant_closest = `restaurant - closest`,
-         grocery_closest = `grocery or supermarket - closest`,
-         cafe_closest = `cafe - closest`,
-         bar_closest = `bar or pub - closest`,
-         worship_closest = `place of worship - closest`,
-         tourist_closest = `tourist attraction - closest`,
-         community_area_closest = `community area - closest`,
-         aged_care_closest = `aged care - closest`,
-         park_closest = `park area - closest`,
-         school_closest = `school - closest`,
-         child_care_closest = `child care - closest`,
-         library_closest = `library - closest`,
-         emergency_closest = `emergency services - closest`,
-         medical_closest = `medical facility - closest`,
-         entertainment_closest = `entertainment centre - closest`,
-         pool_closest = `swimming pool - closest`,
-         tertiary_closest = `tertiary institution - closest`,
-         art_closest = `art gallery - closest`,
-         museum_closest = `museum - closest`
-  )
-
 cluster <- new_cluster(6)
 cluster_library(cluster, 'dplyr')
 
-full_dataset_for_prediction = full_dataset_for_prediction %>% st_drop_geometry(.) %>% select(!geometry)
-full_dataset_for_prediction = full_dataset_for_prediction %>% partition(cluster) %>% mutate(across(all_of(c('coffee_closest',
-                                                                                     'restaurant_closest',
-                                                                                     'grocery_closest',
-                                                                                     'cafe_closest',
-                                                                                     'bar_closest',
-                                                                                     'worship_closest',
-                                                                                     'tourist_closest',
-                                                                                     'community_area_closest',
-                                                                                     'aged_care_closest',
-                                                                                     'park_closest',
-                                                                                     'school_closest',
-                                                                                     'child_care_closest',
-                                                                                     'library_closest',
-                                                                                     'emergency_closest',
-                                                                                     'medical_closest',
-                                                                                     'entertainment_closest',
-                                                                                     'pool_closest',
-                                                                                     'tertiary_closest',
-                                                                                     'art_closest',
-                                                                                     'museum_closest')), ~ ifelse(is.na(.x), 5500, .x ) )) %>%
+
+
+full_dataset_for_prediction = full_dataset_for_prediction %>% st_drop_geometry(.)
+full_dataset_for_prediction = full_dataset_for_prediction %>% partition(cluster) %>% mutate(across(all_of(c('coffee_available_closest',
+                                                                                                            'restaurant_closest',
+                                                                                                            'grocery_or_supermarket_closest',
+                                                                                                            'cafe_closest',
+                                                                                                            'bar_or_pub_closest',
+                                                                                                            'place_of_worship_closest',
+                                                                                                            'tourist_attraction_closest',
+                                                                                                            'community_area_closest',
+                                                                                                            'aged_care_closest',
+                                                                                                            'park_area_closest',
+                                                                                                            'school_closest',
+                                                                                                            'child_care_closest',
+                                                                                                            'library_closest',
+                                                                                                            'emergency_services_closest',
+                                                                                                            'medical_facility_closest',
+                                                                                                            'entertainment_centre_closest',
+                                                                                                            'swimming_pool_closest',
+                                                                                                            'tertiary_institution_closest',
+                                                                                                            'art_gallery_closest',
+                                                                                                            'museum_closest')), ~ ifelse(is.na(.x), 5500, .x ) )) %>%
   collect()
 
  
- full_dataset_for_prediction = full_dataset_for_prediction %>%  partition(cluster) %>% mutate(across(all_of(c('coffee_closest',
-                                                                                      'restaurant_closest',
-                                                                                      'grocery_closest',
-                                                                                      'cafe_closest',
-                                                                                      'bar_closest',
-                                                                                      'worship_closest',
-                                                                                      'tourist_closest',
-                                                                                      'community_area_closest',
-                                                                                      'aged_care_closest',
-                                                                                      'park_closest',
-                                                                                      'school_closest',
-                                                                                      'child_care_closest',
-                                                                                      'library_closest',
-                                                                                      'emergency_closest',
-                                                                                      'medical_closest',
-                                                                                      'entertainment_closest',
-                                                                                      'pool_closest',
-                                                                                      'tertiary_closest',
-                                                                                      'art_closest',
-                                                                                      'museum_closest')), ~ cut(.x, breaks = c(0,500,1000, 2000,3000,4000,5000 ,Inf)))) %>%
+ full_dataset_for_prediction = full_dataset_for_prediction %>%  partition(cluster) %>% mutate(across(all_of(c('coffee_available_closest',
+                                                                                                              'restaurant_closest',
+                                                                                                              'grocery_or_supermarket_closest',
+                                                                                                              'cafe_closest',
+                                                                                                              'bar_or_pub_closest',
+                                                                                                              'place_of_worship_closest',
+                                                                                                              'tourist_attraction_closest',
+                                                                                                              'community_area_closest',
+                                                                                                              'aged_care_closest',
+                                                                                                              'park_area_closest',
+                                                                                                              'school_closest',
+                                                                                                              'child_care_closest',
+                                                                                                              'library_closest',
+                                                                                                              'emergency_services_closest',
+                                                                                                              'medical_facility_closest',
+                                                                                                              'entertainment_centre_closest',
+                                                                                                              'swimming_pool_closest',
+                                                                                                              'tertiary_institution_closest',
+                                                                                                              'art_gallery_closest',
+                                                                                                              'museum_closest')), ~ cut(.x, breaks = c(0,500,1000, 2000,3000,4000,5000 ,Inf)))) %>%
    collect()
  
  
@@ -521,8 +463,9 @@ full_dataset_for_prediction = full_dataset_for_prediction %>% partition(cluster)
 full_dataset_for_prediction <- full_dataset_for_prediction %>% 
   lazy_dt() %>% 
   filter(zone_short %in% unique(test$zone_short)) %>% 
+  filter(!feature_preventing_development) %>%  
   mutate(
-         lot_size = winsorize(lot_size, threshold = 0.05),
+         lot_size = winsorize(lot_size, threshold = 0.01),
          lot_size_fct = cut(lot_size, breaks = c(0, 300, 500, 750, 1000, 1250,Inf)),
          year = 2018,
          pp_bedrooms = 2,
@@ -549,17 +492,15 @@ predicted_house_prices <- predict(model_3, full_dataset_for_prediction,
                                   type='response')* 1.285121107 #(abs property price inflation )
 
 all_predicted_prices <- full_dataset_for_prediction %>% 
-  select(lat,lon, lot_size) %>% 
+  select(lat,lon) %>% 
   bind_cols(tibble(apartment_prices = exp(predicted_apartment_prices))) %>% 
   bind_cols(tibble(property_price_per_sqm = (predicted_house_prices))) 
-
-
 
 prices_estimates <- dwelling_data_raw %>% 
   select(lat,lon) %>% 
   left_join(all_predicted_prices) 
 
-# prices_estimates %>% 
-#   write_sf("test/predicted_prices.shp")
+prices_estimates %>% rename(apt = apartment_prices, house = property_price_per_sqm) %>%
+  write_sf("test/predicted_prices.shp", quiet = T)
 
 rmarkdown::render("r_experimental/model-qc.Rmd",output_format = "html_document",clean = T)
