@@ -27,3 +27,5 @@ html/
 test/
 /test
 QC-of-apartment-and-house-price-model.Rmd
+data/osm_linkage_to_property_db.csv
+data/walkability_by_node.parquet

@@ -14,8 +14,8 @@ library(DT)
 library(tidyverse)
 library(leaflet)
 library(dtplyr)
-apartment_size = 80
-base_cost = 3334*1.1*1.06*apartment_size * 1.20 #figure here, plus 6% inflation since release, plus 30% developer profit https://content.knightfrank.com/research/911/documents/en/melbourne-new-apartments-insight-q3-2023-10663.pdf
+apartment_size = 85
+base_cost = 3800*apartment_size * 1.17*1.2 #figure here, plus 6% inflation since release, plus 30% developer profit https://content.knightfrank.com/research/911/documents/en/melbourne-new-apartments-insight-q3-2023-10663.pdf
 demolition_costs = 30000
 
 apartment_inflation = 1.07653 #https://reiv.com.au/market-insights/victorian-insights#metro
@@ -23,7 +23,7 @@ apartment_inflation = 1.07653 #https://reiv.com.au/market-insights/victorian-ins
 price_estimates <- dwelling_data_raw %>% 
   left_join(all_predicted_prices) %>% 
   mutate(property_price = property_price_per_sqm * lot_size,
-         apartment_prices = apartment_inflation * apartment_prices)
+         apartment_price = apartment_inflation * apartment_price)
 
 price_estimates_dt <- price_estimates %>% 
                       st_drop_geometry()
@@ -31,9 +31,9 @@ price_estimates_dt <- price_estimates %>%
 sa2_prices <- price_estimates_dt %>% 
   group_by(sa2_code_2021) %>% 
   summarise(price_mean           = mean(property_price_per_sqm, na.rm = TRUE),
-            apartment_price_mean = mean(apartment_prices, na.rm = TRUE),
+            apartment_price_mean = mean(apartment_price, na.rm = TRUE),
             price_median = median(property_price_per_sqm, na.rm = TRUE),
-            apartment_price_median = median(apartment_prices, na.rm = TRUE))
+            apartment_price_median = median(apartment_price, na.rm = TRUE))
 
 map <- strayr::read_absmap("sa22021") %>% 
   left_join(sa2_prices) %>% 
@@ -54,12 +54,12 @@ price_estimates_dt %>%
   lazy_dt() %>% 
   mutate(`already_multiple_units_on_site` = dwellings_est>1) %>% 
   mutate(property_price_per_sqm           = if_else(is.na(property_price_per_sqm), 1, 0),
-         apartment_prices                 = if_else(is.na(apartment_prices), 0, 1)) %>% 
+         apartment_price                 = if_else(is.na(apartment_price), 0, 1)) %>% 
     group_by(zone_short,
              zoning_permits_housing,
              `already_multiple_units_on_site`) %>%
   summarise(`Share with a house price estimate`      = round(100*mean(property_price_per_sqm)),
-            `Share with an apartment price estimate` = round(100*mean(apartment_prices))) %>% 
+            `Share with an apartment price estimate` = round(100*mean(apartment_price))) %>% 
   as_tibble() %>% 
   DT::datatable()
   
@@ -160,20 +160,20 @@ map %>%
 
 ```{r}
 
-median_price = prettyNum(median(price_estimates_dt$apartment_prices,na.rm = TRUE),big.mark = ",")
-mean_price = prettyNum(mean(price_estimates_dt$apartment_prices,na.rm = TRUE),big.mark = ",",)
+median_price = prettyNum(median(price_estimates_dt$apartment_price,na.rm = TRUE),big.mark = ",")
+mean_price = prettyNum(mean(price_estimates_dt$apartment_price,na.rm = TRUE),big.mark = ",",)
 ```
 REIV [estimates](https://reiv.com.au/market-insights/victorian-insights) that the median sale price for aparmtents in Melbourne is \$633k. Mean will be higher than median, and also new properties are probably worth more than older ones. [One estimate](https://content.knightfrank.com/research/911/documents/en/melbourne-new-apartments-insight-q3-2023-10663.pdf) has the price for new apartments at 10k/sqm so around \$800k. The model predicts the median price is `r median_price` and the mean is `r mean_price`
 
 
-```{r apartment_prices, echo=FALSE}
+```{r apartment_price, echo=FALSE}
 
 negative_values <- price_estimates_dt %>% 
-  filter(apartment_prices<0) %>% 
+  filter(apartment_price<0) %>% 
   nrow()
 price_estimates_dt %>% 
-  filter(apartment_prices>=0)  %>% 
-  ggplot(aes(x = apartment_prices))+
+  filter(apartment_price>=0)  %>% 
+  ggplot(aes(x = apartment_price))+
   geom_histogram()+
   theme_minimal()+
   labs(title = "Apartment price",
@@ -253,15 +253,15 @@ Negative values mean that the apartments are worth less than they cost to build,
 
 profitability_at_mm <- price_estimates_dt %>% 
 filter(zoning_permits_housing == "Housing permitted") %>% 
-filter(property_price >0, apartment_prices >0) %>% 
-  select(lot_size,apartment_prices,property_price,zone_short,cbd_dist,prox_dist_m_tram,prox_dist_m_train) %>% 
+filter(property_price >0, apartment_price >0) %>% 
+  select(lot_size,apartment_price,property_price,zone_short,cbd_dist,prox_dist_m_tram,prox_dist_m_train) %>% 
 mutate(`6 storeys` = lot_size*6/4*240/10000,
        `3 storeys` = `6 storeys`/2,
        `2 storeys` = `6 storeys`/3) %>% 
 pivot_longer(cols = c(`6 storeys`,`3 storeys`,`2 storeys`),
              values_to = "apartments",
              names_to = "Zoning level") %>% 
-mutate(profit_per_apartment = apartments*(apartment_prices-base_cost) - property_price - demolition_costs,
+mutate(profit_per_apartment = (apartments*(apartment_price-base_cost) - property_price - demolition_costs)/apartments,
        profitable = if_else(profit_per_apartment>0,T,F)) %>% 
     mutate(lot_size_group = cut(lot_size,
                               breaks = c(seq(0,1600,200),Inf),
