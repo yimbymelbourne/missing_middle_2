@@ -343,7 +343,7 @@ insert building approval data for this LGA by zone category
 if(area_name == "Melbourne") {
   
   original_wd <- getwd()
-  res <-knitr::knit_child('R/mel_specific_render.Rmd', quiet = TRUE,options  = c("root.dir" = original_wd))
+  res <-knitr::knit_child('rmd/mel_specific_render.Rmd', quiet = TRUE,options  = c("root.dir" = original_wd))
   cat(res)
   
 

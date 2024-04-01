@@ -1,13 +1,9 @@
 add_missing_middle_zoning_info <- function(input_data){
 
 
-mel_lgas <- c(inner_lgas,middle_lgas,outer_lgas)
-
-
 #Here are their yields: 
 buxton_yields <- input_data %>% 
-  filter(lga_name_2022 %in% mel_lgas ) %>% 
-  #filter(lga_name_2022 %in% area_name) %>% 
+  lazy_dt() %>% 
   mutate(buxton_yield = 
          case_when(feature_preventing_development ~ 0,
                    zone_short == "Low density residential" ~ 1,
@@ -19,19 +15,20 @@ buxton_yields <- input_data %>%
                    zone_short == "General residential" & lot_size < 675  ~ 2,
                    zone_short == "General residential" & lot_size < 1000 ~ 3,
                    zone_short == "General residential" & lot_size < 2000 ~ 8,
-                   zone_short == "Residential Growth" & lot_size < 500  ~ 8,
-                   zone_short == "Residential Growth" & lot_size < 1000 ~ 18,
-                   zone_short == "Residential Growth" & lot_size < 2000 ~ 36,
+                   zone_short == "Residential growth" & lot_size < 500  ~ 8,
+                   zone_short == "Residential growth" & lot_size < 1000 ~ 18,
+                   zone_short == "Residential growth" & lot_size < 2000 ~ 36,
                    zone_short %in% c("Mixed use","Commercial") & lot_size <500  ~ 11, #Buxton assumes 4 resi + 2 mixed use here which is very low! 
                    zone_short %in% c("Mixed use","Commercial") & lot_size <1000 ~ 24,
                    zone_short %in% c("Mixed use","Commercial")& lot_size <2000 ~ 48,
                    lga_name_2022 %in% inner_lgas  & lot_size >2000 ~  120*lot_size/10000, 
                    lga_name_2022 %in% middle_lgas & lot_size >2000 ~ 70*lot_size/10000,
                    lga_name_2022 %in% c(outer_lgas,greenfield) & lot_size >2000 ~ 70*lot_size/10000,
-         T ~ NA_real_),
-         buxton_yield_net = floor(pmax(0,buxton_yield - dwellings_est))
-         )  
-
+         T ~ NA_real_)) %>% 
+  as_tibble() %>% 
+  mutate(buxton_yield_net = floor(pmax(0,buxton_yield - dwellings_est)))
+        
+print("finished first bit!")
 
 #We have data for developments >10 units, so we can look at where buxton predicted
 # more than 10 units and check he got it right.
@@ -131,10 +128,7 @@ buxton_yields <- input_data %>%
 #We also assume GRZ becomes RGZ and NRZ becomes GRZ. 
 
 buxton_yields_corrected <- buxton_yields %>% 
-mutate(area = case_when( lga_name_2022 %in% inner_lgas ~ "inner lgas",
-                         lga_name_2022 %in% middle_lgas ~ "middle lgas",
-                         lga_name_2022 %in% outer_lgas ~  "outer lgas",
-                         lga_name_2022%in% greenfield ~ "greenfield")) %>% 
+  lazy_dt() %>% 
   mutate(buxton_yields_corrected = case_when(feature_preventing_development ~ 0,
                                              zoning_permits_housing %in% c("Housing not generally permitted",
                                                                            "Rural/regional") ~ 0, 
@@ -142,15 +136,14 @@ mutate(area = case_when( lga_name_2022 %in% inner_lgas ~ "inner lgas",
                                              zone_short %in% c("Mixed use","Commercial") & lga_name_2022 %in% middle_lgas ~ lot_size*346/10000,
                                              zone_short %in% c("Mixed use","Commercial") & lga_name_2022 %in% outer_lgas ~ lot_size*252/10000,
                                              zone_short %in% c("Mixed use","Commercial") & lga_name_2022 %in% greenfield ~ lot_size*252/10000,
-                                             zone_short %in% c("Resindetial Growth") ~ lot_size*240/10000,
+                                             zone_short %in% c("Residential growth") ~ lot_size*240/10000,
                                              T ~buxton_yield),
-         buxton_yeilds_corrected_net = floor(pmax(0,buxton_yields_corrected - dwellings_est)),
          zone_short_mm = case_when(zone_short %in% c("General residential",
                                                      "Neighbourhood residential",
-                                                     "Residential Growth") & 
-                                               (prox_dist_m_tram <= 500 | prox_dist_m_train <= 500) ~ "Missing middle",
+                                                     "Residential growth") & 
+                                               (prox_dist_m_tram <= 500 | prox_dist_m_train <= 1000) ~ "Missing middle",
                                                zone_short  == "Neighbourhood residential"  ~ "General residential",
-                                               zone_short == "General residential" ~ "Residential Growth",
+                                               zone_short  == "General residential" ~ "Residential growth",
                                    T ~ zone_short),
          missing_middle_yield = 
                   case_when(feature_preventing_development ~ 0,
@@ -164,25 +157,24 @@ mutate(area = case_when( lga_name_2022 %in% inner_lgas ~ "inner lgas",
                             zone_short_mm == "General residential" & lot_size < 675  ~ 2,
                             zone_short_mm == "General residential" & lot_size < 1000 ~ 3,
                             zone_short_mm == "General residential" & lot_size < 2000 ~ 8,
-                            zone_short_mm == "Residential Growth"  & lot_size < 225  ~ 1,
-                            zone_short_mm == "Residential Growth"  & lot_size < 500  ~ 8,
-                            zone_short_mm == "Residential Growth"  & lot_size < 1000 ~ 18,
-                            zone_short_mm == "Residential Growth"  & lot_size < 2000 ~ 36,
-                           # zone_short_mm %in% c("Residential Growth") ~ lot_size*240/10000, # What actually happens
-                            zone_short_mm %in% c("Residential Growth","Mixed use","Commercial","General residential") & lga_name_2022 %in% inner_lgas ~ lot_size*830/10000,
-                            zone_short_mm %in% c("Residential Growth","Mixed use","Commercial","General residential") & lga_name_2022 %in% middle_lgas ~ lot_size*346/10000,
-                            zone_short_mm %in% c("Residential Growth","Mixed use","Commercial","General residential") & lga_name_2022 %in% outer_lgas ~ lot_size*252/10000,
-                            zone_short_mm %in% c("Residential Growth","Mixed use","Commercial","General residential") & lga_name_2022 %in% greenfield ~ lot_size*252/10000,
+                            zone_short_mm == "Residential growth"  & lot_size < 225  ~ 1,
+                            zone_short_mm == "Residential growth"  & lot_size < 500  ~ 8,
+                            zone_short_mm == "Residential growth"  & lot_size < 1000 ~ 18,
+                            zone_short_mm == "Residential growth"  & lot_size < 2000 ~ 36,
+                           # zone_short_mm %in% c("Residential growth") ~ lot_size*240/10000, # What actually happens
+                            zone_short_mm %in% c("Residential growth","Mixed use","Commercial","General residential") & lga_name_2022 %in% inner_lgas ~ lot_size*830/10000,
+                            zone_short_mm %in% c("Residential growth","Mixed use","Commercial","General residential") & lga_name_2022 %in% middle_lgas ~ lot_size*346/10000,
+                            zone_short_mm %in% c("Residential growth","Mixed use","Commercial","General residential") & lga_name_2022 %in% outer_lgas ~ lot_size*252/10000,
+                            zone_short_mm %in% c("Residential growth","Mixed use","Commercial","General residential") & lga_name_2022 %in% greenfield ~ lot_size*252/10000,
                             zone_short_mm %in% c("Missing middle") ~ lot_size*6/4*240/10000, # Missing middle will be 6 instead of 4 storeys so this is our best estimate... 
-                            T ~ NA_real_),
-                mm_yield_net = floor(pmax(0,missing_middle_yield - dwellings_est))
+                            T ~ NA_real_)
                 ) %>% 
   mutate(category = case_when(feature_preventing_development                    ~ "Civic use makes development less likely",
                               dwellings_est >1                                  ~ "Already developed",
                               zoning_permits_housing != "Housing permitted"     ~ "Housing not permitted",
                               zone_short == "Neighbourhood residential"         ~ "2 storeys (NRZ)",
                               zone_short == "General residential"               ~ "3 storeys (GRZ)", 
-                              zone_short == "Residential Growth"                ~ "4 storeys (RGZ)",
+                              zone_short == "Residential growth"                ~ "4 storeys (RGZ)",
                               zone_short == "Mixed use"                         ~ "4+ storeys (Mixed use zones)",
                               T ~ zone_short),
          category_new = case_when(feature_preventing_development                ~ "Civic use makes development less likely",
@@ -190,7 +182,7 @@ mutate(area = case_when( lga_name_2022 %in% inner_lgas ~ "inner lgas",
                                   zoning_permits_housing != "Housing permitted" ~ "Housing not permitted",
                                   zone_short_mm == "General residential"        ~ "3 storeys (GRZ)", 
                                   zone_short_mm == "Neighbourhood residential"  ~ "2 storeys (NRZ)",
-                                  zone_short_mm == "Residential Growth"         ~ "4 storeys (RGZ)",
+                                  zone_short_mm == "Residential growth"         ~ "4 storeys (RGZ)",
                                   zone_short_mm == "Mixed use"                  ~ "4+ storeys (Mixed use zones)",
                                   zone_short_mm == "Missing middle"             ~ "6 storeys (Missing middle)",
                                   T ~ zone_short_mm),
@@ -200,14 +192,23 @@ mutate(area = case_when( lga_name_2022 %in% inner_lgas ~ "inner lgas",
          heritage_nice = if_else(heritage,
                                  "Subject to heritage controls",
                                  "Free from heritage")
-  ) %>% 
+  )  %>% 
+  as_tibble() %>% #Less common functions outside of dtplyr. 
   mutate(category    = as.factor(category),
-         category_new = as.factor(category_new)) 
+         category_new = as.factor(category_new),
+         missing_middle_yield   = pmin(missing_middle_yield,2000), # Let's top code absurdly large lots - these will likely be multi use and require roads etc. 
+         buxton_yields_corrected = pmin(buxton_yields_corrected,2000)) %>% 
+  mutate(buxton_yeilds_corrected_net = floor(pmax(0,buxton_yields_corrected - dwellings_est)),
+         mm_yield_net = floor(pmax(0,missing_middle_yield - dwellings_est))
+        )
 
 
 
+output <- input_data %>% 
+  select(lat,lon) %>% 
+  left_join(buxton_yields_corrected)
 
-return(buxton_yields_corrected)
+return(output)
 
 }
 

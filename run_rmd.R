@@ -11,75 +11,88 @@ purrr::walk(r_files,source)
 
 #Add beskope info on how YIMBY Melbourne wants to re-zone Melbourne
 sf_with_mm <- dwelling_data_raw %>% 
+  lazy_dt() %>% 
+  filter(lga_name_2022 %in% c(inner_lgas,middle_lgas)) %>% 
+  as_tibble() %>% 
   add_missing_middle_zoning_info() 
   
 
 
 sf_mel_props <- sf_with_mm %>% 
-                find_profitable_apartments()  %>% 
-  mutate(baseline_demand = case_when(profit/missing_middle_yield > -100000 ~ sample(c(missing_middle_yield,rep(0,5)),1),
-                              zone_short_mm == "Missing middle" ~ sample(c(missing_middle_yield, rep(0,9)),1), #1/10 chance of including anyway
-                              zone_short_mm %in% c("General residential","Residential Growth") ~ sample(c(missing_middle_yield, rep(0,19)),1), #1/20 chance of including anyway
-                              T ~ 0)) %>% 
-  #We add a baseline yield to account for the fact that the model doesn't account well for 'townhouse' style developments in RGZ GRZ zones which could increase density signifiantly. 
-  #These townhouses would likely sell more than what an apartment would sell for. 
-  mutate(profitable_apartments = pmax(profitable_apartments, baseline_demand))
+                find_profitable_apartments()  
 
-runnable <- sf_mel_props%>% 
-  filter(!is.na(profit)) %>%
-  mutate(profit_per_apartment = profit/apartments_if_built_to_this_height) 
-
-
-hist(runnable$apartments_if_built_to_this_height)
-hist(runnable$profitable_apartments)
-hist(runnable$missing_middle_storeys)
-hist(runnable$storey)
-hist(runnable$cost_of_building_one_apartment_on_this_floor)
-hist(runnable$profit_per_apartment)
-
-runnable %>% 
-  filter(profit_per_apartment< -1.2e6) %>% 
+sf_mel_props %>% 
   mutate(`profitable?` = if_else(profit>0,T,F)) %>% 
   ggplot(aes(x = profit_per_apartment,
              fill = `profitable?`)) +
-  geom_histogram()+
+  geom_histogram() +
   facet_wrap(~zone_short_mm)
 
-
-
-runnable %>% 
-  filter(zone_short_mm == "Residential Growth") %>% 
+sf_mel_props %>% 
   mutate(`profitable?` = if_else(profit>0,T,F)) %>% 
-  ggplot(aes(x = profit_per_apartment,
-             fill = `profitable?`)) +
-  geom_histogram()+
-  facet_wrap(~storey)
+  filter(apartments_if_built_to_this_height <100) %>% 
+  ggplot(aes(x = apartments_if_built_to_this_height,
+             fill = `profitable?` ))+
+  geom_histogram()
+
+hist(sf_mel_props$missing_middle_storeys)
+sf_mel_props %>% 
+  mutate(`profitable?` = if_else(profit>0,T,F)) %>% 
+  filter(apartments_if_built_to_this_height <100) %>% 
+  ggplot(aes(x = storey,
+             fill = `profitable?` ))+
+  geom_histogram()
+
+hist(sf_mel_props$construction_cost_per_apt_this_height)
+hist(sf_mel_props$profit_per_apartment)
 
 
+sf_mel_props %>% 
+  distinct(construction_cost_per_apt_this_height,storey,zone_short_mm) %>% 
+  ggplot(aes(y = construction_cost_per_apt_this_height,
+             x = storey,
+             colour =  zone_short_mm)) +
+  geom_point()
 
-runnable %>% 
-  ggplot(aes(x = profit))+
-  geom_histogram()+
-  facet_wrap(~zone_short_mm)
-
-
-runnable %>% 
-  mutate(pp_app = profit/apartments_if_built_to_this_height) %>% 
-  select(profitable_apartments,pp_app,zone_short_mm,mm_yield_net,zone_short_mm,storey,lot_size,apartments_if_built_to_this_height) %>% 
+sf_mel_props %>% 
+  mutate(prof_p_ap = profit_per_apartment) %>% 
+  select(profitable_apartments,prof_p_ap,zone_short_mm,mm_yield_net,zone_short_mm,storey,lot_size,apartments_if_built_to_this_height) %>% 
   filter(!is.na(profitable_apartments)) %>% 
   write_sf("test/profit_per_apartment.shp")
   
 #Create a version without geometries
 df_mel_props <- sf_mel_props %>% st_drop_geometry() 
 
-df_mel_props %>% 
-  filter(lga_name_2022 %in% c(middle_lgas,inner_lgas)) %>% 
+mm_total_target = 80000*.7
+
+heritage_zones <- c("Missing middle","General residential","Residential growth","Low density residential") # zones where we think you can't increase dwelling numbers if there's heritage
+
+lga_zoning_numbers <- df_mel_props %>% 
+  mutate(heritage_affecting_zoned_capacity = if_else(heritage & zone_short %in% heritage_zones,0,buxton_yield_net),
+         heritage_affecting_zoned_capacity_mm = if_else(heritage & zone_short_mm %in% heritage_zones,0,mm_yield_net)) %>% 
   group_by(lga_name_2022) %>% 
-  summarise(profitable_apartments = sum(profitable_apartments, na.rm = TRUE),
-            profitable_apartments_w_floor = max(sum(profitable_apartments),
-                                                .05 * sum(missing_middle_yield[zone_short_mm == "Missing middle"]))
-            ) %>% 
-            view()
+  summarise(profitable_apartments = sum(profitable_apartments,na.rm = TRUE),
+            profit_from_buildable_apartments = sum(pmax(profit_from_buildable_apartments,50000),na.rm = TRUE),
+            existing_dwellings = sum(dwellings_est,na.rm = TRUE),
+            zoned_capacity = sum(buxton_yield_net,na.rm = TRUE),
+            zoned_capacity_heritage = sum(heritage_affecting_zoned_capacity,na.rm = TRUE),
+            mm_zoned_capacity = sum(mm_yield_net,na.rm = TRUE),
+            mm_zoned_capacity_heritage = sum(heritage_affecting_zoned_capacity_mm,na.rm = TRUE)
+) %>% 
+  ungroup() %>% 
+  mutate(change_to_zoned_capacity = mm_zoned_capacity/zoned_capacity,
+         share_of_mm_profitable_apartments = profitable_apartments/sum(profitable_apartments,na.rm = TRUE),
+         share_of_mm_prof_from_apartments = profit_from_buildable_apartments/sum(profit_from_buildable_apartments,na.rm = TRUE),
+         mm_target = share_of_mm_profitable_apartments * mm_total_target,
+         share_of_dwelling_capacity = existing_dwellings/sum(existing_dwellings),
+         target_relative_to_other_missing_middle_lgas = share_of_mm_profitable_apartments/share_of_dwelling_capacity
+           
+  ) 
+
+
+
+
+
 
 sf::sf_use_s2(FALSE)  # Disable s2 engine
 
@@ -91,24 +104,21 @@ lgas <- df_mel_props %>%
   pull(lga_name_2022) 
 
 #We want to look at all LGAs but greenfield. We really don't have a solution for Greenfield right now. 
-missing_middle_lgas <- df_mel_props %>% 
-  group_by(lga_name_2022,area) %>% 
-  summarise(n=n(),
-            .groups = "drop") %>% 
-  filter(n > 10000) %>% 
-  filter(area != "greenfield")  %>% 
-  filter(!(lga_name_2022 %in% 
-            c("Yarra Ranges",
-              "Mornington Peninsula",
-              "Nillumbik")
-          )
-        ) %>% #as discussed at 24/3/2 meeting - no longer 'middle'%>%
-  pull(lga_name_2022)
+missing_middle_lgas <- lgas
+
+
+#Create the index page as well
+
+rmarkdown::render("index.Rmd", 
+                  output_file = paste0("html/index.html")
+)
+
 
 #filter the big dataset for a given LGA (area name) and then render the rmarkdown, saving it into the RMD folder.
 
 run_for_area <- function(area_name) {
   
+#  area_name = "Melbourne"
   sf_lga_props <- sf_mel_props %>% filter(lga_name_2022 %in% area_name)
 
   df_lga_props <- sf_lga_props %>% st_drop_geometry()
@@ -134,11 +144,7 @@ run_for_area <- function(area_name) {
 
 walk(missing_middle_lgas,run_for_area)
 
-#Create the index page as well
 
-rmarkdown::render("index.Rmd", 
-                  output_file = paste0("html/index.html")
-)
 
 
 #Upload to AWS - let JN know if you want access to the bucket. If not commit your changes and he can run. 
