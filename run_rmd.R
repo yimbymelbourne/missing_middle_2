@@ -67,6 +67,7 @@ mm_total_target = 80000*.7
 
 heritage_zones <- c("Missing middle","General residential","Residential growth","Low density residential") # zones where we think you can't increase dwelling numbers if there's heritage
 
+
 lga_zoning_numbers <- df_mel_props %>% 
   mutate(heritage_affecting_zoned_capacity = if_else(heritage & zone_short %in% heritage_zones,0,buxton_yield_net),
          heritage_affecting_zoned_capacity_mm = if_else(heritage & zone_short_mm %in% heritage_zones,0,mm_yield_net)) %>% 
@@ -91,9 +92,6 @@ lga_zoning_numbers <- df_mel_props %>%
 
 
 
-
-
-
 sf::sf_use_s2(FALSE)  # Disable s2 engine
 
 lgas <- df_mel_props %>% 
@@ -106,12 +104,10 @@ lgas <- df_mel_props %>%
 #We want to look at all LGAs but greenfield. We really don't have a solution for Greenfield right now. 
 missing_middle_lgas <- lgas
 
-
-#Create the index page as well
-
 rmarkdown::render("index.Rmd", 
                   output_file = paste0("html/index.html")
 )
+
 
 
 #filter the big dataset for a given LGA (area name) and then render the rmarkdown, saving it into the RMD folder.
@@ -141,9 +137,7 @@ run_for_area <- function(area_name) {
 
 
 
-
 walk(missing_middle_lgas,run_for_area)
-
 
 
 
