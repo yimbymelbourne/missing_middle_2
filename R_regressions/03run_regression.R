@@ -68,7 +68,8 @@ clean_data_set_for_regression <- function(x){
                                      pp_bedrooms >  2 ~ "3 or more"),
            fct_bathrooms =  case_when(pp_bathrooms == 1 ~ "1",
                                       pp_bathrooms == 2 ~ "2",
-                                      pp_bathrooms >  2 ~ "3 or more")) %>% 
+                                      pp_bathrooms >  2 ~ "3 or more"),
+           fct_traffic_pollution = cut(traffic_pollution,breaks = c(seq(0,1,.1),Inf),right = F))%>% 
     as_tibble() 
   
   return(output)
@@ -178,33 +179,36 @@ regression_runner <- function(dataframe, outcome_var, input_vars,interaction_var
 #Because of collinearity I've removed walkability down to the bare essentials, being near a park, school or cafe. but we could add a couple more. 
 
 #Each of these have been tested to give the best relationship:
-#ggplot(apartment_dataset) +
-#  geom_smooth(aes(x =ln_wins_cbd_dist, y = sale_price))
+ggplot(house_dataset) +
+  geom_smooth(aes(x = wins_cbd_dist, y = log(price_per_sqm)))
 
 minimal_regression_terms <- c("fct_dist_rail",
                               "vacant_in_2016",
                               "heritage_status",
-                              "ln_wins_traffic_pollution",
+                              "fct_traffic_pollution",
                               #paste0("fct_",walkability_metrics), #Tried some the walk ability metrics but they all produced counter-intuitive results 
                               "fct_lot_size") 
 
 base_regression_terms  <- c(minimal_regression_terms,
-                            "ln_wins_cbd_dist")
+                            "wins_cbd_dist")
 
 
 # Logic for first run: We know that too many walkability metrics results in colinearity, so I'm trying without any. year is fixed effect.
-house_price_model <- regression_runner(house_dataset, "price_per_sqm", base_regression_terms,fixed_vars = c("sa3_code_2021","year"))
+house_price_model <- regression_runner(house_dataset, "price_per_sqm", base_regression_terms,fixed_vars = c("sa3_code_2021","year"),log_outcome = T)
 
 summary(house_price_model$models[[1]])
-apartment_minimal_regression_terms <- c("ln_wins_traffic_pollution",
-                                        #"dwellings_est",#  excluded because past apartments on big lots don't reflect better MM design standards
+
+ggplot(apartment_dataset) +
+  geom_smooth(aes(x = ln_wins_traffic_pollution, y = log(sale_price)))
+
+apartment_minimal_regression_terms <- c(#"dwellings_est",#  excluded because past apartments on big lots don't reflect better MM design standards
                                         #"fct_dist_rail", # produced counterintuitive results 
                                         #"lot_size", # excluded because past apartments on big lots don't reflect better MM design standards
-                                        "ln_wins_cbd_dist",
+                                        "wins_cbd_dist",
                                         "fct_bedrooms",
                                         "fct_bathrooms",
                                         "heritage_status",
-                                        "ln_wins_traffic_pollution",
+                                        "fct_traffic_pollution",
                                         "sa3_code_2021", # Included here because some sa3s have missing values in some years
                                         "zone_short")
 
@@ -229,7 +233,7 @@ full_dataset_for_prediction <- dwelling_data_raw %>%
 
 
 predicted_apartment_prices <- exp(predict(apartment_price_model$models[[1]], newdata = full_dataset_for_prediction, type='response') )
-predicted_house_prices     <- predict(house_price_model$models[[1]],     newdata = full_dataset_for_prediction, type='response')
+predicted_house_prices     <- exp(predict(house_price_model$models[[1]],     newdata = full_dataset_for_prediction, type='response'))
 
 all_predicted_prices <- full_dataset_for_prediction %>% 
   select(lat,lon) %>% 
@@ -240,6 +244,7 @@ all_predicted_prices <- full_dataset_for_prediction %>%
 prices_estimates %>% 
   rename(apt   = apartment_price, 
          house = property_price_per_sqm) %>%
+  filter(!is.na(house)) %>% 
   write_sf("test/predicted_prices.shp", quiet = T)
 
 rmarkdown::render("r_experimental/model-qc.Rmd",output_format = "html_document",clean = T)

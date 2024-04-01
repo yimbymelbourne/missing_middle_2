@@ -19,7 +19,7 @@ base_cost = 3800*apartment_size * 1.17*1.2 #figure here, plus 6% inflation since
 demolition_costs = 30000
 
 apartment_inflation = 1.07653 #https://reiv.com.au/market-insights/victorian-insights#metro
-
+house_inflation = 909/812 #https://reiv.com.au/property-data/rmx # Although other indexes are much higher so we may need to change. 
 price_estimates <- dwelling_data_raw %>% 
   left_join(all_predicted_prices) %>% 
   mutate(property_price = property_price_per_sqm * lot_size,
