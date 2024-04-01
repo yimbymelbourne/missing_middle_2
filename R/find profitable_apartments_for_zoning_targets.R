@@ -1,27 +1,11 @@
 
-apartment_inflation = 1.07653 #https://reiv.com.au/market-insights/victorian-insights#metro
-house_inflation = 909/812 #https://reiv.com.au/property-data/rmx # Although other indexes are much higher so we may need to change. 
-
-calculate_apartment_cost <- function(max_storeys, zone) {
-  apartment_size <- 85
-  variable_costs <- 1.15  # Finance, architect fees etc
-  profit <- 1.2
-  fixed_costs <- 30000
-  
-  construction_cost <- ifelse(max_storeys <= 3, 3350,
-                              ifelse(max_storeys <= 8, 3800, 4000))
-  
-  car_park_cost <- ifelse(zone %in% c("Mixed use", "Missing middle"), 0, 58000)
-  
-  total_costs <- (construction_cost * apartment_size + car_park_cost + fixed_costs) * variable_costs * profit
-  
-  return(total_costs)
-}
-
-calculate_apartment_cost <- Vectorize(calculate_apartment_cost)
 
 find_profitable_apartments <- function(data){
   
+  apartment_size = 80
+base_cost = 3334*1.1*1.06*apartment_size * 1.20 #figure here, plus 6% inflation since release, plus 30% developer profit https://content.knightfrank.com/research/911/documents/en/melbourne-new-apartments-insight-q3-2023-10663.pdf
+demolition_costs = 30000
+
 
 
 variables_to_include <- c("dist_rail",
@@ -50,55 +34,57 @@ house_prices <- data %>%
          !feature_preventing_development,
          zone_short != "Low density residential",
          dwellings_est<2) %>% 
-  lazy_dt() %>% 
   mutate(vacant_in_2016 = replace_na(vacant_in_2016,"No")) %>% 
   select(any_of(variables_to_include)) %>% 
-  left_join(all_predicted_prices) %>% 
+  left_join(price_estimates) %>% 
   ungroup() %>%
   filter(property_price_per_sqm>0) %>% 
-  mutate(property_price_per_sqm = property_price_per_sqm * house_inflation ,
-         apartment_price = apartment_price * apartment_inflation) %>% 
   mutate(property_price   = property_price_per_sqm * lot_size ) %>% 
+  mutate(mean_price = mean(property_price,na.rm = TRUE)) %>% 
+  mutate(property_price_raw = property_price,
+         property_price   = property_price * 1.2e6 /mean_price, #Roughl $1m as average land value in Mel. To be deleted once regression finalised. 
+         apartment_prices = apartment_prices * 8000*apartment_size/mean(apartment_prices,na.rm = TRUE)) %>%  # normalist appt prices which according to this link cost $10/sqm https://content.knightfrank.com/research/911/documents/en/melbourne-new-apartments-insight-q3-2023-10663.pdf
+  mutate(zone_short_mm = if_else(zone_short_mm == "Residential Growth","Residential growth",zone_short_mm),
+         zone_short = if_else(zone_short == "Residential Growth","Residential growth",zone_short)) %>% 
   mutate(missing_middle_storeys = case_when(zone_short_mm == "General residential" ~ 3,
                                             zone_short_mm == "Residential growth"  ~ 4,
                                             zone_short_mm == "Missing middle"      ~ 6,
                                             zone_short_mm == "Mixed use"           ~ 12),
-         missing_middle_apartments_per_floor = missing_middle_yield / missing_middle_storeys) %>% 
-  as_tibble() %>%
+         missing_middle_apartments_per_floor = missing_middle_yield / missing_middle_storeys,
+         parking_cost = if_else(zone_short_mm == "Residential growth",80000,0)) %>% 
+  #mutate(zone_short = if_else(zone_short == "Residential Growth","General residential",zone_short)) %>%  #mixed use land is worth more because of future expectations zoning rents, we should exclude those expectations from land value calcs. 
   rowwise() %>% 
   mutate(storey = list(seq_len(missing_middle_storeys))) %>%
   unnest(storey) %>% 
-  mutate(construction_cost_per_apt_this_height = calculate_apartment_cost(storey,zone_short_mm)) %>% 
-  lazy_dt() %>% 
+  mutate(cost_of_building_one_apartment_on_this_floor = parking_cost + (base_cost + (.008 * storey * base_cost))) %>% 
   group_by(lat,lon) %>%
   arrange(storey) %>% 
   mutate(apartments_if_built_to_this_height = floor(cumsum(missing_middle_apartments_per_floor)),
-         construction_cost_if_built_to_this_height   = apartments_if_built_to_this_height  * construction_cost_per_apt_this_height,
-         revenue_if_build_to_this_height = apartments_if_built_to_this_height * apartment_price ) %>% 
+         cost_if_built_to_this_height = apartments_if_built_to_this_height * cummean(cost_of_building_one_apartment_on_this_floor)) %>% 
   ungroup() %>% 
   group_by(lat,lon) %>%
-  mutate(profit = revenue_if_build_to_this_height - construction_cost_if_built_to_this_height - property_price,
+  mutate(land_cost = property_price + demolition_costs,
+         profit = apartment_prices * apartments_if_built_to_this_height - cost_if_built_to_this_height - land_cost,
          profit_per_apartment = profit/apartments_if_built_to_this_height) %>% 
   group_by(lat,lon) %>% 
   arrange(desc(profit)) %>% 
   filter(row_number() == 1) %>%
   mutate(profitable_apartments = if_else(profit<0,0,apartments_if_built_to_this_height),
          profit_from_buildable_apartments = if_else(profit<0,0,profit)) %>%
-  as_tibble() %>% 
   select(lat,lon,
          profitable_apartments,
-         profit_per_apartment,
          profit,
          apartments_if_built_to_this_height,
          profit_from_buildable_apartments,
          storey,
          missing_middle_apartments_per_floor,
          missing_middle_storeys,
-         construction_cost_per_apt_this_height,
-         construction_cost_if_built_to_this_height,
-         revenue_if_build_to_this_height,
-         apartment_price,
-         property_price)
+         cost_of_building_one_apartment_on_this_floor,
+         apartment_prices,
+         property_price_per_sqm,
+         property_price,
+         property_price_raw,
+         mean_price)
 
   
   output <- data %>% left_join(house_prices)

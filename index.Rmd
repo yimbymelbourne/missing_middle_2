@@ -39,7 +39,9 @@ YIMBY Melbourne's [Missing Middle](https://assets-global.website-files.com/64a53
 
 ## Missing Middle zoning
 
-![NOTE: placeholder image. We should aim for a wider image that shows a stylised 500m line around a train station. Next to the train station are parks, schools and 6 storey buildings. The buildings have no set-backs from the street, but there is lots of greenery through street trees and nature strips. The image should feel like Melbourne as much as possible - e.g. a METRO train, and with nightingale style apartments.](atlas/mm housing.jpeg)
+![**NOTE: placeholder image. We should aim for a wider image that shows a stylised 1km line around a train station. Next to the train station are parks, schools and 6 storey buildings. The buildings have no set-backs from the street, but there is lots of greenery through street trees and nature strips. The image should feel like Melbourne as much as possible - e.g. a METRO train, and with nightingale style apartments.**](atlas/mm housing.jpeg)
+
+
 
 Melbourne's Missing Middle Zone will enable 6 storey (21 meters) buildings near every train station and tram stop in Melbourne. 
 This zone will support a European density, with beautiful street walls without setbacks activating the street below. 
@@ -50,8 +52,10 @@ Developments that serve the community by providing at least 10% public and commu
 
 ## Allowing more choice across Melbourne
 
+NOTE: placeholder image. Needs to be same style image but this time >500m away from train station/tram stops and the type of buildings we would typically see in GRZ now - 3-4 storeys tall with lots of on-site gardens, trees etc in a way that blends in to existing deatched homes on the same street.
 
-![NOTE: placeholder image. Needs to be same style image but with buildings we would typically see in GRZ now - 3 storeys tall with lots of on-site gardens, trees etc in a way that blends in to existing deatched homes on the same street.](atlas/mm housing.jpeg)
+![.](atlas/mm housing.jpeg)
+
 Not all of Melbourne's suburbs have access to rail but many still benefit from 
 nearby schools, hospitals and bus routes. Local communities and businesses that aren’t as
 closely situated to Melbourne’s vast train and
@@ -83,31 +87,15 @@ We want to make Melbourne better. That's why Missing Middle zoning will allow mo
 
 ```{r,fig.height=7,fig.width = 8}
 
-state_total = 80000*.7
-
-zoning_numbers <- df_mel_props %>% 
-  filter(lga_name_2022 %in% missing_middle_lgas) %>% 
-  group_by(lga_name_2022) %>% 
-  
-  summarise(profitable_apartments = sum(profitable_apartments,na.rm = TRUE),
-            existing_dwellings = sum(dwellings_est,na.rm = TRUE)) %>% 
-  mutate(`Yearly new home target (share of state total)` = pmax(profitable_apartments - existing_dwellings,0)/sum(profitable_apartments),
-         `Yearly new home target` = state_total*`Yearly new home target (share of state total)`,
-         `Share of Melbourne's existing homes`     = existing_dwellings /sum(existing_dwellings),
-          ) %>% 
-  filter(profitable_apartments>2000) %>% 
-  select(-profitable_apartments,-existing_dwellings) %>% 
-  arrange(desc( `Share of Melbourne's existing homes`))
-
 map_data <- strayr::read_absmap("lga2022") %>% 
   filter(state_name_2021 == "Victoria") %>% 
     mutate(lga_name_2022 = str_remove_all(lga_name_2022, "\\s*\\(.*?\\)\\s*")) %>% 
-  inner_join(zoning_numbers) 
+  inner_join(lga_zoning_numbers) 
 
 #devtools::install_github("yutannihilation/ggsflabel")
 map_data%>% 
   mutate(target = paste0(lga_name_2022,"\n",
-                         prettyNum(round(`Yearly new home target`,-2),
+                         prettyNum(round(mm_target,-2),
                                    big.mark = ","),
                          " homes")
          ) %>% 
@@ -223,37 +211,34 @@ and if townhouse or apartment prices
 fall relative to other areas, then the housing target will auomatically fall as it will become clear that development is no longer profitable in that area.  
 
 ```{r}
-
-table_data <- df_mel_props %>% 
-  filter(!feature_preventing_development,
-         zoning_permits_housing == "Housing permitted",
-         dwellings_est < 2) %>% 
-filter(profit>0) %>% 
-mutate(net_profitable_apartments = pmax(0,profitable_apartments - dwellings_est)) %>% 
-group_by(lga_name_2022) %>% 
-summarise(buxton_yield  =sum(buxton_yield_net),
-          mm_yield_net = sum(mm_yield_net),
-          mm_profitable_yield = sum(net_profitable_apartments) / sum(mm_yield_net)) %>% 
-  left_join(zoning_numbers) %>% 
-  mutate(`share of 'zoned capacity' to be built each year` = mm_profitable_yield/mm_yield_net) %>% 
-  rename(`Current estimated 'zoned capacity' of land` = buxton_yield,
-         `New estimated zoned capacity` = mm_yield_net,
-         `Share of new zoned capacity estimated to be viable for development` = mm_profitable_yield) 
-
-
-table_data %>% 
-  mutate(across(where(is.numeric), ~case_when(.x <.01 ~paste0(round(100*.x,3),"%"),
-                                               .x <1 ~paste0(round(100*.x,1),"%"),
-                                              T ~ prettyNum(round(.x,-1),big.mark = ",")))
-  ) %>% 
-  relocate(`Share of Melbourne's existing homes`) %>% 
-    relocate(`Yearly new home target (share of state total)`,.after = `Yearly new home target`) %>% 
-      relocate(lga_name_2022) %>% 
-  rename(` ` = lga_name_2022) %>% 
+lga_zoning_numbers %>% 
+  select(` ` = lga_name_2022,
+         `Current zoned capacity` = zoned_capacity,
+         `(Excluding heritage)` = zoned_capacity_heritage,
+         `New zoned capacity under Missing Middle` = mm_zoned_capacity,
+         `(Excluding heritage) ` = mm_zoned_capacity_heritage,
+         `Share of missing middle target` = share_of_mm_profitable_apartments,
+         `Yearly Missing Middle new home target` = mm_target,
+         `Growth in dwellings needed relative to Missing Middle average` = target_relative_to_other_missing_middle_lgas
+         ) %>% 
+  arrange(desc(`Growth in dwellings needed relative to Missing Middle average` )) %>% 
   gt() %>% 
+  fmt_number(c(`Current zoned capacity`,
+               `New zoned capacity under Missing Middle`,
+               `(Excluding heritage) `,
+               `(Excluding heritage)`,
+               `Yearly Missing Middle new home target`),n_sigfig = 3) %>% 
+  fmt_percent(columns = c(`Share of missing middle target`),decimals = 1) %>%
+  fmt_percent(columns = c(`Growth in dwellings needed relative to Missing Middle average`),decimals = 0) %>% 
+  grand_summary_rows(columns = c(`Current zoned capacity`,
+                                 `(Excluding heritage) `,
+                                 `(Excluding heritage)`,
+                                 `New zoned capacity under Missing Middle`,
+                                 `Yearly Missing Middle new home target`),fns= list(Total ~sum(.)),
+                     fmt = ~fmt_number(.,n_sigfig = 3)) %>% 
 tab_options(
     table.background.color = yimby_colours$background# Change "lightblue" to any color you prefer
-  )
+  ) 
 ```
 
 
@@ -301,7 +286,7 @@ attach carrots and sticks to housing targets.
 
 ```{r results='asis'}
 cat('<div class="button-row">')
-walk2(missing_middle_lgas,lga_html,generateButton)
+walk2(missing_middle_lgas[!(missing_middle_lgas %in% c("Kingston (Vic.)","Bayside (Vic."))],lga_html,generateButton)
 cat('</div>')
 ```
 

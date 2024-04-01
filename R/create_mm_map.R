@@ -1,3 +1,4 @@
+
 make_map <- function(sf_lga_props,map_type){
   
   
@@ -45,6 +46,7 @@ make_map <- function(sf_lga_props,map_type){
   
   
   output <- sf_lga_props %>%
+    st_as_sf() %>% 
     mutate(map_var = as.factor(.data[[map_type]])) %>%
     group_by(map_var) %>% 
     summarise(geom = st_union(st_combine(geom))) %>% 
