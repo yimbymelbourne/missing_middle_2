@@ -40,15 +40,22 @@ con <- dbConnect(RPostgres::Postgres(),
 dwelling_data_raw <- read_sf(con,
                              "dwelling_data_clean")
 
-} else{ print("Make sure you have the dwelling map file inside your data folder', you can download it here https://github.com/jonathananolan/Melbourne-dwelling-map ")
+} else{ print("Make sure you have the dwelling map file inside your data folder', you can download it here https://github.com/jonathananolan/Melbourne-dwelling-map 
+              selecting down to a smaller group of variables, so if your code breaks you might need to add more variables to the list in 00renv.R")
 
-dwelling_data_raw <-read_sf("data/Melbourne dwelling data.gpkg") %>%
+dwelling_data_raw <-read_sf("data/Melbourne dwelling data.gpkg", query = "SELECT lat,lon,zone_short,sa1_code_2021,
+                            dwellings_est,
+                              lga_name_2022,feature_preventing_development,zoning_permits_housing,zone_short,prox_walk_time_s_tram,
+                            prox_walk_time_s_train,prox_dist_m_tram,prox_dist_m_train,traffic_pollution,lot_size,zone_short,sa3_code_2021,heritage_status,heritage,vacant_in_2016 FROM 'Melbourne dwelling data'") %>% 
   mutate(lga_name_2022 = str_remove_all(lga_name_2022, "\\s*\\(.*?\\)\\s*")) %>% 
   mutate(cbd_lon = 144.962646,
          cbd_lat = -37.810272)%>%
   rowwise() %>% 
   mutate(cbd_dist = geosphere::distHaversine(c(lon, lat), 
-                                  c(cbd_lon, cbd_lat)))
+                                  c(cbd_lon, cbd_lat))) %>% 
+  ungroup() %>% 
+  select(-cbd_lon,
+         -cbd_lat)
 
  }
 

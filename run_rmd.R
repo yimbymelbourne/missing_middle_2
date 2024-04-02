@@ -10,17 +10,18 @@ r_files <- list.files(path = "R/",
 purrr::walk(r_files,source)
 
 #Add beskope info on how YIMBY Melbourne wants to re-zone Melbourne
-sf_with_mm <- dwelling_data_raw %>% 
+sf_mel_props <- dwelling_data_raw %>% 
   lazy_dt() %>% 
   filter(lga_name_2022 %in% c(inner_lgas,middle_lgas)) %>% 
   as_tibble() %>% 
-  add_missing_middle_zoning_info() 
+  add_missing_middle_zoning_info() %>% #Complex steps are put out into functions so they can be compartmentalised. 
+  find_profitable_apartments()  
   
 
 
-sf_mel_props <- sf_with_mm %>% 
-                find_profitable_apartments()  
 
+#A series of further QC graphs but this time unlike hte RMD in 03_run_regression we're using the full complex way of calculating what apartments are profitable. 
+#Test for good apartments.... 
 sf_mel_props %>% 
   mutate(`profitable?` = if_else(profit>0,T,F)) %>% 
   ggplot(aes(x = profit_per_apartment,
@@ -92,8 +93,10 @@ lga_zoning_numbers <- df_mel_props %>%
 
 
 
-sf::sf_use_s2(FALSE)  # Disable s2 engine
+sf::sf_use_s2(FALSE)  # Disable s2 engine which sometimes causes errors - iirc there are github issues on this but it isn't fixed. 
 
+
+#superfluous I think because we've already filtered lgas above....  
 lgas <- df_mel_props %>% 
   st_drop_geometry() %>% 
   group_by(lga_name_2022) %>% 
