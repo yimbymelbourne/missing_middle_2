@@ -80,9 +80,11 @@ heritage_zones <- c("Missing middle","General residential","Residential growth",
 
 lga_zoning_numbers <- df_mel_props %>% 
   mutate(heritage_affecting_zoned_capacity = if_else(heritage & zone_short %in% heritage_zones,0,buxton_yield_net),
-         heritage_affecting_zoned_capacity_mm = if_else(heritage & zone_short_mm %in% heritage_zones,0,mm_yield_net)) %>% 
+         heritage_affecting_zoned_capacity_mm = if_else(heritage & zone_short_mm %in% heritage_zones,0,mm_yield_net),
+         profitable_new_dwellings_net = pmax(0,profitable_apartments- dwellings_est )) %>% 
   group_by(lga_name_2022) %>% 
   summarise(profitable_apartments = sum(profitable_apartments,na.rm = TRUE),
+            profitable_new_dwellings_net = sum(profitable_new_dwellings_net,na.rm = TRUE),
             profit_from_buildable_apartments = sum(pmax(profit_from_buildable_apartments,50000),na.rm = TRUE),
             existing_dwellings = sum(dwellings_est,na.rm = TRUE),
             zoned_capacity = sum(buxton_yield_net,na.rm = TRUE),

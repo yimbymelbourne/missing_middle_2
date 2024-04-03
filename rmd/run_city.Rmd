@@ -47,8 +47,8 @@ mcg_size <- 20000
 
 Melbourne’s middle urban areas are broadly
 underutilised, and the current Governmental
-approach of focusing on a small number of activ-
-ity centres—while a step in the right direction—
+approach of focusing on a small number of activity centres— 
+while a step in the right direction—
 has been slow to roll out, and ignores large
 swathes of our urban landscape that would
 strongly benefit from enabling medium density.
@@ -61,22 +61,19 @@ permissive planning reforms across every one
 of Metropolitan Melbourne’s existing 1,992 train
 and tram stops.
 
-Melbourne’s existing rail network provides fre-
-quent, high capacity transport options across
-the whole city, and by building near these sta-
-tions, we give more people access to this net-
-work, while simultaneously providing more
+Melbourne’s existing rail network provides frequent, 
+high capacity transport options across
+the whole city, and by building near these 
+stations, we give more people access to this 
+network, while simultaneously providing more
 destinations that are close to rail.
 
 Through broad transit-oriented upzoning and
 development, the Victorian Government can
 deliver housing abundance and provide more
-housing choices to all current and future resi-
-dents across the entirety of the city. This will
-fulfil the original goal of Plan Melbourne creat-
-ing a vast array of 20-minute neighbourhoods,
-rather than a small number of scattered activ-
-ity centres.
+housing choices to all current and future residents across the entirety of the city. This will
+fulfil the original goal of Plan Melbourne creating a vast array of 20-minute neighbourhoods,
+rather than a small number of scattered activity centres.
 
 YIMBY Melbourne's [Missing Middle](https://assets-global.website-files.com/64a530aa67ffbab04c9c39ab/652284ad6a63b8b3ab424966_Missing-Middle-Report.pdf) report recommendeds the introduction
 of a new "Missing Middle" Zone which:
@@ -88,8 +85,8 @@ the RGZ’s current 4-storey default.
 include a wider range of neighbourhood
 services & amenities.
 3. Reduces mandatory parking minimums to 0.
-4. Exempts from notice and review develop-
-ments of any total value containing at
+4. Exempts from notice and review developments
+of any total value containing at
 least 10% public or community housing
 in perpetuity.
 
@@ -101,24 +98,23 @@ mm_number <- df_lga_useful_props %>% filter(zone_short_mm == "Missing middle") %
 
 ```
 
-In `r area_name`, `r mm_number` properties would be up-zoned to missing middle, providing a Parisian like density near transit in `r area_name`. 
+In `r area_name`, `r mm_number` properties would be up-zoned to missing middle, providing a Parisian like density near transit. 
 
 While this report focuses on the provision of
 the Missing Middle Zone around existing transit
-infrastructure, the Government must in addi-
-tion to this undertake broad upzoning to enable
+infrastructure, `r area_name` also has areas that are not near fixed rail, but still have high amenity. 
+
+There must be broad upzoning to enable
 more development in existing suburbs.
 While the MMZ enables a thriving Parisian-style
 density for Melbourne, broader upzoning of all
-land currently designated Neighbourhood Resi-
-dential Zone (NRZ) or equivalent will encourage
+land currently designated Neighbourhood Residential Zone (NRZ) or equivalent will encourage
 a more diverse array of housing options across
 the city through an increase in gentle density.
 
 YIMBY Mel-bourne endorses a complete elimination of the
 current NRZ across Metropolitan Melbourne,
-and its replacement with the General Residen-
-tial Zone (GRZ). In turn, all land currently zoned
+and its replacement with the General Residential Zone (GRZ). In turn, all land currently zoned
 GRZ should also be upzoned to the Residential
 Growth Zone (RGZ).
 
@@ -157,7 +153,8 @@ With current state target that means xyz homes per year over the next 10 years.
 ## Without missing middle `r params$area` is falling behind
 
 
-
+`r params$area` needs Missing Middle zoning, because it is not keeping up with population growth. 
+While there has been some population growth, 
 
 ```{r}
 
