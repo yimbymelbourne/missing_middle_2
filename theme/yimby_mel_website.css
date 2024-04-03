@@ -222,7 +222,7 @@ body {
   background-color:#fff;
   margin:0;
   font-family:Arial,sans-serif;
-  font-size:14px;
+  font-size:16px;
   line-height:20px
 }
 img {
@@ -342,7 +342,7 @@ pre.w-code-block code {
   border-radius:3px!important;
   margin:0!important;
   padding:6px!important;
-  font-size:12px!important;
+  font-size:14px!important;
   line-height:14px!important;
   text-decoration:none!important;
   display:inline-block!important;
@@ -396,7 +396,7 @@ h5 {
 }
 h6 {
   margin-top:10px;
-  font-size:12px;
+  font-size:14px;
   line-height:18px
 }
 p {
@@ -4386,7 +4386,7 @@ blockquote {
 .text-block-3 {
   color:var(--cornflower-blue);
   text-align:center;
-  font-size:12px;
+  font-size:14px;
   font-weight:300;
   line-height:16px;
   text-decoration:none

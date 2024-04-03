@@ -24,6 +24,8 @@ library(aws.s3)
 library(dtplyr)
 library(fixest)
 library(readabs)
+library(janitor)
+library(datawizard)
 
 if(Sys.info()[7] == "jonathannolan1") {
 # create connection to postgres
@@ -44,7 +46,7 @@ dwelling_data_raw <- read_sf(con,
               selecting down to a smaller group of variables, so if your code breaks you might need to add more variables to the list in 00renv.R")
 
 dwelling_data_raw <-read_sf("data/Melbourne dwelling data.gpkg", query = "SELECT lat,lon,zone_short,sa1_code_2021,
-                            dwellings_est,
+                            dwellings_est,sa2_code_2021,
                               lga_name_2022,feature_preventing_development,zoning_permits_housing,zone_short,prox_walk_time_s_tram,
                             prox_walk_time_s_train,prox_dist_m_tram,prox_dist_m_train,traffic_pollution,lot_size,zone_short,sa3_code_2021,heritage_status,heritage,vacant_in_2016 FROM 'Melbourne dwelling data'") %>% 
   mutate(lga_name_2022 = str_remove_all(lga_name_2022, "\\s*\\(.*?\\)\\s*")) %>% 

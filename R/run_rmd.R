@@ -1,13 +1,22 @@
+## This project is the data, analysis and outputs for the Missing Middle 2 report. 
+# This projet is not 'set and forget' - It has been designed to run line by line, and you can inpsect to need to download files, install packages etc to get it to work. 
+
+
 # Start by importing all the functions that make this project tick. 
 # The most important is 00renv.R which you'll want to look at - it points to the source file as well as 
 # loading it into memory. 
 # The rest are functions which run only when called later on in the Rmarkdown. 
 
-r_files <- list.files(path = "R/",
+r_files <- list.files(path = "R/functions/",
                       pattern = "*.R$",
                       full.names = T)
 
 purrr::walk(r_files,source)
+
+
+
+#Perform regressions. While in dev it's probably better to run this code line by line.  
+source("R/R_regressions/03run_regression.R")
 
 #Add beskope info on how YIMBY Melbourne wants to re-zone Melbourne
 sf_mel_props <- dwelling_data_raw %>% 
@@ -107,8 +116,8 @@ lgas <- df_mel_props %>%
 #We want to look at all LGAs but greenfield. We really don't have a solution for Greenfield right now. 
 missing_middle_lgas <- lgas
 
-rmarkdown::render("index.Rmd", 
-                  output_file = paste0("html/index.html")
+rmarkdown::render("rmd/index.Rmd", 
+                  output_file = paste0("../html/index.html")
 )
 
 

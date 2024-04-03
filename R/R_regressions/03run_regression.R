@@ -1,10 +1,11 @@
 
-library(data.table)
-library(arrow)
-library(janitor)
-library(datawizard)
-library(multidplyr)
-source("R/00renv.R")
+#library(data.table)
+#library(arrow)
+#library(multidplyr)
+
+if(!exists("dwelling_data_raw")){
+source("R/functions/00renv.R")
+}
 
 #Create actual regression dataset with price specific variables and attempts to filter out messy data
 
@@ -222,7 +223,8 @@ apartment_minimal_regression_terms <- c(#"dwellings_est",#  excluded because pas
                                         "sa3_code_2021", # Included here because some sa3s have missing values in some years
                                         "zone_short")
 
-#This one is not very good - might need to run a few times if it randomly picks a split that leaves one sa3 empty
+print("Because we are testing the model, sometimes this line of code has to be run a few times to get a good breakdown between test and train models, just run it again if it breaks!")
+
 apartment_price_model <- regression_runner(apartment_dataset, "sale_price", apartment_minimal_regression_terms,fixed_vars = c("year"),log_outcome = T)
 summary(apartment_price_model$models[[1]])
 
@@ -259,7 +261,7 @@ all_predicted_prices %>%
   write_sf("test/predicted_prices.shp", quiet = T)
 
 #RMD that looks at price predictions and sees if they make sense. These use a simple and quicker way to estimate profitability that is not quite right but good for testing. 
-rmarkdown::render("r_experimental/model-qc.Rmd",output_format = "html_document",clean = T)
+#rmarkdown::render("R/experimental/model-qc.Rmd",output_format = "html_document",clean = T)
 
 #When you're finished you can clean up your ram by removing these objects. Now is time to move on to run_rmd.R! 
 rm(full_dataset_for_prediction,dwellings_with_prices,sa3_dataframe,apartment_dataset,house_dataset,all_prices)
