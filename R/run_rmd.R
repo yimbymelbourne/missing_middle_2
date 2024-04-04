@@ -20,9 +20,7 @@ source("R/R_regressions/03run_regression.R")
 
 #Add beskope info on how YIMBY Melbourne wants to re-zone Melbourne
 sf_mel_props <- dwelling_data_raw %>% 
-  lazy_dt() %>% 
   filter(lga_name_2022 %in% c(inner_lgas,middle_lgas)) %>% 
-  as_tibble() %>% 
   add_missing_middle_zoning_info() %>% #Complex steps are put out into functions so they can be compartmentalised. 
   find_profitable_apartments()  
   
@@ -65,8 +63,8 @@ sf_mel_props %>%
   geom_point()
 
 sf_mel_props %>% 
-  mutate(prof_p_ap = profit_per_apartment) %>% 
-  select(profitable_apartments,prof_p_ap,zone_short_mm,mm_yield_net,zone_short_mm,storey,lot_size,apartments_if_built_to_this_height) %>% 
+  mutate(prf_ap = profit_per_apartment) %>% 
+  select(profitable_apartments,prf_ap,zone_short_mm,mm_yield_net,zone_short_mm,storey,lot_size,apartments_if_built_to_this_height) %>% 
   filter(!is.na(profitable_apartments)) %>% 
   write_sf("test/profit_per_apartment.shp")
   
@@ -119,7 +117,7 @@ lgas <- df_mel_props %>%
 missing_middle_lgas <- lgas
 
 rmarkdown::render("rmd/index.Rmd", 
-                  output_file = paste0("../html/index.html")
+                  output_file = paste0("../html/index.html"),clean = FALSE
 )
 
 
@@ -178,6 +176,6 @@ put_object(file = file_location, bucket = "yimby-mel",multipart = T,show_progres
 }
 
 aws.s3::bucketlist(add_region = T)
-walk2(list_rmds_with_path,list_rmds,upload_object)
+walk2(list_rmds_with_path[7],list_rmds[7],upload_object)
 
 }

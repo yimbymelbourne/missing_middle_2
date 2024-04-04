@@ -213,7 +213,7 @@ ggplot(apartment_dataset) +
   geom_smooth(aes(x = ln_wins_traffic_pollution, y = log(sale_price)))
 
 apartment_minimal_regression_terms <- c(#"dwellings_est",#  excluded because past apartments on big lots don't reflect better MM design standards
-                                        #"fct_dist_rail", # produced counterintuitive results 
+                                        "fct_dist_rail", 
                                         #"lot_size", # excluded because past apartments on big lots don't reflect better MM design standards
                                         "wins_cbd_dist",
                                         "fct_bedrooms",
@@ -255,9 +255,11 @@ all_predicted_prices <- full_dataset_for_prediction %>%
 
 #QC for mapping in QGIS or similar. 
 
-all_predicted_prices %>% 
+dwelling_data_raw %>% 
+  select(lat,lon) %>% 
+ inner_join(all_predicted_prices) %>% 
   rename(apt   = apartment_price, 
-         house = property_price_per_sqm) %>%
+         house = property_price_per_sqm) %>% view()
   write_sf("test/predicted_prices.shp", quiet = T)
 
 #RMD that looks at price predictions and sees if they make sense. These use a simple and quicker way to estimate profitability that is not quite right but good for testing. 
