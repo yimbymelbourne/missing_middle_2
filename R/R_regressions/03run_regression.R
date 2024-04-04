@@ -204,7 +204,8 @@ base_regression_terms  <- c(minimal_regression_terms,
                             "wins_cbd_dist")
 
 
-house_price_model <- regression_runner(house_dataset, "price_per_sqm", base_regression_terms,fixed_vars = c("sa3_code_2021","year"),log_outcome = T)
+house_price_model_using_logs <- F
+house_price_model <- regression_runner(house_dataset, "price_per_sqm", base_regression_terms,fixed_vars = c("sa3_code_2021","year"),log_outcome = house_price_model_using_logs)
 
 summary(house_price_model$models[[1]])
 
@@ -224,10 +225,11 @@ apartment_minimal_regression_terms <- c(#"dwellings_est",#  excluded because pas
 
 print("Because we are testing the model, sometimes this line of code has to be run a few times to get a good breakdown between test and train models, just run it again if it breaks!")
 
-apartment_price_model <- regression_runner(apartment_dataset, "sale_price", c(apartment_minimal_regression_terms,"sa3_code_2021"),fixed_vars = c("year"),log_outcome = T)
+apartment_price_model_using_logs <- T
+apartment_price_model <- regression_runner(apartment_dataset, "sale_price", c(apartment_minimal_regression_terms,"sa3_code_2021"),fixed_vars = c("year"),log_outcome = apartment_price_model_using_logs)
 summary(apartment_price_model$models[[1]])
 
-apartment_price_model_draft <- regression_runner(apartment_dataset, "sale_price", apartment_minimal_regression_terms,fixed_vars = c("year","sa4_code_2021"),log_outcome = T)
+apartment_price_model_draft <- regression_runner(apartment_dataset, "sale_price", apartment_minimal_regression_terms,fixed_vars = c("year","sa4_code_2021"),log_outcome = apartment_price_model_using_logs)
 summary(apartment_price_model$models[[1]])
 
 #apartment_price_model <- regression_runner(apartment_dataset, "sale_price", c(apartment_minimal_regression_terms,"dwellings_est"),fixed_vars = c("sa3_code_2021","year")) # Didn't help much - introduced collineraity
@@ -246,8 +248,14 @@ full_dataset_for_prediction <- dwelling_data_raw %>%
   clean_data_set_for_regression()
 
 
-predicted_apartment_prices <- exp(predict(apartment_price_model$models[[1]], newdata = full_dataset_for_prediction, type='response') )
-predicted_house_prices     <- exp(predict(house_price_model$models[[1]],     newdata = full_dataset_for_prediction, type='response'))
+predicted_apartment_prices <- ifelse(apartment_price_model_using_logs,
+                                     exp(predict(apartment_price_model$models[[1]], newdata = full_dataset_for_prediction, type='response')),
+                                     (predict(apartment_price_model$models[[1]], newdata = full_dataset_for_prediction, type='response') ))
+
+#this needs logic that only exponentiates the prediction if log_outcome is set to true. 
+predicted_house_prices <- ifelse(house_price_model_using_logs,
+                                 exp(predict(house_price_model$models[[1]],     newdata = full_dataset_for_prediction, type='response')),
+                                    (predict(house_price_model$models[[1]],     newdata = full_dataset_for_prediction, type='response')))
 
 #Now get rid of all the variables that we've changed, so we only have the id of ecah property (lat/lon), and the price estimates. 
 all_predicted_prices <- full_dataset_for_prediction %>% 
@@ -268,4 +276,4 @@ dwelling_data_raw %>%
 #rmarkdown::render("R/experimental/model-qc.Rmd",output_format = "html_document",clean = T)
 
 #When you're finished you can clean up your ram by removing these objects. Now is time to move on to run_rmd.R! 
-rm(full_dataset_for_prediction,dwellings_with_prices,sa3_dataframe,apartment_dataset,house_dataset,all_prices)
+#rm(full_dataset_for_prediction,dwellings_with_prices,sa3_dataframe,apartment_dataset,house_dataset,all_prices)
