@@ -1,6 +1,6 @@
 
-#library(data.table)
-#library(arrow)
+library(data.table)
+library(arrow)
 #library(multidplyr)
 
 if(!exists("dwelling_data_raw")){
@@ -29,17 +29,17 @@ fix_errant_sa3 <- function(data){
 
 
 
-#Walkability metrics are ready to go but I've commented them out just for now to save ram. 
+#Walkability metrics are ready to go but I've commented them out just for now to save ram.
 #Import walkability metrics to use in the regression
-#osm_linkage = fread('data/osm_linkage_to_property_db.csv')
+osm_linkage = fread('data/osm_linkage_to_property_db.csv')
 
 #https://tompisel.com/data/walkability_by_node.parquet
-# osm_parquet = read_parquet('data/walkability_by_node.parquet')%>% 
-#   janitor::clean_names() %>% 
-#   select(c(osmid,contains("closest")))
+ osm_parquet = read_parquet('data/walkability_by_node.parquet')%>%
+   janitor::clean_names() %>%
+   select(c(osmid,contains("closest")))
 
-#walkability_metrics <- names(osm_parquet)[-1]
-walkability_metrics <- "walkability not included"
+walkability_metrics <- names(osm_parquet)[-1]
+#walkability_metrics <- "walkability not included"
 #Function to create regression and prediction ready datasets. (function because we do the same things twice on two datasets)
 
 clean_data_set_for_regression <- function(x){
@@ -57,8 +57,8 @@ clean_data_set_for_regression <- function(x){
                               "Residential growth",
                               "Residential Growth",
                               "Mixed use"))) %>%
-    #left_join(osm_linkage, by = c('lat', 'lon')) %>%
-    #left_join(osm_parquet, by = 'osmid') %>% 
+    left_join(osm_linkage, by = c('lat', 'lon')) %>%
+    left_join(osm_parquet, by = 'osmid') %>% 
     mutate(lga_name_2022 = str_remove_all(lga_name_2022, "\\s*\\(.*?\\)\\s*")) %>% # Some lgas have "(Vic.)" in it to separate it from same name LGAs in ohter states - let's make sure that doesn't happen
     mutate(dist_rail = replace_na(pmin(prox_walk_time_s_tram, # we want to regress on PT distance, regardless of tram/train
                                        prox_walk_time_s_train,
@@ -197,7 +197,7 @@ minimal_regression_terms <- c("fct_dist_rail",
                               "vacant_in_2016",
                               "heritage_status",
                               "fct_traffic_pollution",
-                              #paste0("fct_",walkability_metrics), #Tried some the walk ability metrics but they all produced counter-intuitive results. I've commented out for now just to save ram but please try again Paul! 
+                              paste0("fct_",walkability_metrics), #Tried some the walk ability metrics but they all produced counter-intuitive results. I've commented out for now just to save ram but please try again Paul! 
                               "fct_lot_size") 
 
 base_regression_terms  <- c(minimal_regression_terms,
@@ -248,14 +248,19 @@ full_dataset_for_prediction <- dwelling_data_raw %>%
   clean_data_set_for_regression()
 
 
-predicted_apartment_prices <- ifelse(apartment_price_model_using_logs,
-                                     exp(predict(apartment_price_model$models[[1]], newdata = full_dataset_for_prediction, type='response')),
-                                     (predict(apartment_price_model$models[[1]], newdata = full_dataset_for_prediction, type='response') ))
+if(apartment_price_model_using_logs) {
+  predicted_apartment_prices <- exp( (predict(apartment_price_model$models[[1]], newdata = full_dataset_for_prediction, type='response') ))
+} else {
+  predicted_apartment_prices <- ( (predict(apartment_price_model$models[[1]], newdata = full_dataset_for_prediction, type='response') ))
+}
 
-#this needs logic that only exponentiates the prediction if log_outcome is set to true. 
-predicted_house_prices <- ifelse(house_price_model_using_logs,
-                                 exp(predict(house_price_model$models[[1]],     newdata = full_dataset_for_prediction, type='response')),
-                                    (predict(house_price_model$models[[1]],     newdata = full_dataset_for_prediction, type='response')))
+if(house_price_model_using_logs) {
+  predicted_house_prices <- exp(predict(house_price_model$models[[1]],     newdata = full_dataset_for_prediction, type='response'))
+} else {
+  predicted_house_prices <- (predict(house_price_model$models[[1]],     newdata = full_dataset_for_prediction, type='response'))
+}
+
+                            
 
 #Now get rid of all the variables that we've changed, so we only have the id of ecah property (lat/lon), and the price estimates. 
 all_predicted_prices <- full_dataset_for_prediction %>% 
