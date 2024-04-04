@@ -1,6 +1,11 @@
 
+
+
+
+
 apartment_inflation = 1.07653 #https://reiv.com.au/market-insights/victorian-insights#metro
 house_inflation = 909/812 #https://reiv.com.au/property-data/rmx # Although other indexes are much higher so we may need to change. 
+
 
 calculate_apartment_cost <- function(max_storeys, zone) {
   apartment_size <- 85
@@ -105,102 +110,23 @@ house_prices <- data %>%
   return(output)
 }
 
+
+
+### FAILED ATTEMPT TO USE suburb level inflators 
+## FAILED BECAUSE THERE"S JUST TOO MUCH YEAR ON YEAR VARIATION WITHIN SUBURBS. 
+# unit_price_file <- "data/vic_unit_prices_by_suburb.xlsx"
+# if(!file.exists(unit_price_file)) {
 # 
-# ########
-# house_prices %>% 
-#   st_drop_geometry() %>% 
-#   select(lat,lon,apartments_if_built_to_this_height,profit,storey,missing_middle_storeys) %>% 
-#   filter(profit>0,
-#          between(apartments_if_built_to_this_height,1,150)
-#   ) %>% 
-#   right_join(df_mel_props) %>% 
-#   group_by(lga_name_2022,zone_short_mm,storey) %>% 
-#   summarise(n = sum(apartments_if_built_to_this_height,na.rm = TRUE)) %>%
-#   ggplot(aes(x = storey,
-#              y = n,
-#              fill = zone_short_mm))+
-#   facet_wrap(~lga_name_2022)+
-#   geom_bar(stat = "identity")+
-#   labs(title = "where are the profitable apartments in MM zoning?",
-#        x = "Building height")
+#   download.file("https://www.land.vic.gov.au/__data/assets/excel_doc/0021/660135/Copy-of-Suburb_UnitV2022z.xlsx",destfile = unit_price_file)
+# }
 # 
-# 
-# density_by_km = house_prices %>% 
-#   st_drop_geometry() %>% 
-#   select(lat,lon,apartments_if_built_to_this_height,profit,storey,missing_middle_storeys,cbd_dist,lot_size) %>% 
-#   mutate(apartments_if_built_to_this_height = if_else(profit<0,
-#                                                       0,
-#                                                       apartments_if_built_to_this_height)) %>% 
-#   mutate(dist_kbd_km = 1000*(floor(cbd_dist/1000))) %>% 
-#   group_by(dist_kbd_km) %>% 
-#   summarise(density = sum(apartments_if_built_to_this_height,na.rm = TRUE)/sum(lot_size,na.rm = TRUE),
-#             n = sum(apartments_if_built_to_this_height,na.rm = TRUE)) 
-# 
-# density_by_km%>%
-#   ggplot(aes(x = dist_kbd_km, y = density))+
-#   geom_line(stat = "identity")
-# 
-# 
-# lga_prices <- 
-#   house_prices %>% 
-#   select(lat,lon,apartments_if_built_to_this_height,profit) %>% 
-#   filter(profit>0,
-#          apartments_if_built_to_this_height >1) %>% 
-#   right_join(df_mel_props) %>% 
-#   group_by(lga_name_2022) %>% 
-#   summarise(existing_dwellings = sum(dwellings_est,.na.rm = TRUE),
-#             mm_profitable_apartments = sum(apartments_if_built_to_this_height,na.rm = TRUE),
-#             mm_profit_from_apartments = sum(profit, na.rm = TRUE),
-#             lga_area = sum(lot_size),
-#             .groups = "drop") %>% 
-#   mutate(across(where(is.numeric), 
-#                 ~ round(.x / sum(.x, na.rm = TRUE) * 100,1), 
-#                 .names = "{.col}_percent"))
-# 
-# lga_prices %>%
-#   ungroup() %>% 
-#   mutate(lga_name_2022 = fct_reorder(lga_name_2022,mm_profitable_apartments_percent)) %>% 
-#   pivot_longer(c("existing_dwellings_percent",
-#                  #"mm_profit_from_apartments_percent",
-#                  "mm_profitable_apartments_percent"),
-#                names_to = "type",
-#                values_to = "values") %>%
-#   mutate(type = if_else(type == "existing_dwellings_percent", 
-#                         "Share of state's existing homes",
-#                         type)) %>% 
-#   ggplot(aes(x = lga_name_2022, 
-#              y = values, 
-#              fill = type))+
-#   geom_bar(stat = "identity",
-#            position = "dodge")+
-#   coord_flip()
-# 
-# 
-# lga_prices %>%
-#   ungroup() %>% 
-#   mutate(change_in_density_required = mm_profitable_apartments/lga_area) %>% 
-#   mutate(lga_name_2022 = fct_reorder(lga_name_2022,change_in_density_required)) %>% 
-#   ggplot(aes(x = lga_name_2022, 
-#              y = change_in_density_required))+
-#   geom_bar(stat = "identity",
-#            position = "dodge")+
-#   coord_flip()
-# 
-# 
-# 
-# sf_mel_props %>% 
-#   select(lat,lon,zone_short_mm,lot_size,geom) %>% 
-#   left_join(house_prices %>% 
-#               select(select(lat,lon,apartments_if_built_to_this_height,profit,storey,missing_middle_storeys)
-#                      )
-#             )%>% 
-#   st_write("test/test2.shp")
-# 
-# 
-# house_prices %>% 
-#   filter(profit>0) %>% 
-#   filter(zone_short_mm == "Residential growth") %>%
-#   group_by(apartments_if_built_to_this_height) %>% 
-#   summarise(n=n(),
-#             apartments = sum(apartments_if_built_to_this_height)) %>% view()
-#   
+# unit_prices_by_suburb <- readxl::read_excel(unit_price_file,skip = 1) %>%
+#   janitor::clean_names() %>% 
+#   rename(locality = x1) %>% 
+#   filter(!is.na(locality),
+#          locality != "locality") %>%
+#   mutate(across(x2012:prelim_2023,parse_number)) %>% 
+#   rowwise() %>% 
+#   mutate(typical_unit_price_now = mean(c(prelim_2023,prelim_2023,prelim_2023,x2022),na.rm = TRUE),
+#          typical_unit_price_2018 = mean(c(x2018,x2018,x2018,x2017,x2019),na.rm = TRUE),
+#          apartment_inflation = typical_unit_price_now/typical_unit_price_2018)

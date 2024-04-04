@@ -40,7 +40,8 @@ dwellings_with_prices <- read_sf(con,query = sql_query) %>%
          cbd_lat = -37.810272)%>%
   rowwise() %>% 
   mutate(cbd_dist = distHaversine(c(lon, lat), 
-                                  c(cbd_lon, cbd_lat)))
+                                  c(cbd_lon, cbd_lat))) %>% 
+  ungroup()
 
 
 dwellings_with_prices %>% 
@@ -49,3 +50,9 @@ dwellings_with_prices %>%
   write_csv("dwellings_with_prices.csv")
 
 
+test <- dwelling_data_raw %>% 
+  select(lat,lon,dwellings_est) %>% 
+  filter(dwellings_est == 1) %>% 
+  left_join(dwellings_with_prices)
+
+test %>% filter(is.na(pp_bedrooms)) %>% nrow()

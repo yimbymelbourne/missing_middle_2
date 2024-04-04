@@ -19,7 +19,6 @@ generateButton <- function(text, link) {
   cat(buttonHTML)
 }
 
-lga_html <- paste0("https://yimby-mel.s3.ap-southeast-2.amazonaws.com/",str_replace_all(missing_middle_lgas," ","+"),".html")
 # Use the function to generate buttons
 knitr::opts_chunk$set(message = FALSE, warning = FALSE, error = FALSE, echo = FALSE, dpi = 300, fig.width = 7, fig.height = 4)
 
@@ -398,7 +397,12 @@ In the context of our housing targets model, this may take the form of stepwise 
 
 ```{r results='asis'}
 cat('<div class="button-row">')
-walk2(missing_middle_lgas[!(missing_middle_lgas %in% c("Kingston (Vic.)","Bayside (Vic."))],lga_html,generateButton)
+
+missing_middle_lgas_without_vic_etc <- missing_middle_lgas[!(missing_middle_lgas %in% c("Kingston (Vic.)","Bayside (Vic.)"))]
+
+
+lga_html <- paste0("https://yimby-mel.s3.ap-southeast-2.amazonaws.com/",str_replace_all(missing_middle_lgas_without_vic_etc," ","+"),".html")
+walk2(missing_middle_lgas_without_vic_etc,lga_html,generateButton)
 cat('</div>')
 ```
 

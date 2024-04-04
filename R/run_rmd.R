@@ -14,7 +14,6 @@ r_files <- list.files(path = "R/functions/",
 purrr::walk(r_files,source)
 
 
-
 #Perform regressions. While in dev it's probably better to run this code line by line.  
 source("R/R_regressions/03run_regression.R")
 
@@ -24,9 +23,6 @@ sf_mel_props <- dwelling_data_raw %>%
   add_missing_middle_zoning_info() %>% #Complex steps are put out into functions so they can be compartmentalised. 
   find_profitable_apartments()  
   
-
-
-
 #A series of further QC graphs but this time unlike hte RMD in 03_run_regression we're using the full complex way of calculating what apartments are profitable. 
 #Test for good apartments.... 
 sf_mel_props %>% 
@@ -106,12 +102,7 @@ sf::sf_use_s2(FALSE)  # Disable s2 engine which sometimes causes errors - iirc t
 
 
 #superfluous I think because we've already filtered lgas above....  
-lgas <- df_mel_props %>% 
-  st_drop_geometry() %>% 
-  group_by(lga_name_2022) %>% 
-  summarise(n=n()) %>% 
-  filter(n > 10000) %>% 
-  pull(lga_name_2022) 
+lgas <- c(inner_lgas,middle_lgas)
 
 #We want to look at all LGAs but greenfield. We really don't have a solution for Greenfield right now. 
 missing_middle_lgas <- lgas

@@ -16,13 +16,14 @@ dwellings_with_prices <- read_csv("data/dwellings_with_prices.csv")
 #get data on which sa1 is in which sa3 which was deleted from the previous dataframe a little too early! 
 sa3_dataframe <- strayr::read_absmap("sa12021") %>% 
   st_drop_geometry() %>% 
-  select(sa1_code_2021,sa3_code_2021)
+  select(sa1_code_2021,sa3_code_2021,sa4_code_2021)
 
 
 fix_errant_sa3 <- function(data){
   print("One sa3 only has 2 obs, let's just assign it to a nearby one so fixed effect regressions work better")
   output <- data %>% 
-  mutate(sa3_code_2021 = if_else(sa3_code_2021 == "20903","20901",sa3_code_2021) )
+  mutate(sa3_code_2021 = if_else(sa3_code_2021 == "20903","20901",sa3_code_2021) ,
+         sa3_code_2021 = if_else(sa3_code_2021 == "21105","21104",sa3_code_2021))
   return(output)
 }
 
@@ -208,9 +209,8 @@ house_price_model <- regression_runner(house_dataset, "price_per_sqm", base_regr
 summary(house_price_model$models[[1]])
 
 #works ok but could be better. 
-
-ggplot(apartment_dataset) +
-  geom_smooth(aes(x = ln_wins_traffic_pollution, y = log(sale_price)))
+#ggplot(apartment_dataset) +
+#  geom_smooth(aes(x = ln_wins_traffic_pollution, y = log(sale_price)))
 
 apartment_minimal_regression_terms <- c(#"dwellings_est",#  excluded because past apartments on big lots don't reflect better MM design standards
                                         "fct_dist_rail", 
@@ -220,12 +220,14 @@ apartment_minimal_regression_terms <- c(#"dwellings_est",#  excluded because pas
                                         "fct_bathrooms",
                                         "heritage_status",
                                         "fct_traffic_pollution",
-                                        "sa3_code_2021", # Included here because some sa3s have missing values in some years
                                         "zone_short")
 
 print("Because we are testing the model, sometimes this line of code has to be run a few times to get a good breakdown between test and train models, just run it again if it breaks!")
 
-apartment_price_model <- regression_runner(apartment_dataset, "sale_price", apartment_minimal_regression_terms,fixed_vars = c("year"),log_outcome = T)
+apartment_price_model <- regression_runner(apartment_dataset, "sale_price", c(apartment_minimal_regression_terms,"sa3_code_2021"),fixed_vars = c("year"),log_outcome = T)
+summary(apartment_price_model$models[[1]])
+
+apartment_price_model_draft <- regression_runner(apartment_dataset, "sale_price", apartment_minimal_regression_terms,fixed_vars = c("year","sa4_code_2021"),log_outcome = T)
 summary(apartment_price_model$models[[1]])
 
 #apartment_price_model <- regression_runner(apartment_dataset, "sale_price", c(apartment_minimal_regression_terms,"dwellings_est"),fixed_vars = c("sa3_code_2021","year")) # Didn't help much - introduced collineraity
@@ -236,7 +238,7 @@ summary(apartment_price_model$models[[1]])
 #Import our predictions back into the new full model. 
 full_dataset_for_prediction <- dwelling_data_raw %>%
   st_drop_geometry() %>% 
-  select(any_of(c(names(dwellings_with_prices), "sa3_code_2021"))) %>%  #Reduce ram usage for bigger dataset
+  select(any_of(c(names(dwellings_with_prices), "sa3_code_2021","sa4_code_2021"))) %>%  #Reduce ram usage for bigger dataset
   fix_errant_sa3() %>% 
   mutate(year         = 2018,
          pp_bedrooms  = 2,
@@ -259,7 +261,7 @@ dwelling_data_raw %>%
   select(lat,lon) %>% 
  inner_join(all_predicted_prices) %>% 
   rename(apt   = apartment_price, 
-         house = property_price_per_sqm) %>% view()
+         house = property_price_per_sqm) %>% 
   write_sf("test/predicted_prices.shp", quiet = T)
 
 #RMD that looks at price predictions and sees if they make sense. These use a simple and quicker way to estimate profitability that is not quite right but good for testing. 
