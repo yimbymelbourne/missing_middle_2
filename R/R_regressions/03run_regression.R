@@ -46,6 +46,8 @@ clean_data_set_for_regression <- function(x){
   
   output <- x %>% 
     lazy_dt() %>% 
+    mutate(lga_name_2022 = str_remove_all(lga_name_2022, "\\s*\\(.*?\\)\\s*")) %>% 
+    mutate(lga_name_2022 = if_else(lga_name_2022 == "Moreland","Merri-bek",lga_name_2022)) %>%  # Moreland changed name in 2021
     mutate(zone_short = if_else(zone_short == "Residential Growth","Residential growth",zone_short)) %>% # Old version of the file mispelt "Growth" - should be fixed but just in case...
     mutate(sa1_code_2021 = as.character(sa1_code_2021)) %>%  #Make sure that R doesn't treat sa3s as numerical when doing regression
     filter(!is.na(sa1_code_2021)) %>% # Only about 20 obs missing an sa1 because they're in weird locations - and they're mostly civic land. 
@@ -137,7 +139,7 @@ apartment_dataset <- all_prices %>%
 
 
 #This code runs the regression for both house and apartment dataset, it's designed to make it easier for us to run lots of different regression specifications. 
-regression_runner <- function(dataframe, outcome_var, input_vars,interaction_vars = NA, fixed_vars=NA, n_reps = 10, train_split_pct = 0.8,log_outcome = F) {
+regression_runner <- function(dataframe, outcome_var, input_vars,interaction_vars = NA, fixed_vars=NA, n_reps = 10, train_split_pct = 0.99,log_outcome = F) {
   
   if(log_outcome){ dataframe <- dataframe %>% mutate(across(any_of(outcome_var),~log(.x)))}
   results_df <- tibble(RMSE = numeric(), run = integer(), formula = character(), run_time = POSIXct())

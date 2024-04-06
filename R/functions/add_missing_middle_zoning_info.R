@@ -6,6 +6,7 @@ buxton_yields <- input_data %>%
   lazy_dt() %>% 
   mutate(buxton_yield = 
          case_when(feature_preventing_development ~ 0,
+                   com_tall_building ~ 0,
                    zone_short == "Low density residential" ~ 1,
                    zoning_permits_housing %in% c("Housing not generally permitted","Rural/regional") ~ 0, # Need to sort out CCZ, DZ etc.
                    zone_short == "Neighbourhood residential" & lot_size <500 ~ 1,
@@ -18,9 +19,9 @@ buxton_yields <- input_data %>%
                    zone_short == "Residential growth" & lot_size < 500  ~ 8,
                    zone_short == "Residential growth" & lot_size < 1000 ~ 18,
                    zone_short == "Residential growth" & lot_size < 2000 ~ 36,
-                   zone_short %in% c("Mixed use","Commercial") & lot_size <500  ~ 11, #Buxton assumes 4 resi + 2 mixed use here which is very low! 
-                   zone_short %in% c("Mixed use","Commercial") & lot_size <1000 ~ 24,
-                   zone_short %in% c("Mixed use","Commercial")& lot_size <2000 ~ 48,
+                   zone_short %in% c("Mixed use") & lot_size <500  ~ 11, #Buxton assumes 4 resi + 2 mixed use here which is very low! 
+                   zone_short %in% c("Mixed use") & lot_size <1000 ~ 24,
+                   zone_short %in% c("Mixed use")& lot_size <2000 ~ 48,
                    lga_name_2022 %in% inner_lgas  & lot_size >2000 ~  120*lot_size/10000, 
                    lga_name_2022 %in% middle_lgas & lot_size >2000 ~ 70*lot_size/10000,
                    lga_name_2022 %in% c(outer_lgas,greenfield) & lot_size >2000 ~ 70*lot_size/10000,
@@ -129,13 +130,14 @@ print("finished first bit!")
 
 buxton_yields_corrected <- buxton_yields %>% 
   lazy_dt() %>% 
-  mutate(buxton_yields_corrected = case_when(feature_preventing_development ~ 0,
+  mutate(buxton_yields_corrected = case_when(com_tall_building ~ 0,
+                                             feature_preventing_development ~ 0,
                                              zoning_permits_housing %in% c("Housing not generally permitted",
                                                                            "Rural/regional") ~ 0, 
-                                             zone_short %in% c("Mixed use","Commercial") & lga_name_2022 %in% inner_lgas ~ lot_size*830/10000,
-                                             zone_short %in% c("Mixed use","Commercial") & lga_name_2022 %in% middle_lgas ~ lot_size*346/10000,
-                                             zone_short %in% c("Mixed use","Commercial") & lga_name_2022 %in% outer_lgas ~ lot_size*252/10000,
-                                             zone_short %in% c("Mixed use","Commercial") & lga_name_2022 %in% greenfield ~ lot_size*252/10000,
+                                             zone_short %in% c("Mixed use") & lga_name_2022 %in% inner_lgas ~ lot_size*830/10000,
+                                             zone_short %in% c("Mixed use") & lga_name_2022 %in% middle_lgas ~ lot_size*346/10000, # These are some more reasonable version of buxton's yer mixed use zones. 
+                                             zone_short %in% c("Mixed use") & lga_name_2022 %in% outer_lgas ~ lot_size*252/10000,
+                                             zone_short %in% c("Mixed use") & lga_name_2022 %in% greenfield ~ lot_size*252/10000,
                                              zone_short %in% c("Residential growth") ~ lot_size*240/10000,
                                              T ~buxton_yield),
          zone_short_mm = case_when(zone_short %in% c("General residential",
@@ -147,6 +149,7 @@ buxton_yields_corrected <- buxton_yields %>%
                                    T ~ zone_short),
          missing_middle_yield = 
                   case_when(feature_preventing_development ~ 0,
+                            com_tall_building ~ 0,
                             zone_short_mm == "Low density residential" ~ 1,
                             zoning_permits_housing %in% c("Housing not generally permitted",
                                                           "Rural/regional") ~ 0, # Need to sort out CCZ, DZ etc.
@@ -162,15 +165,16 @@ buxton_yields_corrected <- buxton_yields %>%
                             zone_short_mm == "Residential growth"  & lot_size < 1000 ~ 18,
                             zone_short_mm == "Residential growth"  & lot_size < 2000 ~ 36,
                            # zone_short_mm %in% c("Residential growth") ~ lot_size*240/10000, # What actually happens
-                            zone_short_mm %in% c("Residential growth","Mixed use","Commercial","General residential") & lga_name_2022 %in% inner_lgas ~ lot_size*830/10000,
-                            zone_short_mm %in% c("Residential growth","Mixed use","Commercial","General residential") & lga_name_2022 %in% middle_lgas ~ lot_size*346/10000,
-                            zone_short_mm %in% c("Residential growth","Mixed use","Commercial","General residential") & lga_name_2022 %in% outer_lgas ~ lot_size*252/10000,
-                            zone_short_mm %in% c("Residential growth","Mixed use","Commercial","General residential") & lga_name_2022 %in% greenfield ~ lot_size*252/10000,
+                            zone_short_mm %in% c("Residential growth","Mixed use","General residential") & lga_name_2022 %in% inner_lgas ~ lot_size*830/10000,
+                            zone_short_mm %in% c("Residential growth","Mixed use","General residential") & lga_name_2022 %in% middle_lgas ~ lot_size*346/10000,
+                            zone_short_mm %in% c("Residential growth","Mixed use","General residential") & lga_name_2022 %in% outer_lgas ~ lot_size*252/10000,
+                            zone_short_mm %in% c("Residential growth","Mixed use","General residential") & lga_name_2022 %in% greenfield ~ lot_size*252/10000,
                             zone_short_mm %in% c("Missing middle") ~ lot_size*6/4*240/10000, # Missing middle will be 6 instead of 4 storeys so this is our best estimate... 
                             T ~ NA_real_)
                 ) %>% 
   mutate(category = case_when(feature_preventing_development                    ~ "Civic use makes development less likely",
                               dwellings_est >1                                  ~ "Already developed",
+                              com_tall_building                                 ~ "Already developed",
                               zoning_permits_housing != "Housing permitted"     ~ "Housing not permitted",
                               zone_short == "Neighbourhood residential"         ~ "2 storeys (NRZ)",
                               zone_short == "General residential"               ~ "3 storeys (GRZ)", 
@@ -179,6 +183,7 @@ buxton_yields_corrected <- buxton_yields %>%
                               T ~ zone_short),
          category_new = case_when(feature_preventing_development                ~ "Civic use makes development less likely",
                                   dwellings_est >1                              ~ "Already developed",
+                                  com_tall_building                             ~ "Already developed",
                                   zoning_permits_housing != "Housing permitted" ~ "Housing not permitted",
                                   zone_short_mm == "General residential"        ~ "3 storeys (GRZ)", 
                                   zone_short_mm == "Neighbourhood residential"  ~ "2 storeys (NRZ)",
@@ -187,7 +192,8 @@ buxton_yields_corrected <- buxton_yields %>%
                                   zone_short_mm == "Missing middle"             ~ "6 storeys (Missing middle)",
                                   T ~ zone_short_mm),
          type_short = case_when(feature_preventing_development ~"Civic land",
-                                dwellings_est>1 ~ "Already developed",
+                                dwellings_est > 1 ~ "Already developed",
+                                com_tall_building ~ "Already developed",
                                 T ~ zone_short),
          heritage_nice = if_else(heritage,
                                  "Subject to heritage controls",

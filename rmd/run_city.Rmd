@@ -2,7 +2,8 @@
 title: " "
 output:
   html_document:
-    css: "theme/yimby_mel.css"
+    css: "../theme/yimby_mel.css"
+    title: "Missing Middle zoning"
 params:
   area: "Small area"
 ---
@@ -10,6 +11,7 @@ params:
 ```{r setup, include=FALSE}
 
 knitr::opts_chunk$set(message = FALSE, warning = FALSE, error = FALSE, echo = FALSE, dpi = 300,fig.width = 7, fig.height = 4)
+knitr::opts_knit$set(root.dir= '../')   
 
 parcels <- prettyNum(nrow(df_lga_props),big.mark = ",")
 
@@ -38,38 +40,26 @@ df_lga_useful_props_num <-  prettyNum(nrow(df_lga_useful_props),big.mark = ",")
 
 mcg_size <- 20000 
 
+# Corrected function to generate a button with customizable text and link
+generateButton <- function(text, link) {
+  buttonHTML <- paste0('<div class="button-row"><div style="opacity: 1; transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg); transform-style: preserve-3d;" class="button-wrapper"><a href="', link, '" class="button-fullwidth-2 w-inline-block"><div style="width: 0%; height: 2px;" class="bottom-line-2"></div><div style="height: 0%; width: 2px;" class="left-line-2"></div><div style="width: 0%; height: 2px;" class="top-line-2"></div><div style="height: 0%; width: 2px;" class="right-line-2"></div><div style="height: 0%; width: 538.617px;" class="overlay-colr-button-2"></div><div style="color: rgb(0, 0, 0);" class="button-text">', text, '</div></a></div></div>')
+  cat(buttonHTML)
+}
+
+
 ```
 
-![](atlas/mel_missing_middle.png)
+![](../atlas/mel_missing_middle.png)
 
 ##  {.tabset}
 
 
-Melbourne’s middle urban areas are broadly
-underutilised, and the current Governmental
-approach of focusing on a small number of activity centres— 
-while a step in the right direction—
-has been slow to roll out, and ignores large
-swathes of our urban landscape that would
-strongly benefit from enabling medium density.
-
-The answer to the housing supply shortage,
-therefore, will not be found in this handful of
-designated activity centres and precincts.
-Rather, it will be found through the delivery of
-permissive planning reforms across every one
-of Metropolitan Melbourne’s existing 1,992 train
-and tram stops.
-
-Melbourne’s existing rail network provides frequent, 
-high capacity transport options across
-the whole city, and by building near these 
-stations, we give more people access to this 
-network, while simultaneously providing more
-destinations that are close to rail.
+The answer to the housing supply shortage will not be found in this handful of
+designated activity centres and precincts. `r area_name` needs to do its bit by delivering
+beautiful mid-rise homes near every one of its heavy rail stops. 
 
 Through broad transit-oriented upzoning and
-development, the Victorian Government can
+development, `r area_name` can
 deliver housing abundance and provide more
 housing choices to all current and future residents across the entirety of the city. This will
 fulfil the original goal of Plan Melbourne creating a vast array of 20-minute neighbourhoods,
@@ -95,31 +85,23 @@ in perpetuity.
 
 
 mm_number <- df_lga_useful_props %>% filter(zone_short_mm == "Missing middle") %>% nrow() %>% prettyNum(big.mark = ",")
+rgz_number <- df_lga_useful_props %>% filter(zone_short_mm == "Residential growth") %>% nrow() %>% prettyNum(big.mark = ",")
+grz_number <- df_lga_useful_props %>% filter(zone_short_mm == "General residential") %>% nrow() %>% prettyNum(big.mark = ",")
+
 
 ```
 
-In `r area_name`, `r mm_number` properties would be up-zoned to missing middle, providing a Parisian like density near transit. 
+In `r area_name`, `r mm_number` properties would be up-zoned to Missing Middle, providing a Parisian like density near transit. A further `r rgz_number` properties will be rezoned
+to from General Residential to Residential Growth, and `r grz_number` from Neighbourhood Residential to General Residential. 
 
-While this report focuses on the provision of
-the Missing Middle Zone around existing transit
-infrastructure, `r area_name` also has areas that are not near fixed rail, but still have high amenity. 
+Broad upzoning is needed across existing suburbs so that there is more land available to build homes for our children to live in. 
+If only a few areas are rezoned, then developers will be able to buy up that land and withhold supply. 
+Upzoning all land removes the power developers have to speculate, lowering the cost of housing for all.
 
-There must be broad upzoning to enable
-more development in existing suburbs.
-While the MMZ enables a thriving Parisian-style
-density for Melbourne, broader upzoning of all
-land currently designated Neighbourhood Residential Zone (NRZ) or equivalent will encourage
-a more diverse array of housing options across
-the city through an increase in gentle density.
 
-YIMBY Mel-bourne endorses a complete elimination of the
-current NRZ across Metropolitan Melbourne,
-and its replacement with the General Residential Zone (GRZ). In turn, all land currently zoned
-GRZ should also be upzoned to the Residential
-Growth Zone (RGZ).
+### `r area_name`'s new zoning map
 
-### Missing middle's new zoning map
-
+There are some errors on here where land is zoned "civic" where it shouldn't be, but if you find anymore please message on the discord!!! 
 
 ```{r}
 make_map(sf_lga_props,"category_new")
@@ -137,30 +119,51 @@ make_map(sf_lga_props,"category")
 
 
 
+## More zoned capacity for homes in `r params$area`
+
+```{r}
+zoned_capacity_x <- lga_summary %>% 
+  mutate( change_to_zoned_capacity = paste0(round(change_to_zoned_capacity,1),"x")) %>% 
+  pull(change_to_zoned_capacity)
 
 
-## Our plan will 4/5/6/7x `r params$area`'s zoned capacity to deliver more housing 
+```
 
-Todo - figure out current zoned capacity and then figure out how much we are icnreasing it. 
+There are `r parcels` parcels of land in `r params$area`. But not every piece of land can have housing on it. Of these parcels, `r fois` are on civic land like schools, hospitals, or train stations where development is challenging. Another `r bad_zoning` are in zones that do not development. Finally `r already_developed` properties have already been developed with more than 1 unit, making re-development difficult. 
+
+That leaves `r df_lga_useful_props_num` that are available for development. The size of these lots is `r prettyNum(sum(df_lga_useful_props$lot_size),big.mark = ",")` square meters, or `r round(as.numeric(sum(df_lga_useful_props$lot_size))/mcg_size)` MCGs worth of space to build housing. 
+
+Under existing zoning, the city of Yarra has an estimated zoned capacity of `r prettyNum(round(lga_summary$zoned_capacity,-3), big.mark = ",")`. 
+That means that if every plot of land was built up to the maximum possible density zoning allows, this many new homes could be built. 
+But it's impractical to think that we would ever build to our zoned capacity. Some homes are heritage listed, some perform vital commercial functions,
+while many other people love their homes
+and would rather not sell to developers. 
+
+When zoned capacity is only just higher than the number of homes we need to build, it gives land speculators an advantage because they control the only land that can be built on. 
+
+YIMBY Melbourne's plan for `r area_name` increases its zoned capacity by `r zoned_capacity_x`, to `r prettyNum(round(lga_summary$mm_zoned_capacity,-3), big.mark = ",")` -  giving more opportunity for Melbourne to achieve Missing Middle density. 
 
 ## Housing targets for `r params$area` 
 
-should have x% of Melbourne's housing as a target. 
+Even though there are `r prettyNum(round(lga_summary$mm_zoned_capacity,-3), big.mark = ",")` possible units that could be built in `r area_name`, it's impossible for them to be built 
+all at once or even at all. For each lot in `r area_name`, YIMBY Melbourne has calcualted whether it would be profitable to build Missing Middle housing based on current
+local house values, apartment prices and construction costs. We estimate that around `r prettyNum(round(lga_summary$profitable_apartments,-3), big.mark = ",")` units could potentially
+be built profitably in `r area_name`. 
 
-With current state target that means xyz homes per year over the next 10 years. 
+To meet the statewide target of 80,000 new homes per year (56,000 in established areas), `r area_name` must build units proportionate to the `r prettyNum(round(sum(lga_zoning_numbers$profitable_apartments),-4), big.mark = ",")` units that are profitable across all of Melbourne's Middle, which amounts to a target of **`r prettyNum(round(lga_summary$mm_target,-3), big.mark = ",")`** units built each year. This figure is in addition to homes that would be built as part of any rezoning process such as through Fishermans' Bend or the Suburban Rail Loop precincts. 
 
 
 ## Without missing middle `r params$area` is falling behind
 
 
 `r params$area` needs Missing Middle zoning, because it is not keeping up with population growth. 
-While there has been some population growth, 
+While there has been some housing construction, many homes have more bedrooms free than ever before as kids move out of home. The total number of homes is struggling to keep up with Melbourne's evolving housing needs. 
 
 ```{r}
 
 #source("R/import_lga_pop_data.R")
 
-mel_total <- lga_pop_change_importer(area_name, type = "density")
+mel_total <- lga_pop_change_importer(area_name, type = "population")
 
 
 lga_change <- mel_total %>% 
@@ -179,7 +182,7 @@ change_ratio <- lga_change/mel_change
 
 ## TODO - get PT stops per LGA. 
 
-text_on_growth <- case_when(change_ratio >.9 ~ paste0(params$area, " has been building housing, but cannot rest on its laurels"),
+text_on_growth <- case_when(change_ratio >.9 ~ paste0(params$area, " has been building housing, but cannot rest on its laurels."),
                             change_ratio >.7 ~ paste0(params$area, " has been building some housing, but it is still barely keeping up with the average for Melbourne."),
                             T ~ paste0(params$area, " is falling well behind the average for new housing in Melbourne.")
 )
@@ -187,7 +190,7 @@ text_on_growth <- case_when(change_ratio >.9 ~ paste0(params$area, " has been bu
 ```
 
 
-`r text_on_growth` params$area has amazing public transport, and it needs to do more to ensure that housing is abundant. 
+`r text_on_growth` It has amazing public transport, and it needs to do more to ensure that housing is abundant. 
 
 ```{r}
 mel_total %>%
@@ -198,7 +201,8 @@ mel_total %>%
                           text_size = "small",
                           plot_type = "line",
                           colour_scale = "c")+
-  labs(title = paste("Growth in homes for",area_name,"compared to the rest of Melbourne"),
+  labs(title = paste("Growth in homes for",area_name,"compared to the rest of Melbourne\n
+                     GRAPH HAS ERROR TODO:FIX"),
        subtitle = "Growth in census dwellings since 2006",
        labs = element_blank(),
        colour = "Area",
@@ -211,9 +215,9 @@ mel_total %>%
 
 
 
-## `r area_name` is falling behind because not enough of the area is zoned for more housing. {.tabset}
+## `r area_name` is falling behind because zoning is too restrictive. {.tabset}
 
-Not enough housing is being built in `r area_name` because it has not been zoned for housing. 
+The reason `r area_name` is not building enough housing is because there are not enough areas where housing can be built. The graph below shows that the majority of land in `r area_name` is locked away, preventing Missing Middle Density.
 
 ### By number of lots
 
@@ -325,13 +329,23 @@ dwellings_by_type_w_heritage %>%
 
 
 
-Housing is falling behind because nothing gets built in NRZ/GRZ. 
-
-insert building approval data for this LGA by zone category
-
-
 ## Heritage should not be a barrier to housing abudance 
+```{r}
 
+heritage_no <- df_lga_useful_props %>% 
+  filter(profitable_apartments>0) %>% 
+  summarise(apartments_affected_by_heritage = paste0(round(100*weighted.mean(heritage,profitable_apartments)),"%")) %>% 
+  pull(apartments_affected_by_heritage) 
+
+```
+Of the `r prettyNum(round(lga_summary$profitable_apartments,-4), big.mark = ",")` potentially profitable apartments that could be built in `r area_name`, `r heritage_no` of these potential future homes are on lots subject to heritage controls. 
+
+If there is too much heritage in `r area_name`, it could potentially affect `r area_name`s ability to meet its housing targets. 
+
+If heritage is a barrier to growth then `r area_name` has three options:
+1. Adjust heritage controls to allow more density on heritage land
+2. Remove heritage controls from low-value properties
+3. Pay compensation to local councils who are doing their bit to contribute to solving the housing crisis. 
 
 
 ```{r conditional-include, echo=FALSE, results='asis'}
@@ -349,11 +363,17 @@ if(area_name == "Melbourne") {
 
 ```
 
-## Lot sizes are no barrier to growth
+```{r results='asis'}
+cat('<div class="button-row">')
 
-This LGA has big lots, but we can build on small lots anyway. 
+lga_html <- paste0("https://yimby-mel.s3.ap-southeast-2.amazonaws.com/index.html")
 
-## Lot sizes in Yarra {.tabset}
+generateButton("Back to Missing Middle zoning for all of Melbourne",lga_html)
+cat('</div>')
+```
+
+
+## APPENDIX - ? delete? Lot sizes in Yarra {.tabset}
 
 Larger lots can be easier to develop, but Melbourne has been sucssessful in developing even on small lots
 
@@ -407,12 +427,4 @@ df_lga_props %>%
 
 ```
 
-## Why missing middle will make housing better in Melbourne
 
-Recycle text from missing middle report. 
-
-## Appendix A: `r params$area` land profile in ? 
-
-There are `r parcels` parcels of land in `r params$area`. But not every piece of land can have housing on it. Of these parcels, `r fois` are on civic land like schools, hospitals, or train stations where development is challenging. Another `r bad_zoning` are in zones that do not development. Finally `r already_developed` properties have already been developed with more than 1 unit, making re-development difficult. 
-
-That leaves `r df_lga_useful_props_num` that are available for development. The size of these lots is `r prettyNum(sum(df_lga_useful_props$lot_size),big.mark = ",")` square meters, or `r round(as.numeric(sum(df_lga_useful_props$lot_size))/mcg_size)` MCGs worth of space to build housing. 

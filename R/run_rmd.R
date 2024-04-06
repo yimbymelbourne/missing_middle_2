@@ -20,81 +20,16 @@ source("R/R_regressions/03run_regression.R")
 #Add beskope info on how YIMBY Melbourne wants to re-zone Melbourne
 sf_mel_props <- dwelling_data_raw %>% 
   filter(lga_name_2022 %in% c(inner_lgas,middle_lgas)) %>% 
+  fix_com_commercial_zoning() %>% 
   add_missing_middle_zoning_info() %>% #Complex steps are put out into functions so they can be compartmentalised. 
   find_profitable_apartments()  
-  
-#A series of further QC graphs but this time unlike hte RMD in 03_run_regression we're using the full complex way of calculating what apartments are profitable. 
-#Test for good apartments.... 
-sf_mel_props %>% 
-  mutate(`profitable?` = if_else(profit>0,T,F)) %>% 
-  ggplot(aes(x = profit_per_apartment,
-             fill = `profitable?`)) +
-  geom_histogram() +
-  facet_wrap(~zone_short_mm)
 
-sf_mel_props %>% 
-  mutate(`profitable?` = if_else(profit>0,T,F)) %>% 
-  filter(apartments_if_built_to_this_height <100) %>% 
-  ggplot(aes(x = apartments_if_built_to_this_height,
-             fill = `profitable?` ))+
-  geom_histogram()
-
-hist(sf_mel_props$missing_middle_storeys)
-sf_mel_props %>% 
-  mutate(`profitable?` = if_else(profit>0,T,F)) %>% 
-  filter(apartments_if_built_to_this_height <100) %>% 
-  ggplot(aes(x = storey,
-             fill = `profitable?` ))+
-  geom_histogram()
-
-hist(sf_mel_props$construction_cost_per_apt_this_height)
-hist(sf_mel_props$profit_per_apartment)
-
-
-sf_mel_props %>% 
-  distinct(construction_cost_per_apt_this_height,storey,zone_short_mm) %>% 
-  ggplot(aes(y = construction_cost_per_apt_this_height,
-             x = storey,
-             colour =  zone_short_mm)) +
-  geom_point()
-
-sf_mel_props %>% 
-  mutate(prf_ap = profit_per_apartment) %>% 
-  select(profitable_apartments,prf_ap,zone_short_mm,mm_yield_net,zone_short_mm,storey,lot_size,apartments_if_built_to_this_height) %>% 
-  filter(!is.na(profitable_apartments)) %>% 
-  write_sf("test/profit_per_apartment.shp")
+source("R/experimental/qc_graphs.R") # no need to run if you don't want to! 
   
 #Create a version without geometries
 df_mel_props <- sf_mel_props %>% st_drop_geometry() 
 
-mm_total_target = 80000*.7
-
-heritage_zones <- c("Missing middle","General residential","Residential growth","Low density residential") # zones where we think you can't increase dwelling numbers if there's heritage
-
-
-lga_zoning_numbers <- df_mel_props %>% 
-  mutate(heritage_affecting_zoned_capacity = if_else(heritage & zone_short %in% heritage_zones,0,buxton_yield_net),
-         heritage_affecting_zoned_capacity_mm = if_else(heritage & zone_short_mm %in% heritage_zones,0,mm_yield_net),
-         profitable_new_dwellings_net = pmax(0,profitable_apartments- dwellings_est )) %>% 
-  group_by(lga_name_2022) %>% 
-  summarise(profitable_apartments = sum(profitable_apartments,na.rm = TRUE),
-            profitable_new_dwellings_net = sum(profitable_new_dwellings_net,na.rm = TRUE),
-            profit_from_buildable_apartments = sum(pmax(profit_from_buildable_apartments,50000),na.rm = TRUE),
-            existing_dwellings = sum(dwellings_est,na.rm = TRUE),
-            zoned_capacity = sum(buxton_yield_net,na.rm = TRUE),
-            zoned_capacity_heritage = sum(heritage_affecting_zoned_capacity,na.rm = TRUE),
-            mm_zoned_capacity = sum(mm_yield_net,na.rm = TRUE),
-            mm_zoned_capacity_heritage = sum(heritage_affecting_zoned_capacity_mm,na.rm = TRUE)
-) %>% 
-  ungroup() %>% 
-  mutate(change_to_zoned_capacity = mm_zoned_capacity/zoned_capacity,
-         share_of_mm_profitable_apartments = profitable_apartments/sum(profitable_apartments,na.rm = TRUE),
-         share_of_mm_prof_from_apartments = profit_from_buildable_apartments/sum(profit_from_buildable_apartments,na.rm = TRUE),
-         mm_target = share_of_mm_profitable_apartments * mm_total_target,
-         share_of_dwelling_capacity = existing_dwellings/sum(existing_dwellings),
-         target_relative_to_other_missing_middle_lgas = share_of_mm_profitable_apartments/share_of_dwelling_capacity
-           
-  ) 
+lga_zoning_numbers <- create_summary_table_by_lga(df_mel_props)
 
 
 
@@ -116,8 +51,8 @@ rmarkdown::render("rmd/index.Rmd",
 #filter the big dataset for a given LGA (area name) and then render the rmarkdown, saving it into the RMD folder.
 
 run_for_area <- function(area_name) {
-  
-#  area_name = "Melbourne"
+  print(paste0("running for ",area_name))
+# area_name = "Boroondara"
   sf_lga_props <- sf_mel_props %>% filter(lga_name_2022 %in% area_name)
 
   df_lga_props <- sf_lga_props %>% st_drop_geometry()
@@ -129,18 +64,20 @@ run_for_area <- function(area_name) {
 
   df_lga_useful_props <- sf_lga_useful_props %>% st_drop_geometry()
   
+  lga_summary <- lga_zoning_numbers %>% 
+    filter(lga_name_2022 == area_name)
 
-  rmarkdown::render("run_city.Rmd", 
+  rmarkdown::render("rmd/run_city.Rmd", 
                     params = list(area = area_name),
-                    output_file = paste0("html/",area_name,".html")
+                    output_file = paste0("../html/",area_name,".html")
                     )
 
                   
 }
 
 
-
-walk(missing_middle_lgas,run_for_area)
+run_for_area("Melbourne")
+walk(missing_middle_lgas[!(missing_middle_lgas %in% c("Kingston (Vic.)","Bayside (Vic.)"))],run_for_area)
 
 
 
@@ -167,6 +104,6 @@ put_object(file = file_location, bucket = "yimby-mel",multipart = T,show_progres
 }
 
 aws.s3::bucketlist(add_region = T)
-walk2(list_rmds_with_path[7],list_rmds[7],upload_object)
+walk2(list_rmds_with_path,list_rmds,upload_object)
 
 }

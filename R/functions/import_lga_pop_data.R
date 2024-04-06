@@ -13,7 +13,7 @@ population_data <- readxl::read_excel("data/32350DS0006_2001-22.xlsx",sheet = 4,
          filter(!is.na(lga_name_2021)) %>%
   filter(year >2013)
 
-mel_lga_populations <- population_data %>% filter(lga_name_2021 %in% lgas)
+mel_lga_populations <- population_data %>% filter(lga_name_2021 %in% c(inner_lgas,middle_lgas,outer_lgas,greenfield))
 
 mel_total <- population_data %>%
   group_by(year) %>%
@@ -45,7 +45,8 @@ return(output)
     filter(lga_name_2021 != "Total",
            !is.na(count)) %>% 
     mutate(lga_name_2021 = str_remove_all(lga_name_2021, "\\s*\\(.*?\\)\\s*"),
-           lga_name_2021 = str_replace(lga_name_2021,"Colac Otway","Colac-Otway")) %>% 
+           lga_name_2021 = str_replace(lga_name_2021,"Colac Otway","Colac-Otway"),
+           lga_name_2021 = if_else(lga_name_2021 == "Moreland","Merri-bek",lga_name_2021)) %>% 
     group_by(lga_name_2021) %>% 
     filter(n() == 4) %>%
     mutate(change = count/count[year == 2006]) %>% 
