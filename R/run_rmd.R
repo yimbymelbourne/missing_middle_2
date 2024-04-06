@@ -76,7 +76,6 @@ run_for_area <- function(area_name) {
 }
 
 
-run_for_area("Melbourne")
 walk(missing_middle_lgas[!(missing_middle_lgas %in% c("Kingston (Vic.)","Bayside (Vic.)"))],run_for_area)
 
 

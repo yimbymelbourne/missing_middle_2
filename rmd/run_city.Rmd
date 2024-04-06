@@ -101,7 +101,7 @@ Upzoning all land removes the power developers have to speculate, lowering the c
 
 ### `r area_name`'s new zoning map
 
-There are some errors on here where land is zoned "civic" where it shouldn't be, but if you find anymore please message on the discord!!! 
+**Local knowledge is essential here so Please look at these and see if you can find any errors!**
 
 ```{r}
 make_map(sf_lga_props,"category_new")
@@ -201,8 +201,7 @@ mel_total %>%
                           text_size = "small",
                           plot_type = "line",
                           colour_scale = "c")+
-  labs(title = paste("Growth in homes for",area_name,"compared to the rest of Melbourne\n
-                     GRAPH HAS ERROR TODO:FIX"),
+  labs(title = paste("Growth in homes for",area_name,"compared to the rest of Melbourne"),
        subtitle = "Growth in census dwellings since 2006",
        labs = element_blank(),
        colour = "Area",
