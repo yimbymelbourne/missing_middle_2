@@ -6,6 +6,11 @@
 #load package from save file
 renv::restore()
 
+# RUN THESE IN CONSOLE #
+# devtools::install_github(“https://github.com/yutannihilation/ggsflabel”)
+# devtools::install_github("runapp-aus/strayr")
+#                      #
+
 library(DBI)
 library(RPostgres)
 library(sf)
@@ -26,6 +31,10 @@ library(fixest)
 library(readabs)
 library(janitor)
 library(datawizard)
+library(ggsflabel)
+library(qs)
+library(ggthemes)
+library(kableExtra)
 
 if(Sys.info()[7] == "jonathannolan1") {
 # create connection to postgres
@@ -109,3 +118,4 @@ greenfield <- c("Cardinia",
                 "Wyndham")
 
 mel_lgas <- c(inner_lgas,middle_lgas,outer_lgas)
+
