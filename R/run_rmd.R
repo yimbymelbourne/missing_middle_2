@@ -14,11 +14,14 @@ r_files <- list.files(path = "R/functions/",
 
 purrr::walk(r_files,source)
 
+save_file <- c("data/rmd_data.qs")
+
 if(!file.exists(save_file)){
   download.file("https://yimby-mel.s3.ap-southeast-2.amazonaws.com/rmd_data.qs",destfile = save_file)
 }
 
-sf_mel_props <- qs::qload(save_file)  
+sf_mel_props <- qs::qread(save_file)  
+
 #Create a version without geometries
 df_mel_props <- sf_mel_props %>% st_drop_geometry() 
 lga_zoning_numbers <- create_summary_table_by_lga(df_mel_props)
@@ -32,6 +35,7 @@ lgas <- c(inner_lgas,middle_lgas)
 #We want to look at all LGAs but greenfield. We really don't have a solution for Greenfield right now. 
 missing_middle_lgas <- lgas
 
+# This renders index
 rmarkdown::render("rmd/index.Rmd", 
                   output_file = paste0("../html/index.html"),clean = FALSE
 )
