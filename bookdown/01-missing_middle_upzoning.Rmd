@@ -1,0 +1,14 @@
+# Missing middle upzoning 
+
+All chapters start with a first-level heading followed by your chapter title, like the line above. There should be only one first-level heading (`#`) per .Rmd file.
+
+## How zoning will change
+
+
+## A new zone: Missing Middle zone
+
+
+## Stepwise upzoning for housing diversity
+
+
+## The importance of excess zoned capacity
