@@ -26,6 +26,8 @@ h4,
 h5,
 h6 {
   font-family: "Inter Tight", sans-serif;
+  font-weight: 700;
+  color: var(--hero-color);
 }
 
 /* Specific to subheadings */
@@ -63,10 +65,12 @@ a:hover {
   display: block;
   position: static;
 }
+
 .button-fullwidth-2:hover {
   color: #000;
   text-decoration: none;
 }
+
 .bottom-line-2 {
   z-index: 1;
   width: 100%;
@@ -81,6 +85,7 @@ a:hover {
   left: 0%;
   right: 0%;
 }
+
 .left-line-2 {
   z-index: 1;
   width: 2px;
@@ -95,6 +100,7 @@ a:hover {
   left: 0%;
   right: auto;
 }
+
 .top-line-2 {
   z-index: 1;
   width: 100%;
@@ -109,6 +115,7 @@ a:hover {
   left: 0%;
   right: 0%;
 }
+
 .right-line-2 {
   z-index: 1;
   width: 2px;
@@ -123,6 +130,7 @@ a:hover {
   left: auto;
   right: 0%;
 }
+
 .overlay-colr-button-2 {
   height: 0%;
   color: #10461b;
