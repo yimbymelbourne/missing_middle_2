@@ -7,31 +7,21 @@
 # loading it into memory. 
 # The rest are functions which run only when called later on in the Rmarkdown. 
 
+
 r_files <- list.files(path = "R/functions/",
                       pattern = "*.R$",
                       full.names = T)
 
 purrr::walk(r_files,source)
 
+if(!file.exists(save_file)){
+  download.file("https://yimby-mel.s3.ap-southeast-2.amazonaws.com/rmd_data.qs",destfile = save_file)
+}
 
-#Perform regressions. While in dev it's probably better to run this code line by line.  
-source("R/R_regressions/03run_regression.R")
-
-#Add beskope info on how YIMBY Melbourne wants to re-zone Melbourne
-sf_mel_props <- dwelling_data_raw %>% 
-  filter(lga_name_2022 %in% c(inner_lgas,middle_lgas)) %>% 
-  fix_com_commercial_zoning() %>% 
-  add_missing_middle_zoning_info() %>% #Complex steps are put out into functions so they can be compartmentalised. 
-  find_profitable_apartments()  
-
-source("R/experimental/qc_graphs.R") # no need to run if you don't want to! 
-  
+sf_mel_props <- qs::qload(save_file)  
 #Create a version without geometries
 df_mel_props <- sf_mel_props %>% st_drop_geometry() 
-
 lga_zoning_numbers <- create_summary_table_by_lga(df_mel_props)
-
-
 
 sf::sf_use_s2(FALSE)  # Disable s2 engine which sometimes causes errors - iirc there are github issues on this but it isn't fixed. 
 
