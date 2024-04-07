@@ -1,6 +1,6 @@
 
 create_summary_table_by_lga <- function(input_data) {
-  mm_total_target = 80000*.7
+  mm_total_target = 80000*.5
   
   heritage_zones <- c("Missing middle","General residential","Residential growth","Low density residential") # zones where we think you can't increase dwelling numbers if there's heritage
   
