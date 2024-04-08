@@ -11,14 +11,14 @@
 
 /* Typography */
 @import url("//fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,100..900;1,100..900&family=Inter:wght@100..900&display=swap");
-
-@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap');
-
+@import url("//fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap");
 
 body {
   color: var(--body-text-color);
   background-color: var(--background-color);
   font-size: 16pt;
+  font-weight: 400;
+  font-family: "Inter", sans-serif;
 }
 
 h1,
@@ -32,8 +32,51 @@ h6 {
   color: var(--hero-color);
 }
 
-p {
+p,
+li,
+a {
   font-family: "Inter", sans-serif;
+}
+
+.book .book-header,
+.book .book-summary {
+  font-family: "Inter Tight", sans-serif;
+  font-weight: 500;
+}
+
+.sidebar-title-text {
+  font-size: 1.2em;
+  font-weight: 700;
+  color: var(--hero-color);
+}
+
+.summary > .chapter {
+  /* Your styles here */
+  font-weight: 600;
+  font-size: 1.1em;
+  color: #333;
+}
+
+p > a {
+  color: var(--blue-base) !important;
+  /* text-decoration-color: var(--blue-base) !important; */
+}
+
+a:hover {
+  /* Your styles here */
+  color: var(--yellow-base) !important;
+}
+
+li.active > a {
+  /* Your styles here */
+  color: var(--red-base) !important;
+}
+
+/* Reset nested list item styles */
+.summary > .chapter > ul > li {
+  font-weight: 500;
+  font-size: 1em;
+  color: inherit;
 }
 
 p.caption {
@@ -53,12 +96,14 @@ pre code {
 
 /* bg */
 
-.body-inner, .book .book-body .page-wrapper .page-inner section {
+.body-inner,
+.book .book-body .page-wrapper .page-inner section {
   background: var(--background-color);
 }
 
 .book-summary {
   background: var(--background-color) !important;
+  border-right: 2px solid #000 !important;
 }
 
 /* Sidebar formatting */
@@ -79,4 +124,38 @@ pre code {
   color: #283696; /* You can adjust the color value as desired */
 }
 
+.book .book-summary ul.summary li.divider {
+  height: 2px;
+  background: #000;
+}
 
+/* Header formatting */
+
+div.book-header.fixed {
+  background-color: var(--background-color) !important;
+  color: var(--hero-color) !important;
+  border-bottom: 2px solid #000 !important;
+}
+
+a.btn {
+  color: var(--green-base) !important;
+}
+
+a.btn:hover {
+  color: var(--yellow-base) !important;
+}
+
+div.book-header.fixed > h1 {
+  color: var(--hero-color) !important;
+  opacity: 1 !important;
+  font-weight: 700 !important;
+}
+
+/* navigation */
+.navigation > i {
+  color: #000;
+}
+
+.navigation > i:hover {
+  color: var(--yellow-base);
+}
