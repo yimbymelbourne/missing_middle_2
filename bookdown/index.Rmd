@@ -1,0 +1,144 @@
+--- 
+title: "Missing Middle Housing Targets"
+author: "YIMBY Melbourne"
+date: "`rtodo Sys.Date()`"
+site: bookdown::bookdown_site
+url: https://targets.yimby.melbourne/
+cover-image: images/cover.jpg
+documentclass: book
+bibliography: [book.bib, packages.bib]
+# url: https://targets.yimby.melbourne/
+# cover-image: path to the social sharing image like images/cover.jpg
+description: |
+  Melbourne's planning system is broken. We need evidence-driven 
+  and well-enforced housing targets in order to fix this ongoing crisis.
+link-citations: yes
+# github-repo: rstudio/bookdown-demo
+output:
+  includes:
+    in_header: header.html
+  
+---
+# Missing Middle Housing Targets
+
+```{rtodo setup, include=FALSE}
+
+knitr::opts_chunk$set(message = FALSE, warning = FALSE, error = FALSE, echo = FALSE, dpi = 300,fig.width = 7, fig.height = 4)
+knitr::opts_knit$set(root.dir= '../')   
+knitr::opts_chunk$set(dev.args=list(bg='transparent'))
+
+# Corrected function to generate a button with customizable text and link
+generateButton <- function(text, link) {
+  buttonHTML <- paste0('<div class="button-row"><div style="opacity: 1; transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg); transform-style: preserve-3d;" class="button-wrapper"><a href="', link, '" class="button-fullwidth-2 w-inline-block"><div style="width: 0%; height: 2px;" class="bottom-line-2"></div><div style="height: 0%; width: 2px;" class="left-line-2"></div><div style="width: 0%; height: 2px;" class="top-line-2"></div><div style="height: 0%; width: 2px;" class="right-line-2"></div><div style="height: 0%; width: 538.617px;" class="overlay-colr-button-2"></div><div style="color: rgb(0, 0, 0);" class="button-text">', text, '</div></a></div></div>')
+  cat(buttonHTML)
+}
+
+# Use the function to generate buttons
+knitr::opts_chunk$set(message = FALSE, warning = FALSE, error = FALSE, echo = FALSE, dpi = 300, fig.width = 7, fig.height = 4)
+
+```
+
+## Overview
+
+Melbourne is growing. Our city's urgent need for more homes has been acknowledged by industry, policy, and government bodies alike. And yet most of the policy implemented to-date has been edge-tinkering: granny flats, Future Homes, and the scattered beginnings of outer-urban activity centres.
+
+Since the introduction of [Plan Melbourne](https://www.planning.vic.gov.au/guides-and-resources/strategies-and-initiatives/plan-melbourne), the city has relegated liveable density to a tiny number of "activity centres" on the city's most polluted, noisy, and dangerous streets. Meanwhile, the best blocks of land—those located on safer streets and near parks, schools, and public transport—have been locked up under restrictive zoning and overlays, enforced by local governments on behalf of their most wealthy residents. 
+
+This status quo keeps both big developers and NIMBYs happy—but it’s inequitable, and it's making our city less liveable. 
+
+For Melbourne to remain a truly world-leading city, we need to permit gentle density across all of its most amenity-rich and productive regions, enabling new human-scale homes to be built in areas where people want to live. And people don't just want to live within a handful of arbitrarily-defined activity centres. Rather, they want to live across the entirety of the city, within an interconnected network of 20-minute neighbourhoods across all 1,992 of Melbourne's tram stops and train stations.
+
+Here, we expand upon the work already completed within our 2023 flagship report, _[Melbourne's Missing Middle](http://yimby.melbourne/missing-middle)_, which lays out the overwhelming evidence of densification's social, environmental, and affordability benefits. 
+
+This report aims to codify these benefits by outlining a new housing delivery paradigm across the 19 inner-city Melbourne councils where demand for denser living is highest. 
+
+YIMBY Melbourne's missing middle reforms will introduce [fairer missing middle zoning](#report-link), underpinned by [enforced housing targets](#report-link) for [each local council](#report-link), ensuring that abundant housing is created city-wide, and for everyone.
+
+## Key policy proposals
+
+1. Upzone inner-middle Melbourne, increasing zoned capacity by `rtodo multiplier` to `rtodo total_zoned_capacity` homes
+2. Calculate annual housing targets for the 19 LGAs where demand for housing is highest
+3. Enforce housing targets through revenue-neutral 'carrot and stick' incentives
+4. Deliver 40,000 new homes per year across inner-middle Melbourne
+
+## Annual housing targets {.tabgroup}
+
+### Map 
+```{rtodo,fig.height=7,fig.width = 8}
+
+map_data <- strayr::read_absmap("lga2022") %>% 
+  filter(state_name_2021 == "Victoria") %>% 
+    mutate(lga_name_2022 = str_remove_all(lga_name_2022, "\\s*\\(.*?\\)\\s*")) %>% 
+    mutate(lga_name_2022 = if_else(lga_name_2022 == "Moreland","Merri-bek",lga_name_2022)) %>%  # Moreland changed name in 2021
+  inner_join(lga_zoning_numbers) 
+
+#devtools::install_github("yutannihilation/ggsflabel")
+map_data%>% 
+  mutate(target = paste0(lga_name_2022,"\n",
+                         prettyNum(round(mm_target,-2),
+                                   big.mark = ","),
+                         " homes")
+         ) %>% 
+  ggplot()+
+  geom_sf(colour = yimby_colours$green_palette[4])+
+  ggthemes::theme_map()+
+  ggsflabel::geom_sf_label_repel(aes(label = target ),
+                                 size = 2,
+                                 fill = yimby_colours$background)+
+    labs(title = "Missing Middle Melbourne yearly housing targets",
+         x = element_blank(),
+         y = element_blank()) +
+  theme_yimby_mel_caption(text_size = "small",plot_type = "map")+
+  theme(plot.margin = margin(2, 15,2, 15))+
+  theme(panel.background = element_rect(fill = "transparent", colour = NA),  
+        plot.background = element_rect(fill = "transparent", colour = NA))
+
+
+```
+
+### Table
+```{rtodo}
+
+dwellings_by_type <- df_mel_props %>%
+  group_by(category) %>% 
+  summarise(n = n(),
+            lot_size = sum(lot_size),
+            .groups = "drop") %>% 
+  group_by(category) %>% 
+  mutate(n_total = sum(n),
+         lot_size_total = sum(lot_size))  %>% 
+  ungroup() %>%
+  mutate(zone_type = "Existing zoning")
+
+dwellings_by_mm_type <- df_mel_props %>%
+  group_by(category_new) %>% 
+  summarise(n = n(),
+            lot_size = sum(lot_size),
+            .groups = "drop") %>% 
+  group_by(category_new) %>% 
+  mutate(n_total = sum(n),
+         lot_size_total = sum(lot_size))  %>% 
+  ungroup() %>%
+  mutate(zone_type = "YIMBY Melbourne Zoning") %>%
+  rename(category = category_new)
+
+library(scales)
+
+dwellings_by_type %>% 
+  bind_rows(dwellings_by_mm_type) %>% 
+  ungroup() %>%
+    mutate(category = fct_relevel(category,"Low density residential")) %>% 
+  filter(!(category %in% c("Housing not permitted","Civic use makes development less likely","Already developed"))) %>% 
+  ggplot(aes(x = category, 
+             y = n))+
+  coord_flip()+ 
+  geom_bar(stat = "identity")+
+  theme_yimby_mel_caption(text_size = "small",plot_type = "bar",colour_scale = "light_dark") +
+  labs(x = element_blank(),
+       title = paste0("Building heights on Melbourne's residential properties"),
+       y = "Number of properties",
+       fill = "Heritage status") +
+  facet_wrap(~zone_type) +
+  scale_y_continuous(labels = scales::number_format(scale_cut = cut_short_scale()))
+
+```

@@ -35,6 +35,7 @@ library(ggsflabel)
 library(qs)
 library(ggthemes)
 library(kableExtra)
+library(bookdown)
 
 if(Sys.info()[7] == "jonathannolan1") {
 # create connection to postgres

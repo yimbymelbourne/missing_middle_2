@@ -31,3 +31,5 @@ data/osm_linkage_to_property_db.csv
 data/walkability_by_node.parquet
 /*.DS_Store
 .DS_Store
+.RDataTmp
+bookdown/_book
