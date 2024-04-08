@@ -55,7 +55,26 @@ dwelling_data_raw <- read_sf(con,
 } else{ print("Make sure you have the dwelling map file inside your data folder', you can download it here https://github.com/jonathananolan/Melbourne-dwelling-map 
               selecting down to a smaller group of variables, so if your code breaks you might need to add more variables to the list in 00renv.R")
 
-dwelling_data_raw <-read_sf("data/Melbourne dwelling data.gpkg", query = "SELECT geom,lat,lon,zone_short,sa1_code_2021,
+  
+  
+  geopackage_file <- "data/Melbourne dwelling data.gpkg"
+if(file.exists(geopackage_file)){
+  
+file_info <-   file.info(geopackage_file)
+
+if(file_info$mtime < ymd("2024-04-08")){
+  print("You have an old version of the file that contains the map of Melbourne's properties, now downloading the newer 1.4gb file from AWS. If R can't cope downloading such a big file go to https://yimby-mel.s3.ap-southeast-2.amazonaws.com/Melbourne+dwelling+data.gpkg and download it manually into the file data/Melbourne dwelling data.gpkg. for more info about this file view https://github.com/jonathananolan/vic-property-database")
+  download.file("https://yimby-mel.s3.ap-southeast-2.amazonaws.com/Melbourne+dwelling+data.gpkg", destfile = geopackage_file, mode = 'wb', timeout = 99999, method = "curl")  
+}
+
+
+} else{  
+  
+  download.file("https://yimby-mel.s3.ap-southeast-2.amazonaws.com/Melbourne+dwelling+data.gpkg", destfile = geopackage_file, mode = 'wb', timeout = 99999, method = "curl")  
+  }
+  
+  
+dwelling_data_raw <-read_sf(geopackage_file, query = "SELECT geom,lat,lon,zone_short,sa1_code_2021,
                             dwellings_est,sa2_code_2021,sa4_code_2021,cbd_dist,
                               lga_name_2022,feature_preventing_development,zoning_permits_housing,zone_short,prox_walk_time_s_tram,
                             prox_walk_time_s_train,prox_dist_m_tram,prox_dist_m_train,traffic_pollution,lot_size,zone_short,sa3_code_2021,heritage_status,heritage,vacant_in_2016 FROM 'Melbourne dwelling data'") %>% 
