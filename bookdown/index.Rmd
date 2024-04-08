@@ -17,8 +17,35 @@ output:
     in_header: header.html
   
 ---
+```{r setup, include=FALSE}
+
+knitr::opts_chunk$set(message = FALSE, warning = FALSE, error = FALSE, echo = FALSE, dpi = 300,fig.width = 7, fig.height = 4)
+knitr::opts_knit$set(root.dir= '../')   
+knitr::opts_chunk$set(dev.args=list(bg='transparent'))
+
+# Corrected function to generate a button with customizable text and link
+generateButton <- function(text, link) {
+  buttonHTML <- paste0('<div class="button-row"><div style="opacity: 1; transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg); transform-style: preserve-3d;" class="button-wrapper"><a href="', link, '" class="button-fullwidth-2 w-inline-block"><div style="width: 0%; height: 2px;" class="bottom-line-2"></div><div style="height: 0%; width: 2px;" class="left-line-2"></div><div style="width: 0%; height: 2px;" class="top-line-2"></div><div style="height: 0%; width: 2px;" class="right-line-2"></div><div style="height: 0%; width: 538.617px;" class="overlay-colr-button-2"></div><div style="color: rgb(0, 0, 0);" class="button-text">', text, '</div></a></div></div>')
+  cat(buttonHTML)
+}
+
+# Use the function to generate buttons
+knitr::opts_chunk$set(message = FALSE, warning = FALSE, error = FALSE, echo = FALSE, dpi = 300, fig.width = 7, fig.height = 4)
+
+```
 
 # Overview
+
+Melbourne's planning system is broken. 
+
+Since Plan Melbourne was introduced, we have relegated our density to a tiny number of "activity centres" on the city's most polluted, noisy, and dangerous streets. Meanwhile, the best blocks of land—those located on safer streets and near parks, schools and public transport—have been locked up under restrictive zoning and overlays, made affordable only for the ultra-rich. 
+
+This status quo keeps both big developers and NIMBYs happy—but it’s inequitable, and it's making our city less liveable. 
+
+Melbourne needs gentle density, with human-scale homes in areas where people want to live. And people don't just want to live in a handful of activity centres. Rather, new housing should be permitted across all 1,992 of Melbourne's tram stops and train stations. 
+
+YIMBY Melbourne's Missing Middle zoning will introduce fairer zoning, underpinned by enforced housing targets for each local council, to ensure housing abundance is created city-wide, and for everyone.
+
 
 ## A new vision for Melbourne
 

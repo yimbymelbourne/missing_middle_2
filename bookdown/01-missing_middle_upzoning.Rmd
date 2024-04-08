@@ -1,14 +1,128 @@
 # Missing middle upzoning 
 
-All chapters start with a first-level heading followed by your chapter title, like the line above. There should be only one first-level heading (`#`) per .Rmd file.
-
 ## How zoning will change
 
+Melbourne's Missing Middle zoning will focus more housing near public transport where people want to live. 
 
-## A new zone: Missing Middle zone
+We have taken existing zoning, and upzoned according to three diffeerent steps:
 
+1. Any lots within lower density residential zones (including Neighbourhood Residential and General Residential) within 500m of a tram stop or 1km of a train station is rezoned "Missing Middle". This new zone is a refinement of the existing Residential Growth Zone (RGZ), and has been altered in four key ways. The MMZ:
+    * Implements a default maximum height of 21 metres or 6 storeys, an increase from the RGZ’s current 4-storey default.
+    * Expands non-residential land uses to include a wider range of neighbourhood  services & amenities.
+    * Abolish car parking minimums.
+    * Exempts from notice and review developments of any total value containing at least 10% public or community housing in perpetuity
+2. Any lot in a General Residential Zone not near trams or trains is rezoned RGZ, but parking minimums remain unless council states otherwise. 
+3. Any lot in a Neighbourhood Residential Zone not near trams or trains is rezoned GRZ, but parking minimums remain unless council states otherwise. 
+
+The effect of these changes will be to upzone much of Melbourne's land, allowing more homes within people's existing communities. 
+
+```{r}
+
+dwellings_by_type <- df_mel_props %>%
+  group_by(category) %>% 
+  summarise(n = n(),
+            lot_size = sum(lot_size),
+            .groups = "drop") %>% 
+  group_by(category) %>% 
+  mutate(n_total = sum(n),
+         lot_size_total = sum(lot_size))  %>% 
+  ungroup() %>%
+  mutate(zone_type = "Existing zoning")
+
+dwellings_by_mm_type <- df_mel_props %>%
+  group_by(category_new) %>% 
+  summarise(n = n(),
+            lot_size = sum(lot_size),
+            .groups = "drop") %>% 
+  group_by(category_new) %>% 
+  mutate(n_total = sum(n),
+         lot_size_total = sum(lot_size))  %>% 
+  ungroup() %>%
+  mutate(zone_type = "YIMBY Melbourne Zoning") %>%
+  rename(category = category_new)
+
+library(scales)
+
+dwellings_by_type %>% 
+  bind_rows(dwellings_by_mm_type) %>% 
+  ungroup() %>%
+    mutate(category = fct_relevel(category,"Low density residential")) %>% 
+  filter(!(category %in% c("Housing not permitted","Civic use makes development less likely","Already developed"))) %>% 
+  ggplot(aes(x = category, 
+             y = n))+
+  coord_flip()+ 
+  geom_bar(stat = "identity")+
+  theme_yimby_mel_caption(text_size = "small",plot_type = "bar",colour_scale = "light_dark") +
+  labs(x = element_blank(),
+       title = paste0("Building heights on Melbourne's residential properties"),
+       y = "Number of properties",
+       fill = "Heritage status") +
+  facet_wrap(~zone_type) +
+  scale_y_continuous(labels = scales::number_format(scale_cut = cut_short_scale()))
+
+```
+
+
+
+```{r}
+tbl_body  <- lga_zoning_numbers %>% 
+  select(` ` = lga_name_2022,
+         `Current zoned capacity` = zoned_capacity,
+         #`(Excluding heritage)` = zoned_capacity_heritage,
+         `New zoned capacity under Missing Middle` = mm_zoned_capacity,
+         `Increase in zoned capacity` = change_to_zoned_capacity) %>% 
+  arrange(desc(`Increase in zoned capacity` ))
+
+total = tbl_body %>% 
+  summarise(`Current zoned capacity` = sum(`Current zoned capacity`),
+            `New zoned capacity under Missing Middle` = sum(`New zoned capacity under Missing Middle`)) %>% 
+  mutate(`Increase in zoned capacity` = `New zoned capacity under Missing Middle`/`Current zoned capacity`,
+         ` ` = "Total")
+tbl_body %>%
+  bind_rows(total) %>% 
+  mutate( `Increase in zoned capacity` = paste0(round(`Increase in zoned capacity`,1),"x")) %>% 
+  gt() %>% 
+  fmt_number(c(`Current zoned capacity`,
+               `New zoned capacity under Missing Middle`),n_sigfig = 3) %>% 
+tab_options(
+    table.background.color = yimby_colours$background# Change "lightblue" to any color you prefer
+  ) %>% 
+    tab_style(
+    style = list(
+      cell_text(weight = "bold")
+    ),
+    locations = cells_body(
+      rows = everything() %>% tail(1)
+    )
+  )
+```
+
+A detailed map of each local council's rezoning has been provided on the local council pages below. 
+
+## Introducing the Missing Middle Zone
+The Missing Middle Zone (MMZ) will enable 6 storey buildings to be built within walking distance of every train station and tram stop in Melbourne. 
+
+This zone will support the density levels that underpin great and iconic cities across the world, with beautiful street walls free of onerous setback rules, activating the streets below. 
+
+MMZ areas will be entirely mixed-use, and buildings across the area will be permitted by-right to include neighbourhood services and amenities, cafes, libraries, and shops on the ground floor. Off-street parking will be allowed, but thanks to the absence of parking minimums, nobody will be forced to buy a carpark that they don't need. 
+
+![**NOTE: Hero 1.**](../atlas/mm housing.jpeg)
 
 ## Stepwise upzoning for housing diversity
+Not all of Melbourne's suburbs have access to rail infrastructure but many still benefit from nearby schools, hospitals and bus routes. 
+
+Local communities and businesses that aren’t as closely situated to Melbourne’s vast train and tram networks also deserve to reap the benefits of Melbourne's planning system. 
+
+Inspired by the success of Auckland’s zoning reforms, the Missing Middle reform will completely eliminate Neighbourhood Residential zones (NRZ) across metropolitan Melbourne, replacing it with General Residential Zones (GRZ). In turn, all land currently zoned GRZ will also be upzoned to the Residential Growth Zone (RGZ).
+
+
+![**NOTE: Hero 2.**](../atlas/mm housing.jpeg)
 
 
 ## The importance of excess zoned capacity
+
+Under the current system, where the zoned capacity of each LGA is kept only barely higher than the number of homes that need to be built, land speculation and landbanking is incentivised, because a small number of actors can feasibly gain control of the limited land available for development. However, if developable land is made abundantly available, any and all landbanking becomes entirely infeasible. 
+
+Additionally, it is important to create a significant excess of zoned capacity, because it is impractical to think that every potential lot will ever be built to its maximum zoned capacity. Some buildings are heritage listed, some perform vital commercial functions, and others are so beloved by owners that they are unlikely to ever be sold on to developers. 
+
+Through broad upzoning, we can both reduce landbanking and increase the likelihood that enough homes will be built across our city to lower housing costs and enable people to live in the places best suited to their needs and desires.
