@@ -1,6 +1,6 @@
 # Inner-city housing targets
 
-```{r,fig.height=7,fig.width = 8}
+```{rtodo,fig.height=7,fig.width = 8}
 
 map_data <- strayr::read_absmap("lga2022") %>% 
   filter(state_name_2021 == "Victoria") %>% 
@@ -33,7 +33,7 @@ map_data%>%
 ```
 
 
-```Replace with interactive targets map```
+```rtodoeplace with interactive targets map```
 
 The great majority of Victoria's new housing should be built in high-amenity and infrastructure-rich areas. These are the places where the demand for density is highest, and where that density can be supported. 
 
@@ -55,7 +55,7 @@ Put simply, Melbourne needs housing targets because it needs more housing.
 
 With the exception of the [City of Melbourne](/lga/melbourne-city), inner- and middle-ring councils are currently not doing enough to house Melbourne's future population. This has contributed to the city's high reliance on greenfield development, which has seen more and more Melburnians pushed out toward our urban fringe. 
 
-```{r fig.height = 8}
+```{rtodo fig.height = 8}
 
 pop_change_by_lga <-lga_pop_change_importer(lgas) %>% 
   filter(year == 2022)
@@ -112,7 +112,7 @@ Our model does not expect development to occur on every viable site. But council
 
 ## Enforcing targets
 
-There's currently no mechanism to ensure that councils actually build the housing for which they claim to have zoned capacity. The Victorian Government should follow the advice of [Infrastructure Victoria](*) and the [Productivity Commission](*) recommendations to enforce housing targets through attaching carrots and sticks to housing targets. 
+There's currently no mechanism to ensure that councils actually build the housing for which they claim to have zoned capacity. The Victorian Government should follow the advice of [Infrastructure Victoria](#) and the [Productivity Commission](#) recommendations to enforce housing targets through attaching carrots and sticks to housing targets. 
 
 To deliver a high number of well-located homes across Melbourne requires more than just non-binding capacity targets that look good on paper. Rather, we need binding material construction targets that look good in real life. People do not live inside housing capacity; they live inside houses. And Councils must be kept accountable to that fact.
 
@@ -159,7 +159,7 @@ Targets should be tracked consistently through a combination of development and 
 
 Existing heritage, neighbourhood character, and design and development overlays in place over large swathes of our inner-suburbs should not be an excuse for councils to miss their housing targets. Councils with far-reaching overlays will need to consider how best to achieve their housing targets against the tradeoffs associated with maintaining high opportunity-cost overlays.
 
-If heritage is a barrier to growth then `r area_name` has three options:
+If heritage is a barrier to growth then `rtodo area_name` has three options:
 
 1. Adjust heritage controls to allow more density on heritage and character land
 2. Remove controls from properties of low heritage or character value

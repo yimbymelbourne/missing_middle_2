@@ -1,9 +1,9 @@
 # LGA housing targets (Template)
 
-```{r setup, include=FALSE}
+```{rtodo }
 
-knitr::opts_chunk$set(message = FALSE, warning = FALSE, error = FALSE, echo = FALSE, dpi = 300,fig.width = 7, fig.height = 4)
-knitr::opts_knit$set(root.dir= '../')   
+# knitr::opts_chunk$set(message = FALSE, warning = FALSE, error = FALSE, echo = FALSE, dpi = 300,fig.width = 7, fig.height = 4)
+# knitr::opts_knit$set(root.dir= '../')   
 
 parcels <- prettyNum(nrow(df_lga_props),big.mark = ",")
 
@@ -41,7 +41,7 @@ generateButton <- function(text, link) {
 
 ```
 
-```{r }
+```{rtodo }
 
 
 mm_number <- df_lga_useful_props %>% filter(zone_short_mm == "Missing middle") %>% nrow() %>% prettyNum(big.mark = ",")
@@ -51,17 +51,17 @@ grz_number <- df_lga_useful_props %>% filter(zone_short_mm == "General residenti
 
 ```
 
-In `r area_name`, `r mm_number` lots would be upzoned to the Missing Middle Zone (MMZ), enabling six-storey medium-density near all transit. A further `r rgz_number` properties will be rezoned from General Residential Zone (GRZ) to Residential Growth (RGZ), and `r grz_number` from Neighbourhood Residential Zone (NRZ) to GRZ. 
+In `rtodo area_name`, `rtodo mm_number` lots would be upzoned to the Missing Middle Zone (MMZ), enabling six-storey medium-density near all transit. A further `rtodo rgz_number` properties will be rezoned from General Residential Zone (GRZ) to Residential Growth (RGZ), and `rtodo grz_number` from Neighbourhood Residential Zone (NRZ) to GRZ. 
 
 Broad upzoning is needed across existing suburbs so that there is more land available to build homes for our children to live in. If only a few select areas are rezoned, then developers will be able to buy up that land and withhold supply. Broad upzoning of land across inner-Melbourne removes any power developers may have to speculate, and lowers housing costs for all.
 
-## Upzoning `r area_name`  {.tabset}
+## Upzoning `rtodo area_name`  {.tabset}
 
-The answer to the housing supply shortage will not be found in this handful of designated activity centres and precincts. `r area_name` needs to do its bit by delivering beautiful mid-rise homes near every one of its train and tram stops. 
+The answer to the housing supply shortage will not be found in this handful of designated activity centres and precincts. `rtodo area_name` needs to do its bit by delivering beautiful mid-rise homes near every one of its train and tram stops. 
 
-Through broad transit-oriented upzoning and development, `r area_name` can deliver housing abundance and provide more housing choices to all current and future residents across the entirety of the city. This will fulfil the original goal of Plan Melbourne creating a vast array of 20-minute neighbourhoods, rather than a small number of scattered activity centres.
+Through broad transit-oriented upzoning and development, `rtodo area_name` can deliver housing abundance and provide more housing choices to all current and future residents across the entirety of the city. This will fulfil the original goal of Plan Melbourne creating a vast array of 20-minute neighbourhoods, rather than a small number of scattered activity centres.
 
-```{r }
+```{rtodo }
 
 
 mm_number <- df_lga_useful_props %>% filter(zone_short_mm == "Missing middle") %>% nrow() %>% prettyNum(big.mark = ",")
@@ -71,69 +71,69 @@ grz_number <- df_lga_useful_props %>% filter(zone_short_mm == "General residenti
 
 ```
 
-In `r area_name` missing middle upzoning will have the following effect:
+In `rtodo area_name` missing middle upzoning will have the following effect:
 
-* `r mm_number` lots would be upzoned to the Missing Middle Zone (MMZ), enabling 6 storeys near all tram stops and train stations
+* `rtodo mm_number` lots would be upzoned to the Missing Middle Zone (MMZ), enabling 6 storeys near all tram stops and train stations
 
-*  `r rgz_number` properties will be rezoned from General Residential Zone (GRZ) to Residential Growth (RGZ), enabling 4 storeys where 3 is currently permitted
+*  `rtodo rgz_number` properties will be rezoned from General Residential Zone (GRZ) to Residential Growth (RGZ), enabling 4 storeys where 3 is currently permitted
 
-*  `r grz_number` from Neighbourhood Residential Zone (NRZ) to GRZ, enabling 3 storeys where 2 is currently permitted
+*  `rtodo grz_number` from Neighbourhood Residential Zone (NRZ) to GRZ, enabling 3 storeys where 2 is currently permitted
 
 Broad upzoning is needed across existing suburbs so that there is more land available to build homes for our children to live in. If only a few select areas are rezoned, then developers will be able to buy up that land and withhold supply. Broad upzoning of land across inner-Melbourne removes any power developers may have to speculate, and lowers housing costs for all.
 
 
 ### New zoning
 
-```{r}make_map(sf_lga_props,"category_new")
+```{rtodo}make_map(sf_lga_props,"category_new")
 ```
 
 
 ### Existing zoning
 
-```{r}make_map(sf_lga_props,"category")
+```{rtodo}make_map(sf_lga_props,"category")
 ```
 
-## More zoned capacity for homes in `r params$area`
+## More zoned capacity for homes in `rtodo params$area`
 
-```{r}
+```{rtodo}
 zoned_capacity_x <- lga_summary %>% 
   mutate( change_to_zoned_capacity = paste0(round(change_to_zoned_capacity,1),"x")) %>% 
   pull(change_to_zoned_capacity)
 ```
 
-There are `r parcels` parcels of land in `r params$area`. But not every piece of land can have housing on it. Of these parcels: 
+There are `rtodo parcels` parcels of land in `rtodo params$area`. But not every piece of land can have housing on it. Of these parcels: 
 
-* `r fois` are on civic land like schools, hospitals, or train stations where development is challenging. 
+* `rtodo fois` are on civic land like schools, hospitals, or train stations where development is challenging. 
 
-* Another `r bad_zoning` are in zones that do not allow housing to be built. 
+* Another `rtodo bad_zoning` are in zones that do not allow housing to be built. 
 
-* Finally `r already_developed` lots have already been developed with more than 1 unit, making re-development difficult. 
+* Finally `rtodo already_developed` lots have already been developed with more than 1 unit, making re-development difficult. 
 
-That leaves `r df_lga_useful_props_num` parcels that are available for development. The size of these lots is `r prettyNum(sum(df_lga_useful_props$lot_size),big.mark = ",")` square meters, or `r round(as.numeric(sum(df_lga_useful_props$lot_size))/mcg_size)` MCGs worth of space to build dense housing. 
+That leaves `rtodo df_lga_useful_props_num` parcels that are available for development. The size of these lots is `rtodo prettyNum(sum(df_lga_useful_props$lot_size),big.mark = ",")` square meters, or `rtodo round(as.numeric(sum(df_lga_useful_props$lot_size))/mcg_size)` MCGs worth of space to build dense housing. 
 
-Under existing zoning, `r area_name` has an estimated zoned capacity of `r prettyNum(round(lga_summary$zoned_capacity,-3), big.mark = ",")`. 
+Under existing zoning, `rtodo area_name` has an estimated zoned capacity of `rtodo prettyNum(round(lga_summary$zoned_capacity,-3), big.mark = ",")`. 
 
-YIMBY Melbourne's plan for `r area_name` increases its zoned capacity by `r zoned_capacity_x`, to `r prettyNum(round(lga_summary$mm_zoned_capacity,-3), big.mark = ",")` — enabling many more opportunities for dense housing to be built across the entire city.
+YIMBY Melbourne's plan for `rtodo area_name` increases its zoned capacity by `rtodo zoned_capacity_x`, to `rtodo prettyNum(round(lga_summary$mm_zoned_capacity,-3), big.mark = ",")` — enabling many more opportunities for dense housing to be built across the entire city.
 
 
-## Housing targets for `r params$area` 
+## Housing targets for `rtodo params$area` 
 
-Even though there are `r prettyNum(round(lga_summary$mm_zoned_capacity,-3), big.mark = ",")` possible units that could be built in `r area_name`, it's impossible for them to be built all at once. It is also not reasonable to assume that all possible units will ever be built, which is [The importance of excess zoned capacity]. 
+Even though there are `rtodo prettyNum(round(lga_summary$mm_zoned_capacity,-3), big.mark = ",")` possible units that could be built in `rtodo area_name`, it's impossible for them to be built all at once. It is also not reasonable to assume that all possible units will ever be built, which is [The importance of excess zoned capacity]. 
 
-For each lot in `r area_name`, we calculated whether it would be profitable to build housing under upzoning. We estimate that a potential __`r prettyNum(round(lga_summary$profitable_apartments,-3), big.mark = ",")` units__ could be built profitably in `r area_name`. 
+For each lot in `rtodo area_name`, we calculated whether it would be profitable to build housing under upzoning. We estimate that a potential __`rtodo prettyNum(round(lga_summary$profitable_apartments,-3), big.mark = ",")` units__ could be built profitably in `rtodo area_name`. 
 
-To contribute its fair share to the the statewide target of 80,000 new homes per year, `r area_name` must build  **`r prettyNum(round(lga_summary$mm_target,-3), big.mark = ",")` units** per year.^1^ 
+To contribute its fair share to the the statewide target of 80,000 new homes per year, `rtodo area_name` must build  **`rtodo prettyNum(round(lga_summary$mm_target,-3), big.mark = ",")` units** per year.^1^ 
 
 *^1^ This figure is in addition to homes that would be built as part of any rezoning process such as through Fishermans' Bend or the Suburban Rail Loop precincts.*
 
 
-## `r area_name` is falling behind due to restrictive zoning {.tabset}
+## `rtodo area_name` is falling behind due to restrictive zoning {.tabset}
 
-`r area_name` needs the missing middle rezoning, because under current zoning the LGA is not keeping up with population growth. 
+`rtodo area_name` needs the missing middle rezoning, because under current zoning the LGA is not keeping up with population growth. 
 
 While there has been some housing construction, many homes have more bedrooms free than ever before as children move out of home. As such, the total number of homes is struggling to keep up with Melbourne's evolving housing needs. 
 
-```{r}
+```{rtodo}
 
 #source("R/import_lga_pop_data.R")
 
@@ -163,9 +163,9 @@ text_on_growth <- case_when(change_ratio >.9 ~ paste0(params$area, " has been bu
 
 ```
 
-`r text_on_growth` The area has good public transport running through it, and it needs to do more to ensure that housing is abundant around this infrastructure. 
+`rtodo text_on_growth` The area has good public transport running through it, and it needs to do more to ensure that housing is abundant around this infrastructure. 
 
-```{r}
+```{rtodo}
 mel_total %>%
   ggplot(aes( x= year, y = change,
               colour = lga_name_2021))+
@@ -185,11 +185,11 @@ mel_total %>%
 
 ```
 
-The reason `r area_name` is not building enough housing is because there are not enough areas where housing can be built. The graph below shows that the majority of land in `r area_name` is locked away, preventing "Missing Middle" density from being unlocked.
+The reason `rtodo area_name` is not building enough housing is because there are not enough areas where housing can be built. The graph below shows that the majority of land in `rtodo area_name` is locked away, preventing "Missing Middle" density from being unlocked.
 
 ### By number of lots
 
-```{r}
+```{rtodo}
 
 dwellings_by_type <- df_lga_useful_props %>%
   group_by(category) %>% 
@@ -217,7 +217,7 @@ dwellings_by_type %>%
 
 ### By total area
 
-```{r by total area}
+```{rtodo by total area 03}
 dwellings_by_type %>% 
     mutate(category = fct_reorder(category,lot_size_total)) %>%
   ggplot(aes(x = category, 
@@ -234,7 +234,7 @@ dwellings_by_type %>%
 ```
 
 ### Table
-```{r}
+```{rtodo}
 library(kableExtra)
 library(gt)
 
@@ -291,11 +291,11 @@ dwellings_by_type_w_heritage %>%
 
 ## Existing development controls 
 
-```{r}```
+```{rtodo}```
 
-Of the `r prettyNum(round(lga_summary$profitable_apartments,-4), big.mark = ",")` potentially profitable apartments that could be built in `r area_name`, `r heritage_no` of these potential future homes are on lots subject to heritage controls. 
+Of the `rtodo prettyNum(round(lga_summary$profitable_apartments,-4), big.mark = ",")` potentially profitable apartments that could be built in `rtodo area_name`, `rtodo heritage_no` of these potential future homes are on lots subject to heritage controls. 
 
-If heritage and neighbourhood character protections in `r area_name` are too far-reaching, it could potentially affect `r area_name`'s ability to meet its housing targets. 
+If heritage and neighbourhood character protections in `rtodo area_name` are too far-reaching, it could potentially affect `rtodo area_name`'s ability to meet its housing targets. 
 
 We have outlined potential remedies for this [earlier in the report](#report-link).
 
