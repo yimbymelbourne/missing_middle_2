@@ -3,6 +3,8 @@ title: "Missing Middle Housing Targets"
 author: "YIMBY Melbourne"
 date: "`rtodo Sys.Date()`"
 site: bookdown::bookdown_site
+url: https://targets.yimby.melbourne/
+cover-image: images/cover.jpg
 documentclass: book
 bibliography: [book.bib, packages.bib]
 # url: https://targets.yimby.melbourne/
