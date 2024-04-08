@@ -212,6 +212,66 @@ mel_total %>%
 
 ```
 
+```{r}
+
+lga_boundaries = st_read('data/lga_boundaries/LGA_2023_AUST_GDA2020.shp')
+train_stations = st_read('data/ptv/PTV_METRO_TRAIN_STATION.shp')
+tram_stops = st_read('data/ptv/PTV_METRO_TRAM_STOP.shp')
+
+#select current LGA
+current_lga <- lga_boundaries %>% filter(LGA_NAME23 == area_name)
+
+
+#find tram and train stations inside selected LGA
+train_stations_in_lga = st_intersection(current_lga, train_stations)
+tram_stops_in_lga = st_intersection(current_lga, tram_stops)
+
+n_tram_stops = nrow(tram_stops_in_lga)
+n_train_stations = nrow(train_stations_in_lga)
+
+#spherical geo is so much faster for distances :)
+sf_use_s2(TRUE)
+
+nearest_trains <- st_nearest_feature(sf_lga_useful_props, train_stations)
+dist_trains = st_distance(sf_lga_useful_props, train_stations[nearest_trains,], by_element=TRUE)
+sf_lga_useful_props_with_transit = cbind(sf_lga_useful_props, as.numeric(dist_trains))
+
+nearest_trams <- st_nearest_feature(sf_lga_useful_props, tram_stops)
+dist_trams = st_distance(sf_lga_useful_props, tram_stops[nearest_trams,], by_element=TRUE)
+sf_lga_useful_props_with_transit = cbind(sf_lga_useful_props_with_transit, as.numeric(dist_trams))
+
+sf_use_s2(FALSE)
+
+properties_near_tram = sf_lga_useful_props_with_transit  %>% filter(as.numeric.dist_trams. < 500)
+properties_near_tram$zone_short = as.factor(properties_near_tram$zone_short)
+n_properties_near_tram = nrow(properties_near_tram)
+percent_nrz_near_trams = paste0(round(nrow(properties_near_tram %>% filter(zone_short == 'Neighbourhood residential'))*100 / nrow(properties_near_tram)), '%')
+
+
+properties_near_train = sf_lga_useful_props_with_transit  %>% filter(as.numeric.dist_trains. < 1000)
+properties_near_train$zone_short = as.factor(properties_near_train$zone_short)
+n_properties_near_train = nrow(properties_near_train)
+percent_nrz_near_trains = paste0(round(nrow(properties_near_train %>% filter(zone_short == 'Neighbourhood residential'))*100 / nrow(properties_near_train)), '%')
+
+#`r area_name` has `r n_tram_stops` tram stops within the LGA boundaries, and `r n_train_stations` train stations.
+```
+
+## transport access {.tabset}
+
+There are `r n_properties_near_tram` lots within 500 metres of these tram stops, and `r n_properties_near_train` lots within 1km of the train stations. Out of the properties near tram stops, `r percent_nrz_near_trams` is zoned Neighbourhood Residential, and out of the properties near train stations, `r percent_nrz_near_trains` are zoned Neighbourhood Residential.
+
+### trams
+
+```{r}
+make_map(properties_near_tram, 'zone_short')
+```
+
+
+### trains
+
+```{r}
+make_map(properties_near_train, 'zone_short')
+```
 
 
 ## `r area_name` is falling behind because zoning is too restrictive. {.tabset}
@@ -331,10 +391,11 @@ dwellings_by_type_w_heritage %>%
 ## Heritage should not be a barrier to housing abudance 
 ```{r}
 
-heritage_no <- df_lga_useful_props %>% 
-  filter(profitable_apartments>0) %>% 
-  summarise(apartments_affected_by_heritage = paste0(round(100*weighted.mean(heritage,profitable_apartments)),"%")) %>% 
-  pull(apartments_affected_by_heritage) 
+heritage_no <- df_lga_useful_props %>%
+  filter(profitable_apartments>0) %>%
+  summarise(apartments_affected_by_heritage = paste0(round(100*weighted.mean(heritage,profitable_apartments)),"%")) %>%
+  pull(apartments_affected_by_heritage)
+  
 
 ```
 Of the `r prettyNum(round(lga_summary$profitable_apartments,-4), big.mark = ",")` potentially profitable apartments that could be built in `r area_name`, `r heritage_no` of these potential future homes are on lots subject to heritage controls. 
