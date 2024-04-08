@@ -57,7 +57,8 @@ a {
   color: #333;
 }
 
-p > a {
+p > a,
+em > a {
   color: var(--blue-base) !important;
   /* text-decoration-color: var(--blue-base) !important; */
 }
