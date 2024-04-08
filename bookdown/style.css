@@ -159,3 +159,7 @@ div.book-header.fixed > h1 {
 .navigation > i:hover {
   color: var(--yellow-base);
 }
+
+#header {
+  display: none;
+}
