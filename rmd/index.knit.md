@@ -3,7 +3,6 @@ title: "Missing Middle Housing Targets – YIMBY Melbourne"
 output:
   html_document:
     css: "../theme/yimby_mel.css"
-    navpills: true
     toc: true
     toc_float: true
 params:
@@ -128,23 +127,23 @@ The effect of these changes will be to upzone much of Melbourne's land, allowing
 
 
 ```{=html}
-<div id="akzujiehaw" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#akzujiehaw table {
+<div id="hslyuuiciz" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#hslyuuiciz table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#akzujiehaw thead, #akzujiehaw tbody, #akzujiehaw tfoot, #akzujiehaw tr, #akzujiehaw td, #akzujiehaw th {
+#hslyuuiciz thead, #hslyuuiciz tbody, #hslyuuiciz tfoot, #hslyuuiciz tr, #hslyuuiciz td, #hslyuuiciz th {
   border-style: none;
 }
 
-#akzujiehaw p {
+#hslyuuiciz p {
   margin: 0;
   padding: 0;
 }
 
-#akzujiehaw .gt_table {
+#hslyuuiciz .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -170,12 +169,12 @@ The effect of these changes will be to upzone much of Melbourne's land, allowing
   border-left-color: #D3D3D3;
 }
 
-#akzujiehaw .gt_caption {
+#hslyuuiciz .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#akzujiehaw .gt_title {
+#hslyuuiciz .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -187,7 +186,7 @@ The effect of these changes will be to upzone much of Melbourne's land, allowing
   border-bottom-width: 0;
 }
 
-#akzujiehaw .gt_subtitle {
+#hslyuuiciz .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -199,7 +198,7 @@ The effect of these changes will be to upzone much of Melbourne's land, allowing
   border-top-width: 0;
 }
 
-#akzujiehaw .gt_heading {
+#hslyuuiciz .gt_heading {
   background-color: #FDFFEE;
   text-align: center;
   border-bottom-color: #FDFFEE;
@@ -211,13 +210,13 @@ The effect of these changes will be to upzone much of Melbourne's land, allowing
   border-right-color: #D3D3D3;
 }
 
-#akzujiehaw .gt_bottom_border {
+#hslyuuiciz .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#akzujiehaw .gt_col_headings {
+#hslyuuiciz .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -232,7 +231,7 @@ The effect of these changes will be to upzone much of Melbourne's land, allowing
   border-right-color: #D3D3D3;
 }
 
-#akzujiehaw .gt_col_heading {
+#hslyuuiciz .gt_col_heading {
   color: #333333;
   background-color: #FDFFEE;
   font-size: 100%;
@@ -252,7 +251,7 @@ The effect of these changes will be to upzone much of Melbourne's land, allowing
   overflow-x: hidden;
 }
 
-#akzujiehaw .gt_column_spanner_outer {
+#hslyuuiciz .gt_column_spanner_outer {
   color: #333333;
   background-color: #FDFFEE;
   font-size: 100%;
@@ -264,15 +263,15 @@ The effect of these changes will be to upzone much of Melbourne's land, allowing
   padding-right: 4px;
 }
 
-#akzujiehaw .gt_column_spanner_outer:first-child {
+#hslyuuiciz .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#akzujiehaw .gt_column_spanner_outer:last-child {
+#hslyuuiciz .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#akzujiehaw .gt_column_spanner {
+#hslyuuiciz .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -284,11 +283,11 @@ The effect of these changes will be to upzone much of Melbourne's land, allowing
   width: 100%;
 }
 
-#akzujiehaw .gt_spanner_row {
+#hslyuuiciz .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#akzujiehaw .gt_group_heading {
+#hslyuuiciz .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -314,7 +313,7 @@ The effect of these changes will be to upzone much of Melbourne's land, allowing
   text-align: left;
 }
 
-#akzujiehaw .gt_empty_group_heading {
+#hslyuuiciz .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FDFFEE;
@@ -329,15 +328,15 @@ The effect of these changes will be to upzone much of Melbourne's land, allowing
   vertical-align: middle;
 }
 
-#akzujiehaw .gt_from_md > :first-child {
+#hslyuuiciz .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#akzujiehaw .gt_from_md > :last-child {
+#hslyuuiciz .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#akzujiehaw .gt_row {
+#hslyuuiciz .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -356,7 +355,7 @@ The effect of these changes will be to upzone much of Melbourne's land, allowing
   overflow-x: hidden;
 }
 
-#akzujiehaw .gt_stub {
+#hslyuuiciz .gt_stub {
   color: #333333;
   background-color: #FDFFEE;
   font-size: 100%;
@@ -369,7 +368,7 @@ The effect of these changes will be to upzone much of Melbourne's land, allowing
   padding-right: 5px;
 }
 
-#akzujiehaw .gt_stub_row_group {
+#hslyuuiciz .gt_stub_row_group {
   color: #333333;
   background-color: #FDFFEE;
   font-size: 100%;
@@ -383,15 +382,15 @@ The effect of these changes will be to upzone much of Melbourne's land, allowing
   vertical-align: top;
 }
 
-#akzujiehaw .gt_row_group_first td {
+#hslyuuiciz .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#akzujiehaw .gt_row_group_first th {
+#hslyuuiciz .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#akzujiehaw .gt_summary_row {
+#hslyuuiciz .gt_summary_row {
   color: #333333;
   background-color: #FDFFEE;
   text-transform: inherit;
@@ -401,16 +400,16 @@ The effect of these changes will be to upzone much of Melbourne's land, allowing
   padding-right: 5px;
 }
 
-#akzujiehaw .gt_first_summary_row {
+#hslyuuiciz .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#akzujiehaw .gt_first_summary_row.thick {
+#hslyuuiciz .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#akzujiehaw .gt_last_summary_row {
+#hslyuuiciz .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -420,7 +419,7 @@ The effect of these changes will be to upzone much of Melbourne's land, allowing
   border-bottom-color: #D3D3D3;
 }
 
-#akzujiehaw .gt_grand_summary_row {
+#hslyuuiciz .gt_grand_summary_row {
   color: #333333;
   background-color: #FDFFEE;
   text-transform: inherit;
@@ -430,7 +429,7 @@ The effect of these changes will be to upzone much of Melbourne's land, allowing
   padding-right: 5px;
 }
 
-#akzujiehaw .gt_first_grand_summary_row {
+#hslyuuiciz .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -440,7 +439,7 @@ The effect of these changes will be to upzone much of Melbourne's land, allowing
   border-top-color: #D3D3D3;
 }
 
-#akzujiehaw .gt_last_grand_summary_row_top {
+#hslyuuiciz .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -450,11 +449,11 @@ The effect of these changes will be to upzone much of Melbourne's land, allowing
   border-bottom-color: #D3D3D3;
 }
 
-#akzujiehaw .gt_striped {
+#hslyuuiciz .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#akzujiehaw .gt_table_body {
+#hslyuuiciz .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -463,7 +462,7 @@ The effect of these changes will be to upzone much of Melbourne's land, allowing
   border-bottom-color: #D3D3D3;
 }
 
-#akzujiehaw .gt_footnotes {
+#hslyuuiciz .gt_footnotes {
   color: #333333;
   background-color: #FDFFEE;
   border-bottom-style: none;
@@ -477,7 +476,7 @@ The effect of these changes will be to upzone much of Melbourne's land, allowing
   border-right-color: #D3D3D3;
 }
 
-#akzujiehaw .gt_footnote {
+#hslyuuiciz .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -486,7 +485,7 @@ The effect of these changes will be to upzone much of Melbourne's land, allowing
   padding-right: 5px;
 }
 
-#akzujiehaw .gt_sourcenotes {
+#hslyuuiciz .gt_sourcenotes {
   color: #333333;
   background-color: #FDFFEE;
   border-bottom-style: none;
@@ -500,7 +499,7 @@ The effect of these changes will be to upzone much of Melbourne's land, allowing
   border-right-color: #D3D3D3;
 }
 
-#akzujiehaw .gt_sourcenote {
+#hslyuuiciz .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -508,63 +507,63 @@ The effect of these changes will be to upzone much of Melbourne's land, allowing
   padding-right: 5px;
 }
 
-#akzujiehaw .gt_left {
+#hslyuuiciz .gt_left {
   text-align: left;
 }
 
-#akzujiehaw .gt_center {
+#hslyuuiciz .gt_center {
   text-align: center;
 }
 
-#akzujiehaw .gt_right {
+#hslyuuiciz .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#akzujiehaw .gt_font_normal {
+#hslyuuiciz .gt_font_normal {
   font-weight: normal;
 }
 
-#akzujiehaw .gt_font_bold {
+#hslyuuiciz .gt_font_bold {
   font-weight: bold;
 }
 
-#akzujiehaw .gt_font_italic {
+#hslyuuiciz .gt_font_italic {
   font-style: italic;
 }
 
-#akzujiehaw .gt_super {
+#hslyuuiciz .gt_super {
   font-size: 65%;
 }
 
-#akzujiehaw .gt_footnote_marks {
+#hslyuuiciz .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#akzujiehaw .gt_asterisk {
+#hslyuuiciz .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#akzujiehaw .gt_indent_1 {
+#hslyuuiciz .gt_indent_1 {
   text-indent: 5px;
 }
 
-#akzujiehaw .gt_indent_2 {
+#hslyuuiciz .gt_indent_2 {
   text-indent: 10px;
 }
 
-#akzujiehaw .gt_indent_3 {
+#hslyuuiciz .gt_indent_3 {
   text-indent: 15px;
 }
 
-#akzujiehaw .gt_indent_4 {
+#hslyuuiciz .gt_indent_4 {
   text-indent: 20px;
 }
 
-#akzujiehaw .gt_indent_5 {
+#hslyuuiciz .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -700,23 +699,23 @@ fall relative to other areas, then the housing target will automatically fall as
 
 
 ```{=html}
-<div id="jysnztymak" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#jysnztymak table {
+<div id="aizdlcievn" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#aizdlcievn table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#jysnztymak thead, #jysnztymak tbody, #jysnztymak tfoot, #jysnztymak tr, #jysnztymak td, #jysnztymak th {
+#aizdlcievn thead, #aizdlcievn tbody, #aizdlcievn tfoot, #aizdlcievn tr, #aizdlcievn td, #aizdlcievn th {
   border-style: none;
 }
 
-#jysnztymak p {
+#aizdlcievn p {
   margin: 0;
   padding: 0;
 }
 
-#jysnztymak .gt_table {
+#aizdlcievn .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -742,12 +741,12 @@ fall relative to other areas, then the housing target will automatically fall as
   border-left-color: #D3D3D3;
 }
 
-#jysnztymak .gt_caption {
+#aizdlcievn .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#jysnztymak .gt_title {
+#aizdlcievn .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -759,7 +758,7 @@ fall relative to other areas, then the housing target will automatically fall as
   border-bottom-width: 0;
 }
 
-#jysnztymak .gt_subtitle {
+#aizdlcievn .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -771,7 +770,7 @@ fall relative to other areas, then the housing target will automatically fall as
   border-top-width: 0;
 }
 
-#jysnztymak .gt_heading {
+#aizdlcievn .gt_heading {
   background-color: #FDFFEE;
   text-align: center;
   border-bottom-color: #FDFFEE;
@@ -783,13 +782,13 @@ fall relative to other areas, then the housing target will automatically fall as
   border-right-color: #D3D3D3;
 }
 
-#jysnztymak .gt_bottom_border {
+#aizdlcievn .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#jysnztymak .gt_col_headings {
+#aizdlcievn .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -804,7 +803,7 @@ fall relative to other areas, then the housing target will automatically fall as
   border-right-color: #D3D3D3;
 }
 
-#jysnztymak .gt_col_heading {
+#aizdlcievn .gt_col_heading {
   color: #333333;
   background-color: #FDFFEE;
   font-size: 100%;
@@ -824,7 +823,7 @@ fall relative to other areas, then the housing target will automatically fall as
   overflow-x: hidden;
 }
 
-#jysnztymak .gt_column_spanner_outer {
+#aizdlcievn .gt_column_spanner_outer {
   color: #333333;
   background-color: #FDFFEE;
   font-size: 100%;
@@ -836,15 +835,15 @@ fall relative to other areas, then the housing target will automatically fall as
   padding-right: 4px;
 }
 
-#jysnztymak .gt_column_spanner_outer:first-child {
+#aizdlcievn .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#jysnztymak .gt_column_spanner_outer:last-child {
+#aizdlcievn .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#jysnztymak .gt_column_spanner {
+#aizdlcievn .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -856,11 +855,11 @@ fall relative to other areas, then the housing target will automatically fall as
   width: 100%;
 }
 
-#jysnztymak .gt_spanner_row {
+#aizdlcievn .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#jysnztymak .gt_group_heading {
+#aizdlcievn .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -886,7 +885,7 @@ fall relative to other areas, then the housing target will automatically fall as
   text-align: left;
 }
 
-#jysnztymak .gt_empty_group_heading {
+#aizdlcievn .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FDFFEE;
@@ -901,15 +900,15 @@ fall relative to other areas, then the housing target will automatically fall as
   vertical-align: middle;
 }
 
-#jysnztymak .gt_from_md > :first-child {
+#aizdlcievn .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#jysnztymak .gt_from_md > :last-child {
+#aizdlcievn .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#jysnztymak .gt_row {
+#aizdlcievn .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -928,7 +927,7 @@ fall relative to other areas, then the housing target will automatically fall as
   overflow-x: hidden;
 }
 
-#jysnztymak .gt_stub {
+#aizdlcievn .gt_stub {
   color: #333333;
   background-color: #FDFFEE;
   font-size: 100%;
@@ -941,7 +940,7 @@ fall relative to other areas, then the housing target will automatically fall as
   padding-right: 5px;
 }
 
-#jysnztymak .gt_stub_row_group {
+#aizdlcievn .gt_stub_row_group {
   color: #333333;
   background-color: #FDFFEE;
   font-size: 100%;
@@ -955,15 +954,15 @@ fall relative to other areas, then the housing target will automatically fall as
   vertical-align: top;
 }
 
-#jysnztymak .gt_row_group_first td {
+#aizdlcievn .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#jysnztymak .gt_row_group_first th {
+#aizdlcievn .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#jysnztymak .gt_summary_row {
+#aizdlcievn .gt_summary_row {
   color: #333333;
   background-color: #FDFFEE;
   text-transform: inherit;
@@ -973,16 +972,16 @@ fall relative to other areas, then the housing target will automatically fall as
   padding-right: 5px;
 }
 
-#jysnztymak .gt_first_summary_row {
+#aizdlcievn .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#jysnztymak .gt_first_summary_row.thick {
+#aizdlcievn .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#jysnztymak .gt_last_summary_row {
+#aizdlcievn .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -992,7 +991,7 @@ fall relative to other areas, then the housing target will automatically fall as
   border-bottom-color: #D3D3D3;
 }
 
-#jysnztymak .gt_grand_summary_row {
+#aizdlcievn .gt_grand_summary_row {
   color: #333333;
   background-color: #FDFFEE;
   text-transform: inherit;
@@ -1002,7 +1001,7 @@ fall relative to other areas, then the housing target will automatically fall as
   padding-right: 5px;
 }
 
-#jysnztymak .gt_first_grand_summary_row {
+#aizdlcievn .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1012,7 +1011,7 @@ fall relative to other areas, then the housing target will automatically fall as
   border-top-color: #D3D3D3;
 }
 
-#jysnztymak .gt_last_grand_summary_row_top {
+#aizdlcievn .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1022,11 +1021,11 @@ fall relative to other areas, then the housing target will automatically fall as
   border-bottom-color: #D3D3D3;
 }
 
-#jysnztymak .gt_striped {
+#aizdlcievn .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#jysnztymak .gt_table_body {
+#aizdlcievn .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1035,7 +1034,7 @@ fall relative to other areas, then the housing target will automatically fall as
   border-bottom-color: #D3D3D3;
 }
 
-#jysnztymak .gt_footnotes {
+#aizdlcievn .gt_footnotes {
   color: #333333;
   background-color: #FDFFEE;
   border-bottom-style: none;
@@ -1049,7 +1048,7 @@ fall relative to other areas, then the housing target will automatically fall as
   border-right-color: #D3D3D3;
 }
 
-#jysnztymak .gt_footnote {
+#aizdlcievn .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1058,7 +1057,7 @@ fall relative to other areas, then the housing target will automatically fall as
   padding-right: 5px;
 }
 
-#jysnztymak .gt_sourcenotes {
+#aizdlcievn .gt_sourcenotes {
   color: #333333;
   background-color: #FDFFEE;
   border-bottom-style: none;
@@ -1072,7 +1071,7 @@ fall relative to other areas, then the housing target will automatically fall as
   border-right-color: #D3D3D3;
 }
 
-#jysnztymak .gt_sourcenote {
+#aizdlcievn .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1080,63 +1079,63 @@ fall relative to other areas, then the housing target will automatically fall as
   padding-right: 5px;
 }
 
-#jysnztymak .gt_left {
+#aizdlcievn .gt_left {
   text-align: left;
 }
 
-#jysnztymak .gt_center {
+#aizdlcievn .gt_center {
   text-align: center;
 }
 
-#jysnztymak .gt_right {
+#aizdlcievn .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#jysnztymak .gt_font_normal {
+#aizdlcievn .gt_font_normal {
   font-weight: normal;
 }
 
-#jysnztymak .gt_font_bold {
+#aizdlcievn .gt_font_bold {
   font-weight: bold;
 }
 
-#jysnztymak .gt_font_italic {
+#aizdlcievn .gt_font_italic {
   font-style: italic;
 }
 
-#jysnztymak .gt_super {
+#aizdlcievn .gt_super {
   font-size: 65%;
 }
 
-#jysnztymak .gt_footnote_marks {
+#aizdlcievn .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#jysnztymak .gt_asterisk {
+#aizdlcievn .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#jysnztymak .gt_indent_1 {
+#aizdlcievn .gt_indent_1 {
   text-indent: 5px;
 }
 
-#jysnztymak .gt_indent_2 {
+#aizdlcievn .gt_indent_2 {
   text-indent: 10px;
 }
 
-#jysnztymak .gt_indent_3 {
+#aizdlcievn .gt_indent_3 {
   text-indent: 15px;
 }
 
-#jysnztymak .gt_indent_4 {
+#aizdlcievn .gt_indent_4 {
   text-indent: 20px;
 }
 
-#jysnztymak .gt_indent_5 {
+#aizdlcievn .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -1153,102 +1152,102 @@ fall relative to other areas, then the housing target will automatically fall as
   <tbody class="gt_table_body">
     <tr><td headers=" " class="gt_row gt_left">Boroondara</td>
 <td headers="New zoned capacity where development is viable" class="gt_row gt_right">836,000</td>
-<td headers="Yearly new home target" class="gt_row gt_right">4,890</td>
+<td headers="Yearly new home target" class="gt_row gt_right">6,850</td>
 <td headers="Local target as a share of city-wide target" class="gt_row gt_right">12.2%</td>
 <td headers="Local target relative to other LGAs (scaled to existing population)" class="gt_row gt_right">197%</td></tr>
     <tr><td headers=" " class="gt_row gt_left">Banyule</td>
 <td headers="New zoned capacity where development is viable" class="gt_row gt_right">564,000</td>
-<td headers="Yearly new home target" class="gt_row gt_right">3,310</td>
+<td headers="Yearly new home target" class="gt_row gt_right">4,640</td>
 <td headers="Local target as a share of city-wide target" class="gt_row gt_right">8.3%</td>
 <td headers="Local target relative to other LGAs (scaled to existing population)" class="gt_row gt_right">184%</td></tr>
     <tr><td headers=" " class="gt_row gt_left">Bayside</td>
 <td headers="New zoned capacity where development is viable" class="gt_row gt_right">338,000</td>
-<td headers="Yearly new home target" class="gt_row gt_right">1,990</td>
+<td headers="Yearly new home target" class="gt_row gt_right">2,790</td>
 <td headers="Local target as a share of city-wide target" class="gt_row gt_right">5.0%</td>
 <td headers="Local target relative to other LGAs (scaled to existing population)" class="gt_row gt_right">140%</td></tr>
     <tr><td headers=" " class="gt_row gt_left">Manningham</td>
 <td headers="New zoned capacity where development is viable" class="gt_row gt_right">389,000</td>
-<td headers="Yearly new home target" class="gt_row gt_right">2,310</td>
+<td headers="Yearly new home target" class="gt_row gt_right">3,230</td>
 <td headers="Local target as a share of city-wide target" class="gt_row gt_right">5.8%</td>
 <td headers="Local target relative to other LGAs (scaled to existing population)" class="gt_row gt_right">140%</td></tr>
     <tr><td headers=" " class="gt_row gt_left">Stonnington</td>
 <td headers="New zoned capacity where development is viable" class="gt_row gt_right">459,000</td>
-<td headers="Yearly new home target" class="gt_row gt_right">2,700</td>
+<td headers="Yearly new home target" class="gt_row gt_right">3,780</td>
 <td headers="Local target as a share of city-wide target" class="gt_row gt_right">6.8%</td>
 <td headers="Local target relative to other LGAs (scaled to existing population)" class="gt_row gt_right">134%</td></tr>
     <tr><td headers=" " class="gt_row gt_left">Moonee Valley</td>
 <td headers="New zoned capacity where development is viable" class="gt_row gt_right">420,000</td>
-<td headers="Yearly new home target" class="gt_row gt_right">2,490</td>
+<td headers="Yearly new home target" class="gt_row gt_right">3,480</td>
 <td headers="Local target as a share of city-wide target" class="gt_row gt_right">6.2%</td>
 <td headers="Local target relative to other LGAs (scaled to existing population)" class="gt_row gt_right">132%</td></tr>
     <tr><td headers=" " class="gt_row gt_left">Glen Eira</td>
 <td headers="New zoned capacity where development is viable" class="gt_row gt_right">469,000</td>
-<td headers="Yearly new home target" class="gt_row gt_right">2,770</td>
+<td headers="Yearly new home target" class="gt_row gt_right">3,880</td>
 <td headers="Local target as a share of city-wide target" class="gt_row gt_right">6.9%</td>
 <td headers="Local target relative to other LGAs (scaled to existing population)" class="gt_row gt_right">125%</td></tr>
     <tr><td headers=" " class="gt_row gt_left">Whitehorse</td>
 <td headers="New zoned capacity where development is viable" class="gt_row gt_right">521,000</td>
-<td headers="Yearly new home target" class="gt_row gt_right">3,050</td>
+<td headers="Yearly new home target" class="gt_row gt_right">4,270</td>
 <td headers="Local target as a share of city-wide target" class="gt_row gt_right">7.6%</td>
 <td headers="Local target relative to other LGAs (scaled to existing population)" class="gt_row gt_right">125%</td></tr>
     <tr><td headers=" " class="gt_row gt_left">Darebin</td>
 <td headers="New zoned capacity where development is viable" class="gt_row gt_right">455,000</td>
-<td headers="Yearly new home target" class="gt_row gt_right">2,690</td>
+<td headers="Yearly new home target" class="gt_row gt_right">3,760</td>
 <td headers="Local target as a share of city-wide target" class="gt_row gt_right">6.7%</td>
 <td headers="Local target relative to other LGAs (scaled to existing population)" class="gt_row gt_right">120%</td></tr>
     <tr><td headers=" " class="gt_row gt_left">Kingston</td>
 <td headers="New zoned capacity where development is viable" class="gt_row gt_right">366,000</td>
-<td headers="Yearly new home target" class="gt_row gt_right">2,150</td>
+<td headers="Yearly new home target" class="gt_row gt_right">3,010</td>
 <td headers="Local target as a share of city-wide target" class="gt_row gt_right">5.4%</td>
 <td headers="Local target relative to other LGAs (scaled to existing population)" class="gt_row gt_right">97%</td></tr>
     <tr><td headers=" " class="gt_row gt_left">Yarra</td>
 <td headers="New zoned capacity where development is viable" class="gt_row gt_right">242,000</td>
-<td headers="Yearly new home target" class="gt_row gt_right">1,470</td>
+<td headers="Yearly new home target" class="gt_row gt_right">2,060</td>
 <td headers="Local target as a share of city-wide target" class="gt_row gt_right">3.7%</td>
 <td headers="Local target relative to other LGAs (scaled to existing population)" class="gt_row gt_right">86%</td></tr>
     <tr><td headers=" " class="gt_row gt_left">Hobsons Bay</td>
 <td headers="New zoned capacity where development is viable" class="gt_row gt_right">189,000</td>
-<td headers="Yearly new home target" class="gt_row gt_right">1,120</td>
+<td headers="Yearly new home target" class="gt_row gt_right">1,570</td>
 <td headers="Local target as a share of city-wide target" class="gt_row gt_right">2.8%</td>
 <td headers="Local target relative to other LGAs (scaled to existing population)" class="gt_row gt_right">85%</td></tr>
     <tr><td headers=" " class="gt_row gt_left">Merri-bek</td>
 <td headers="New zoned capacity where development is viable" class="gt_row gt_right">346,000</td>
-<td headers="Yearly new home target" class="gt_row gt_right">2,070</td>
+<td headers="Yearly new home target" class="gt_row gt_right">2,900</td>
 <td headers="Local target as a share of city-wide target" class="gt_row gt_right">5.2%</td>
 <td headers="Local target relative to other LGAs (scaled to existing population)" class="gt_row gt_right">78%</td></tr>
     <tr><td headers=" " class="gt_row gt_left">Monash</td>
 <td headers="New zoned capacity where development is viable" class="gt_row gt_right">325,000</td>
-<td headers="Yearly new home target" class="gt_row gt_right">1,900</td>
+<td headers="Yearly new home target" class="gt_row gt_right">2,660</td>
 <td headers="Local target as a share of city-wide target" class="gt_row gt_right">4.7%</td>
 <td headers="Local target relative to other LGAs (scaled to existing population)" class="gt_row gt_right">76%</td></tr>
     <tr><td headers=" " class="gt_row gt_left">Maroondah</td>
 <td headers="New zoned capacity where development is viable" class="gt_row gt_right">203,000</td>
-<td headers="Yearly new home target" class="gt_row gt_right">1,170</td>
+<td headers="Yearly new home target" class="gt_row gt_right">1,640</td>
 <td headers="Local target as a share of city-wide target" class="gt_row gt_right">2.9%</td>
 <td headers="Local target relative to other LGAs (scaled to existing population)" class="gt_row gt_right">75%</td></tr>
     <tr><td headers=" " class="gt_row gt_left">Port Phillip</td>
 <td headers="New zoned capacity where development is viable" class="gt_row gt_right">273,000</td>
-<td headers="Yearly new home target" class="gt_row gt_right">1,610</td>
+<td headers="Yearly new home target" class="gt_row gt_right">2,250</td>
 <td headers="Local target as a share of city-wide target" class="gt_row gt_right">4.0%</td>
 <td headers="Local target relative to other LGAs (scaled to existing population)" class="gt_row gt_right">72%</td></tr>
     <tr><td headers=" " class="gt_row gt_left">Maribyrnong</td>
 <td headers="New zoned capacity where development is viable" class="gt_row gt_right">111,000</td>
-<td headers="Yearly new home target" class="gt_row gt_right">634</td>
+<td headers="Yearly new home target" class="gt_row gt_right">888</td>
 <td headers="Local target as a share of city-wide target" class="gt_row gt_right">1.6%</td>
 <td headers="Local target relative to other LGAs (scaled to existing population)" class="gt_row gt_right">46%</td></tr>
     <tr><td headers=" " class="gt_row gt_left">Melbourne</td>
 <td headers="New zoned capacity where development is viable" class="gt_row gt_right">260,000</td>
-<td headers="Yearly new home target" class="gt_row gt_right">1,500</td>
+<td headers="Yearly new home target" class="gt_row gt_right">2,100</td>
 <td headers="Local target as a share of city-wide target" class="gt_row gt_right">3.8%</td>
 <td headers="Local target relative to other LGAs (scaled to existing population)" class="gt_row gt_right">39%</td></tr>
     <tr><td headers=" " class="gt_row gt_left">Brimbank</td>
 <td headers="New zoned capacity where development is viable" class="gt_row gt_right">30,300</td>
-<td headers="Yearly new home target" class="gt_row gt_right">177</td>
+<td headers="Yearly new home target" class="gt_row gt_right">248</td>
 <td headers="Local target as a share of city-wide target" class="gt_row gt_right">0.4%</td>
 <td headers="Local target relative to other LGAs (scaled to existing population)" class="gt_row gt_right">7%</td></tr>
     <tr><td headers=" " class="gt_row gt_left" style="font-weight: bold;">Total</td>
 <td headers="New zoned capacity where development is viable" class="gt_row gt_right" style="font-weight: bold;">6,800,000</td>
-<td headers="Yearly new home target" class="gt_row gt_right" style="font-weight: bold;">40,000</td>
+<td headers="Yearly new home target" class="gt_row gt_right" style="font-weight: bold;">56,000</td>
 <td headers="Local target as a share of city-wide target" class="gt_row gt_right" style="font-weight: bold;">-</td>
 <td headers="Local target relative to other LGAs (scaled to existing population)" class="gt_row gt_right" style="font-weight: bold;">-</td></tr>
   </tbody>

@@ -13,7 +13,7 @@ We have taken existing zoning controls, and upzoned accordingly:
 
 The effect of these changes will be to upzone much of Melbourne's land, allowing more homes to be built within existing communities. 
 
-```{rtodo}
+```{r}
 
 dwellings_by_type <- df_mel_props %>%
   group_by(category) %>% 
@@ -59,7 +59,7 @@ dwellings_by_type %>%
 
 ```
 
-```{rtodo}
+```{r}
 tbl_body  <- lga_zoning_numbers %>% 
   select(` ` = lga_name_2022,
          `Current zoned capacity` = zoned_capacity,

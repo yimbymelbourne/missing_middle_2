@@ -4,7 +4,6 @@ author: "YIMBY Melbourne"
 date: "`rtodo Sys.Date()`"
 site: bookdown::bookdown_site
 url: https://targets.yimby.melbourne/
-cover-image: images/cover.jpg
 documentclass: book
 bibliography: [book.bib, packages.bib]
 # url: https://targets.yimby.melbourne/
@@ -21,7 +20,7 @@ output:
 ---
 # Missing Middle Housing Targets
 
-```{rtodo setup, include=FALSE}
+```{r setup, include=FALSE}
 
 knitr::opts_chunk$set(message = FALSE, warning = FALSE, error = FALSE, echo = FALSE, dpi = 300,fig.width = 7, fig.height = 4)
 knitr::opts_knit$set(root.dir= '../')   
@@ -64,7 +63,7 @@ YIMBY Melbourne's missing middle reforms will introduce [fairer missing middle z
 ## Annual housing targets {.tabgroup}
 
 ### Map 
-```{rtodo,fig.height=7,fig.width = 8}
+```{r,fig.height=7,fig.width = 8}
 
 map_data <- strayr::read_absmap("lga2022") %>% 
   filter(state_name_2021 == "Victoria") %>% 
@@ -97,7 +96,7 @@ map_data%>%
 ```
 
 ### Table
-```{rtodo}
+```{r}
 
 dwellings_by_type <- df_mel_props %>%
   group_by(category) %>% 
@@ -142,3 +141,57 @@ dwellings_by_type %>%
   scale_y_continuous(labels = scales::number_format(scale_cut = cut_short_scale()))
 
 ```
+
+<!--chapter:end:index.Rmd-->
+
+
+# Missing middle upzoning 
+
+Placeholder
+
+
+## How zoning will change
+## Introducing the Missing Middle Zone
+## Stepwise upzoning for housing diversity
+## The importance of excess zoned capacity
+### Zoned capacity & housing development
+### Zoning capacity & land speculation
+
+<!--chapter:end:01-missing_middle_upzoning.Rmd-->
+
+
+# Inner-city housing targets
+
+Placeholder
+
+
+## Why Melbourne needs targets
+## Calculating targets
+## Enforcing targets
+### Carrots
+### Sticks
+## Notes on failing targets
+### Due to prevailing market conditions
+### Due to existing development controls and overlays
+
+<!--chapter:end:02-inner_city_Housing_targets.Rmd-->
+
+
+# LGA housing targets (Template)
+
+Placeholder
+
+
+## Upzoning `r area_name`  {.tabset}
+### New zoning
+### Existing zoning
+## More zoned capacity for homes in `r params$area`
+## Housing targets for `r params$area` 
+## `r area_name` is falling behind due to restrictive zoning {.tabset}
+### By number of lots
+### By total area
+### Table
+## Existing development controls 
+
+<!--chapter:end:03-LGA_housing_targets-template.Rmd-->
+

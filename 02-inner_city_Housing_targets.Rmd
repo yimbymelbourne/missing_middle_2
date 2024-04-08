@@ -1,6 +1,6 @@
 # Inner-city housing targets
 
-```{rtodo,fig.height=7,fig.width = 8}
+```{r,fig.height=7,fig.width = 8}
 
 map_data <- strayr::read_absmap("lga2022") %>% 
   filter(state_name_2021 == "Victoria") %>% 
@@ -33,7 +33,6 @@ map_data%>%
 ```
 
 
-```rtodoeplace with interactive targets map```
 
 The great majority of Victoria's new housing should be built in high-amenity and infrastructure-rich areas. These are the places where the demand for density is highest, and where that density can be supported. 
 
@@ -55,7 +54,7 @@ Put simply, Melbourne needs housing targets because it needs more housing.
 
 With the exception of the [City of Melbourne](/lga/melbourne-city), inner- and middle-ring councils are currently not doing enough to house Melbourne's future population. This has contributed to the city's high reliance on greenfield development, which has seen more and more Melburnians pushed out toward our urban fringe. 
 
-```{rtodo fig.height = 8}
+```{r fig.height = 8}
 
 pop_change_by_lga <-lga_pop_change_importer(lgas) %>% 
   filter(year == 2022)

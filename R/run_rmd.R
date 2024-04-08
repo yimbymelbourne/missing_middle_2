@@ -35,9 +35,14 @@ lgas <- c(inner_lgas,middle_lgas)
 #We want to look at all LGAs but greenfield. We really don't have a solution for Greenfield right now. 
 missing_middle_lgas <- lgas
 
+# # This renders index
+# rmarkdown::render("rmd/index.Rmd", 
+#                   output_file = paste0("../html/index.html"),clean = FALSE
+# )
+
 # This renders index
-rmarkdown::render("rmd/index.Rmd", 
-                  output_file = paste0("../html/index.html"),clean = FALSE
+rmarkdown::render("index.Rmd", 
+                  output_file = paste0("index.html"),clean = FALSE
 )
 
 
