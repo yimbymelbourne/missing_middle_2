@@ -80,6 +80,12 @@ map_data <- strayr::read_absmap("lga2022") %>%
     mutate(lga_name_2022 = if_else(lga_name_2022 == "Moreland","Merri-bek",lga_name_2022)) %>%  # Moreland changed name in 2021
   inner_join(lga_zoning_numbers) 
 
+
+if(Sys.info()[[1]] == "Linux") {ggtext_label <- 17
+line_spacing <- .2} else{
+  
+  ggtext_label <- 3
+  line_spacing <- 1}
 #devtools::install_github("yutannihilation/ggsflabel")
 map_data%>% 
   mutate(target = paste0(lga_name_2022,"\n",
@@ -91,8 +97,9 @@ map_data%>%
   geom_sf(colour = yimby_colours$green_palette[4])+
   ggthemes::theme_map()+
   ggsflabel::geom_sf_label_repel(aes(label = target ),
-                                 size = 2,
-                                 fill = yimby_colours$background)+
+                                 size = ggtext_label,
+                                 fill = yimby_colours$background,
+                                 lineheight = line_spacing)+
     labs(title = "Missing Middle Melbourne yearly housing targets",
          x = element_blank(),
          y = element_blank()) +

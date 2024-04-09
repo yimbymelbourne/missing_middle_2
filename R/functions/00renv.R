@@ -4,7 +4,7 @@
 #save packages status
 #renv::snapshot()
 #load package from save file
-renv::restore()
+#renv::restore()
 
 # RUN THESE IN CONSOLE #
 # remotes::install_github("yutannihilation/ggsflabel")
