@@ -62,7 +62,7 @@ This report aims to codify these benefits by outlining a new housing delivery pa
 
 YIMBY Melbourne's missing middle reforms will introduce [fairer missing middle zoning](#report-link), underpinned by [enforced housing targets](#report-link) for [each local council](#report-link), ensuring that abundant housing is created city-wide, and for everyone.
 
-## Key policy proposals
+## Key policy outcomes
 
 1. Upzone inner-middle Melbourne, increasing zoned capacity by `r multiplier` to `r total_zoned_capacity` homes
 2. Calculate annual housing targets for the 19 LGAs where demand for housing is highest
