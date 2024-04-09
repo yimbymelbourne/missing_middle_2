@@ -23,3 +23,7 @@
 [ ] Include tabs within bookdown
 
 [ ] I think I may have deleted a very detailed table about upzoning numbers for the 01 page, and replaced it with the summary table by mistake...
+
+[ ] Build and compile the LGA pages @jonathananolan
+
+[ ] Style LGAs in the sidebar @jonobri
