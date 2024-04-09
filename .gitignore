@@ -21,7 +21,7 @@ test/test.dbf
 test/test.prj
 test/test.shp
 test/test.shx
-.DS_Store
+*.DS_Store
 .DS_Store
 html/
 test/
