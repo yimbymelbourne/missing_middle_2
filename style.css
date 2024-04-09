@@ -40,7 +40,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-weight: 500;
+  font-weight: 600;
 }
 
 p,
@@ -69,7 +69,8 @@ a {
 }
 
 p > a,
-em > a {
+em > a,
+li > a {
   color: var(--blue-base) !important;
   text-decoration: underline !important;
   /* text-decoration-color: var(--blue-base) !important; */
