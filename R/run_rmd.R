@@ -41,10 +41,11 @@ missing_middle_lgas <- lgas
 # )
 
 # This renders index
-rmarkdown::render("index.Rmd", 
-                  output_file = paste0("index.html"),clean = FALSE
-)
+# rmarkdown::render("index.Rmd", 
+#                   output_file = paste0("index.html"),clean = FALSE
+# )
 
+bookdown::render_book()
 
 
 #filter the big dataset for a given LGA (area name) and then render the rmarkdown, saving it into the RMD folder.

@@ -7,8 +7,8 @@
 renv::restore()
 
 # RUN THESE IN CONSOLE #
-# devtools::install_github(“https://github.com/yutannihilation/ggsflabel”)
-# devtools::install_github("runapp-aus/strayr")
+# remotes::install_github("yutannihilation/ggsflabel")
+# remotes::install_github("runapp-aus/strayr")
 #                      
 
 # Several packages only needed if you run a regression have been commented out
