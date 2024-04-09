@@ -1,13 +1,25 @@
-Welcome! 
+# Housing Targets Report
 
-This is a minimal example of a book based on R Markdown and **bookdown** (https://github.com/rstudio/bookdown). 
+## Final to-do
 
-This template provides a skeleton file structure that you can edit to create your book. 
+[ ] Build clickable map in overleaf, with each region clickable, with name and annual target also present
 
-The contents inside the .Rmd files provide some pointers to help you get started, but feel free to also delete the content in each file and start fresh.
+[ ] Alter table structure and functionality:
 
-Additional resources:
+- Annual housing target column
+- Right-justify the increase
+- Make sortable by column
+- LGA names should link to their respective pages
 
-The **bookdown** book: https://bookdown.org/yihui/bookdown/
+[ ] Style the table @jonobri
 
-The **bookdown** package reference site: https://pkgs.rstudio.com/bookdown
+[ ] Number the sections in the sidebar @jonobri
+
+[ ] Carrot figures:
+
+- Total N properties upzoned
+- 4% median current value of those properties (as WGT proceeds)
+
+[ ] Include tabs within bookdown
+
+[ ] I think I may have deleted a very detailed table about upzoning numbers for the 01 page, and replaced it with the summary table by mistake...
