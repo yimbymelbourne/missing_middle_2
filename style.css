@@ -71,7 +71,8 @@ a {
 
 p > a,
 em > a,
-li > a {
+li > a,
+section.normal a {
   color: var(--blue-base) !important;
   text-decoration: underline !important;
   text-decoration-color: var(--blue-base) !important;
