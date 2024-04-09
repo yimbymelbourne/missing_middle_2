@@ -43,8 +43,8 @@ h2 {
 /* header mobile */
 @media screen and (max-width: 1000px) {
   div.book-header h1 {
-    display: inline !important;
-    font-size: 1rem !important;
+    display: flex !important;
+    font-size: 1em !important;
   }
 }
 
