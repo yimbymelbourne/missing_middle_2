@@ -39,12 +39,17 @@ yimby_colours$light_dark <- c(yimby_colours$green_palette[1],
                               yimby_colours$blue_palette[1],
                               yimby_colours$blue_palette[3])
 
+
+computer_type <- Sys.info()[[1]]
+
 theme_yimby_mel_caption <- function(caption_text = " ",
                              plot_type = "bar",
                              colour_scale = "complementary",
                              text_size = "big"){
   
   if(text_size == "big") {font_size = 70;  pic_height = 50  } else {font_size = 12;  pic_height = 20}
+  
+  if(computer_type == 'Linux'){font_size = 70}
   
   update_geom_defaults("bar",  list(fill = yimby_colours$green_palette[1], colour = yimby_colours$green_palette[1]))
   update_geom_defaults("col",  list(fill = yimby_colours$green_palette[1], colour = yimby_colours$green_palette[1]))

@@ -21,6 +21,10 @@ body {
   font-family: "Inter", sans-serif;
 }
 
+.book {
+  background-color: var(--background-color);
+}
+
 h1,
 h2,
 h3,
@@ -28,8 +32,27 @@ h4,
 h5,
 h6 {
   font-family: "Inter Tight", sans-serif;
-  font-weight: 700;
   color: var(--hero-color);
+}
+
+h1,
+h2 {
+  font-weight: 700;
+}
+
+/* header mobile */
+@media screen and (max-width: 1000px) {
+  div.book-header h1 {
+    display: flex !important;
+    font-size: 1em !important;
+  }
+}
+
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 600;
 }
 
 p,
@@ -58,9 +81,11 @@ a {
 }
 
 p > a,
-em > a {
+em > a,
+section.normal li > a {
   color: var(--blue-base) !important;
-  /* text-decoration-color: var(--blue-base) !important; */
+  text-decoration: underline !important;
+  text-decoration-color: var(--blue-base) !important;
 }
 
 a:hover {

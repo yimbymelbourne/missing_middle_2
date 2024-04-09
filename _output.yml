@@ -7,7 +7,7 @@ bookdown::gitbook:
         <li><a class='sidebar-title-text' href="/">Missing Middle<br>Housing Targets</a></li>
       after: |
         <li><a href="https://github.com/rstudio/bookdown" target="blank">Place logo here</a></li>
-    download: ["pdf"]
+    download: null
     sharing:
       facebook: false
       twitter: false
