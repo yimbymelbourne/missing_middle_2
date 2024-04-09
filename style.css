@@ -47,7 +47,6 @@ p,
 li,
 a {
   font-family: "Inter", sans-serif;
-  color: var(--blue-base);
 }
 
 .book .book-header,
@@ -71,9 +70,7 @@ a {
 
 p > a,
 em > a,
-li > a,
-section.normal a,
-.book .book-body .page-wrapper .page-inner section.normal a {
+li > a {
   color: var(--blue-base) !important;
   text-decoration: underline !important;
   text-decoration-color: var(--blue-base) !important;
