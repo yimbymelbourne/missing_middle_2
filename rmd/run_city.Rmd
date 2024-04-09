@@ -328,7 +328,6 @@ dwellings_by_type %>%
 
 
 ```{r}
-library(kableExtra)
 library(gt)
 
 dwellings_by_type_w_heritage <- df_lga_useful_props %>%

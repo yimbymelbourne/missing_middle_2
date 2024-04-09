@@ -9,32 +9,35 @@ renv::restore()
 # RUN THESE IN CONSOLE #
 # devtools::install_github(“https://github.com/yutannihilation/ggsflabel”)
 # devtools::install_github("runapp-aus/strayr")
-#                      #
+#                      
 
-library(DBI)
-library(RPostgres)
+# Several packages only needed if you run a regression have been commented out
+# You don't need these packages because we're loading the regression outputs from an AWS file instead to make it quicker for everybody. 
+
+#library(DBI)
+#library(RPostgres)
 library(sf)
 library(tidyverse)
 library(httr)
-library(jsonlite)
+#library(jsonlite)
 library(leaflet)
-library(furrr)
+#library(furrr)
 library(strayr)
 library(showtext)
 library(ggtext)
 library(scales)
 library(gt)
 library(ggridges)
-library(aws.s3)
+#library(aws.s3)
 library(dtplyr)
-library(fixest)
-library(readabs)
+#library(fixest)
+#library(readabs)
 library(janitor)
-library(datawizard)
+#library(datawizard)
 library(ggsflabel)
 library(qs)
 library(ggthemes)
-library(kableExtra)
+#library(kableExtra)
 library(bookdown)
 
 if(Sys.info()[7] == "jonathannolan1") {

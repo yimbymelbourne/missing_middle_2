@@ -33,3 +33,5 @@ data/walkability_by_node.parquet
 .DS_Store
 .RDataTmp
 bookdown/_book
+/_book
+/_main_files
