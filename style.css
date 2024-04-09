@@ -21,6 +21,10 @@ body {
   font-family: "Inter", sans-serif;
 }
 
+.book {
+  background-color: var(--background-color);
+}
+
 h1,
 h2,
 h3,
