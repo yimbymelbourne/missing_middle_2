@@ -158,7 +158,7 @@ Targets should be tracked consistently through a combination of development and 
 
 Existing heritage, neighbourhood character, and design and development overlays in place over large swathes of our inner-suburbs should not be an excuse for councils to miss their housing targets. Councils with far-reaching overlays will need to consider how best to achieve their housing targets against the tradeoffs associated with maintaining high opportunity-cost overlays.
 
-If heritage is a barrier to growth then `rtodo area_name` has three options:
+If heritage is a barrier to growth within a given LGA, then that LGA has four options:
 
 1. Adjust heritage controls to allow more density on heritage and character land
 2. Remove controls from properties of low heritage or character value
