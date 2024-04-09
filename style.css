@@ -40,6 +40,13 @@ h2 {
   font-weight: 700;
 }
 
+/* header mobile */
+@media screen and (max-width: 768px) {
+  .book-header h1 {
+    font-size: 0.5em;
+  }
+}
+
 h3,
 h4,
 h5,
