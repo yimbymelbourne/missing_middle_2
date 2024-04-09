@@ -106,47 +106,34 @@ map_data%>%
 
 ### Table
 ```{r}
+tbl_body  <- lga_zoning_numbers %>% 
+  select(` ` = lga_name_2022,
+         `Current zoned capacity` = zoned_capacity,
+         #`(Excluding heritage)` = zoned_capacity_heritage,
+         `New zoned capacity under Missing Middle` = mm_zoned_capacity,
+         `Increase in zoned capacity` = change_to_zoned_capacity) %>% 
+  arrange(desc(`Increase in zoned capacity` ))
 
-dwellings_by_type <- df_mel_props %>%
-  group_by(category) %>% 
-  summarise(n = n(),
-            lot_size = sum(lot_size),
-            .groups = "drop") %>% 
-  group_by(category) %>% 
-  mutate(n_total = sum(n),
-         lot_size_total = sum(lot_size))  %>% 
-  ungroup() %>%
-  mutate(zone_type = "Existing zoning")
-
-dwellings_by_mm_type <- df_mel_props %>%
-  group_by(category_new) %>% 
-  summarise(n = n(),
-            lot_size = sum(lot_size),
-            .groups = "drop") %>% 
-  group_by(category_new) %>% 
-  mutate(n_total = sum(n),
-         lot_size_total = sum(lot_size))  %>% 
-  ungroup() %>%
-  mutate(zone_type = "YIMBY Melbourne Zoning") %>%
-  rename(category = category_new)
-
-library(scales)
-
-dwellings_by_type %>% 
-  bind_rows(dwellings_by_mm_type) %>% 
-  ungroup() %>%
-    mutate(category = fct_relevel(category,"Low density residential")) %>% 
-  filter(!(category %in% c("Housing not permitted","Civic use makes development less likely","Already developed"))) %>% 
-  ggplot(aes(x = category, 
-             y = n))+
-  coord_flip()+ 
-  geom_bar(stat = "identity")+
-  theme_yimby_mel_caption(text_size = "small",plot_type = "bar",colour_scale = "light_dark") +
-  labs(x = element_blank(),
-       title = paste0("Building heights on Melbourne's residential properties"),
-       y = "Number of properties",
-       fill = "Heritage status") +
-  facet_wrap(~zone_type) +
-  scale_y_continuous(labels = scales::number_format(scale_cut = cut_short_scale()))
-
+total = tbl_body %>% 
+  summarise(`Current zoned capacity` = sum(`Current zoned capacity`),
+            `New zoned capacity under Missing Middle` = sum(`New zoned capacity under Missing Middle`)) %>% 
+  mutate(`Increase in zoned capacity` = `New zoned capacity under Missing Middle`/`Current zoned capacity`,
+         ` ` = "Total")
+tbl_body %>%
+  bind_rows(total) %>% 
+  mutate( `Increase in zoned capacity` = paste0(round(`Increase in zoned capacity`,1),"x")) %>% 
+  gt() %>% 
+  fmt_number(c(`Current zoned capacity`,
+               `New zoned capacity under Missing Middle`),n_sigfig = 3) %>% 
+tab_options(
+    table.background.color = yimby_colours$background# Change "lightblue" to any color you prefer
+  ) %>% 
+    tab_style(
+    style = list(
+      cell_text(weight = "bold")
+    ),
+    locations = cells_body(
+      rows = everything() %>% tail(1)
+    )
+  )
 ```
