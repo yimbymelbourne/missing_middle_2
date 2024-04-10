@@ -1,16 +1,19 @@
-# Banyule
-
 ```{r run-all-banyule-code}
 area_name <- "Banyule"
 lga_level_data <- run_for_area(area_name)
 
 ```
+# `r area_name`
 
-In `r lga_level_data$area_name`, `r lga_level_data$mm_number` lots would be upzoned to the Missing Middle Zone (MMZ), enabling six-storey medium-density near all transit. A further `r lga_level_data$rgz_number` properties will be rezoned from General Residential Zone (GRZ) to Residential Growth (RGZ), and `r lga_level_data$grz_number` from Neighbourhood Residential Zone (NRZ) to GRZ. 
+**Table with figures**
 
-Broad upzoning is needed across existing suburbs so that there is more land available to build homes for our children to live in. If only a few select areas are rezoned, then developers will be able to buy up that land and withhold supply. Broad upzoning of land across inner-Melbourne removes any power developers may have to speculate, and lowers housing costs for all.
+```{r}
+lga_level_data$mm_zoning_map
+```
 
-## Upzoning `r lga_level_data$area_name`  {.tabset}
+## Upzoning Banyule
+
+
 
 The answer to the housing supply shortage will not be found in this handful of designated activity centres and precincts. `r lga_level_data$area_name` needs to do its bit by delivering beautiful mid-rise homes near every one of its train and tram stops. 
 
@@ -28,18 +31,6 @@ Broad upzoning is needed across existing suburbs so that there is more land avai
 
 
 ### New zoning
-
-```{r}
-lga_level_data$mm_zoning_map 
-```
-
-
-### Existing zoning
-
-```{r}
-lga_level_data$existing_zoning_map
-
-```
 
 ## More zoned capacity for homes in `r lga_level_data$area_name`  
 
@@ -71,6 +62,13 @@ To contribute its fair share to the the statewide target of 80,000 new homes per
 
 
 ## `r lga_level_data$area_name` is falling behind due to restrictive zoning {.tabset}
+
+### Existing zoning
+
+```{r}
+lga_level_data$existing_zoning_map
+
+```
 
 `r lga_level_data$area_name` needs the missing middle rezoning, because under current zoning the LGA is not keeping up with population growth. 
 
