@@ -32,7 +32,7 @@ lga_level_data$mm_zoning_map
 
 ## More homes in `r lga_level_data$area_name`  
 
-The answer to the housing supply shortage will not be found in this handful of designated activity centres and precincts. `r lga_level_data$area_name` needs to do its bit by delivering beautiful mid-rise homes near every one of its train and tram stops. 
+The answer to the housing supply shortage will not be found in a handful of designated activity centres and precincts. `r lga_level_data$area_name` needs to do its bit by delivering beautiful mid-rise homes near every one of its public transit stops. 
 
 Through broad transit-oriented upzoning and development, `r area_name` can deliver housing abundance and provide more housing choices to all current and future residents across the entirety of the city. This will fulfil the original goal of Plan Melbourne creating a vast array of 20-minute neighbourhoods, rather than a small number of scattered activity centres.
 
@@ -68,24 +68,25 @@ Based off our data, in order to contribute its fair share to the the statewide t
 
 ## Planning barriers
 
-### Restrictive zoning
+`r lga_level_data$text_on_growth` While there has been some housing construction, more homes have empty bedrooms as the population ages and children move out of home. As such, the total number of homes is struggling to keep up with Melbourne's evolving housing needs. 
+
+The biggest thing holding back `r lga_level_data$area_name` is restrictive zoning. Here is the current zoning map for `r lga_level_data$area_name`:
 
 ```{r}
 lga_level_data$existing_zoning_map
 
 ```
 
-`r lga_level_data$area_name` needs the missing middle rezoning, because under current zoning the LGA is not keeping up with population growth. 
+As a result of this restrictive zoning, `r lga_level_data$area_name` is not building enough homes to keep up with Melbourne's growth:
 
 ```{r}
 lga_level_data$ggplot_on_growth
 ```
 
-`r lga_level_data$text_on_growth` While there has been some housing construction, many homes have more bedrooms free than ever before as children move out of home. As such, the total number of homes is struggling to keep up with Melbourne's evolving housing needs. 
 
-Increasing zoned capacity in `r lga_level_data$area_name` by `r lga_level_data$zoned_capacity_x`, with a focus on density around transport hubs, enables more homes to be built where people want to live, and supports the needs of Melburnians both current and future. 
+Increasing zoned capacity in `r lga_level_data$area_name` by `r lga_level_data$zoned_capacity_x`, with a focus on density around transport hubs, will enable more homes to be built where people want to live.
 
-### Development controls 
+### Heritage should not be a barrier to housing abundance
 
 Of the `r lga_level_data$profitable_units` potentially profitable apartments that could be built in `r lga_level_data$area_name`, `r lga_level_data$heritage_no` of these potential future homes are on lots subject to heritage controls. 
 

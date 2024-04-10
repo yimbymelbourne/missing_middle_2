@@ -1,4 +1,4 @@
-# Inner-city housing targets
+# Missing Middle housing targets
 
 ```{r,fig.height=7,fig.width = 8}
 
@@ -21,8 +21,7 @@ map_data%>%
   ggsflabel::geom_sf_label_repel(aes(label = target ),
                                  size = 2,
                                  fill = yimby_colours$background)+
-    labs(title = "Missing Middle Melbourne yearly housing targets",
-         x = element_blank(),
+    labs(x = element_blank(),
          y = element_blank()) +
   theme_yimby_mel_caption(text_size = "small",plot_type = "map")+
   theme(plot.margin = margin(2, 15,2, 15))+
@@ -50,7 +49,7 @@ More housing could potentially be provided in these LGAs through rezoning of wel
 
 ## Why Melbourne needs targets
 
-Put simply, Melbourne needs housing targets because it needs more housing.
+Melbourne needs housing targets because it needs more housing.
 
 With the exception of the [City of Melbourne](/lga/melbourne-city), inner- and middle-ring councils are currently not doing enough to house Melbourne's future population. This has contributed to the city's high reliance on greenfield development, which has seen more and more Melburnians pushed out toward our urban fringe. 
 
@@ -80,13 +79,8 @@ pop_change_by_lga %>%
   geom_hline(yintercept = 0)
 ```
 
-The land use patterns that our city needs—dense housing in high-amenity areas, within highly walkable neighbourhoods—are largely absent. That is because, broadly, it is banned from being built. As such, the best way to increase density across our city is to legalise density across our city. 
+The land use patterns that our city needs—dense housing in high-amenity areas, within highly walkable neighbourhoods—are largely absent. That is because, broadly, it is banned from being built. The best way to increase density across our city is to legalise density across our city. 
 
-Melbourne's Missing Middle Housing Targets should be updated by the government every year, and if apartment prices fall relative to other areas, then the housing target will automatically fall as it will become clear that development is no longer profitable in that area.
-
-The best way for a LGA to reduce its target is to make housing cheaper. And the best way to make housing cheaper is to make it abundant. 
-
-This system of enforced housing targets is designed to create a virtuous cycle that drives down prices across the entire city, creating a more affordable and equitable Melbourne for all.
 
 ## Calculating targets
 
@@ -106,8 +100,14 @@ To do this, we have used a seven-stage methodology:
 6. The likely price of apartments sold in a development on a given lot is calculated. This uses a similar regression as above. 
 7. Profitability is calculated. For each site, the profitability of a development was calculated at various heights within Missing Middle zoning. Each site where calculated profit is greater than 0 contributes to that LGA's housing target. 
 
-Our model does not expect development to occur on every viable site. But councils with more viable sites are allocated a higher share of our total inner-Melbourne housing target of 40,000.  
+Our model does not expect development to occur on every viable site. But councils with more viable sites are allocated a higher share of our total inner-Melbourne housing target of 40,000.
 
+## Targets should be updated every year
+Melbourne's Missing Middle Housing Targets should be updated by the state government every year, and if apartment prices fall in some areas, then the housing target will automatically fall as it will become clear that development is no longer profitable in that area.
+
+The best way for a LGA to reduce its target is to make housing cheaper. And the best way to make housing cheaper is to make it abundant. 
+
+This system of enforced housing targets is designed to create a virtuous cycle that drives down prices across the entire city, creating a more affordable and equitable Melbourne for all.
 
 ## Enforcing targets
 
