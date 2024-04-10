@@ -35,48 +35,9 @@ lgas <- c(inner_lgas,middle_lgas)
 #We want to look at all LGAs but greenfield. We really don't have a solution for Greenfield right now. 
 missing_middle_lgas <- lgas
 
-# # This renders index
-# rmarkdown::render("rmd/index.Rmd", 
-#                   output_file = paste0("../html/index.html"),clean = FALSE
-# )
-
-# This renders index
-# rmarkdown::render("index.Rmd", 
-#                   output_file = paste0("index.html"),clean = FALSE
-# )
 
 bookdown::render_book()
 
-
-#filter the big dataset for a given LGA (area name) and then render the rmarkdown, saving it into the RMD folder.
-
-run_for_area <- function(area_name) {
-  print(paste0("running for ",area_name))
-# area_name = "Boroondara"
-  sf_lga_props <- sf_mel_props %>% filter(lga_name_2022 %in% area_name)
-
-  df_lga_props <- sf_lga_props %>% st_drop_geometry()
-
-  sf_lga_useful_props <- sf_lga_props %>% 
-    filter(!feature_preventing_development,
-           dwellings_est <=1,
-           zoning_permits_housing == "Housing permitted")
-
-  df_lga_useful_props <- sf_lga_useful_props %>% st_drop_geometry()
-  
-  lga_summary <- lga_zoning_numbers %>% 
-    filter(lga_name_2022 == area_name)
-
-  rmarkdown::render("rmd/run_city.Rmd", 
-                    params = list(area = area_name),
-                    output_file = paste0("../html/",area_name,".html")
-                    )
-
-                  
-}
-
-
-walk(missing_middle_lgas[!(missing_middle_lgas %in% c("Kingston (Vic.)","Bayside (Vic.)"))],run_for_area)
 
 
 
