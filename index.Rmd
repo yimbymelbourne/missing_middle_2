@@ -114,7 +114,7 @@ map_data%>%
 ### Table
 ```{r}
 tbl_body  <- lga_zoning_numbers %>% 
-  select(` ` = lga_name_2022,
+  select(`Council` = lga_name_2022,
          `Current zoned capacity` = zoned_capacity,
          #`(Excluding heritage)` = zoned_capacity_heritage,
          `New zoned capacity under Missing Middle` = mm_zoned_capacity,
@@ -125,22 +125,58 @@ total = tbl_body %>%
   summarise(`Current zoned capacity` = sum(`Current zoned capacity`),
             `New zoned capacity under Missing Middle` = sum(`New zoned capacity under Missing Middle`)) %>% 
   mutate(`Increase in zoned capacity` = `New zoned capacity under Missing Middle`/`Current zoned capacity`,
-         ` ` = "Total")
-tbl_body %>%
-  bind_rows(total) %>% 
-  mutate( `Increase in zoned capacity` = paste0(round(`Increase in zoned capacity`,1),"x")) %>% 
-  gt() %>% 
-  fmt_number(c(`Current zoned capacity`,
-               `New zoned capacity under Missing Middle`),n_sigfig = 3) %>% 
-tab_options(
-    table.background.color = yimby_colours$background# Change "lightblue" to any color you prefer
-  ) %>% 
-    tab_style(
-    style = list(
-      cell_text(weight = "bold")
-    ),
-    locations = cells_body(
-      rows = everything() %>% tail(1)
-    )
-  )
+         `Council` = "Total")
+
+# tbl_body %>%
+#  mutate( `Increase in zoned capacity` = paste0(round(`Increase in zoned capacity`,1),"x")) %>% 
+#  gt() %>% 
+#  fmt_number(c(`Current zoned capacity`,
+#               `New zoned capacity under Missing Middle`),n_sigfig = 3) %>% 
+#  summary_rows(total) %>%
+#tab_options(
+#    table.background.color = yimby_colours$background, # Change "lightblue" to any color you prefer
+#    table.align = "right",
+#    ihtml.active = TRUE,
+#    ihtml.use_sorting = TRUE,
+#    ihtml.use_pagination = FALSE,
+#    ihtml.use_pagination_info = FALSE,
+#  ) %>% 
+#    tab_style(
+#    style = list(
+#      cell_text(weight = "bold")
+#    ),
+#    locations = cells_body(
+#      rows = everything() %>% tail(1)
+#    )
+#  )
+```
+
+```{r}
+
+# TODO: format the numbers please
+
+total = tbl_body %>% 
+  summarise(`Current zoned capacity` = sum(`Current zoned capacity`),
+            `New zoned capacity under Missing Middle` = sum(`New zoned capacity under Missing Middle`)) %>% 
+  mutate(`Increase in zoned capacity` = `New zoned capacity under Missing Middle`/`Current zoned capacity`,
+         `Council` = "Total")
+
+test_footer <- matrix(0, nrow=1, ncol=4)
+colnames(test_footer) <- c('Total', total[1, 1], total[1, 2], total[1, 3])
+
+summary_table = htmltools::withTags(table(
+  id="summary-table",
+  tableHeader(tbl_body),
+  tableFooter(test_footer)
+))
+
+datatable(
+  tbl_body,
+  container = summary_table,
+  options = list(dom = 't',
+                 pageLength = 20
+                 ),
+  rownames = FALSE
+)
+
 ```

@@ -188,3 +188,13 @@ div.book-header.fixed > h1 {
 #header {
   display: none;
 }
+
+table {
+  border: 2px solid #000;
+}
+
+tr, tr.odd, tr.even {
+  border: 1px solid #000 !important;
+}
+
+

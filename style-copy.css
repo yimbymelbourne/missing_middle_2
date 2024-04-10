@@ -1,0 +1,191 @@
+/* Base colors */
+:root {
+  --hero-color: #10461b;
+  --body-text-color: #000000;
+  --background-color: #fdffee;
+  --green-base: #10461b;
+  --blue-base: #283696; 
+  --red-base: #ba1b21;
+  --yellow-base: #f6ae00;
+}
+
+/* Typography */
+@import url("//fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,100..900;1,100..900&family=Inter:wght@100..900&display=swap");
+@import url("//fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap");
+
+body {
+  color: var(--body-text-color);
+  background-color: var(--background-color);
+  font-size: 16pt;
+  font-weight: 400;
+  font-family: "Inter", sans-serif;
+}
+
+.book {
+  background-color: var(--background-color);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Inter Tight", sans-serif;
+  color: var(--hero-color);
+}
+
+h1,
+h2 {
+  font-weight: 700;
+}
+
+/* header mobile */
+@media screen and (max-width: 1000px) {
+  div.book-header h1 {
+    display: flex !important;
+    font-size: 1em !important;
+  }
+}
+
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 600;
+}
+
+p,
+li,
+a {
+  font-family: "Inter", sans-serif;
+}
+
+.book .book-header,
+.book .book-summary {
+  font-family: "Inter Tight", sans-serif;
+  font-weight: 500;
+}
+
+.sidebar-title-text {
+  font-size: 1.2em;
+  font-weight: 700;
+  color: var(--hero-color);
+}
+
+.summary > .chapter {
+  /* Your styles here */
+  font-weight: 600;
+  font-size: 1.1em;
+  color: #333;
+}
+
+p > a,
+em > a,
+section.normal li > a {
+  color: var(--blue-base) !important;
+  text-decoration: underline !important;
+  text-decoration-color: var(--blue-base) !important;
+}
+
+a:hover {
+  /* Your styles here */
+  color: var(--yellow-base) !important;
+}
+
+li.active > a {
+  /* Your styles here */
+  color: var(--red-base) !important;
+}
+
+/* Reset nested list item styles */
+.summary > .chapter > ul > li {
+  font-weight: 500;
+  font-size: 1em;
+  color: inherit;
+}
+
+p.caption {
+  color: #777;
+  margin-top: 10px;
+}
+p code {
+  white-space: inherit;
+}
+pre {
+  word-break: normal;
+  word-wrap: normal;
+}
+pre code {
+  white-space: inherit;
+}
+
+/* bg */
+
+.body-inner,
+.book .book-body .page-wrapper .page-inner section {
+  background: var(--background-color);
+}
+
+.book-summary {
+  background: var(--background-color) !important;
+  border-right: 2px solid #000 !important;
+}
+
+/* Sidebar formatting */
+
+/* Change the font size and font family of the sidebar text */
+.book .book-summary .chapter a {
+  font-size: 14px; /* Adjust the value to your desired font size */
+  font-family: "Inter", sans-serif; /* Replace with your preferred font family */
+}
+
+/* Change the color of the sidebar text */
+.book .book-summary .chapter a {
+  color: #10461b; /* You can adjust the color value as desired */
+}
+
+/* Change the color of the sidebar text on hover */
+.book .book-summary .chapter a:hover {
+  color: #283696; /* You can adjust the color value as desired */
+}
+
+.book .book-summary ul.summary li.divider {
+  height: 2px;
+  background: #000;
+}
+
+/* Header formatting */
+
+div.book-header.fixed {
+  background-color: var(--background-color) !important;
+  color: var(--hero-color) !important;
+  border-bottom: 2px solid #000 !important;
+}
+
+a.btn {
+  color: var(--green-base) !important;
+}
+
+a.btn:hover {
+  color: var(--yellow-base) !important;
+}
+
+div.book-header.fixed > h1 {
+  color: var(--hero-color) !important;
+  opacity: 1 !important;
+  font-weight: 700 !important;
+}
+
+/* navigation */
+.navigation > i {
+  color: #000;
+}
+
+.navigation > i:hover {
+  color: var(--yellow-base);
+}
+
+#header {
+  display: none;
+}

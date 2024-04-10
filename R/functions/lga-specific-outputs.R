@@ -4,6 +4,8 @@ run_for_area <- function(area_name) {
   #print(paste0("running for ",area_name))
   # area_name = "Banyule"
   output <-ls()
+  output$area_name <- area_name
+  
   sf_lga_props <- sf_mel_props %>% filter(lga_name_2022 %in% area_name)
   
   df_lga_props <- sf_lga_props %>% st_drop_geometry()
@@ -22,7 +24,7 @@ run_for_area <- function(area_name) {
   # knitr::opts_chunk$set(message = FALSE, warning = FALSE, error = FALSE, echo = FALSE, dpi = 300,fig.width = 7, fig.height = 4)
   # knitr::opts_knit$set(root.dir= '../')   
   
-  parcels <- prettyNum(nrow(df_lga_props),big.mark = ",")
+  output$parcels <- prettyNum(nrow(df_lga_props),big.mark = ",")
   
   output$fois <- df_lga_props %>% 
     filter(feature_preventing_development) %>% 

@@ -1,0 +1,120 @@
+# Banyule
+
+```{r run-all-banyule-code}
+area_name <- "Banyule"
+lga_level_data <- run_for_area(area_name)
+
+```
+
+In `r lga_level_data$area_name`, `r lga_level_data$mm_number` lots would be upzoned to the Missing Middle Zone (MMZ), enabling six-storey medium-density near all transit. A further `r lga_level_data$rgz_number` properties will be rezoned from General Residential Zone (GRZ) to Residential Growth (RGZ), and `r lga_level_data$grz_number` from Neighbourhood Residential Zone (NRZ) to GRZ. 
+
+Broad upzoning is needed across existing suburbs so that there is more land available to build homes for our children to live in. If only a few select areas are rezoned, then developers will be able to buy up that land and withhold supply. Broad upzoning of land across inner-Melbourne removes any power developers may have to speculate, and lowers housing costs for all.
+
+## Upzoning `r lga_level_data$area_name`  {.tabset}
+
+The answer to the housing supply shortage will not be found in this handful of designated activity centres and precincts. `r lga_level_data$area_name` needs to do its bit by delivering beautiful mid-rise homes near every one of its train and tram stops. 
+
+Through broad transit-oriented upzoning and development, `r area_name` can deliver housing abundance and provide more housing choices to all current and future residents across the entirety of the city. This will fulfil the original goal of Plan Melbourne creating a vast array of 20-minute neighbourhoods, rather than a small number of scattered activity centres.
+
+In `r area_name` missing middle upzoning will have the following effect:
+
+* `r lga_level_data$mm_number` lots would be upzoned to the Missing Middle Zone (MMZ), enabling 6 storeys near all tram stops and train stations
+
+*  `r lga_level_data$rgz_number` properties will be rezoned from General Residential Zone (GRZ) to Residential Growth (RGZ), enabling 4 storeys where 3 is currently permitted
+
+*  `r lga_level_data$grz_number` from Neighbourhood Residential Zone (NRZ) to GRZ, enabling 3 storeys where 2 is currently permitted
+
+Broad upzoning is needed across existing suburbs so that there is more land available to build homes for our children to live in. If only a few select areas are rezoned, then developers will be able to buy up that land and withhold supply. Broad upzoning of land across inner-Melbourne removes any power developers may have to speculate, and lowers housing costs for all.
+
+
+### New zoning
+
+```{r}
+lga_level_data$mm_zoning_map 
+```
+
+
+### Existing zoning
+
+```{r}
+lga_level_data$existing_zoning_map
+
+```
+
+## More zoned capacity for homes in `r lga_level_data$area_name`  
+
+
+There are `r lga_level_data$parcels` parcels of land in `r lga_level_data$area_name`. But not every piece of land can have housing on it. Of these parcels: 
+
+* `r lga_level_data$fois` are on civic land like schools, hospitals, or train stations where development is challenging. 
+
+* Another `r lga_level_data$bad_zoning` are in zones that do not allow housing to be built. 
+
+* Finally `r lga_level_data$already_developed` lots have already been developed with more than 1 unit, making re-development difficult. 
+
+That leaves `r lga_level_data$df_lga_useful_props_num` parcels that are available for development. The size of these lots is `r lga_level_data$all_lots_size` square meters, or `r lga_level_data$mcgs_of_space` MCGs worth of space to build dense housing. 
+
+Under existing zoning, `r lga_level_data$area_name` has an estimated zoned capacity of `r lga_level_data$existing_zoned_capacity`. 
+
+YIMBY Melbourne's plan for `r lga_level_data$area_name` increases its zoned capacity by `r lga_level_data$zoned_capacity_x`, to `r lga_level_data$mm_zoned_capacity` — enabling many more opportunities for dense housing to be built across the entire city.
+
+
+## Housing targets for `r lga_level_data$area_name`  
+
+Even though there are `r lga_level_data$mm_zoned_capacity` possible units that could be built in `r lga_level_data$area_name`, it's impossible for them to be built all at once. It is also not reasonable to assume that all possible units will ever be built, which is [The importance of excess zoned capacity]. 
+
+For each lot in `r area_name`, we calculated whether it would be profitable to build housing under upzoning. We estimate that a potential __`r lga_level_data$profitable_units` units__ could be built profitably in `r area_name`. 
+
+To contribute its fair share to the the statewide target of 80,000 new homes per year, `r area_name` must build  **`r lga_level_data$mm_target` units** per year.^1^ 
+
+*^1^ This figure is in addition to homes that would be built as part of any rezoning process such as through Fishermans' Bend or the Suburban Rail Loop precincts.*
+
+
+## `r lga_level_data$area_name` is falling behind due to restrictive zoning {.tabset}
+
+`r lga_level_data$area_name` needs the missing middle rezoning, because under current zoning the LGA is not keeping up with population growth. 
+
+While there has been some housing construction, many homes have more bedrooms free than ever before as children move out of home. As such, the total number of homes is struggling to keep up with Melbourne's evolving housing needs. 
+
+`r lga_level_data$text_on_growth`. Covid has reduced ABS estimates of population in many Missing Middle suburbs, but the need for people be able to leave share-houses and work from home only makes the need to create more housing more urgent. `r lga_level_data$area_name` has good public transport running through it, and it needs to do more to ensure that housing is abundant around this infrastructure. 
+
+```{r}
+lga_level_data$ggplot_on_growth
+```
+
+The reason `r lga_level_data$area_name` is not building enough housing is because there are not enough areas where housing can be built. The graph below shows that the majority of land in `r area_name` is locked away, preventing "Missing Middle" density from being unlocked.
+
+### By number of lots
+
+```{r}
+
+lga_level_data$current_zoning_bar_chart
+
+```
+
+### By total area
+
+```{r banyule-by-area}
+lga_level_data$current_zoning_bar_chart_by_area
+
+```
+
+### Table
+```{r banyule-table}
+
+lga_level_data$dwellings_by_type_table
+```
+
+## Existing development controls 
+
+
+
+Of the `r lga_level_data$profitable_units` potentially profitable apartments that could be built in `r lga_level_data$area_name`, `r lga_level_data$heritage_no` of these potential future homes are on lots subject to heritage controls. 
+
+If heritage and neighbourhood character protections in `r lga_level_data$area_name` are too far-reaching, it could potentially affect `r lga_level_data$area_name`'s ability to meet its housing targets. 
+
+We have outlined potential remedies for this [earlier in the report](#report-link).
+
+[Return to LGA list](#report-link)
+
+**An image here should end the article.**
