@@ -97,7 +97,7 @@ change_ratio <- lga_change/mel_change
 
 ## TODO - get PT stops per LGA. 
 
-text_on_growth <- case_when(change_ratio >.9 ~ paste0(area_name, " has been building housing, but cannot rest on its laurels."),
+output$text_on_growth <- case_when(change_ratio >.9 ~ paste0(area_name, " has been building housing, but cannot rest on its laurels."),
                             change_ratio >.7 ~ paste0(area_name, " has been building some housing, but it is still barely keeping up with the average for Melbourne."),
                             T ~ paste0(area_name, " is falling well behind the average for new housing in Melbourne.")
 )
