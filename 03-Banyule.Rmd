@@ -59,26 +59,18 @@ Through broad transit-oriented upzoning and development, `r area_name` can deliv
 In `r area_name` missing middle upzoning will have the following effect:
 
 ```{r}
+options(scipen=999)
 
-total_lots_upzoned <- as.numeric(lga_level_data$mm_number) + as.numeric(lga_level_data$rgz_number) + as.numeric(lga_level_data$grz_number)
+total_lots_upzoned <- prettyNum(round(parse_number(lga_level_data$mm_number) + parse_number(lga_level_data$rgz_number) + parse_number(lga_level_data$grz_number)), big.mark = ",")
 
 ```
-
 
 | Height      	|  Number of lots upzoned	|
 |:-------------------------	|---:	|
 | 6 storeys 	|  `r lga_level_data$mm_number`  	|
 | 4 storeys  	|  `r lga_level_data$rgz_number` 	|
 | 3 storeys  	|  `r lga_level_data$grz_number`	|
-| **Total upzoned lots** | **`r total_lots_upzoned`**  	|
-
-
-
-* `r lga_level_data$mm_number` lots would be upzoned to the Missing Middle Zone (MMZ), enabling 6 storeys near all tram stops and train stations
-
-*  `r lga_level_data$rgz_number` properties will be rezoned from General Residential Zone (GRZ) to Residential Growth (RGZ), enabling 4 storeys where 3 is currently permitted
-
-*  `r lga_level_data$grz_number` from Neighbourhood Residential Zone (NRZ) to GRZ, enabling 3 storeys where 2 is currently permitted
+| **Total** | **`r total_lots_upzoned`**  	|
 
 Broad upzoning is needed across existing suburbs so that there is more land available to build homes for our children to live in. If only a few select areas are rezoned, then developers will be able to buy up that land and withhold supply. Broad upzoning of land across inner-Melbourne removes any power developers may have to speculate, and lowers housing costs for all.
 
@@ -94,7 +86,7 @@ Based off our data, in order to contribute its fair share to the the statewide t
 *^1^ This target should be fulfilled in addition to any construction taking place within the LGA in activity centres or other precincts under control of the state government.*
 
 
-## Planning barriers in `r lga_level_data$area_name`
+## Planning barriers
 
 ### Restrictive zoning
 
