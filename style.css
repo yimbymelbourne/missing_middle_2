@@ -189,13 +189,41 @@ div.book-header.fixed > h1 {
   display: none;
 }
 
-table {
-  border: 2px solid #000;
+/* tables */
+
+/* all */
+
+table,
+.book .book-body .page-wrapper .page-inner section.normal p > img {
+  border: 2px solid #000 !important;
 }
 
 tr, tr.odd, tr.even {
   border: 1px solid #000 !important;
 }
+
+.book .book-body .page-wrapper .page-inner section.normal table th,
+.book .book-body .page-wrapper .page-inner section.normal table td {
+  border-bottom: 1px solid #000 !important;
+}
+
+.book .book-body .page-wrapper .page-inner section.normal table tr:last-child td {
+    border-bottom-width: 0px !important;
+}
+
+/* LGA summary table */
+
+table#lga-summary {
+  font-family: "Inter Tight";
+  font-weight: 700;
+  color: var(--hero-color);
+  font-size: 2rem;
+}
+
+table#lga-summary > tbody > tr {
+  /*background-color: var(--background-color);*/
+}
+
 
 .leaflet-container {
   height: 800px !important;
