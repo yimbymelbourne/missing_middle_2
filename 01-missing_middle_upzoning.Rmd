@@ -8,7 +8,7 @@ As detailed in _[Melbourne's Missing Middle](https://yimbymelbourne.org.au/missi
 We have taken existing zoning controls, and upzoned accordingly:
 
 1. All lots within lower-density residential zones (including Neighbourhood Residential Zone (NRZ) and General Residential Zone (GRZ)) within 500m of a tram stop or 1km of a train station are rezoned to the six-storey Missing Middle Zone (MMZ).
-2. Any lot in a General Residential Zone not near trams or trains is rezoned RGZ, but parking minimums remain unless council states otherwise. 
+2. Any lot in a General Residential Zone not near trams or trains is rezoned RGZ (Residential Growth Zone), but parking minimums remain unless council states otherwise. 
 3. Any lot in a Neighbourhood Residential Zone not near trams or trains is rezoned GRZ, but parking minimums remain unless council states otherwise. 
 
 The effect of these changes will be to upzone much of Melbourne's land, allowing more homes to be built within existing communities. 
@@ -101,7 +101,7 @@ This new zone is a refinement of the existing Residential Growth Zone (RGZ), and
 
 * Implements a default maximum height of 21 metres or 6 storeys, an increase from the RGZ’s current 4-storey default.
 * Expands non-residential land uses to include a wider range of neighbourhood  services & amenities.
-* Abolish car parking minimums.
+* Abolishes car parking minimums.
 * Exempts from notice and review developments of any total value containing at least 10% public or community housing in perpetuity
 
 MMZ areas will be entirely mixed-use, and buildings across the area will be permitted by-right to include neighbourhood services and amenities, cafes, libraries, and shops on the ground floor. Off-street parking will be allowed, but thanks to the absence of parking minimums, nobody will be forced to buy a car park that they don't need. 

@@ -80,7 +80,7 @@ pop_change_by_lga %>%
   geom_hline(yintercept = 0)
 ```
 
-The land use patterns that our city needs—dense housing in high-amenity areas, within highly walkable neighbourhoods—are largely absent. That is because, broadly, it is banned from being built. As such, the best way to increase density across our city is to make density legal to build across our city. 
+The land use patterns that our city needs—dense housing in high-amenity areas, within highly walkable neighbourhoods—are largely absent. That is because, broadly, it is banned from being built. As such, the best way to increase density across our city is to legalise density across our city. 
 
 Melbourne's Missing Middle Housing Targets should be updated by the government every year, and if apartment prices fall relative to other areas, then the housing target will automatically fall as it will become clear that development is no longer profitable in that area.
 
@@ -96,7 +96,7 @@ It's common practice for planners to calculate "zoned capacity" which is the the
 
 To account for these problems, our model accounts not just for an increase in zoned capacity, but also for the viability of development in each LGA, accounting for demand, prices, and development costs. 
 
-To do this, we have used a precise seven-stage methodology: 
+To do this, we have used a seven-stage methodology: 
 
 1. Sites that are parks, schools, hospitals, or already have apartments are excluded.
 2. Potential yield for MMZ lots is calculated. Any lot zoned "Missing Middle" is considered suitable for 6 storeys of housing with high lot coverage. The potential yield of these properties is calculated based on the yield achieved by 6 storey Nightingale developments in Melbourne.
@@ -120,7 +120,7 @@ To deliver a high number of well-located homes across Melbourne requires more th
 
 LGAs who meet or exceed their housing targets should be given financial rewards by the State Government.
 
-In order to generate the revenue required for these rewards, the state should levy a Windfall Gains Tax upon the first sale of any upzoned residential property after upzoning has taken place. This tax is outlined in YIMBY Melbourne's 2023 report, [*Melbourne's Missing Middle*](https://yimby.melbourne/missing-middle), and is based on an conservative assumption that upzoning will raise a given property's value by 4%, thanks to the increased capacity for development. We propose taxing 30% of this 4% improvement.
+In order to generate the revenue required for these rewards, the state should levy a Windfall Gains Tax upon the first sale of any upzoned residential property after upzoning has taken place. This tax is outlined in YIMBY Melbourne's 2023 report, [*Melbourne's Missing Middle*](https://yimby.melbourne/missing-middle), and is based on a conservative assumption that upzoning will raise a given property's value by 4%, thanks to the increased capacity for development. We propose taxing 30% of this 4% improvement.
 
 ```MMM WGT Chart```
 
@@ -129,9 +129,6 @@ For a house worth \$1m, a 4% improvement is \$40,000. \$12,000 of that uplift sh
 A minimum of 70% of this revenue should be hypothecated to social housing builds. A portion of remaining revenue should be used to reward councils who exceed their housing targets, paid out annually and used by those councils to improve infrastructure and services for the people who live there. 
 
 This reward could be additionally supplemented through State Government distribution of the Commonwealth's New Home Bonus to the councils in which homes are built in excess of their respective targets. 
-
-Furthermore, the council rate cap should be abolished to empower councils to make more proactice decisions regarding expanding local infrastructure and services.
-
 
 ### Sticks
 
