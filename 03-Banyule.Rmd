@@ -12,10 +12,10 @@ htmltools::withTags(table(
       td(id = "lga-2", sprintf("Housing target:", lga_level_data$profitable_units)),
       td(id = "lga-1", paste0(lga_level_data$mm_target, " homes/year"))
     ),
-    tr(
-      td(id = "lga-2", "Total housing capacity:"),
-      td(id = "lga-1", lga_level_data$mm_zoned_capacity)
-    ),
+#    tr(
+#      td(id = "lga-2", "Total housing capacity:"),
+#      td(id = "lga-1", lga_level_data$mm_zoned_capacity)
+#    ),
   tr(
       td(id = "lga-2", "Land to build new housing:"),
       td(id = "lga-1", paste0(lga_level_data$mcgs_of_space, " MCGs"))
@@ -31,26 +31,6 @@ lga_level_data$mm_zoning_map
 
 
 ## More homes in `r lga_level_data$area_name`  
-
-### Available land
-
-There are `r lga_level_data$parcels` parcels of land in `r lga_level_data$area_name`. But not every piece of land can have housing on it. Of these parcels: 
-
-| Total lots                                            	|  `r lga_level_data$parcels` 	|
-|:-------------------------------------------------------	|---:	|
-| Civic land (schools, hospitals, train stations, etc.) 	|  -`r lga_level_data$fois`  	|
-| Non-housing land                                      	|  -`r lga_level_data$bad_zoning` 	|
-| Already developed (>1 home)                      	|  -`r lga_level_data$already_developed`	|
-| **Lots available for new housing**                       | **`r lga_level_data$df_lga_useful_props_num`**  	|
-
-That leaves `r lga_level_data$df_lga_useful_props_num` parcels that are available for development. The size of these lots is `r lga_level_data$all_lots_size` square meters, or `r lga_level_data$mcgs_of_space` MCGs worth of space to build dense housing. 
-
-Under existing zoning, `r lga_level_data$area_name` has an estimated zoned capacity of `r lga_level_data$existing_zoned_capacity`. 
-
-YIMBY Melbourne's plan for `r lga_level_data$area_name` increases its zoned capacity by `r lga_level_data$zoned_capacity_x`, to `r lga_level_data$mm_zoned_capacity` — enabling many more opportunities for dense housing to be built across the entire city.
-
-
-### Medium density
 
 The answer to the housing supply shortage will not be found in this handful of designated activity centres and precincts. `r lga_level_data$area_name` needs to do its bit by delivering beautiful mid-rise homes near every one of its train and tram stops. 
 
