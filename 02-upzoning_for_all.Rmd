@@ -103,7 +103,7 @@ datatable(
 
 ```
 
-## Missing Middle Zone
+## A new Missing Middle Zone
 
 ![**NOTE: Hero 1.**](../atlas/mm housing.jpeg)
 
@@ -119,7 +119,7 @@ This new zone is a refinement of the existing Residential Growth Zone (RGZ), and
 MMZ areas will be entirely mixed-use, and buildings across the area will be permitted by-right to include neighbourhood services and amenities, cafes, libraries, and shops on the ground floor. Off-street parking will be allowed, but thanks to the absence of parking minimums, nobody will be forced to buy a car park that they don't need. 
 
 
-## Upzoning across all of Melbourne
+## Upzoning Melbourne-wide
 
 Not all of Melbourne's suburbs have access to rail infrastructure but many still benefit from nearby schools, hospitals and bus routes. Local communities and businesses that aren’t as closely situated to Melbourne’s vast train and tram networks also deserve to reap the densification benefits the Missing Middle reforms will provide. 
 
@@ -135,7 +135,7 @@ Purposefully limiting zoned capacity has two key problems:
 1. it limits housing development, and
 2. it encourages land speculation.
 
-### Limiting housing development
+### Enabling housing development
 
 Under the current system, the zoned capacity of each LGA is kept only barely higher than the number of homes that need to be built. Planners do this because artificially restricting the choices of others makes their jobs easier to do.
 
@@ -149,7 +149,7 @@ This almost never happens, for several reasons:
 
 To enable housing abundance, we must move to a better system. To build abundant housing, we must first build abundant housing capacity.  
 
-### Encouraging land speculation
+### Discouraging land speculation
 
 When there isn't enough zoned capacity, it leads to land speculation and landbanking. When there are only a few plots of land where one can build, a small number of speculators can feasibly gain control of the bulk of land available and viable for development. However, if developable land is made abundantly available through broad upzoning, each land-holder would have much more competition and so it will be much harder to withold housing supply. 
 

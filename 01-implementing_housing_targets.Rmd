@@ -93,7 +93,7 @@ For a housing target to be meaningful, you need two key things. First, you need 
 
 It is common practice for planners to calculate "zoned capacity", which is the theoretical number of homes that could be built across an LGA if every lot were developed to maximum permitted density. We outline the problems with a reliance on zoned capacity [later in this report](upzoning-for-all#zoned-capacity-must-exceed-our-housing-need). 
 
-To account for these problems, our model takes into account a number of factors beyond zoned capacity, including the demand, prices, and development costs across each LGA. The methodology can be found [here]()
+To account for these problems, our model takes into account a number of factors beyond zoned capacity, including the demand, prices, and development costs across each LGA. The methodology can be found [here](#Appendix).
 
 Our model does not expect development to occur on every viable site. But councils with more viable sites are allocated a higher share of our total inner-Melbourne housing target of 40,000.
 
@@ -165,9 +165,9 @@ If heritage is a barrier to growth within a given LGA, then that LGA has four op
 
 **IMAGE**
 
-### Appendix
+## Appendix
 
-#### Housing targets methodology
+### Housing targets methodology
 
 Our model's housing targets are calculated in seven stages, as follows:
 
