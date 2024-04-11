@@ -75,7 +75,7 @@ run_for_area <- function(area_name) {
   output$existing_zoning_map <-  make_map(sf_lga_props,"category")
   
   output$profitable_units <- prettyNum(round(lga_summary$profitable_apartments,-3), big.mark = ",")
-  output$mm_target <- prettyNum(round(lga_summary$mm_target,-3), big.mark = ",")
+  output$mm_target <- prettyNum(round(lga_summary$mm_target,-2), big.mark = ",")
 
 
 ##THIS ONE SHOULD BE REPLACED BY PLANNING DATA!!! 
