@@ -12,10 +12,10 @@ htmltools::withTags(table(
       td(id = "lga-2", sprintf("Housing target:", lga_level_data$profitable_units)),
       td(id = "lga-1", paste0(lga_level_data$mm_target, " homes/year"))
     ),
-#    tr(
-#      td(id = "lga-2", "Total housing capacity:"),
-#      td(id = "lga-1", lga_level_data$mm_zoned_capacity)
-#    ),
+    tr(
+      td(id = "lga-2", "Total housing capacity:"),
+      td(id = "lga-1", lga_level_data$mm_zoned_capacity)
+    ),
   tr(
       td(id = "lga-2", "Land to build new housing:"),
       td(id = "lga-1", paste0(lga_level_data$mcgs_of_space, " MCGs"))
