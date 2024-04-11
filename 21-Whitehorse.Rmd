@@ -1,0 +1,99 @@
+```{r run-all-Whitehorse-code}
+area_name <- "Whitehorse"
+lga_level_data <- run_for_area(area_name)
+
+```
+# `r area_name`
+
+```{r}
+htmltools::withTags(table(
+  id = "lga-summary",
+    tr(
+      td(id = "lga-2", sprintf("Housing target:", lga_level_data$profitable_units)),
+      td(id = "lga-1", paste0(lga_level_data$mm_target, " homes/year"))
+    ),
+    tr(
+      td(id = "lga-2", "Total housing capacity:"),
+      td(id = "lga-1", lga_level_data$mm_zoned_capacity)
+    ),
+  tr(
+      td(id = "lga-2", "Land to build new housing:"),
+      td(id = "lga-1", paste0(lga_level_data$mcgs_of_space, " MCGs"))
+    ),
+  )
+)
+
+```
+
+```{r}
+lga_level_data$mm_zoning_map
+```
+
+
+## More homes in `r lga_level_data$area_name`  
+
+The answer to the housing supply shortage will not be found in a handful of designated activity centres and precincts. `r lga_level_data$area_name` needs to do its bit by delivering beautiful mid-rise homes near every one of its public transit stops. 
+
+Through broad transit-oriented upzoning and development, `r area_name` can deliver housing abundance and provide more housing choices to all current and future residents across the entirety of the city. This will fulfil the original goal of Plan Melbourne creating a vast array of 20-minute neighbourhoods, rather than a small number of scattered activity centres.
+
+In `r area_name` missing middle upzoning will have the following effect:
+
+```{r}
+options(scipen=999)
+
+total_lots_upzoned <- prettyNum(round(parse_number(lga_level_data$mm_number) + parse_number(lga_level_data$rgz_number) + parse_number(lga_level_data$grz_number)), big.mark = ",")
+
+```
+
+| Height      	|  Number of lots upzoned	|
+|:-------------------------	|---:	|
+| 6 storeys 	|  `r lga_level_data$mm_number`  	|
+| 4 storeys  	|  `r lga_level_data$rgz_number` 	|
+| 3 storeys  	|  `r lga_level_data$grz_number`	|
+| **Total** | **`r total_lots_upzoned`**  	|
+
+Broad upzoning is needed across existing suburbs so that there is more land available to build homes for our children to live in. If only a few select areas are rezoned, then developers will be able to buy up that land and withhold supply. Broad upzoning of land across inner-Melbourne removes any power developers may have to speculate, and lowers housing costs for all.
+
+
+## Housing targets
+
+Even though there are __`r lga_level_data$mm_zoned_capacity` total possible units__ that could be built in `r lga_level_data$area_name`, it's impossible for them to be built all at once. It is also not reasonable to assume that all possible units will ever be built, which is [why excess zoned capacity is important](#). 
+
+For each lot in `r area_name`, we calculated whether it would be profitable to build housing under upzoning. We estimate that there are __`r lga_level_data$profitable_units` viable units__ that could be built in `r area_name`. 
+
+Based off our data, in order to contribute its fair share to the the statewide target of 80,000 new homes per year, `r area_name` must build  **`r lga_level_data$mm_target` units** per year.^1^ 
+
+*^1^ This target should be fulfilled in addition to any construction taking place within the LGA in activity centres or other precincts under control of the state government.*
+
+
+## Planning barriers
+
+`r lga_level_data$text_on_growth` While there has been some housing construction, more homes have empty bedrooms as the population ages and children move out of home. As such, the total number of homes is struggling to keep up with Melbourne's evolving housing needs. 
+
+The biggest thing holding back `r lga_level_data$area_name` is restrictive zoning. Here is the current zoning map for `r lga_level_data$area_name`:
+
+```{r}
+lga_level_data$existing_zoning_map
+
+```
+
+As a result of this restrictive zoning, `r lga_level_data$area_name` is not building enough homes to keep up with Melbourne's growth:
+
+```{r}
+lga_level_data$ggplot_on_growth
+```
+
+
+Increasing zoned capacity in `r lga_level_data$area_name` by `r lga_level_data$zoned_capacity_x`, with a focus on density around transport hubs, will enable more homes to be built where people want to live.
+
+### Heritage should not be a barrier to housing abundance
+
+Of the `r lga_level_data$profitable_units` potentially profitable apartments that could be built in `r lga_level_data$area_name`, `r lga_level_data$heritage_no` of these potential future homes are on lots subject to heritage controls. 
+
+If heritage and neighbourhood character protections in `r lga_level_data$area_name` are too far-reaching, it could potentially affect `r lga_level_data$area_name`'s ability to meet its housing targets. 
+
+We have outlined potential remedies for this [earlier in the report](#report-link).
+
+**An image here should end the article.**
+
+[Return to LGA list](#report-link)

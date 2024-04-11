@@ -1,0 +1,180 @@
+# Housing targets that work
+
+```{r,fig.height=7,fig.width = 8}
+
+map_data <- strayr::read_absmap("lga2022") %>% 
+  filter(state_name_2021 == "Victoria") %>% 
+    mutate(lga_name_2022 = str_remove_all(lga_name_2022, "\\s*\\(.*?\\)\\s*")) %>% 
+    mutate(lga_name_2022 = if_else(lga_name_2022 == "Moreland","Merri-bek",lga_name_2022)) %>%  # Moreland changed name in 2021
+  inner_join(lga_zoning_numbers) 
+
+#devtools::install_github("yutannihilation/ggsflabel")
+
+
+map_data%>% 
+  mutate(target = paste0(lga_name_2022,"\n",
+                         prettyNum(round(mm_target,-2),
+                                   big.mark = ","),
+                         " homes")
+         ) %>% 
+  ggplot()+
+  geom_sf(colour = yimby_colours$green_palette[4])+
+  ggthemes::theme_map()+
+  ggsflabel::geom_sf_label_repel(aes(label = target ),
+                                 size = map_font_size,
+                                 fill = yimby_colours$background,
+                                 lineheight = map_lineheight
+                                 )+
+    labs(x = element_blank(),
+         y = element_blank(),
+         title = "Annual council area housing targets") +
+  theme_yimby_mel_caption(text_size = "small",plot_type = "map")+
+  theme(plot.margin = margin(2, 15,2, 15))+
+  theme(panel.background = element_rect(fill = "transparent", colour = NA),  
+        plot.background = element_rect(fill = "transparent", colour = NA))
+
+
+```
+
+
+
+The great majority of Victoria's new housing should be built in high-amenity and infrastructure-rich areas. These are the places where the demand for density is highest, and where that density can be supported. 
+
+As such, we have allocated half of Victoria's [annual target of 80,000 new dwellings](https://content.vic.gov.au/sites/default/files/2023-09/DTP0424_Housing_Statement_v6_FA_WEB.pdf) to 19 amenity- and infrastructure-rich inner-city LGAs.
+
+The selected LGAs are where our modelling indicates that demand for denser living is high, and where supply by the private market will therefore be most viable. Our modelling allocates a total of 40,000 homes per year across these LGAs based on development viability.
+
+Targets are highest in places like [Boroondara](/boroondara) where density is low due high numbers of single-family homes on large lots near public transport, where there is strong demand for apartments. 
+
+Targets are lower in areas such as [Maribyrnong](/maribyrnong), where apartments sell for much less and missing middle housing is therefore harder to build. 
+
+There are also some areas like [Port Phillip](/port-phillip), where demand for missing middle housing is high and yet there simply isn't enough suitable land to build missing middle housing. 
+
+More housing could potentially be provided in these LGAs through rezoning of well-located industrial and commercial land. However, for the purposes of this report, we are only considering land on which housing is currently permitted.
+
+## Why Melbourne needs targets
+
+Melbourne needs housing targets because it needs more housing.
+
+With the exception of the [City of Melbourne](/lga/melbourne-city), inner- and middle-ring councils are currently not doing enough to house Melbourne's future population. This has contributed to the city's high reliance on greenfield development, which has seen more and more Melburnians pushed out toward our urban fringe. 
+
+```{r fig.height = 8}
+
+pop_change_by_lga <-lga_pop_change_importer(lgas) %>% 
+  filter(year == 2022)
+
+pop_change_by_lga %>% 
+  mutate(type = if_else(lga_name_2021 == "All of Melbourne","y","n"),
+         lga_name_2021 = if_else(lga_name_2021 == "Melbourne","City of Melbourne",lga_name_2021)) %>% 
+  ungroup() %>% 
+  mutate(change = change - 1, 
+         lga_name_2021 = fct_reorder(lga_name_2021,change)) %>% 
+  ggplot(aes(x = lga_name_2021, 
+             y = change,
+             fill = type))+
+  geom_bar(stat = "identity")+
+  coord_flip()+
+  theme_yimby_mel_caption("Source: ABS regional populations",text_size = "small")+
+  labs(title = "Middle and inner-suburban suburbs are not keeping up with\nMelbourne's need for more housing",
+       subtitle = "Population change 2014-2022 (%)",
+       y = element_blank(),
+       x = element_blank())+
+  scale_y_continuous(labels = percent_format(accuracy = 1))+
+  theme(legend.position = "none")+
+  geom_hline(yintercept = 0)
+```
+
+The land use patterns that our city needs—dense housing in high-amenity areas, within highly walkable neighbourhoods—are largely absent. That is because, broadly, it is banned from being built. The best way to increase density across our city is to legalise density across our city. 
+
+
+## Calculating targets
+
+For a housing target to be meaningful, you need two key things. First, you need strong demand for more housing. And second, you need land available for development.
+
+It is common practice for planners to calculate "zoned capacity", which is the theoretical number of homes that could be built across an LGA if every lot were developed to maximum permitted density. We outline the problems with a reliance on zoned capacity [later in this report](upzoning-for-all#zoned-capacity-must-exceed-our-housing-need). 
+
+To account for these problems, our model takes into account a number of factors beyond zoned capacity, including the demand, prices, and development costs across each LGA. The methodology can be found [here]()
+
+Our model does not expect development to occur on every viable site. But councils with more viable sites are allocated a higher share of our total inner-Melbourne housing target of 40,000.
+
+## Updating targets
+
+Melbourne's Missing Middle Housing Targets should be updated by the state government every year, and if apartment prices fall in some areas, then the housing target will automatically fall as it will become clear that development is no longer profitable in that area.
+
+The best way for a LGA to reduce its target is to make housing cheaper. And the best way to make housing cheaper is to make it abundant. 
+
+This system of enforced housing targets is designed to create a virtuous cycle that drives down prices across the entire city, creating a more affordable and equitable Melbourne for all.
+
+## Enforcing targets
+
+There is currently no mechanism to ensure that councils actually permit the housing for which they claim to have zoned capacity. The Victorian Government should follow the advice of [Infrastructure Victoria](#) and the [Productivity Commission](#) to enforce housing targets through a set of robust [carrot](#carrots) and [stick](#sticks) incentives. 
+
+To deliver a high number of well-located homes across Melbourne requires more than just non-binding capacity targets that look good on paper. Rather, we need binding material construction targets that look good in real life. People do not live inside housing capacity; they live inside houses. And Councils must be kept accountable to that fact.
+
+Targets should be reported on through a combination of development and building approvals, commencements and completions, and LGA progress should be tracked publicly against their annual targets.
+
+### Carrots
+
+LGAs who meet or exceed their housing targets should be given financial rewards by the State Government.
+
+In order to generate the revenue required for these rewards, the state should levy a Windfall Gains Tax upon the first sale of any upzoned residential property after upzoning has taken place. This tax is outlined in YIMBY Melbourne's 2023 report, [*Melbourne's Missing Middle*](https://yimby.melbourne/missing-middle), and is based on a conservative assumption that upzoning will raise a given property's value by 4%, thanks to the increased capacity for development. We propose taxing 30% of this 4% improvement.
+
+```MMM WGT Chart```
+
+For a house worth \$1m, a 4% improvement is \$40,000. Upon sale, \$12,000 of that uplift should be paid in tax, with the owner keeping the remaining \$28,000 windfall gain. Our model proposes the upzoning of **X** properties total, with the WGT to be applied at first sale, regardless of the timing of the transfer. With the median value of houses in the area covered by this report at Y, we estimate a revenue of \$**Z** billion over the lifespan of Plan Melbourne 2050. 
+
+A minimum of 70% of this revenue should be hypothecated to social housing builds. A portion of remaining revenue should be used to reward councils who exceed their housing targets, paid out annually and used by those councils to improve infrastructure and services for the people who live there. 
+
+This reward could be additionally supplemented through State Government distribution of the Commonwealth's New Home Bonus to the councils in which homes are built in excess of their respective targets. 
+
+### Sticks
+
+Councils that fail to meet their targets three years in a row and cannot demonstrate they have made a genuine attempt to course correct should be penalised.
+
+This penalty could take several forms. We outline three basic incentives below:
+
+1. Councils that fail to meet their targets should be required to pay an annual 'Housing Remedy' to the state government. The proceeds of this should be hypothecated toward Homes Victoria. To increase political salience of the 'Housing Remedy', we suggest it take the form of a line-item added to every ratepayer's annual bill. 
+2. Councils that fail to meet their targets should be made ineligible for select tranches of state government infrastructure grants until they course-correct. 
+3. Councils that fail to meet their targets should have councillor call-in powers suspended. All planning applications should then be delegated to council staff.
+
+
+## Failing targets
+
+In the case that a council believes its target was not met due to other factors beyond its control, they should be able to appeal the penalty to an independent committee. 
+
+### Due to low demand
+
+Because demand is directly factored into our housing targets model, a council will never be penalised for lack of housing demand in its area. As demand lowers, so will prices, and so will the housing target. 
+
+To account for any lag in the model, we recommend annual updates, and that councils only be penalised if they fail to meet their target for three years in a row.
+
+### Due to sector-wide challenges
+
+If construction or other sector-wide challenges prevent most council areas from meeting their target, then the State and Commonwealth must act immediately to increase capacity in the construction sector. Councils should not be penalised while this capacity is created.
+
+### Due to existing development controls and overlays
+
+Existing heritage, neighbourhood character, and design and development overlays in place over large swathes of our inner-suburbs should not be an excuse for councils to miss their housing targets. Councils with far-reaching overlays will need to consider how best to achieve their housing targets against the tradeoffs associated with maintaining high opportunity-cost overlays.
+
+If heritage is a barrier to growth within a given LGA, then that LGA has four options:
+
+1. Adjust heritage controls to allow more density on heritage and character land
+2. Remove controls from properties of low heritage or character value
+3. Increase zoned density further in non-heritage and character areas to allow adequate housing growth while maintaining heritage areas
+4. Be subject to the [Housing Remedy](#sticks) until targets are met
+
+**IMAGE**
+
+### Appendix
+
+#### Housing targets methodology
+
+Our model's housing targets are calculated in seven stages, as follows:
+
+1. Sites that are parks, schools, hospitals, or already have apartments are excluded.
+2. Potential yield for MMZ lots is calculated. Any lot zoned "Missing Middle" is considered suitable for 6 storeys of housing with high lot coverage. The potential yield of these properties is calculated based on the yield achieved by 6 storey Nightingale developments in Melbourne.
+3. Potential yield for RGZ, GRZ, and NRZ lots is calculated. This is based on the density calculated by [Professor Michael Buxton](https://cur.org.au/project/melbourne-8-million-matching-land-supply-dwelling-demand/).
+4. Costs are calculated. For each lot, the cost of demolishing the existing home is calculated, plus the cost of building 85 square-metre GFA apartments in its place. Taller buildings are considered more expensive to construct owing to increased structural requirements. Because the Residential Growth Zone has parking requirements, the cost of underground car parking was added to construction costs for lots in this zone. The full cost calculation formula is available [here](https://github.com/yimbymelbourne/missing_middle_2/blob/main/R/functions/find%20profitable_apartments_for_zoning_targets.R).  
+5. The value of existing properties is calculated. This uses a regression of past house sale prices against features of the land such as the current zone, lot size, distance from CBD, SA3, and distance from public transport. The full regression terms are available [here](https://github.com/yimbymelbourne/missing_middle_2/blob/main/R/R_regressions/03run_regression.R). 
+6. The likely price of apartments sold in a development on a given lot is calculated. This uses a similar regression as above. 
+7. Profitability is calculated. For each site, the profitability of a development was calculated at various heights within Missing Middle zoning. Each site where calculated profit is greater than 0 contributes to that LGA's housing target. 

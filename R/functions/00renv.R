@@ -103,7 +103,7 @@ meters_to_numeric <- function(distances) {
 }
 
 
-source("theme/yimby_melbounre_ggplot_theme.R")
+source("theme/yimby_melbourne_ggplot_theme.R")
 
 inner_lgas <- c("Melbourne",
                 "Yarra",
