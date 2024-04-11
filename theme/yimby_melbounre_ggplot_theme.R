@@ -45,11 +45,14 @@ computer_type <- Sys.info()[[1]]
 theme_yimby_mel_caption <- function(caption_text = " ",
                              plot_type = "bar",
                              colour_scale = "complementary",
-                             text_size = "big"){
+                             text_size = "big",
+                             linux_text_size = "huge"){
   
   if(text_size == "big") {font_size = 70;  pic_height = 50  } else {font_size = 12;  pic_height = 20}
   
-  if(text_size == 'Linux' & text_size == "giant"){font_size = 70}
+  line_gap = 1
+  
+  if(computer_type == 'Linux' & linux_text_size == "huge"){font_size = 70; line_gap = .2}
   
   update_geom_defaults("bar",  list(fill = yimby_colours$green_palette[1], colour = yimby_colours$green_palette[1]))
   update_geom_defaults("col",  list(fill = yimby_colours$green_palette[1], colour = yimby_colours$green_palette[1]))
@@ -91,13 +94,15 @@ theme_yimby_mel_caption <- function(caption_text = " ",
   
   x <- glue::glue(
     "<span style='color:{yimby_colours$body}; display: inline;'>{caption_text}</span>
-<img src='theme/atlas/Logo-transparent-green.png' height='{pic_height}' /><br>"
+<img src='theme/atlas/Logo-transparent-green.png' height='{pic_height}' />"
   )
+  
   
   output <- list(theme(plot.background = element_rect(fill = yimby_colours$background, 
                                                       colour = yimby_colours$background),
                        text = element_text(size=font_size,
-                                           family = "Lato"),
+                                           family = "Lato",
+                                           lineheight = line_gap),
                        plot.title  = element_text(size=font_size, 
                                                   family = "Inter Tight",
                                                   face = "bold",
@@ -107,7 +112,7 @@ theme_yimby_mel_caption <- function(caption_text = " ",
                                                      family = "Inter"),
                        axis.title  = element_text(color=yimby_colours$body),
                        legend.title =    element_text(color=yimby_colours$body),
-                       plot.caption   = ggtext::element_markdown(lineheight = 1.2)
+                       plot.caption   = ggtext::element_markdown(lineheight = 2)
   ),
   labs(caption = x))
   

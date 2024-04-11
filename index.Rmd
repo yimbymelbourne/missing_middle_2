@@ -22,9 +22,10 @@ output:
 
 ```{r setup, include=FALSE}
 
-knitr::opts_chunk$set(message = FALSE, warning = FALSE, error = FALSE, echo = FALSE, dpi = 300,fig.width = 7, fig.height = 4,out.height=400, out.width=800)
+knitr::opts_chunk$set(message = FALSE, warning = FALSE, error = FALSE, echo = FALSE, dpi = 300,fig.width = 7, fig.height = 4)
 #knitr::opts_knit$set(root.dir= '../')   
 knitr::opts_chunk$set(dev.args=list(bg='transparent'))
+knitr::opts_chunk$set(dev = "ragg_png")
 
 # Corrected function to generate a button with customizable text and link
 generateButton <- function(text, link) {
@@ -32,8 +33,6 @@ generateButton <- function(text, link) {
   cat(buttonHTML)
 }
 
-# Use the function to generate buttons
-knitr::opts_chunk$set(message = FALSE, warning = FALSE, error = FALSE, echo = FALSE, dpi = 300, fig.width = 7, fig.height = 4)
 
 all_zoned_numbers <- lga_zoning_numbers %>% summarise(across(is.numeric, sum))
 
@@ -81,8 +80,11 @@ map_data <- strayr::read_absmap("lga2022") %>%
     mutate(lga_name_2022 = if_else(lga_name_2022 == "Moreland","Merri-bek",lga_name_2022)) %>%  # Moreland changed name in 2021
   inner_join(lga_zoning_numbers) 
 
+if(Sys.info()[[1]] == "Linux") {map_font_size = 22; map_lineheight = .15} else {map_font_size = 2; map_lineheight = 1}
+
+
 #devtools::install_github("yutannihilation/ggsflabel")
-map_data%>% 
+map_data %>% 
   mutate(target = paste0(lga_name_2022,"\n",
                          prettyNum(round(mm_target,-2),
                                    big.mark = ","),
@@ -90,12 +92,13 @@ map_data%>%
          ) %>% 
   ggplot()+
   geom_sf(colour = yimby_colours$green_palette[4])+
-  ggthemes::theme_map()+
   ggsflabel::geom_sf_label_repel(aes(label = target ),
-                                 size = 2,
+                                 size = map_font_size,
+                                 lineheight = map_lineheight,
                                  fill = yimby_colours$background)+
     labs(x = element_blank(),
-         y = element_blank()) +
+         y = element_blank(),
+         title = "Annual council area housing targets") +
   theme_yimby_mel_caption(text_size = "small",plot_type = "map")+
   theme(plot.margin = margin(2, 15,2, 15))+
   theme(panel.background = element_rect(fill = "transparent", colour = NA),  

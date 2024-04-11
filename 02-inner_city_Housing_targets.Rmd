@@ -9,6 +9,8 @@ map_data <- strayr::read_absmap("lga2022") %>%
   inner_join(lga_zoning_numbers) 
 
 #devtools::install_github("yutannihilation/ggsflabel")
+
+
 map_data%>% 
   mutate(target = paste0(lga_name_2022,"\n",
                          prettyNum(round(mm_target,-2),
@@ -19,8 +21,10 @@ map_data%>%
   geom_sf(colour = yimby_colours$green_palette[4])+
   ggthemes::theme_map()+
   ggsflabel::geom_sf_label_repel(aes(label = target ),
-                                 size = 2,
-                                 fill = yimby_colours$background)+
+                                 size = map_font_size,
+                                 fill = yimby_colours$background,
+                                 lineheight = map_lineheight
+                                 )+
     labs(x = element_blank(),
          y = element_blank()) +
   theme_yimby_mel_caption(text_size = "small",plot_type = "map")+
