@@ -79,21 +79,21 @@ map_data %>%
 
 ```
 
-Melbourne is growing. Our city's urgent need for more homes is clear to all Victorians. And yet most of the policy implemented to-date has been edge-tinkering: granny flats, Future Homes, and the scattered beginnings of outer-urban activity centres.
+Melbourne is growing. Our city's urgent need for more homes is clear to all Victorians, and yet most of the policy implemented to-date has been edge-tinkering: granny flats, Future Homes, and the scattered beginnings of outer-urban activity centres.
 
-Since the introduction of [Plan Melbourne](https://www.planning.vic.gov.au/guides-and-resources/strategies-and-initiatives/plan-melbourne), the city has relegated new apartments to a tiny number of "activity centres" on the city's most polluted, noisy, and dangerous streets. 
+Since the introduction of [Plan Melbourne](https://www.planning.vic.gov.au/guides-and-resources/strategies-and-initiatives/plan-melbourne), the city has relegated new apartments to a tiny number of "activity centres" on the city's most polluted, noisy, and dangerous roads. 
 
 Meanwhile, the best blocks of land—those located near public transport on quieter side streets—have been locked up under restrictive zoning and overlays, enforced by local governments on behalf of their most wealthy residents. 
 
-Land speculators are happy because they can more easily buy up the lion's share of developable plots. And rich NIMBYs are also happy because their assets are protected. But this status quo is inequitable, and it's making our city worse. 
+Land speculators are happy because they can more easily buy up the lion's share of developable plots, while rich NIMBYs are also happy because their assets are protected. But this status quo is inequitable, it's eroding our social compact, and it's making our city worse. 
 
 For Melbourne to remain a city that values the quality of life of its residents, we need to permit gentle density across each and every one of our most amenity-rich and productive regions, enabling new human-scale homes to be built where people want to live. 
 
-People should not be restricted to a handful of arbitrarily-defined activity centres. Rather, they should be able to live across the entirety of the city, free to thrive within an interconnected network of 20-minute neighbourhoods across all 1,992 of Melbourne's tram stops and train stations.
+People should not be restricted to a handful of arbitrarily-defined activity centres. Rather, they should be able to live across the entirety of the city, free to thrive as part of an interconnected network of 20-minute neighbourhoods across all 1,992 of Melbourne's tram stops and train stations.
 
-Melbourne already has a plan to fix its missing middle: [YIMBY Melbourne's _Missing Middle_](http://yimby.melbourne/missing-middle), which lays out the overwhelming evidence of densification's social, environmental, and affordability benefits. 
+Melbourne already has a plan to fix its missing middle: we laid it out within []_Melbourne's Missing Middle_](http://yimby.melbourne/missing-middle), where we demonstrated the overwhelming evidence of densification's social, environmental, and affordability benefits. 
 
-This followup report aims to codify these benefits by outlining a new housing delivery paradigm across the 19 inner-city Melbourne councils where demand for denser living is highest. 
+This followup report codifies these benefits by outlining a new housing delivery paradigm across the 19 inner-city Melbourne councils where demand for denser living is highest. 
 
 YIMBY Melbourne's missing middle reforms will introduce [fairer missing middle zoning](/missing-middle-upzoning.html), underpinned by [enforced housing targets](/implementing-housing-targets.html) for [each local council](/council-targets-2024-25.html), ensuring that abundant housing is created city-wide, and for everyone.
 
@@ -102,13 +102,13 @@ YIMBY Melbourne's missing middle reforms will introduce [fairer missing middle z
 YIMBY Melbourne's plan for a better Melbourne involves four key steps:
 
 1. Upzone inner-middle Melbourne, increasing zoned capacity by `r multiplier` to `r total_zoned_capacity` homes
-2. Publish annual housing targets for the 19 LGAs where demand for in-fill housing is greatest
+2. Publish annual binding housing targets for the 19 LGAs where demand for infill housing is highest
 3. Enforce housing targets through revenue-neutral 'carrot and stick' incentives
-4. Deliver 40,000 new homes per year across inner and middle Melbourne
+4. Deliver 40,000 new homes per year across inner-middle Melbourne
 
 ### Annual housing targets
 
-YIMBY Melbourne's evidence-based housing targets present a realistic number of homes that can be built across LGAs each year under more permissive zoning. 
+YIMBY Melbourne's evidence-based housing targets reflect the demand and capacity for housing growth across LGAs under more permissive zoning. 
 
 ```{r}
 tbl_body  <- lga_zoning_numbers %>% 
@@ -155,8 +155,6 @@ total = tbl_body %>%
 
 ```{r}
 
-# TODO: format the numbers please
-
 total = tbl_body %>% 
   summarise(`Current zoned capacity for new housing` = sum(`Current zoned capacity for new housing`),
             `New zoned capacity under Missing Middle` = sum(`New zoned capacity under Missing Middle`),
@@ -196,4 +194,4 @@ datatable(
 
 ```
 
-Each council area's target has been carefully calculated based on real-world information. The full target calculation methodology is available [later in this report](/implementing-housing-targets.html#calculating-targets).
+Each LGA's target has been carefully calculated based on real-world information. The full target calculation methodology is available [later in this report](/implementing-housing-targets.html#calculating-targets).
