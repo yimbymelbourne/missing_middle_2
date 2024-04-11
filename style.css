@@ -15,12 +15,86 @@
 
 @font-face {
   font-family: "Inter";
-  src: url("fonts/Inter-VariableFont_slnt\,wght.ttf");
+  src: url("fonts/Inter-Regular.ttf");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("fonts/Inter-Bold.ttf");
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("fonts/Inter-Italic.ttf");
+  font-weight: 400;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("fonts/Inter-BoldItalic.ttf");
+  font-weight: 700;
+  font-style: italic;
 }
 
 @font-face {
   font-family: "Inter Tight";
-  src: url("fonts/Inter-VariableFont_slnt\,wght.ttf");
+  src: url("fonts/Inter-Regular.ttf");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Inter Tight";
+  src: url("fonts/InterTight-Medium.ttf");
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Inter Tight";
+  src: url("fonts/InterTight-MediumItalic.ttf");
+  font-weight: 500;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Inter Tight";
+  src: url("fonts/Inter-SemiBold.ttf");
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Inter Tight";
+  src: url("fonts/Inter-SemiBold.ttf");
+  font-weight: 600;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Inter Tight";
+  src: url("fonts/Inter-Bold.ttf");
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Inter Tight";
+  src: url("fonts/Inter-Italic.ttf");
+  font-weight: 400;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Inter Tight";
+  src: url("fonts/Inter-BoldItalic.ttf");
+  font-weight: 700;
+  font-style: italic;
 }
 
 @font-face {
@@ -54,7 +128,7 @@
 body {
   color: var(--body-text-color);
   background-color: var(--background-color);
-  font-size: 16pt;
+  font-size: 18pt;
   font-weight: 400;
   font-family: "Inter", sans-serif;
 }
