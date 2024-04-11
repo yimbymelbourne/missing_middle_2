@@ -26,7 +26,8 @@ map_data%>%
                                  lineheight = map_lineheight
                                  )+
     labs(x = element_blank(),
-         y = element_blank()) +
+         y = element_blank(),
+         title = "Annual council area housing targets") +
   theme_yimby_mel_caption(text_size = "small",plot_type = "map")+
   theme(plot.margin = margin(2, 15,2, 15))+
   theme(panel.background = element_rect(fill = "transparent", colour = NA),  
@@ -88,7 +89,7 @@ The land use patterns that our city needs—dense housing in high-amenity areas,
 
 ## Calculating targets
 
-A housing target for any area is useless without two key things. First, you need strong demand for more housing. And second, you need land available for development.
+To create meaningful housing targets for a local area you need two key things. First, you need strong demand for more housing. And second, you need land available for development.
 
 It's common practice for planners to calculate "zoned capacity" which is the theoretical number of homes that could be built across an LGA if every lot were developed to maximum permitted density. We have already outlined the problems with a reliance on zoned capacity [earlier in this report](#report-link). 
 
@@ -119,6 +120,7 @@ There's currently no mechanism to ensure that councils actually build the housin
 
 To deliver a high number of well-located homes across Melbourne requires more than just non-binding capacity targets that look good on paper. Rather, we need binding material construction targets that look good in real life. People do not live inside housing capacity; they live inside houses. And Councils must be kept accountable to that fact.
 
+Targets should be publicly reported on through a combination of development and building approvals, commencements and completions.
 
 ### Carrots
 
@@ -140,20 +142,25 @@ Councils that fail to meet their housing targets three years in a row should rec
 
 This could take several forms. We outline three basic kinds of incentives below:
 
-
-
 1. Councils that fail to meet their targets should be required to pay an annual 'Housing Remedy' to the state government. The proceeds of this should be hypothecated toward Homes Victoria (the state government housing agency). To increase political salience of the 'Housing Remedy', we suggest it take the form of a line-item added to every ratepayer's annual bill. 
 2. Councils that fail to meet their targets should be made ineligible for select tranches of state government infrastructure grants until they course-correct. 
 3. Councils that fail to meet their targets should have councillor call-in powers suspended. All planning applications should then be delegated to council staff.
 
 
-## Notes on failing targets
+### When no councils meet their targets
 
-Councils could fail to meet their targets either because there is not enough demand for housing in their area, or because of 
+If construction-sector challenges prevent most council areas from meeting their target, then the State and Commonwealth must act immediately to increase capacity in the construction sector. Councils should not be penalised while this capacity is created.  
 
-### Due to prevailing market conditions
+Land speculation could also act to reduce city-wide development, and council should implement the policies in [YIMBY Melbourne's Missing Middle](https://www.yimby.melbourne/missing-middle) policy document to prevent land speculation.  
 
-Targets should be tracked consistently through a combination of development and building approvals, commencements and completions. In the case that a council believes its target was not met due to external factors, they should be able to appeal the penalty. 
+
+### When some councils fall behind
+
+Individual councils could fail to meet their targets either because there is not enough demand for housing in their area, or because of council policies that slow or prevent development.
+
+The way in-which council housing targets are calcualted accounts for local-area demand, and so no council will ever be penalised for lack of demand for housing in its area. If demand falls, prices fall, and then this automatically adjusts down the target for that council area before any penalty occurs. 
+
+In the case that a council believes its target was not met due to other factors beyond its control, they should be able to appeal the penalty to an independent committee. 
 
 
 ### Due to existing development controls and overlays
