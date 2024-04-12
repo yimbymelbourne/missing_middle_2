@@ -1,14 +1,19 @@
 add_missing_middle_zoning_info <- function(input_data){
 
-
-#Here are their yields: 
+#This file first attempts to codify what Buxton estimates would be the yields based on our current planning system in the report "Melbourne at 8 million": 
+#https://cur.org.au/project/melbourne-8-million-matching-land-supply-dwelling-demand/
+#Yield is affected by how big the lot is, what zone it is in, and sometimes how far away from the city it is. 
+#Where the Buxton yields seem impractical, (Buxton has never been a big supporter of high-rises and so has lower density assumptions in higher density zones) 
+#We look at the real world data to see if a more practical assumption about density can be drawn
+  
+#Here are the buxton yields: 
 buxton_yields <- input_data %>% 
-  lazy_dt() %>% 
-  mutate(buxton_yield = 
+  lazy_dt() %>% #dtplyr converts our tidy code into data.table code, saving time. 
+  mutate(buxton_yield = #How many total units could fit on a site? This is the **total** so without reference to what is already on the site, but if it matters to the calc we assume something is already on there.
          case_when(feature_preventing_development ~ 0,
                    com_tall_building ~ 0,
                    zone_short == "Low density residential" ~ 1,
-                   zoning_permits_housing %in% c("Housing not generally permitted","Rural/regional") ~ 0, # Need to sort out CCZ, DZ etc.
+                   zoning_permits_housing %in% c("Housing not generally permitted","Rural/regional") ~ 0, 
                    zone_short == "Neighbourhood residential" & lot_size <500 ~ 1,
                    zone_short == "Neighbourhood residential" & lot_size >=500 & dwellings_est == 1 ~ 1,
                    zone_short == "Neighbourhood residential" & lot_size >= 500 ~ 2,
@@ -29,12 +34,9 @@ buxton_yields <- input_data %>%
   as_tibble() %>% 
   mutate(buxton_yield_net = floor(pmax(0,buxton_yield - dwellings_est)))
         
-print("finished first bit!")
-
+#Ok let's test and see how good the Buxton estimates are.... 
 #We have data for developments >10 units, so we can look at where buxton predicted
 # more than 10 units and check he got it right.
-
-#Some initial exploration of zoned capacity to be moved into main report
 
 # buxton_yields %>% 
 #   filter(!feature_preventing_development) %>% 
@@ -127,18 +129,19 @@ print("finished first bit!")
 
 #Let's also create a missing middle zone <500m from public transport, and assume it gets built to the same density as RGZ. 
 #We also assume GRZ becomes RGZ and NRZ becomes GRZ. 
+## MM yields should all be the same for a given zone as the buxton calcs, but we've added a "missing middle" zone with 
 
 buxton_yields_corrected <- buxton_yields %>% 
   lazy_dt() %>% 
-  mutate(buxton_yields_corrected = case_when(com_tall_building ~ 0,
+  mutate(buxton_yields_corrected = case_when(com_tall_building ~ 0, # This is a special feature that makes the yield 0 if there is already a high-rise office building on the site. 
                                              feature_preventing_development ~ 0,
                                              zoning_permits_housing %in% c("Housing not generally permitted",
-                                                                           "Rural/regional") ~ 0, 
-                                             zone_short %in% c("Mixed use") & lga_name_2022 %in% inner_lgas ~ lot_size*830/10000,
-                                             zone_short %in% c("Mixed use") & lga_name_2022 %in% middle_lgas ~ lot_size*346/10000, # These are some more reasonable version of buxton's yer mixed use zones. 
-                                             zone_short %in% c("Mixed use") & lga_name_2022 %in% outer_lgas ~ lot_size*252/10000,
-                                             zone_short %in% c("Mixed use") & lga_name_2022 %in% greenfield ~ lot_size*252/10000,
-                                             zone_short %in% c("Residential growth") ~ lot_size*240/10000,
+                                                                           "Rural/regional") ~ 0,  
+                                             zone_short %in% c("Mixed use") & lga_name_2022 %in% inner_lgas ~ lot_size  * 830/10000, # These are some more reasonable version of buxton's mixed use zones. 
+                                             zone_short %in% c("Mixed use") & lga_name_2022 %in% middle_lgas ~ lot_size * 346/10000,
+                                             zone_short %in% c("Mixed use") & lga_name_2022 %in% outer_lgas ~ lot_size  * 252/10000,
+                                             zone_short %in% c("Mixed use") & lga_name_2022 %in% greenfield ~ lot_size  * 252/10000,
+                                             zone_short %in% c("Residential growth") ~ lot_size * 240/10000,
                                              T ~buxton_yield),
          zone_short_mm = case_when(zone_short %in% c("General residential",
                                                      "Neighbourhood residential",
@@ -164,12 +167,12 @@ buxton_yields_corrected <- buxton_yields %>%
                             zone_short_mm == "Residential growth"  & lot_size < 500  ~ 8,
                             zone_short_mm == "Residential growth"  & lot_size < 1000 ~ 18,
                             zone_short_mm == "Residential growth"  & lot_size < 2000 ~ 36,
-                           # zone_short_mm %in% c("Residential growth") ~ lot_size*240/10000, # What actually happens
-                            zone_short_mm %in% c("Residential growth","Mixed use","General residential") & lga_name_2022 %in% inner_lgas ~ lot_size*830/10000,
+                           # zone_short_mm %in% c("Residential growth") ~ lot_size*240/10000, # This is the actual typical density in RGZ which is a 4 story zone. 
+                            zone_short_mm %in% c("Residential growth","Mixed use","General residential") & lga_name_2022 %in% inner_lgas ~  lot_size*830/10000, # Large lots should be allowed higher density even in GRZ zones because impacts can be managed more carefully. Tiny number of lots!  
                             zone_short_mm %in% c("Residential growth","Mixed use","General residential") & lga_name_2022 %in% middle_lgas ~ lot_size*346/10000,
                             zone_short_mm %in% c("Residential growth","Mixed use","General residential") & lga_name_2022 %in% outer_lgas ~ lot_size*252/10000,
                             zone_short_mm %in% c("Residential growth","Mixed use","General residential") & lga_name_2022 %in% greenfield ~ lot_size*252/10000,
-                            zone_short_mm %in% c("Missing middle") ~ lot_size*6/4*240/10000, # Missing middle will be 6 instead of 4 storeys so this is our best estimate... 
+                            zone_short_mm %in% c("Missing middle") ~ lot_size*6/4*240/10000, # Missing middle will be 6 instead of 4 storeys so this is our best estimate... This value is pretty consistent with Nightingale developments. 
                             T ~ NA_real_)
                 ) %>% 
   mutate(category = case_when(feature_preventing_development                    ~ "Civic use makes development less likely",
