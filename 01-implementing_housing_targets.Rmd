@@ -38,9 +38,9 @@ map_data%>%
 
 
 
-The great majority of Victoria's new housing should be built in high-amenity and infrastructure-rich areas. These are the places where the demand for density is highest, and where that density can be supported. 
+The great majority of Victoria's new housing should be built in high-amenity and infrastructure-rich areas. These are the places where the demand for density is highest, and where that density can best be supported. 
 
-As such, we have allocated half of Victoria's [annual target of 80,000 new dwellings](https://content.vic.gov.au/sites/default/files/2023-09/DTP0424_Housing_Statement_v6_FA_WEB.pdf) to 19 amenity- and infrastructure-rich inner-city LGAs.
+As such, we have allocated half of Victoria's [annual target of 80,000 new dwellings](https://content.vic.gov.au/sites/default/files/2023-09/DTP0424_Housing_Statement_v6_FA_WEB.pdf) to 19 amenity- and infrastructure-rich inner-city Melbourne LGAs.
 
 The selected LGAs are where our modelling indicates that demand for denser living is high, and where supply by the private market will therefore be most viable. Our modelling allocates a total of 40,000 homes per year across these LGAs based on development viability.
 
@@ -165,9 +165,9 @@ If heritage is a barrier to growth within a given LGA, then that LGA has four op
 
 **IMAGE**
 
-## Appendix
+## Methodology
 
-### Housing targets methodology
+### Calculating housing targets
 
 Our model's housing targets are calculated in seven stages, as follows:
 
