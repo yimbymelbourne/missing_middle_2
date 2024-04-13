@@ -4,6 +4,10 @@
 
 # purrr::walk(r_files,source)
 
+library(qs)
+library(sf)
+library(tidyverse)
+
 save_file <- c("data/rmd_data.qs")
 
 if(!file.exists(save_file)){
@@ -42,14 +46,25 @@ upzoned_value_mean_property
 # 1345869 
 
 
-# Z: median price
+# Z: Windfall tax (Y * .04 * 0.3)
 # Each property has both an apartment price and a property price.
 # Presumably the vast majority of these upzone-potential properties are houses
+
+presumed_value_uplift = 0.04
+taxed_proportion = 0.3
 
 total_upzoned_value_median_property <- upzoned_value_median_property * total_upzoned_props
 total_upzoned_value_median_property
 # 9.30799e+11 or $931B
 
+total_windfall_gain_median_property <- total_upzoned_value_median_property * presumed_value_uplift * taxed_proportion
+total_windfall_gain_median_property
+# 1.11696e+10 or $11.7B
+
 total_upzoned_value_mean_property <- upzoned_value_mean_property * total_upzoned_props
 total_upzoned_value_mean_property
 # 1.05241e+12 or $1,052B
+
+total_windfall_gain_mean_property <- total_upzoned_value_mean_property * presumed_value_uplift * taxed_proportion
+total_windfall_gain_mean_property
+# 1.26289e+10 or $12.6B
