@@ -64,7 +64,7 @@ run_for_area <- function(area_name) {
   output$mcgs_of_space = prettyNum(round(output$all_lots_size_num/output$mcg_size),big.mark = ",")
   
   output$existing_zoned_capacity <- prettyNum(round(lga_summary$zoned_capacity,-3), big.mark = ",")
-  output$mm_zoned_capacity <- prettyNum(round(lga_summary$mm_zoned_capacity,-3), big.mark = ",")
+  output$mm_zoned_capacity <- prettyNum(round(lga_summary$mm_zoned_capacity,-2), big.mark = ",")
   output$zoned_capacity_x <- lga_summary %>% 
     mutate( change_to_zoned_capacity = paste0(round(change_to_zoned_capacity,1),"x")) %>% 
     pull(change_to_zoned_capacity)
