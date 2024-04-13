@@ -44,11 +44,11 @@ As such, we have allocated half of Victoria's [annual target of 80,000 new dwell
 
 The selected LGAs are where our modelling indicates that demand for denser living is high, and where supply by the private market will therefore be most viable. Our modelling allocates a total of 40,000 homes per year across these LGAs based on development viability.
 
-Targets are highest in places like [Boroondara](/boroondara) where density is low due high numbers of single-family homes on large lots near public transport, where there is strong demand for apartments. 
+Targets are highest in places like [Boroondara](boroondara) where density is low due high numbers of single-family homes on large lots near public transport, where there is strong demand for apartments. 
 
-Targets are lower in areas such as [Maribyrnong](/maribyrnong), where apartments sell for much less and missing middle housing is therefore harder to build. 
+Targets are lower in areas such as [Maribyrnong](maribyrnong), where apartments sell for much less and missing middle housing is therefore harder to build. 
 
-There are also some areas like [Port Phillip](/port-phillip), where demand for missing middle housing is high and yet there simply isn't enough suitable land to build missing middle housing. 
+There are also some areas like [Port Phillip](port-phillip), where demand for missing middle housing is high and yet there simply isn't enough suitable land to build missing middle housing. 
 
 More housing could potentially be provided in these LGAs through rezoning of well-located industrial and commercial land. However, for the purposes of this report, we are only considering land on which housing is currently permitted.
 
@@ -56,7 +56,7 @@ More housing could potentially be provided in these LGAs through rezoning of wel
 
 Melbourne needs housing targets because it needs more housing.
 
-With the exception of the [City of Melbourne](/lga/melbourne-city), inner- and middle-ring councils are currently not doing enough to house Melbourne's future population. This has contributed to the city's high reliance on greenfield development, which has seen more and more Melburnians pushed out toward our urban fringe. 
+With the exception of the [City of Melbourne](melbourne-city), inner- and middle-ring councils are currently not doing enough to house Melbourne's future population. This has contributed to the city's high reliance on greenfield development, which has seen more and more Melburnians pushed out toward our urban fringe. 
 
 ```{r fig.height = 8}
 
