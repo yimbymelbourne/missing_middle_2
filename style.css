@@ -170,7 +170,7 @@ h6 {
 p,
 li,
 a {
-  font-family: "Inter", sans-serif;
+  font-family: "Lato", sans-serif;
 }
 
 .book .book-header,
@@ -197,6 +197,10 @@ em > a,
 section.normal li > a {
   color: var(--blue-base) !important;
   text-decoration: underline !important;
+}
+
+td > a {
+  color: var(--blue-base) !important;
 }
 
 a:hover {
@@ -282,13 +286,14 @@ a.btn:hover {
   color: var(--yellow-base) !important;
 }
 
+/* navigation */
+
 div.book-header.fixed > h1 {
   color: var(--hero-color) !important;
   opacity: 1 !important;
   font-weight: 700 !important;
 }
 
-/* navigation */
 .navigation > i {
   color: #000;
 }

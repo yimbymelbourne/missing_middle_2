@@ -154,44 +154,52 @@ total = tbl_body %>%
 ```
 
 ```{r}
+tbl_body <- lga_zoning_numbers %>%
+  select(`Council` = lga_name_2022,
+         `Existing homes` = existing_dwellings,
+         `Current zoned capacity for new housing` = zoned_capacity,
+         `New zoned capacity under Missing Middle` = mm_zoned_capacity,
+         `Increase in zoned capacity` = change_to_zoned_capacity,
+         `Yearly housing target` = mm_target) %>%
+  arrange(desc(`Increase in zoned capacity`)) %>%
+  mutate(`Council` = paste0('<a href="', tolower(gsub(" ", "-", `Council`)), '">', `Council`, '</a>'))
 
-total = tbl_body %>% 
+total = tbl_body %>%
   summarise(`Current zoned capacity for new housing` = sum(`Current zoned capacity for new housing`),
+            `Existing homes` = sum(`Existing homes`),
             `New zoned capacity under Missing Middle` = sum(`New zoned capacity under Missing Middle`),
-            `Yearly housing target` = sum(`Yearly housing target`),
-            `Existing homes` = sum(`Existing homes`)
-            ) %>% 
-  mutate(`Increase in zoned capacity` = paste0(round(`New zoned capacity under Missing Middle`/`Current zoned capacity for new housing`,1),"x"),
-         `Council` = "Total") %>% 
-  mutate(`Current zoned capacity for new housing`  = prettyNum(round(`Current zoned capacity for new housing`,-3),big.mark = ","),
-         `New zoned capacity under Missing Middle`  = prettyNum(round(`New zoned capacity under Missing Middle`,-3),big.mark = ","),
-         `Existing homes` = prettyNum(`Existing homes`,big.mark = ","),
-         `Yearly housing target` = prettyNum(round(`Yearly housing target`,-2),big.mark = ","),
-         )
+            `Yearly housing target` = sum(`Yearly housing target`)) %>%
+  mutate(`Increase in zoned capacity` = `New zoned capacity under Missing Middle` / `Current zoned capacity for new housing`,
+         `Council` = "Total")
 
-test_footer <- matrix(0, nrow=1, ncol=6)
-colnames(test_footer) <- c('Total', total[1, 4],total[1, 1], total[1, 2], total[1, 5],total[1, 3])
+footer_values <- c(
+  prettyNum(total$`Existing homes`, big.mark = ","),
+  prettyNum(round(total$`Current zoned capacity for new housing`, -3), big.mark = ","),
+  prettyNum(round(total$`New zoned capacity under Missing Middle`, -3), big.mark = ","),
+  paste0(round(total$`Increase in zoned capacity`, 1), "x"),
+  prettyNum(round(total$`Yearly housing target`, -2), big.mark = ",")
+)
 
-summary_table = htmltools::withTags(table(
-  id="summary-table",
-  tableHeader(tbl_body),
-  tableFooter(test_footer)
-))
+html_table <- htmltools::HTML(
+  paste0(
+    '<table id="summary-table">',
+    '<thead><tr><th>', paste(lapply(names(tbl_body), htmltools::htmlEscape), collapse = '</th><th>'), '</th></tr></thead>',
+    '<tfoot><tr><th>Total</th><th>', paste(lapply(footer_values, htmltools::htmlEscape), collapse = '</th><th>'), '</th></tr></tfoot>',
+    '</table>'
+  )
+)
 
-
-tbl_body %>% 
-  mutate(across(c(`Current zoned capacity for new housing`,`New zoned capacity under Missing Middle`),~round(.x,-3)),
-across(c(`Yearly housing target`,`Existing homes`),~round(.x,-2))) %>%
-datatable(
-  container = summary_table,
-  options = list(dom = 't',
-                 pageLength = 20
-                 ),
-  rownames = FALSE
-) %>% 
-  formatRound(columns = c(2,3,4,6), mark = ',',digits = 0) %>% 
-  formatCurrency(columns = c(5), digits = 1,currency = "x", before = F)
-
+tbl_body %>%
+  mutate(across(c(`Current zoned capacity for new housing`, `New zoned capacity under Missing Middle`), ~ round(.x, -3)),
+         across(c(`Yearly housing target`, `Existing homes`), ~ round(.x, -2))) %>%
+  datatable(
+    container = as.character(html_table),
+    options = list(dom = 't', pageLength = 20),
+    rownames = FALSE,
+    escape = FALSE
+  ) %>%
+  formatRound(columns = c(2, 3, 4, 6), mark = ',', digits = 0) %>%
+  formatCurrency(columns = c(5), digits = 1, currency = "x", before = F)
 ```
 
 Each LGA's target has been carefully calculated based on real-world information. The full target calculation methodology is available [later in this report](implementing-housing-targets.html#calculating-targets).
