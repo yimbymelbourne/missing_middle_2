@@ -119,9 +119,9 @@ LGAs who meet or exceed their housing targets should be given financial rewards 
 
 In order to generate the revenue required for these rewards, the state should levy a Windfall Gains Tax upon the first sale of any upzoned residential property after upzoning has taken place. This tax is outlined in YIMBY Melbourne's 2023 report, [*Melbourne's Missing Middle*](https://yimby.melbourne/missing-middle), and is based on a conservative assumption that upzoning will raise a given property's value by 4%, thanks to the increased capacity for development. We propose taxing 30% of this 4% improvement.
 
-```MMM WGT Chart```
+![Source: Melbourne's Missing Middle](images/wgt.png)
 
-For a house worth \$1m, a 4% improvement is \$40,000. Upon sale, \$12,000 of that uplift should be paid in tax, with the owner keeping the remaining \$28,000 windfall gain. Our model proposes the upzoning of **X** properties total, with the WGT to be applied at first sale, regardless of the timing of the transfer. With the median value of houses in the area covered by this report at Y, we estimate a revenue of \$**Z** billion over the lifespan of Plan Melbourne 2050. 
+For a house worth \$1m, a 4% improvement is \$40,000. Upon sale, \$12,000 of that uplift should be paid in tax, with the owner keeping the remaining \$28,000 windfall gain. Our model proposes the upzoning of **X** properties total, with the WGT to be applied at first sale, regardless of the timing of the transfer. With the median value of houses in the area covered by this report at **Y**, we estimate a revenue of \$**Z** billion over the lifespan of Plan Melbourne 2050. 
 
 A minimum of 70% of this revenue should be hypothecated to social housing builds. A portion of remaining revenue should be used to reward councils who exceed their housing targets, paid out annually and used by those councils to improve infrastructure and services for the people who live there. 
 
