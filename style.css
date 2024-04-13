@@ -174,8 +174,7 @@ h6 {
 }
 
 p,
-li,
-a {
+li {
   font-family: "Lato", sans-serif;
 }
 
@@ -186,6 +185,7 @@ a {
 }
 
 .sidebar-title-text {
+  font-family: "Inter Tight";
   font-size: 1.2em;
   font-weight: 700;
   color: var(--hero-color);
@@ -277,7 +277,7 @@ pre code {
 }
 
 .sidebar-quote {
-  font-size: 18px;
+  font-size: 16px;
   margin-left: 1em;
   font-weight: 700;
 }
