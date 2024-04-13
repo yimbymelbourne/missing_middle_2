@@ -18,7 +18,6 @@ output:
   
 ---
 # Missing Middle Housing Targets
-
 ```{r setup, include=FALSE}
 
 knitr::opts_chunk$set(message = FALSE, warning = FALSE, error = FALSE, echo = FALSE, dpi = 300,fig.width = 7, fig.height = 4)
@@ -43,7 +42,6 @@ mm_zone_change <- all_zoned_numbers$mm_zoned_capacity/all_zoned_numbers$zoned_ca
 multiplier <- paste0(round(mm_zone_change,1),"x")
 
 ```
-
 ```{r}
 htmltools::withTags(table(
   id = "lga-summary",
@@ -116,7 +114,6 @@ This followup report codifies these benefits by outlining a new housing delivery
 YIMBY Melbourne's missing middle reforms will introduce [fairer missing middle zoning](missing-middle-upzoning.html), underpinned by [enforced housing targets](implementing-housing-targets.html) for [each local council](council-targets-2024-25.html), ensuring that abundant housing is created city-wide, and for everyone.
 
 ### Planning for a better Melbourne
-
 YIMBY Melbourne's plan for a better Melbourne involves four key steps:
 
 1. Upzone inner-middle Melbourne, increasing zoned capacity by `r multiplier` to `r total_zoned_capacity` homes
@@ -125,7 +122,6 @@ YIMBY Melbourne's plan for a better Melbourne involves four key steps:
 4. Deliver 40,000 new homes per year across inner-middle Melbourne
 
 ### Annual housing targets
-
 YIMBY Melbourne's evidence-based housing targets reflect the demand and capacity for housing growth across LGAs under more permissive zoning. 
 
 ```{r}

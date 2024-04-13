@@ -152,6 +152,12 @@ h2 {
   font-weight: 700;
 }
 
+.book .book-body .page-wrapper .page-inner section.normal h1, .book .book-body .page-wrapper .page-inner section.normal h2, .book .book-body .page-wrapper .page-inner section.normal h3, .book .book-body .page-wrapper .page-inner section.normal h4, .book .book-body .page-wrapper .page-inner section.normal h5, .book .book-body .page-wrapper .page-inner section.normal h6 {
+    margin-top: 1.275em;
+    margin-bottom: .1em;
+}
+
+
 /* header mobile */
 @media screen and (max-width: 1000px) {
   div.book-header h1 {
@@ -311,7 +317,8 @@ div.book-header.fixed > h1 {
 /* all */
 
 table,
-.book .book-body .page-wrapper .page-inner section.normal p > img {
+.book .book-body .page-wrapper .page-inner section.normal p > img, 
+.book .book-body .page-wrapper .page-inner section.normal div > img {
   border: 2px solid #000 !important;
 }
 
@@ -357,6 +364,7 @@ table#lga-summary > tbody > tr {
 .leaflet-container {
   height: clamp(200px, 800px, 60vh)  !important;
   border: 2px solid #000 !important;
+  margin-bottom: 0.25em;
 }
 
 /* sidebar */

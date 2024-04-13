@@ -77,6 +77,7 @@ lga_level_data$existing_zoning_map
 
 ```
 
+
 As a result of this restrictive zoning, `r lga_level_data$area_name` is not building enough homes to keep up with Melbourne's growth:
 
 ```{r}
