@@ -111,12 +111,11 @@ output$ggplot_on_growth <- mel_total %>%
               colour = lga_name_2021))+
   geom_line(stat = "identity",linewidth = 1)+
   geom_point(stat = "identity",size = 3)+
-  theme_yimby_mel_caption(caption = "source: ABS. ",
+  theme_yimby_mel_caption(caption = "Source: ABS. ",
                           text_size = "small",
                           plot_type = "line",
                           colour_scale = "c")+
   labs(title = paste("Growth in homes for",area_name,"compared to the rest of Melbourne"),
-       subtitle = "Growth in census dwellings since 2006",
        labs = element_blank(),
        colour = "Area",
        x = element_blank(),
