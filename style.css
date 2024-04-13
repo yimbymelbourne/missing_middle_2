@@ -276,6 +276,18 @@ pre code {
   background: #000;
 }
 
+.sidebar-quote {
+  font-size: 18px;
+  margin-left: 1em;
+  font-weight: 700;
+}
+
+span.sidebar-attribution {
+  color: #000 !important;
+  text-align: right;
+  opacity:1 !important;
+}
+
 /* Header formatting */
 
 div.book-header.fixed {

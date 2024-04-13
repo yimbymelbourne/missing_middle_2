@@ -6,7 +6,8 @@ bookdown::gitbook:
       before: |
         <li><a class='sidebar-title-text' href="index.html">Missing Middle<br>Housing Targets</a></li>
       after: |
-        <li><a href="https://github.com/rstudio/bookdown" target="blank">Place logo here</a></li>
+        <li><a href="https://yimby.melbourne/"><img src='images/logo.png' style="width:100%;"/></a></li>
+        <li class="sidebar-quote">"In this world, you only get what you grab for."<br><span class="sidebar-attribution">— Giovanni Boccaccio</span></li>
     download: null
     sharing:
       facebook: false
