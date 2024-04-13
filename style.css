@@ -315,6 +315,10 @@ table,
   border: 2px solid #000 !important;
 }
 
+table {
+  overflow-x: scroll;
+}
+
 tr,
 tr.odd,
 tr.even {

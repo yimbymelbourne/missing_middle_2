@@ -44,6 +44,25 @@ multiplier <- paste0(round(mm_zone_change,1),"x")
 
 ```
 
+```{r}
+htmltools::withTags(table(
+  id = "lga-summary",
+    tr(
+      td(id = "lga-2", "Total target:"),
+      td(id = "lga-1", paste0("40,000 homes/year"))
+    ),
+    tr(
+      td(id = "lga-2", "Total housing capacity:"),
+      td(id = "lga-1", "11,325,000 new homes")
+    ),
+  tr(
+      td(id = "lga-2", "Total land to build new housing:"),
+      td(id = "lga-1", "22,298 MCGs")
+    ),
+  )
+)
+
+```
 
 ```{r,fig.height=7,fig.width = 8}
 map_data <- strayr::read_absmap("lga2022") %>% 
