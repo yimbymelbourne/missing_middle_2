@@ -137,7 +137,7 @@ Purposefully limiting zoned capacity has two key problems:
 
 ### Enabling housing development
 
-Under the current system, the zoned capacity of each LGA is kept only barely higher than the number of homes that need to be built. Planners do this because artificially restricting the choices of others makes their jobs easier to do.
+Under the current system, the zoned capacity of each LGA is kept only barely higher than the number of homes that need to be built.
 
 But limiting zoned capacity relies on the impractical idea that every potential lot will be built to its maximum zoned capacity within a reasonable timeframe. 
 
