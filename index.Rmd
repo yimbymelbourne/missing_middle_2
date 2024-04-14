@@ -1,12 +1,13 @@
 --- 
-title: "Missing Middle Housing Targets — YIMBY Melbourne"
+title: "Missing Middle Housing Targets – YIMBY Melbourne"
 author: "YIMBY Melbourne"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
 url: https://targets.yimby.melbourne/
 documentclass: book
 bibliography: [book.bib, packages.bib]
-cover-image: images/cover.jpg
+cover-image: "images/cover.jpg"
+favicon: "images/favicon.png"
 description: |
   Melbourne's planning system is broken. We need evidence-driven 
   and well-enforced housing targets in order to fix this ongoing crisis.

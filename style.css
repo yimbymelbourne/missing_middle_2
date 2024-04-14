@@ -288,7 +288,7 @@ span.sidebar-attribution {
   color: #000 !important;
   text-align: right;
   opacity:1 !important;
-  margin: 0;
+  padding: 0 !important;
 }
 
 /* Header formatting */
