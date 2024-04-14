@@ -147,7 +147,9 @@ total_windfall_gain_median_property_format <- paste0("$", format(round(total_win
 
 ```
 
-For a house worth \$1m, a 4% improvement is \$40,000. Upon sale, \$12,000 of that uplift should be paid in tax, with the owner keeping the remaining \$28,000 windfall gain. Our model proposes the upzoning of `r total_upzoned_props_format` properties total, with the WGT to be applied at first sale, regardless of the timing of the transfer. With the median value of houses in the area covered by this report at `r upzoned_value_median_property_format`, we estimate a revenue of `r total_windfall_gain_median_property_format` billion over the lifespan of Plan Melbourne 2050. 
+For a house worth \$1m, a 4% improvement is \$40,000. Upon sale, \$12,000 of that uplift should be paid in tax, with the owner keeping the remaining \$28,000 windfall gain. 
+
+Our model proposes the upzoning of `r total_upzoned_props_format` properties total, with the WGT to be applied at first sale, regardless of the timing of the transfer. With the median value of houses in the area covered by this report at `r upzoned_value_median_property_format`, we estimate a revenue of `r total_windfall_gain_median_property_format` billion over the lifespan of Plan Melbourne 2050. 
 
 A minimum of 70% of this revenue should be hypothecated to social housing builds. A portion of remaining revenue should be used to reward councils who exceed their housing targets, paid out annually and used by those councils to improve infrastructure and services for the people who live there. 
 
