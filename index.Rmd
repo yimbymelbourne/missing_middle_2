@@ -129,26 +129,26 @@ YIMBY Melbourne's evidence-based housing targets reflect the demand and capacity
 tbl_body  <- lga_zoning_numbers %>% 
   select(`Council` = lga_name_2022,
          `Existing homes` = existing_dwellings,
-         `Current zoned capacity` = zoned_capacity,
+         `Current additional zoned capacity` = zoned_capacity,
          #`(Excluding heritage)` = zoned_capacity_heritage,
-         `New zoned capacity` = mm_zoned_capacity,
+         `New additional zoned capacity` = mm_zoned_capacity,
          `Increase in zoned capacity` = change_to_zoned_capacity,
          `Yearly housing target` = mm_target) %>% 
   arrange(desc(`Increase in zoned capacity` ))
 
 total = tbl_body %>% 
-  summarise(`Current zoned capacity` = sum(`Current zoned capacity`),
+  summarise(`Current additional zoned capacity` = sum(`Current additional zoned capacity`),
             `Existing homes` = sum(`Existing homes`),
-            `New zoned capacity` = sum(`New zoned capacity`),
+            `New additional zoned capacity` = sum(`New additional zoned capacity`),
             `Yearly housing target` = sum(`Yearly housing target`)) %>% 
-  mutate(`Increase in zoned capacity` = `New zoned capacity`/`Current zoned capacity`,
+  mutate(`Increase in zoned capacity` = `New additional zoned capacity`/`Current additional zoned capacity`,
          `Council` = "Total")
 
 # tbl_body %>%
 #  mutate( `Increase in zoned capacity` = paste0(round(`Increase in zoned capacity`,1),"x")) %>% 
 #  gt() %>% 
-#  fmt_number(c(`Current zoned capacity`,
-#               `New zoned capacity`),n_sigfig = 3) %>% 
+#  fmt_number(c(`Current additional zoned capacity`,
+#               `New additional zoned capacity`),n_sigfig = 3) %>% 
 #  summary_rows(total) %>%
 #tab_options(
 #    table.background.color = yimby_colours$background, # Change "lightblue" to any color you prefer
@@ -172,25 +172,25 @@ total = tbl_body %>%
 tbl_body <- lga_zoning_numbers %>%
   select(`Council` = lga_name_2022,
          `Existing homes` = existing_dwellings,
-         `Current zoned capacity` = zoned_capacity,
-         `New zoned capacity` = mm_zoned_capacity,
+         `Current additional zoned capacity` = zoned_capacity,
+         `New additional zoned capacity` = mm_zoned_capacity,
          `Increase in zoned capacity` = change_to_zoned_capacity,
          `Yearly housing target` = mm_target) %>%
   arrange(desc(`Increase in zoned capacity`)) %>%
   mutate(`Council` = paste0('<a href="', tolower(gsub(" ", "-", `Council`)), '.html">', `Council`, '</a>'))
 
 total = tbl_body %>%
-  summarise(`Current zoned capacity` = sum(`Current zoned capacity`),
+  summarise(`Current additional zoned capacity` = sum(`Current additional zoned capacity`),
             `Existing homes` = sum(`Existing homes`),
-            `New zoned capacity` = sum(`New zoned capacity`),
+            `New additional zoned capacity` = sum(`New additional zoned capacity`),
             `Yearly housing target` = sum(`Yearly housing target`)) %>%
-  mutate(`Increase in zoned capacity` = `New zoned capacity` / `Current zoned capacity`,
+  mutate(`Increase in zoned capacity` = `New additional zoned capacity` / `Current additional zoned capacity`,
          `Council` = "Total")
 
 footer_values <- c(
   prettyNum(total$`Existing homes`, big.mark = ","),
-  prettyNum(round(total$`Current zoned capacity`, -3), big.mark = ","),
-  prettyNum(round(total$`New zoned capacity`, -3), big.mark = ","),
+  prettyNum(round(total$`Current additional zoned capacity`, -3), big.mark = ","),
+  prettyNum(round(total$`New additional zoned capacity`, -3), big.mark = ","),
   paste0(round(total$`Increase in zoned capacity`, 1), "x"),
   prettyNum(round(total$`Yearly housing target`, -2), big.mark = ",")
 )
@@ -205,7 +205,7 @@ html_table <- htmltools::HTML(
 )
 
 tbl_body %>%
-  mutate(across(c(`Current zoned capacity`, `New zoned capacity`), ~ round(.x, -3)),
+  mutate(across(c(`Current additional zoned capacity`, `New additional zoned capacity`), ~ round(.x, -3)),
          across(c(`Yearly housing target`, `Existing homes`), ~ round(.x, -2))) %>%
   datatable(
     container = as.character(html_table),
