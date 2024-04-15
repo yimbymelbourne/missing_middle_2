@@ -128,7 +128,7 @@
 body {
   color: var(--body-text-color);
   background-color: var(--background-color);
-  font-size: 18pt;
+  font-size: 1.1em;
   font-weight: 400;
   font-family: "Inter", sans-serif;
 }
@@ -390,6 +390,7 @@ div.float {
 }
 
 div.figcaption {
+  font-size: 0.8em !important;
   text-align: end;
 }
 
