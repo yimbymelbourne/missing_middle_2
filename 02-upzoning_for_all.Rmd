@@ -1,4 +1,5 @@
 # Upzoning for all 
+**Broad upzoning to increase housing delivery and fight against landbanking.**
 
 As detailed in _[Melbourne's Missing Middle](https://yimbymelbourne.org.au/missing-middle)_, broad upzoning is the best, most equitable approach to creating housing abundance for all. 
 
@@ -98,7 +99,7 @@ Currently, Melbourne's planning system purposefully limits zoned capacity. This 
 
 To enable housing abundance, we must move to a better system. To build abundant housing, we must first build abundant housing capacity.  
 
-### Enabling housing development
+### Enabling new housing development
 
 Under the current system, the zoned capacity of each LGA is kept only barely higher than the number of homes that need to be built.
 
@@ -112,7 +113,7 @@ This almost never happens, for several reasons:
 
 By making a much larger number of lots eligible for development at any given, we can enable more diverse housing to be built across Melbourne, enabling more people to choose the housing typology that best suits their wants and needs. 
 
-### Discouraging land speculation
+### Fighting against landbanking
 
 Limited zoned capacity creates the potential for land speculation and landbanking. Where there are only a few plots of land where it is possible to build, a small number of speculators can feasibly control and exploit that scarcity to inflate prices. This creates a vicious cycle where the cost of land is driven up, making it harder for developers to build, and for people to buy homes.
 

@@ -178,6 +178,10 @@ li {
   font-family: "Lato", sans-serif;
 }
 
+table {
+  font-family: "Inter", sans-serif;
+}
+
 .book .book-header,
 .book .book-summary {
   font-family: "Inter Tight", sans-serif;
@@ -242,6 +246,9 @@ pre code {
 }
 
 /* bg */
+div.book {
+  background: var(--background-color);
+} 
 
 .body-inner,
 .book .book-body .page-wrapper .page-inner section {
@@ -331,22 +338,27 @@ div.book-header.fixed > h1 {
 
 /* all */
 
+.dataTables_wrapper {
+  overflow-x: scroll !important;
+}
+
 table,
 .book .book-body .page-wrapper .page-inner section.normal p > img, 
 .book .book-body .page-wrapper .page-inner section.normal div.float > img {
   border: 2px solid #000 !important;
 }
 
-div.float {
-  margin-bottom: 0.75em;
+/* sort header arrows */
+table.dataTable>thead>tr>th {
+  text-align: left !important;
 }
 
-div.figcaption {
-  text-align: end;
+table.dataTable>thead>tr>th::after {
+  padding-right: 0px;
 }
 
 table {
-  overflow-x: scroll;
+  overflow-x: scroll !important;
 }
 
 tr,
@@ -371,6 +383,16 @@ tr.even {
   border-bottom-width: 0px !important;
 }
 
+/* figs etc */
+
+div.float {
+  margin-bottom: 0.75em;
+}
+
+div.figcaption {
+  text-align: end;
+}
+
 /* LGA summary table */
 
 table#lga-summary {
@@ -382,6 +404,11 @@ table#lga-summary {
 
 table#lga-summary > tbody > tr {
   /*background-color: var(--background-color);*/
+}
+
+
+#summary-table > tfoot > tr > th:nth-child(6) {
+  text-align: right !important;
 }
 
 .leaflet-container {

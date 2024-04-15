@@ -1,4 +1,5 @@
 # Housing targets 2024-25
+**The results of our dynamic, demand-driven model.**
 
 ```{r}
 tbl_body  <- lga_zoning_numbers %>% 

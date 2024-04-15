@@ -1,4 +1,5 @@
 # Housing targets that work
+**A dyanmic, demand-driven model that ensures homes are built where people want to live.**
 
 ```{r,fig.height=7,fig.width = 8}
 
