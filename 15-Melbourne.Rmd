@@ -32,9 +32,9 @@ lga_level_data$mm_zoning_map
 
 ## More homes in `r lga_level_data$area_name`  
 
-The answer to the housing supply shortage will not be found in a handful of designated activity centres and precincts. `r lga_level_data$area_name` needs to do its bit by delivering beautiful mid-rise homes near every one of its public transit stops. 
+Melbourne is unique amongst inner and middle-LGAs in that it is delivering a singificant supply of homes to meet the city's housing needs. But Melbourne cannot simply rely on Brownfield redevelopment to meet its targets. The best located land in Melbourne is in areas where it is currently illegal to build. Suburbs such as East Melbourne, Carlton, Parkville and Kensington are close to parks, public transport and schools, and yet Melbourne instead relegates density to some of the most polluted and unpleasant areas of the LGA. 
 
-Through broad transit-oriented upzoning and development, `r area_name` can deliver housing abundance and provide more housing choices to all current and future residents across the entirety of the city. This will fulfil the original goal of Plan Melbourne creating a vast array of 20-minute neighbourhoods, rather than a small number of scattered activity centres.
+Through broad transit-oriented upzoning and development, `r area_name` can deliver housing abundance not just on traffic sewers like Fisherman's Bend or City Road, but also near Fitzroy Gardens and Royal Park.
 
 In `r area_name` missing middle upzoning will have the following effect:
 
@@ -52,8 +52,6 @@ total_lots_upzoned <- prettyNum(round(parse_number(lga_level_data$mm_number) + p
 | 3 storeys  	|  `r lga_level_data$grz_number`	|
 | **Total** | **`r total_lots_upzoned`**  	|
 
-Broad upzoning is needed across existing suburbs so that there is more land available to build homes for our children to live in. If only a few select areas are rezoned, then developers will be able to buy up that land and withhold supply. Broad upzoning of land across inner-Melbourne removes any power developers may have to speculate, and lowers housing costs for all.
-
 
 ## Housing targets
 
@@ -61,26 +59,17 @@ Even though there are __`r lga_level_data$mm_zoned_capacity` total possible unit
 
 For each lot in `r area_name`, we calculated whether it would be profitable to build housing under upzoning. We estimate that there are __`r lga_level_data$profitable_units` viable units__ that could be built in `r area_name`. 
 
-Based off our data, in order to contribute its fair share to the the statewide target of 80,000 new homes per year, `r area_name` must build  **`r lga_level_data$mm_target` units** per year.^1^ 
+Based off our data, in order to contribute its fair share to the the statewide target of 80,000 new homes per year, `r area_name` must build  **`r lga_level_data$mm_target` units** per year.^1^ This target is in addition to any housing delivered as part of the Arden and Fisherman's bend. 
 
-*^1^ This target should be fulfilled in addition to any construction taking place within the LGA in activity centres or other precincts under control of the state government.*
-
+City of Melbourne is likely to meet or exceed these targets, but these levels are seen as the bare miimum to be delivered as part of any housing strategy. 
 
 ## Planning barriers
 
-`r lga_level_data$text_on_growth` While there has been some housing construction, more homes have empty bedrooms as the population ages and children move out of home. As such, the total number of homes is struggling to keep up with Melbourne's evolving housing needs. 
-
-The biggest thing holding back `r lga_level_data$area_name` is restrictive zoning. Here is the current zoning map for `r lga_level_data$area_name`:
+While there has been significant housing construction ub Melbourne, restrictive zoning still holds back many areas. Here is the current zoning map for `r lga_level_data$area_name`:
 
 ```{r}
 lga_level_data$existing_zoning_map
 
-```
-
-As a result of this restrictive zoning, `r lga_level_data$area_name` is not building enough homes to keep up with Melbourne's growth:
-
-```{r}
-lga_level_data$ggplot_on_growth
 ```
 
 
