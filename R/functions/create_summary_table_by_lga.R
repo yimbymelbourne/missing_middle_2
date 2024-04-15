@@ -5,7 +5,8 @@ create_summary_table_by_lga <- function(input_data) {
     filter(state_name_2021 == "Victoria") %>% 
     select(lga_name_2022 = lga_name_2021,areasqkm_2021) %>% 
     mutate(lga_name_2022 = str_remove_all(lga_name_2022, "\\s*\\(.*?\\)\\s*")) %>%
-    mutate(lga_name_2022 = if_else(lga_name_2022 == "Moreland","Merri-bek",lga_name_2022))
+    mutate(lga_name_2022 = if_else(lga_name_2022 == "Moreland","Merri-bek",lga_name_2022)) %>% 
+    st_drop_geometry()
   
   
   manual_lga_data <- tribble(~lga_name_2022,~`Current target`,~`Current yearly growth in homes (from 2016-2022)`,
