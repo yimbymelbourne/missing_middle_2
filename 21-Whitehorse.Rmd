@@ -57,7 +57,7 @@ Broad upzoning is needed across existing suburbs so that there is more land avai
 
 ## Housing targets
 
-Even though there are __`r lga_level_data$mm_zoned_capacity` total possible units__ that could be built in `r lga_level_data$area_name`, it's impossible for them to be built all at once. It is also not reasonable to assume that all possible units will ever be built, which is [why excess zoned capacity is important](#). 
+Even though there are __`r lga_level_data$mm_zoned_capacity` total possible units__ that could be built in `r lga_level_data$area_name`, it's impossible for them to be built all at once. It is also not reasonable to assume that all possible units will ever be built, which is [why excess zoned capacity is important](upzoning-for-all.html#creating-excess-zoned-capacity). 
 
 For each lot in `r area_name`, we calculated whether it would be profitable to build housing under upzoning. We estimate that there are __`r lga_level_data$profitable_units` viable units__ that could be built in `r area_name`. 
 
@@ -92,8 +92,8 @@ Of the `r lga_level_data$profitable_units` potentially profitable apartments tha
 
 If heritage and neighbourhood character protections in `r lga_level_data$area_name` are too far-reaching, it could potentially affect `r lga_level_data$area_name`'s ability to meet its housing targets. 
 
-We have outlined potential remedies for this [earlier in the report](#report-link).
+We have outlined potential remedies for this [earlier in the report](housing-targets-that-work.html#due-to-existing-development-controls-and-overlays).
 
 **An image here should end the article.**
 
-[Return to LGA list](#report-link)
+[Return to LGA list](housing-targets-2024-25.html)

@@ -2,92 +2,65 @@
 
 ```{r}
 tbl_body  <- lga_zoning_numbers %>% 
-  select(`Council` = lga_name_2022,
+  select(`Council`        = lga_name_2022,
          `Existing homes` = existing_dwellings,
-         `Current additional zoned capacity` = zoned_capacity,
-         #`(Excluding heritage)` = zoned_capacity_heritage,
-         `New additional zoned capacity` = mm_zoned_capacity,
-         `Increase in zoned capacity` = change_to_zoned_capacity,
-         `Yearly housing target` = mm_target) %>% 
-  arrange(desc(`Increase in zoned capacity` ))
+         `Current density (homes per square km)`= existing_dwelling_density,
+         `Annual housing growth (2016-2022)` = `Annual housing growth (2016-2022)`,
+         `Housing target 2024–25` = mm_target,
+         `Building increase required` = change_to_target_required) %>% 
+  arrange(desc(`Building increase required`))
 
 total = tbl_body %>% 
-  summarise(`Current additional zoned capacity` = sum(`Current additional zoned capacity`),
-            `Existing homes` = sum(`Existing homes`),
-            `New additional zoned capacity` = sum(`New additional zoned capacity`),
-            `Yearly housing target` = sum(`Yearly housing target`)) %>% 
-  mutate(`Increase in zoned capacity` = `New additional zoned capacity`/`Current additional zoned capacity`,
-         `Council` = "Total")
+  summarise(across(any_of(c("Existing homes",
+                            "Annual housing growth (2016-2022)",
+                            "Housing target 2024–25")), sum)) %>%
+  mutate(`Current density (homes square per km)` = `Existing homes`/sum(lga_zoning_numbers$areasqkm_2021),
+        `Building increase required` = `Housing target 2024–25`/`Annual housing growth (2016-2022)`,
+        `Council` = "Total") %>%
+  relocate(names(tbl_body)) %>% 
+  mutate(across(c("Existing homes",
+                  "Annual housing growth (2016-2022)",
+                  "Current density (homes per square km)",
+                  "Housing target 2024–25"),~prettyNum(round(.x,-2),big.mark = ",")),
+         `Building increase required` = paste0(round(`Building increase required`, 1),"x") )
 
-# tbl_body %>%
-#  mutate( `Increase in zoned capacity` = paste0(round(`Increase in zoned capacity`,1),"x")) %>% 
-#  gt() %>% 
-#  fmt_number(c(`Current additional zoned capacity`,
-#               `New additional zoned capacity`),n_sigfig = 3) %>% 
-#  summary_rows(total) %>%
-#tab_options(
-#    table.background.color = yimby_colours$background, # Change "lightblue" to any color you prefer
-#    table.align = "right",
-#    ihtml.active = TRUE,
-#    ihtml.use_sorting = TRUE,
-#    ihtml.use_pagination = FALSE,
-#    ihtml.use_pagination_info = FALSE,
-#  ) %>% 
-#    tab_style(
-#    style = list(
-#      cell_text(weight = "bold")
-#    ),
-#    locations = cells_body(
-#      rows = everything() %>% tail(1)
-#    )
-#  )
-```
-
-```{r}
-tbl_body <- lga_zoning_numbers %>%
-  select(`Council` = lga_name_2022,
-         `Existing homes` = existing_dwellings,
-         `Current additional zoned capacity` = zoned_capacity,
-         `New additional zoned capacity` = mm_zoned_capacity,
-         `Increase in zoned capacity` = change_to_zoned_capacity,
-         `Yearly housing target` = mm_target) %>%
-  arrange(desc(`Increase in zoned capacity`)) %>%
-  mutate(`Council` = paste0('<a href="', tolower(gsub(" ", "-", `Council`)), '.html">', `Council`, '</a>'))
-
-total = tbl_body %>%
-  summarise(`Current additional zoned capacity` = sum(`Current additional zoned capacity`),
-            `Existing homes` = sum(`Existing homes`),
-            `New additional zoned capacity` = sum(`New additional zoned capacity`),
-            `Yearly housing target` = sum(`Yearly housing target`)) %>%
-  mutate(`Increase in zoned capacity` = `New additional zoned capacity` / `Current additional zoned capacity`,
-         `Council` = "Total")
-
-footer_values <- c(
-  prettyNum(total$`Existing homes`, big.mark = ","),
-  prettyNum(round(total$`Current additional zoned capacity`, -3), big.mark = ","),
-  prettyNum(round(total$`New additional zoned capacity`, -3), big.mark = ","),
-  paste0(round(total$`Increase in zoned capacity`, 1), "x"),
-  prettyNum(round(total$`Yearly housing target`, -2), big.mark = ",")
-)
 
 html_table <- htmltools::HTML(
   paste0(
     '<table id="summary-table">',
     '<thead><tr><th>', paste(lapply(names(tbl_body), htmltools::htmlEscape), collapse = '</th><th>'), '</th></tr></thead>',
-    '<tfoot><tr><th>Total</th><th>', paste(lapply(footer_values, htmltools::htmlEscape), collapse = '</th><th>'), '</th></tr></tfoot>',
+    '<tfoot><tr><th>', paste(lapply(total, htmltools::htmlEscape), collapse = '</th><th>'), '</th></tr></tfoot>',
     '</table>'
   )
 )
 
-tbl_body %>%
-  mutate(across(c(`Current additional zoned capacity`, `New additional zoned capacity`), ~ round(.x, -3)),
-         across(c(`Yearly housing target`, `Existing homes`), ~ round(.x, -2))) %>%
+tbl_body  %>% 
+  mutate(across(c("Existing homes",
+                  "Annual housing growth (2016-2022)",
+                  "Current density (homes per square km)",
+                  "Housing target 2024–25"),~round(.x,-2)))%>%
   datatable(
     container = as.character(html_table),
     options = list(dom = 't', pageLength = 20),
     rownames = FALSE,
     escape = FALSE
   ) %>%
-  formatRound(columns = c(2, 3, 4, 6), mark = ',', digits = 0) %>%
-  formatCurrency(columns = c(5), digits = 1, currency = "x", before = F)
+  formatRound(columns = c(2, 3, 4), mark = ',', digits = 0) %>%
+  formatPercentage(columns = 6) %>%
+  formatStyle(
+    columns = 'Building increase required',
+    valueColumns = 'Building increase required',
+    conditionalFormatting = '
+      function(value, row, index) {
+        if (value < 1) {
+          return {
+            backgroundColor: "transparent",
+            color: "black",
+            fontWeight: "normal",
+            display: "N/A"
+          }
+        }
+      }
+    '
+  )
 ```

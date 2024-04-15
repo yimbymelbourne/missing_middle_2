@@ -96,6 +96,17 @@ map_data %>%
 
 ```
 
+### Planning for a better Melbourne
+YIMBY Melbourne's plan for a better Melbourne involves four key steps:
+
+1. Upzone inner-middle Melbourne, increasing zoned capacity by `r multiplier` to `r total_zoned_capacity` homes
+2. Publish annual binding housing targets for the 19 LGAs where demand for infill housing is highest
+3. Enforce housing targets through revenue-neutral 'carrot and stick' incentives
+4. Deliver 40,000 new homes per year across inner-middle Melbourne
+
+
+### An introduction to housing targets
+
 Melbourne is growing. Our city's urgent need for more homes is clear to all Victorians, and yet most of the policy implemented to-date has been edge-tinkering: granny flats, Future Homes, and the scattered beginnings of outer-urban activity centres.
 
 Since the introduction of [Plan Melbourne](https://www.planning.vic.gov.au/guides-and-resources/strategies-and-initiatives/plan-melbourne), the city has relegated new apartments to a tiny number of "activity centres" on the city's most polluted, noisy, and dangerous roads. 
@@ -110,17 +121,12 @@ People should not be restricted to a handful of arbitrarily-defined activity cen
 
 Melbourne already has a plan to fix its missing middle: we laid it out within [_Melbourne's Missing Middle_](http://yimby.melbourne/missing-middle), where we demonstrated the overwhelming evidence of densification's social, environmental, and affordability benefits. 
 
+**SUMMARY OF MMM REPORT: IMAGES**
+
 This followup report codifies these benefits by outlining a new housing delivery paradigm across the 19 inner-city Melbourne councils where demand for denser living is highest. 
 
 YIMBY Melbourne's missing middle reforms will introduce [fairer missing middle zoning](missing-middle-upzoning.html), underpinned by [enforced housing targets](implementing-housing-targets.html) for [each local council](council-targets-2024-25.html), ensuring that abundant housing is created city-wide, and for everyone.
 
-### Planning for a better Melbourne
-YIMBY Melbourne's plan for a better Melbourne involves four key steps:
-
-1. Upzone inner-middle Melbourne, increasing zoned capacity by `r multiplier` to `r total_zoned_capacity` homes
-2. Publish annual binding housing targets for the 19 LGAs where demand for infill housing is highest
-3. Enforce housing targets through revenue-neutral 'carrot and stick' incentives
-4. Deliver 40,000 new homes per year across inner-middle Melbourne
 
 ### Annual housing targets
 YIMBY Melbourne's evidence-based housing targets reflect the demand and capacity for housing growth across LGAs under more permissive zoning. 
@@ -129,25 +135,25 @@ YIMBY Melbourne's evidence-based housing targets reflect the demand and capacity
 tbl_body  <- lga_zoning_numbers %>% 
   select(`Council`        = lga_name_2022,
          `Existing homes` = existing_dwellings,
-         `Existing home density (per square km)`= existing_dwelling_density,
-         `Current yearly growth in homes (from 2016-2022)` = `Current yearly growth in homes (from 2016-2022)`,
-         `Yearly housing target` = mm_target,
-         `Change in pace of building needed to meet target` = change_to_target_required) %>% 
-  arrange(desc(`Change in pace of building needed to meet target`))
+         `Current density (homes per square km)`= existing_dwelling_density,
+         `Annual housing growth (2016-2022)` = `Annual housing growth (2016-2022)`,
+         `Housing target 2024–25` = mm_target,
+         `Building increase required` = change_to_target_required) %>% 
+  arrange(desc(`Building increase required`))
 
 total = tbl_body %>% 
   summarise(across(any_of(c("Existing homes",
-                            "Current yearly growth in homes (from 2016-2022)",
-                            "Yearly housing target")), sum)) %>%
-  mutate(`Existing home density (per square km)` = `Existing homes`/sum(lga_zoning_numbers$areasqkm_2021),
-        `Change in pace of building needed to meet target` = `Yearly housing target`/`Current yearly growth in homes (from 2016-2022)`,
+                            "Annual housing growth (2016-2022)",
+                            "Housing target 2024–25")), sum)) %>%
+  mutate(`Current density (homes square per km)` = `Existing homes`/sum(lga_zoning_numbers$areasqkm_2021),
+        `Building increase required` = `Housing target 2024–25`/`Annual housing growth (2016-2022)`,
         `Council` = "Total") %>%
   relocate(names(tbl_body)) %>% 
   mutate(across(c("Existing homes",
-                  "Current yearly growth in homes (from 2016-2022)",
-                  "Existing home density (per square km)",
-                  "Yearly housing target"),~prettyNum(round(.x,-2),big.mark = ",")),
-         `Change in pace of building needed to meet target` = paste0(round(100*`Change in pace of building needed to meet target`),"%") )
+                  "Annual housing growth (2016-2022)",
+                  "Current density (homes per square km)",
+                  "Housing target 2024–25"),~prettyNum(round(.x,-2),big.mark = ",")),
+         `Building increase required` = paste0(round(`Building increase required`, 1),"x") )
 
 
 html_table <- htmltools::HTML(
@@ -161,9 +167,9 @@ html_table <- htmltools::HTML(
 
 tbl_body  %>% 
   mutate(across(c("Existing homes",
-                  "Current yearly growth in homes (from 2016-2022)",
-                  "Existing home density (per square km)",
-                  "Yearly housing target"),~round(.x,-2)))%>%
+                  "Annual housing growth (2016-2022)",
+                  "Current density (homes per square km)",
+                  "Housing target 2024–25"),~round(.x,-2)))%>%
   datatable(
     container = as.character(html_table),
     options = list(dom = 't', pageLength = 20),
@@ -171,7 +177,23 @@ tbl_body  %>%
     escape = FALSE
   ) %>%
   formatRound(columns = c(2, 3, 4), mark = ',', digits = 0) %>%
-  formatPercentage(columns = 6) 
+  formatPercentage(columns = 6) %>%
+  formatStyle(
+    columns = 'Building increase required',
+    valueColumns = 'Building increase required',
+    conditionalFormatting = '
+      function(value, row, index) {
+        if (value < 1) {
+          return {
+            backgroundColor: "transparent",
+            color: "black",
+            fontWeight: "normal",
+            display: "N/A"
+          }
+        }
+      }
+    '
+  )
 ```
 
-Each LGA's target has been carefully calculated based on real-world information. The full target calculation methodology is available [later in this report](implementing-housing-targets.html#calculating-targets).
+Each LGA's target has been carefully calculated based on real-world information. The full target calculation methodology is available [later in this report](housing-targets-that-work.html#methodology).
