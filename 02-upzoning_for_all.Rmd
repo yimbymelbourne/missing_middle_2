@@ -29,28 +29,30 @@ dwellings_by_mm_type <- df_mel_props %>%
   mutate(n_total = sum(n),
          lot_size_total = sum(lot_size))  %>% 
   ungroup() %>%
-  mutate(zone_type = "Missing Middle Zoning") %>%
+  mutate(zone_type = "New zoning") %>%
   rename(category = category_new)
 
 library(scales)
 
-dwellings_by_type %>% 
-  bind_rows(dwellings_by_mm_type) %>% 
+dwellings_by_type %>%
+  bind_rows(dwellings_by_mm_type) %>%
   ungroup() %>%
-    mutate(category = fct_relevel(category,"Low density residential")) %>% 
-  filter(!(category %in% c("Housing not permitted","Civic use makes development less likely","Already developed"))) %>% 
-  ggplot(aes(x = category, 
-             y = n))+
-  coord_flip()+ 
-  geom_bar(stat = "identity")+
-  theme_yimby_mel_caption(text_size = "small",plot_type = "bar",colour_scale = "light_dark") +
+  mutate(category = fct_recode(category,
+                                "6 storeys (MMZ)" = "6 storeys (Missing middle)",
+                                "4+ storeys (MUZ)" = "4+ storeys (Mixed use zones)")) %>%
+  filter(!(category %in% c("Housing not permitted", "Civic use makes development less likely", "Already developed", "Low density residential"))) %>%
+  ggplot(aes(x = category,
+             y = n,
+             fill = zone_type)) +
+  coord_flip() +
+  geom_bar(stat = "identity", position = position_dodge(preserve = "single")) +
+  theme_yimby_mel_caption(text_size = "small", plot_type = "bar", colour_scale = "r") +
   labs(x = element_blank(),
-       title = paste0("Building heights on Melbourne's residential lots"),
+       title = paste0("Residential building heights in inner-middle Melbourne"),
        y = "Number of properties",
-       fill = "Heritage status") +
-  facet_wrap(~zone_type) +
-  scale_y_continuous(labels = scales::number_format(scale_cut = cut_short_scale()))
-
+       fill = '') +
+  scale_y_continuous(labels = scales::number_format(scale_cut = cut_short_scale())) + 
+  theme(legend.position = "bottom")
 ```
 
 

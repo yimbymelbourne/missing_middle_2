@@ -34,6 +34,11 @@ yimby_colours$complementary <- c(yimby_colours$green_palette[1],
                              yimby_colours$blue_palette[1],
                              yimby_colours$yellow_palette[1])
 
+yimby_colours$reverse_complementary <- c(yimby_colours$red_palette[1],
+                                         yimby_colours$green_palette[1],
+                                         yimby_colours$blue_palette[1],
+                                         yimby_colours$yellow_palette[1])
+
 yimby_colours$light_dark <- c(yimby_colours$green_palette[1],
                               yimby_colours$green_palette[3],
                               yimby_colours$blue_palette[1],
@@ -70,6 +75,7 @@ theme_yimby_mel_caption <- function(caption_text = " ",
     } else if(substr(tolower(colour_scale),1,4) == "blue") {   op <-   scale_fill_manual(values = yimby_colours$blue_palette)
     } else if(substr(tolower(colour_scale),1,3) == "red") {   op <-   scale_fill_manual(values = yimby_colours$red_palette)
     } else if(substr(tolower(colour_scale),1,4) == "yellow") {   op <-   scale_fill_manual(values = yimby_colours$yellow_palette)
+    } else if(substr(tolower(colour_scale),1,1) == "r")  {   op <-   scale_fill_manual(values = yimby_colours$reverse_complementary)
     
     } else {                                                  op <- list()}
     update_geom_defaults("bar",  list(colour = "white"))

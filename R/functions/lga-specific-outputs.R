@@ -114,7 +114,7 @@ output$ggplot_on_growth <- mel_total %>%
   theme_yimby_mel_caption(caption = "Source: ABS. ",
                           text_size = "small",
                           plot_type = "line",
-                          colour_scale = "c")+
+                          colour_scale = "r")+
   labs(title = paste("Growth in homes for",area_name,"compared to the rest of Melbourne"),
        labs = element_blank(),
        colour = "Area",
