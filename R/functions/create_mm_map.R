@@ -1,5 +1,5 @@
 
-make_map <- function(sf_lga_props,map_type){
+make_map <- function(sf_lga_props,map_type,area_name){
   
   
   # Assume lots_with_new_zoning$category has levels A, B, C, D, E
@@ -9,16 +9,18 @@ make_map <- function(sf_lga_props,map_type){
   
   #map_type = "category"
   
-  specified_colors <- c("Already developed" = "#989898",
-                        "Housing not permitted" = "#b1b1b1",
+  specified_colors <- c("Already developed"                       = "#989898",
+                        "Housing not permitted"                   = "#b1b1b1",
                         "Civic use makes development less likely" = "#cacaca", 
-                        "Low density residential" = yimby_colours$blue_palette[5],
-                        "2 storeys (NRZ)" =  yimby_colours$blue_palette[4],
-                        "3 storeys (GRZ)" =  yimby_colours$blue_palette[3],
-                        "4 storeys (RGZ)" =  yimby_colours$blue_palette[2],
-                        "4+ storeys (Mixed use zones)" =  yimby_colours$blue_palette[1],
-                        "6 storeys (Missing middle)" = yimby_colours$green_palette[3]
+                        "Low density residential"                 = yimby_colours$blue_palette[5],
+                        "2 storeys (NRZ)"                         = yimby_colours$blue_palette[4],
+                        "3 storeys (GRZ)"                         = yimby_colours$blue_palette[3],
+                        "4 storeys (RGZ)"                         = yimby_colours$blue_palette[2],
+                        "4+ storeys (Mixed use zones)"            = yimby_colours$blue_palette[1],
+                        "6 storeys (Missing middle)"              = yimby_colours$green_palette[3]
   )
+  
+
   
   # Fallback colors
   fallback_colors <- rev(yimby_colours$yellow_palette)  # Assuming this is a vector of color codes
@@ -54,7 +56,7 @@ make_map <- function(sf_lga_props,map_type){
     st_transform("wgs84") %>% 
     st_simplify() %>% 
     mutate(map_var = fct_relevel(map_var,names(specified_colors))) %>%
-    leaflet(width = "100%") %>%
+    leaflet() %>%
     addProviderTiles(providers$CartoDB.Positron)%>%
     addPolygons(weight = .1,
                 color = "black",
@@ -70,6 +72,8 @@ make_map <- function(sf_lga_props,map_type){
               title = "Type of land",
               position = "bottomright",
               opacity = .8)
+  
+  saveWidget(output, file = paste0("data/leaflets/",map_type,"_",area_name,".html"), selfcontained = T)
   return(output)
   
 }

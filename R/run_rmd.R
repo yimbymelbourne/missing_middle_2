@@ -36,7 +36,7 @@ lgas <- c(inner_lgas,middle_lgas)
 missing_middle_lgas <- lgas
 
 
-bookdown::render_book(input = "index.Rmd",preview = T)
+bookdown::render_book()
 
 
 

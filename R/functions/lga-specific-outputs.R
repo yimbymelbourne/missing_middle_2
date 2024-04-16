@@ -70,9 +70,9 @@ run_for_area <- function(area_name) {
     pull(change_to_zoned_capacity)
   
   
-  output$mm_zoning_map <- make_map(sf_lga_props,"category_new")
+  output$mm_zoning_map <- make_map(sf_lga_props,"category_new",area_name)
   
-  output$existing_zoning_map <-  make_map(sf_lga_props,"category")
+  output$existing_zoning_map <-  make_map(sf_lga_props,"category",area_name)
   
   output$profitable_units <- prettyNum(round(lga_summary$profitable_apartments,-3), big.mark = ",")
   output$mm_target <- prettyNum(round(lga_summary$mm_target,-2), big.mark = ",")
