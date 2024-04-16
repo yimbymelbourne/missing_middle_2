@@ -45,9 +45,8 @@ dwellings_by_type %>%
   ggplot(aes(x = category,
              y = n,
              fill = zone_type)) +
-  coord_flip() +
   geom_bar(stat = "identity", position = position_dodge(preserve = "single")) +
-  theme_yimby_mel_caption(text_size = "small", plot_type = "bar", colour_scale = "r") +
+  theme_yimby_mel_caption(text_size = "small", plot_type = "bar", colour_scale = "com") +
   labs(x = element_blank(),
        title = paste0("Residential building heights in inner-middle Melbourne"),
        y = "Number of properties",
