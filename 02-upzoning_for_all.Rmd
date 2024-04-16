@@ -8,7 +8,7 @@ Our proposed city-wide upzoning is focused around Melbourne's extensive train an
 
 ## How zoning will change
 
-```{r}
+```{r fig.width = 7, fig.height = 6}
 
 dwellings_by_type <- df_mel_props %>%
   group_by(category) %>% 
@@ -43,8 +43,9 @@ dwellings_by_type %>%
                                 "4+ storeys (MUZ)" = "4+ storeys (Mixed use zones)")) %>%
   filter(!(category %in% c("Housing not permitted", "Civic use makes development less likely", "Already developed", "Low density residential"))) %>%
   ggplot(aes(x = category,
-             y = n,
-             fill = zone_type)) +
+             y = n#,
+             #fill = zone_type
+             )) +
   geom_bar(stat = "identity", position = position_dodge(preserve = "single")) +
   theme_yimby_mel_caption(text_size = "small", plot_type = "bar", colour_scale = "com") +
   labs(x = element_blank(),
@@ -52,7 +53,8 @@ dwellings_by_type %>%
        y = "Number of properties",
        fill = '') +
   scale_y_continuous(labels = scales::number_format(scale_cut = cut_short_scale())) + 
-  theme(legend.position = "bottom")
+  theme(legend.position = "bottom")+
+  facet_wrap(~zone_type,ncol = 1)
 ```
 
 
