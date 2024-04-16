@@ -117,7 +117,7 @@ By making a much larger number of lots eligible for development at any given, we
 
 Limited zoned capacity creates the potential for land speculation and landbanking. Where there are only a few plots of land where it is possible to build, a small number of speculators can feasibly control and exploit that scarcity to inflate prices. This creates a vicious cycle where the cost of land is driven up, making it harder for developers to build, and for people to buy homes.
 
-This is why our reforms create a large increase in zoned capacity. We do not expect the capacity to ever be met in any given LGA. What we do expect, though, is for landbanking in these LGAs to become unviable. By making developable land abundantly available throuhg broad upzoning, each individual land-holder will face much more competition, making it harder to withhold housing supply.
+This is why our reforms create a large increase in zoned capacity. We do not expect the capacity to ever be met in any given LGA. What we do expect, though, is for landbanking in these LGAs to become unviable. By making developable land abundantly available through broad upzoning, each individual land-holder will face much more competition, making it harder to withhold housing supply.
 
 ### Zoned capacity increase
 ```{r}

@@ -68,7 +68,7 @@ Based off our data, in order to contribute its fair share to the the statewide t
 
 ## Planning barriers
 
-`r lga_level_data$text_on_growth` While there has been some housing construction, more homes have empty bedrooms as the population ages and children move out of home. As such, the total number of homes is struggling to keep up with Melbourne's evolving housing needs. 
+`r lga_level_data$text_on_growth` While there has been some housing construction, the total number of homes is struggling to keep up with Melbourne's evolving housing needs. 
 
 The biggest thing holding back `r lga_level_data$area_name` is restrictive zoning. Here is the current zoning map for `r lga_level_data$area_name`:
 
