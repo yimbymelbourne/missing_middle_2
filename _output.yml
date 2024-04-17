@@ -1,4 +1,7 @@
 bookdown::gitbook:
+  includes:
+    in_header:
+      header.html
   css: style.css
   number_sections: false
   config:
