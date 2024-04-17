@@ -83,6 +83,6 @@ If heritage and neighbourhood character protections in `r lga_level_data$area_na
 
 We have outlined potential remedies for this [earlier in the report](housing-targets-that-work.html#due-to-existing-development-controls-and-overlays).
 
-**An image here should end the article.**
+![*Sketch by Archimarathon Studio*](images/hero_footer.jpg)
 
 [Return to LGA list](housing-targets-2024-25.html)
