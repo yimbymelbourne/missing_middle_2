@@ -49,7 +49,7 @@ return(output)
            lga_name_2021 = if_else(lga_name_2021 == "Moreland","Merri-bek",lga_name_2021)) %>% 
     group_by(lga_name_2021) %>% 
     filter(n() == 4) %>%
-    mutate(change = count/count[year == 2006]) %>% 
+    mutate(change = count/count[year == 2016]) %>% 
     ungroup() %>% 
     filter(lga_name_2021 %in% str_remove_all(lgas, "\\s*\\(.*?\\)\\s*"))
   
@@ -58,7 +58,7 @@ return(output)
     group_by(year) %>%
     summarise(count = sum(count))  %>%
     ungroup() %>%
-    mutate(change = count/count[year == 2006],
+    mutate(change = count/count[year == 2016],
            lga_name_2021 = "All of Melbourne")
 
   output <- abs_dwelling_count%>%

@@ -80,7 +80,7 @@ run_for_area <- function(area_name) {
 
 ##THIS ONE SHOULD BE REPLACED BY PLANNING DATA!!! 
 
-mel_total <- lga_pop_change_importer(area_name, type = "population")
+mel_total <- lga_pop_change_importer(area_name, type = "dwelling")
 
 
 lga_change <- mel_total %>% 
@@ -105,22 +105,25 @@ output$text_on_growth <- case_when(change_ratio >.9 ~ paste0(area_name, " has be
 )
 
 output$ggplot_on_growth <- mel_total %>%
-  filter(year %in% c(2014,2022)) %>% 
-  ggplot(aes( x= year, 
-              y = change,
-              colour = lga_name_2021))+
-  geom_line(stat = "identity",linewidth = 1)+
-  geom_point(stat = "identity",size = 3)+
-  theme_yimby_mel_caption(caption = "Source: ABS. ",
+  filter(year %in% c(2021)) %>% 
+  ggplot(aes( x= lga_name_2021, 
+              y = change - 1,
+              fill = lga_name_2021))+
+  geom_bar(stat = "identity", width =  0.6)+
+  coord_flip() +
+  #geom_point(stat = "identity", size = 3)+
+  theme_yimby_mel_caption(caption = "Source: Census. ",
                           text_size = "small",
-                          plot_type = "line",
+                          plot_type = "bar",
                           colour_scale = "r")+
-  labs(title = paste("Growth in homes for",area_name,"compared to the rest of Melbourne"),
+  labs(title = paste("Growth in dwellings for",area_name,"compared to the rest of Melbourne"),
+       subtitle = "Dwelling growth 2016-2021",
        labs = element_blank(),
        colour = "Area",
        x = element_blank(),
        y = element_blank())+
-  scale_y_continuous(labels = scales::percent_format())
+  theme(legend.position = "none")+
+  scale_y_continuous(labels = scales::percent_format(1))
 
 
 
