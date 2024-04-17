@@ -9,7 +9,9 @@ tbl_body  <- lga_zoning_numbers %>%
          `Annual housing growth (2016-2022)` = `Current yearly growth in homes (from 2016-2022)`,
          `Housing target 2024–25` = mm_target,
          `Building increase required` = change_to_target_required) %>% 
-  arrange(desc(`Building increase required`))
+  arrange(desc(`Building increase required`)) %>%
+  mutate(`Council` = paste0('<a href="', tolower(gsub(" ", "-", `Council`)), '.html">', `Council`, '</a>')) 
+  
 
 total = tbl_body %>%
   summarise(across(any_of(c("Existing homes", "Annual housing growth (2016-2022)", "Housing target 2024–25")), sum)) %>%
