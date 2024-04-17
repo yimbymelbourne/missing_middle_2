@@ -128,7 +128,6 @@
 body {
   color: var(--body-text-color);
   background-color: var(--background-color);
-  font-size: 1.1em;
   font-weight: 400;
   font-family: "Inter", sans-serif;
 }
@@ -190,7 +189,7 @@ table {
 
 .sidebar-title-text {
   font-family: "Inter Tight";
-  font-size: 1.2em;
+  font-size: 1.8em;
   font-weight: 700;
   color: var(--hero-color);
 }
@@ -422,7 +421,7 @@ table#lga-summary > tbody > tr {
 
 li.chapter:nth-child(n + 7):nth-child(-n + 27) {
   list-style-type: none;
-  margin-left: 0.9em;
+  margin-left: 1.3em;
   font-weight: 500 !important;
 }
 

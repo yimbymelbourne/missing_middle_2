@@ -1,29 +1,27 @@
 # Housing targets 2024-25
-**The results of our dynamic, demand-driven model.**
+**The results of our dynamic, demand-driven model, to ensure homes are built where people want to live.**
 
 ```{r}
 tbl_body  <- lga_zoning_numbers %>% 
   select(`Council`        = lga_name_2022,
          `Existing homes` = existing_dwellings,
-         `Current density (homes per square km)`= existing_dwelling_density,
-         `Annual housing growth (2016-2022)` = `Annual housing growth (2016-2022)`,
+         `Current density (homes per square km)` = existing_dwelling_density,
+         `Annual housing growth (2016-2022)` = `Current yearly growth in homes (from 2016-2022)`,
          `Housing target 2024–25` = mm_target,
          `Building increase required` = change_to_target_required) %>% 
   arrange(desc(`Building increase required`))
 
-total = tbl_body %>% 
-  summarise(across(any_of(c("Existing homes",
-                            "Annual housing growth (2016-2022)",
-                            "Housing target 2024–25")), sum)) %>%
-  mutate(`Current density (homes square per km)` = `Existing homes`/sum(lga_zoning_numbers$areasqkm_2021),
-        `Building increase required` = `Housing target 2024–25`/`Annual housing growth (2016-2022)`,
-        `Council` = "Total") %>%
-  relocate(names(tbl_body)) %>% 
+total = tbl_body %>%
+  summarise(across(any_of(c("Existing homes", "Annual housing growth (2016-2022)", "Housing target 2024–25")), sum)) %>%
+  mutate(`Current density (homes per square km)` = `Existing homes`/sum(lga_zoning_numbers$areasqkm_2021),
+         `Building increase required` = `Housing target 2024–25`/`Annual housing growth (2016-2022)`,
+         `Council` = "Total") %>%
+  relocate(names(tbl_body)) %>%
   mutate(across(c("Existing homes",
                   "Annual housing growth (2016-2022)",
                   "Current density (homes per square km)",
                   "Housing target 2024–25"),~prettyNum(round(.x,-2),big.mark = ",")),
-         `Building increase required` = paste0(round(`Building increase required`, 1),"x") )
+         `Building increase required` = paste0(round(`Building increase required`, 1),"x"))
 
 
 html_table <- htmltools::HTML(
@@ -39,29 +37,18 @@ tbl_body  %>%
   mutate(across(c("Existing homes",
                   "Annual housing growth (2016-2022)",
                   "Current density (homes per square km)",
-                  "Housing target 2024–25"),~round(.x,-2)))%>%
+                  "Housing target 2024–25"),~round(.x,-2)),
+          `Building increase required` = ifelse(`Building increase required` < 1, "None", paste0(round(`Building increase required`, 1), "x"))) %>%
   datatable(
     container = as.character(html_table),
     options = list(dom = 't', pageLength = 20),
     rownames = FALSE,
     escape = FALSE
   ) %>%
-  formatRound(columns = c(2, 3, 4), mark = ',', digits = 0) %>%
-  formatPercentage(columns = 6) %>%
+  formatRound(columns = c(2, 3, 4, 5), mark = ',', digits = 0) %>%
   formatStyle(
     columns = 'Building increase required',
     valueColumns = 'Building increase required',
-    conditionalFormatting = '
-      function(value, row, index) {
-        if (value < 1) {
-          return {
-            backgroundColor: "transparent",
-            color: "black",
-            fontWeight: "normal",
-            display: "N/A"
-          }
-        }
-      }
-    '
-  )
+    textAlign = 'right')
+
 ```
