@@ -68,7 +68,7 @@ The effect of these changes will be to upzone the vast majority of inner-middle 
 
 ## A new Missing Middle Zone
 
-![**NOTE: Hero 1.**](atlas/mm housing.jpeg)
+![*Sketch by Archimarathon Studio*](images/hero_footer.jpg)
 
 The Missing Middle Zone (MMZ) will enable 6 storey buildings to be built within walking distance of every train station and tram stop in Melbourne. This zone will support the density levels that underpin great and iconic cities across the world, with beautiful street walls free of onerous setback rules, activating the streets below. 
 
@@ -87,8 +87,6 @@ MMZ areas will be entirely mixed-use, and buildings across the area will be perm
 Not all of Melbourne's suburbs have access to rail infrastructure but many still benefit from nearby schools, hospitals and bus routes. Local communities and businesses that aren’t as closely situated to Melbourne’s vast train and tram networks also deserve to reap the densification benefits the Missing Middle reforms will provide. 
 
 Inspired by the success of Auckland’s zoning reforms, the Missing Middle reform will completely eliminate the Neighbourhood Residential Zone (NRZ) across metropolitan Melbourne, replacing it with General Residential Zone (GRZ). In turn, all land currently zoned GRZ will also be upzoned to the Residential Growth Zone (RGZ).
-
-![**NOTE: Hero 2.**](atlas/mm housing.jpeg)
 
 
 ## Creating excess zoned capacity

@@ -163,7 +163,7 @@ If heritage is a barrier to growth within a given LGA, then that LGA has four op
 3. Increase zoned density further in non-heritage and character areas to allow adequate housing growth while maintaining heritage areas
 4. Be subject to the [Housing Remedy](#sticks) until targets are met
 
-**IMAGE**
+![*Sketch by Archimarathon Studio*](images/heritage.jpeg)
 
 ## Methodology
 
@@ -174,7 +174,7 @@ Our model's housing targets are calculated in seven stages, as follows:
 1. Sites that are parks, schools, hospitals, or already have apartments are excluded.
 2. Potential yield for MMZ lots is calculated. Any lot zoned "Missing Middle" is considered suitable for 6 storeys of housing with high lot coverage. The potential yield of these properties is calculated based on the yield achieved by 6 storey Nightingale developments in Melbourne.
 3. Potential yield for RGZ, GRZ, and NRZ lots is calculated. This is based on the density calculated by [Professor Michael Buxton](https://cur.org.au/project/melbourne-8-million-matching-land-supply-dwelling-demand/).
-4. Costs are calculated. For each lot, the cost of demolishing the existing home is calculated, plus the cost of building 85 square-metre GFA apartments in its place. Taller buildings are considered more expensive to construct owing to increased structural requirements. Because the Residential Growth Zone has parking requirements, the cost of underground car parking was added to construction costs for lots in this zone. The full cost calculation formula is available [here (need to open source)](https://github.com/yimbymelbourne/missing_middle_2/blob/main/R/functions/find%20profitable_apartments_for_zoning_targets.R).  
-5. The value of existing properties is calculated. This uses a regression of past house sale prices against features of the land such as the current zone, lot size, distance from CBD, SA3, and distance from public transport. The full regression terms are available [here (need to open source)](https://github.com/yimbymelbourne/missing_middle_2/blob/main/R/R_regressions/03run_regression.R). 
+4. Costs are calculated. For each lot, the cost of demolishing the existing home is calculated, plus the cost of building 85 square-metre GFA apartments in its place. Taller buildings are considered more expensive to construct owing to increased structural requirements. Because the Residential Growth Zone has parking requirements, the cost of underground car parking was added to construction costs for lots in this zone. The full cost calculation formula is available [here](https://github.com/yimbymelbourne/missing_middle_2/blob/main/R/functions/find%20profitable_apartments_for_zoning_targets.R).  
+5. The value of existing properties is calculated. This uses a regression of past house sale prices against features of the land such as the current zone, lot size, distance from CBD, SA3, and distance from public transport. The full regression terms are available [here](https://github.com/yimbymelbourne/missing_middle_2/blob/main/R/R_regressions/03run_regression.R). 
 6. The likely price of apartments sold in a development on a given lot is calculated. This uses a similar regression as above. 
 7. Profitability is calculated. For each site, the profitability of a development was calculated at various heights within Missing Middle zoning. Each site where calculated profit is greater than 0 contributes to that LGA's housing target. 

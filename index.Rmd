@@ -19,7 +19,7 @@ output:
   
 ---
 # Missing Middle Housing Targets
-**Building an accountable, outcomes-focused system for housing abundance.**
+**An accountable system for housing abundance.**
 
 ```{r setup, include=FALSE}
 
